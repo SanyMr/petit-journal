@@ -2578,7 +2578,17 @@ function showView(v){
 }
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();Sfx.play("tab");showView(t.dataset.v)}));
 function buzz(kind){try{const H=PL_().Haptics;if(H)H.impact({style:kind||"LIGHT"})}catch(e){}}
+var widgetTimer=null,widgetLast="";
+function pushWidget(){
+  const W=PL_().NikkiWidget;if(!W)return;
+  try{
+    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:(todo.items||[]).filter(t=>!t.done).length,caps:capsInfo(objectives()).avail,mascot:curMascot()});
+    if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});
+  }catch(e){}
+}
+function scheduleWidget(d=800){clearTimeout(widgetTimer);widgetTimer=setTimeout(pushWidget,d)}
 function updateBadges(){
+  if(isNative)scheduleWidget();
   try{
     const n=capsInfo(objectives()).avail,b=$("badgeRecomp");b.hidden=!n;b.textContent=n>99?"99+":n;
     const tp=Object.keys(entries).filter(written).length;$("totalLbl").textContent=tp>1?"pages écrites":"page écrite";
@@ -2786,7 +2796,7 @@ if(isNative){
       A.minimizeApp();
     });
     A.addListener("appStateChange",({isActive})=>{
-      if(!isActive){bgAt=Date.now();schedulePlan(0)}
+      if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget()}
       else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide()}
     });
   }

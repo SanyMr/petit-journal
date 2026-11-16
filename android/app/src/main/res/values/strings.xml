@@ -4,4 +4,7 @@
     <string name="title_activity_main">Mon petit journal</string>
     <string name="package_name">com.petitjournal.nikki</string>
     <string name="custom_url_scheme">com.petitjournal.nikki</string>
+    <string name="widget_desc">Ta flamme et ta page du jour</string>
+    <string name="widget_mascot">Ta mascotte</string>
+    <string name="widget_flame">Ta flamme</string>
 </resources>
