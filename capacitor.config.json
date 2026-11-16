@@ -1,0 +1,22 @@
+{
+  "appId": "com.petitjournal.nikki",
+  "appName": "Mon petit journal",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#fdeff3",
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 900,
+      "launchAutoHide": true,
+      "backgroundColor": "#fdeff3",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_INSIDE"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_nikki",
+      "iconColor": "#d9708d"
+    }
+  }
+}
