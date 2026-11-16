@@ -2688,6 +2688,10 @@ async function notifPermission(ask){
   const LN=PL_().LocalNotifications;if(!LN)return "na";
   try{let p=await LN.checkPermissions();if(p.display!=="granted"&&ask)p=await LN.requestPermissions();return p.display==="granted"?"ok":"denied"}catch(e){return "denied"}
 }
+async function ensureChannel(LN){
+  try{await LN.deleteChannel({id:"doux"})}catch(e){}
+  await LN.createChannel({id:"doux_furin",name:"Petits rappels doux",description:"Au maximum une notification par jour, avec une petite clochette fūrin",importance:3,vibration:false,visibility:0,sound:"nikki_furin.wav"});
+}
 var planTimer=null;
 function schedulePlan(delay=2500){clearTimeout(planTimer);planTimer=setTimeout(planNotifications,delay)}
 async function planNotifications(){
@@ -2695,14 +2699,14 @@ async function planNotifications(){
   try{const pend=await LN.getPending();const ids=(pend.notifications||[]).filter(n=>n.id===1001||(n.id>=3000&&n.id<4000)).map(n=>({id:n.id}));if(ids.length)await LN.cancel({notifications:ids})}catch(e){}
   const N=notifPrefs();if(!N.on)return "off";
   if(await notifPermission(false)!=="ok")return "denied";
-  try{await LN.createChannel({id:"doux",name:"Petits rappels doux",description:"Au maximum une notification par jour",importance:3,vibration:false,visibility:0})}catch(e){}
+  try{await ensureChannel(LN)}catch(e){}
   const M=(MASCOTS[curMascot()]||MASCOTS.onigiri).name,now=new Date(),list=[];
   const objs=objectives(),caps=capsInfo(objs).avail,defi=objs.find(o=>o.current&&o.monthly);
   let s=streak();const writtenToday=written(todayKey());
   for(let d=0;d<7;d++){
     const day=new Date();day.setDate(day.getDate()+d);const k=keyOf(day),md=k.slice(5);
     const at=(h,m)=>{const t=new Date(day);t.setHours(h,m,0,0);return t};
-    const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
+    const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
     const vars={M,S:s,Q:PROMPTS[hash(k)%PROMPTS.length]};
     if(N.fetes){const f=Object.keys(FETE).find(id=>FETE[id](md)&&(id!=="hanami"||md==="04-01")&&(id!=="tsukimi"||md==="09-15"));
       if(f){add(at(10,0),`C'est ${FETE_NAMES[f]} aujourd'hui ! Une page ce jour-là t'offre un tampon spécial ✿`,{view:"ecrire"});continue}}
@@ -2728,9 +2732,9 @@ async function planNotifications(){
 async function testNotif(){
   const LN=PL_().LocalNotifications;if(!LN)return "na";
   if(await notifPermission(true)!=="ok")return "denied";
-  try{await LN.createChannel({id:"doux",name:"Petits rappels doux",description:"Au maximum une notification par jour",importance:3,vibration:false,visibility:0})}catch(e){}
+  try{await ensureChannel(LN)}catch(e){}
   const M=(MASCOTS[curMascot()]||MASCOTS.onigiri).name;
-  await LN.schedule({notifications:[{id:3999,title:M+" ✿",body:fillMsg(NOTIF_SOFT[0],{M}),channelId:"doux",schedule:{at:new Date(Date.now()+5000),allowWhileIdle:true},smallIcon:"ic_stat_nikki",iconColor:"#d9708d",extra:{view:"ecrire"}}]});
+  await LN.schedule({notifications:[{id:3999,title:M+" ✿",body:fillMsg(NOTIF_SOFT[0],{M}),channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at:new Date(Date.now()+5000),allowWhileIdle:true},smallIcon:"ic_stat_nikki",iconColor:"#d9708d",extra:{view:"ecrire"}}]});
   return "ok";
 }
 function renderReminderTab(body){
