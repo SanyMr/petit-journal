@@ -1992,6 +1992,7 @@ function renderSettings(msg){
   const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="10px";
   [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["rappel","Rappel"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
   body.append(seg);
+  requestAnimationFrame(()=>{const sel=seg.querySelector('[aria-pressed="true"]');if(sel)sel.scrollIntoView({inline:"center",block:"nearest"})});
   if(settingsTab==="masc"){
     const s1=sec("Mes mascottes",u.masc.size+" / "+Object.keys(MASC_META).length);const o1=document.createElement("div");o1.className="opts";
     Object.entries(MASCOTS).forEach(([id,M])=>{const meta=MASC_META[id],on=u.masc.has(id),b=document.createElement("button");b.className="opt ar-"+meta.r+(on?" got":" locked");b.setAttribute("aria-pressed",String(curMascot()===id));
@@ -2407,7 +2408,7 @@ function renderBackupTab(body){
   const msg=document.createElement("p");msg.className="formmsg";msg.setAttribute("role","status");
   b1.onclick=async()=>{try{await saveOrShare("petit-journal-"+todayKey()+".json",backupJSON(),{mime:"application/json",title:"Sauvegarde de mon journal"});msg.textContent="Sauvegarde prête ✿";prefs.lastBackup=todayKey();savePrefs()}catch(e){msg.textContent=/cancel/i.test(String(e&&e.message))?"Export annulé.":"L'export n'a pas marché, réessaie."}};
   const lab=document.createElement("label");lab.className="note";lab.style.display="block";lab.style.marginTop="16px";lab.textContent="Restaurer une sauvegarde (fichier .json) :";
-  const inp=document.createElement("input");inp.type="file";inp.accept="application/json,.json";inp.id="restoreIn";lab.htmlFor="restoreIn";
+  const inp=document.createElement("input");inp.type="file";inp.accept="application/json,.json";inp.id="restoreIn";lab.htmlFor="restoreIn";inp.className="sr";const pick=document.createElement("label");pick.htmlFor="restoreIn";pick.className="ghost";pick.style.cssText="cursor:pointer;margin-top:6px";pick.textContent="Choisir un fichier de sauvegarde";
   const confirmBox=document.createElement("div");
   inp.onchange=async()=>{
     const f=inp.files[0];if(!f)return;confirmBox.innerHTML="";
@@ -2420,7 +2421,7 @@ function renderBackupTab(body){
     confirmBox.append(p,ok);
   };
   if(prefs.lastBackup){const l=document.createElement("p");l.className="note";l.textContent="Dernière sauvegarde : "+frDate(prefs.lastBackup,{day:"numeric",month:"long",year:"numeric"});s.append(l)}
-  s.append(n,b1,lab,inp,confirmBox,msg);body.append(s);
+  s.append(n,b1,lab,inp,pick,confirmBox,msg);body.append(s);
 }
 
 /* --- daily reminder --- */
