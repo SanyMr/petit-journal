@@ -35,6 +35,15 @@ public class MailWidget extends AppWidgetProvider {
         return fromWorker.optLong("at", 0) > fromApp.optLong("at", 0) ? fromWorker : fromApp;
     }
 
+    /** Japanese seasons: haru (spring), natsu (summer), aki (autumn), fuyu (winter). */
+    static String season() {
+        int mo = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1;
+        if (mo >= 3 && mo <= 5) return "haru";
+        if (mo >= 6 && mo <= 8) return "natsu";
+        if (mo >= 9 && mo <= 11) return "aki";
+        return "fuyu";
+    }
+
     static int mascot(Context c, String m) {
         int res = c.getResources().getIdentifier("w_" + m, "drawable", c.getPackageName());
         return res == 0 ? R.drawable.w_onigiri : res;
@@ -83,6 +92,9 @@ public class MailWidget extends AppWidgetProvider {
             v.setViewVisibility(R.id.w_band_lbl, View.VISIBLE);
             v.setTextViewText(R.id.w_band_lbl, "Ma bande · " + wrote + "/" + Math.min(friends, n) + (wrote > 1 ? " ont écrit" : " a écrit") + " aujourd'hui");
         }
+        String season = season();
+        v.setImageViewResource(R.id.w_art_br, c.getResources().getIdentifier("w_art_" + season + "_br", "drawable", c.getPackageName()));
+        v.setImageViewResource(R.id.w_art_tr, c.getResources().getIdentifier("w_art_" + season + "_tr", "drawable", c.getPackageName()));
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "amis", 40));
         m.updateAppWidget(id, v);
     }
