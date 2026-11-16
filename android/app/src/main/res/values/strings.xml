@@ -4,7 +4,10 @@
     <string name="title_activity_main">Mon petit journal</string>
     <string name="package_name">com.petitjournal.nikki</string>
     <string name="custom_url_scheme">com.petitjournal.nikki</string>
-    <string name="widget_desc">Ta flamme et ta page du jour</string>
     <string name="widget_mascot">Ta mascotte</string>
     <string name="widget_flame">Ta flamme</string>
+    <string name="wd_week">Ta flamme et les humeurs de ta semaine</string>
+    <string name="wd_clock">L'heure, la date en japonais et ta page du jour</string>
+    <string name="wd_prompt">Une nouvelle question chaque jour pour t'inspirer</string>
+    <string name="wd_todo">Tes prochaines tâches</string>
 </resources>

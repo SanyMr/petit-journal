@@ -1839,95 +1839,84 @@ function renderFlameSheet(){
 $("flameBtn").onclick=openFlame;
 
 
-/* ================= sounds (synthesised, Japanese pentatonic) ================= */
+/* ================= sounds (calm, pre-rendered, Japanese pentatonic) ================= */
 var Sfx=(function(){
-  let ctx=null,master=null,rev=null,last=0;
-  const P=()=>({on:true,vol:.6,...(prefs.sound||{})});
-  function impulse(sec){const len=Math.floor(ctx.sampleRate*sec),b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}return b}
-  function ac(){
-    if(!ctx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
-      ctx=new C();master=ctx.createGain();
-      const comp=ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;master.connect(comp);comp.connect(ctx.destination);
-      rev=ctx.createConvolver();rev.buffer=impulse(1.8);const rg=ctx.createGain();rg.gain.value=.28;rev.connect(rg);rg.connect(master)}
-    if(ctx.state==="suspended")ctx.resume();
-    master.gain.value=P().vol*1.4;return ctx;
+  let ctx=null,ready=false,last={};const bufs={};
+  const P=()=>({on:true,vol:.45,...(prefs.sound||{})});
+  const N={C4:261.63,D4:293.66,F4:349.23,G4:392,A4:440,C5:523.25,D5:587.33,F5:698.46,G5:783.99,A5:880,C6:1046.5,D6:1174.66,G6:1567.98,A6:1760};
+  const SR=44100;
+  function impulse(o,sec){const len=Math.floor(SR*sec),b=o.createBuffer(2,len,SR);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,4)*.6}return b}
+  function bus(o){const dry=o.createGain(),wet=o.createGain(),rev=o.createConvolver(),lp=o.createBiquadFilter();lp.type="lowpass";lp.frequency.value=4800;lp.Q.value=.5;rev.buffer=impulse(o,2.4);dry.connect(lp);wet.connect(rev);rev.connect(lp);lp.connect(o.destination);return {dry,wet}}
+  function voice(o,b,f,t,{peak=.3,decay=1.4,partials=[[1,1]],attack=.008,wet=.35}){
+    partials.forEach(([r,m],i)=>{const os=o.createOscillator(),g=o.createGain(),w=o.createGain();os.type="sine";os.frequency.value=f*r;
+      const d=decay/(i?1+r*.4:1);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak*m,t+attack);g.gain.setTargetAtTime(0,t+attack,d/4);
+      w.gain.value=wet;os.connect(g);g.connect(b.dry);g.connect(w);w.connect(b.wet);os.start(t);os.stop(t+attack+d*1.6)});
   }
-  function out(node,wet){node.connect(master);if(wet>0){const g=ctx.createGain();g.gain.value=wet;node.connect(g);g.connect(rev)}}
-  function env(g,t,a,peak,rel){g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(peak,0.0002),t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+rel)}
-  function osc(type,f,t,dur,peak,o={}){
-    const {a=.005,bend=0,wet=.4,lp=0,to=0}=o;
-    const n=ctx.createOscillator(),g=ctx.createGain();n.type=type;
-    n.frequency.setValueAtTime(f*(1+bend),t);if(bend)n.frequency.exponentialRampToValueAtTime(f,t+.05);if(to)n.frequency.exponentialRampToValueAtTime(to,t+dur);
-    env(g,t,a,peak,dur);let end=g;
-    if(lp){const fl=ctx.createBiquadFilter();fl.type="lowpass";fl.frequency.setValueAtTime(lp,t);fl.frequency.exponentialRampToValueAtTime(Math.max(200,lp/4),t+dur);g.connect(fl);end=fl}
-    n.connect(g);out(end,wet);n.start(t);n.stop(t+a+dur+.05);
+  const kalimba=(o,b,f,t,p=.3,decay=1.3)=>voice(o,b,f,t,{peak:p,decay,attack:.006,partials:[[1,1],[2.01,.14],[4.18,.035]],wet:.3});
+  const bell=(o,b,f,t,p=.22,decay=2.6)=>voice(o,b,f,t,{peak:p,decay,attack:.012,partials:[[1,1],[2.76,.12],[5.4,.03]],wet:.55});
+  const paper=(o,b,t,p=.12,dur=.45)=>{const len=Math.floor(SR*dur),nb=o.createBuffer(1,len,SR),d=nb.getChannelData(0);let x=0;for(let i=0;i<len;i++){x=x*.6+(Math.random()*2-1)*.4;d[i]=x}
+    const s=o.createBufferSource();s.buffer=nb;const f=o.createBiquadFilter();f.type="bandpass";f.frequency.setValueAtTime(600,t);f.frequency.linearRampToValueAtTime(2200,t+dur);f.Q.value=.6;
+    const g=o.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p,t+dur*.35);g.gain.linearRampToValueAtTime(0,t+dur);s.connect(f);f.connect(g);g.connect(b.dry);s.start(t)};
+  const arp=(o,b,notes,step,fn,t0=0,p)=>notes.forEach((n,i)=>fn(o,b,N[n],t0+i*step,p));
+  const DEF={
+    mood_0:[1.6,(o,b)=>kalimba(o,b,N.A5,0)], mood_1:[1.6,(o,b)=>kalimba(o,b,N.G5,0)], mood_2:[1.6,(o,b)=>kalimba(o,b,N.D5,0)],
+    mood_3:[1.8,(o,b)=>kalimba(o,b,N.A4,0)], mood_4:[1.8,(o,b)=>kalimba(o,b,N.G4,0)],
+    check:[1.8,(o,b)=>{kalimba(o,b,N.G5,0,.26);kalimba(o,b,N.C6,.13,.24)}],
+    goal:[2.8,(o,b)=>{arp(o,b,["C5","D5","G5","A5"],.14,kalimba,0,.24);bell(o,b,N.C6,.62,.12)}],
+    sticker:[1.0,(o,b)=>kalimba(o,b,N.A5,0,.16,.6)],
+    photo:[2.2,(o,b)=>bell(o,b,N.G5,0,.16)],
+    page:[.6,(o,b)=>paper(o,b,0,.16)],
+    stamp_c:[2.6,(o,b)=>bell(o,b,N.D5,0,.22)],
+    stamp_r:[3.0,(o,b)=>{bell(o,b,N.D5,0,.2);bell(o,b,N.A5,.2,.16)}],
+    stamp_t:[3.2,(o,b)=>{arp(o,b,["D5","G5","A5"],.15,kalimba,0,.22);bell(o,b,N.D6,.5,.13)}],
+    stamp_l:[4.2,(o,b)=>{arp(o,b,["C5","D5","G5","A5","C6"],.13,kalimba,0,.22);bell(o,b,N.G5,.7,.12,3.2);bell(o,b,N.D6,.95,.1,3.2)}],
+    reveal_c:[1.8,(o,b)=>{kalimba(o,b,N.G5,0,.22);kalimba(o,b,N.C6,.14,.2)}],
+    reveal_r:[2.6,(o,b)=>{arp(o,b,["D5","G5","A5"],.13,kalimba,0,.22);bell(o,b,N.D6,.42,.1)}],
+    reveal_t:[3.2,(o,b)=>{arp(o,b,["C5","D5","G5","A5","C6"],.11,kalimba,0,.22);bell(o,b,N.G5,.6,.12);bell(o,b,N.D6,.75,.09)}],
+    reveal_l:[4.6,(o,b)=>{arp(o,b,["C5","D5","F5","G5","A5","C6","D6"],.11,kalimba,0,.2);bell(o,b,N.C6,.85,.12,3.4);bell(o,b,N.G5,1.1,.1,3.4);bell(o,b,N.D6,1.35,.08,3.4)}],
+    gacha:[1.2,(o,b)=>{kalimba(o,b,N.D4,0,.22,.5);kalimba(o,b,N.G4,.18,.18,.6)}],
+    petals:[2.8,(o,b)=>{bell(o,b,N.C6,0,.08);bell(o,b,N.A5,.16,.08);bell(o,b,N.D6,.32,.07)}],
+    coin:[2.4,(o,b)=>{bell(o,b,N.A5,0,.14);bell(o,b,N.D6,.12,.12)}],
+    key:[.5,(o,b)=>kalimba(o,b,N.D6,0,.07,.25)],
+    wrong:[1.4,(o,b)=>{kalimba(o,b,N.D4,0,.2,.7);kalimba(o,b,N.C4,.16,.2,.8)}],
+    unlock:[2.6,(o,b)=>{arp(o,b,["G5","A5","C6"],.12,kalimba,0,.22);bell(o,b,N.D6,.38,.1)}],
+    flame:[2.8,(o,b)=>{bell(o,b,N.D5,0,.16);kalimba(o,b,N.A5,.2,.2)}],
+    sparkle:[2.6,(o,b)=>{bell(o,b,N.D6,0,.08);bell(o,b,N.A5,.14,.08)}],
+    chime:[2.6,(o,b)=>bell(o,b,N.D6,0,.14)],
+    share:[1.4,(o,b)=>kalimba(o,b,N.G5,0,.2)]
+  };
+  const ALIAS={stamp:a=>"stamp_"+(a||"c"),reveal:a=>"reveal_"+(a||"c"),mood:a=>"mood_"+(a>=0&&a<5?a:1),crank:()=>"gacha"};
+  async function render(name){
+    const def=DEF[name];if(!def)return null;
+    const O=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!O)return null;
+    const o=new O(2,Math.ceil(SR*def[0]),SR),b=bus(o);def[1](o,b);
+    const buf=await o.startRendering();
+    let pk=0;for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}}
+    const LV={key:.35,page:.55,sticker:.6,petals:.6,sparkle:.6,coin:.7,check:.85,share:.7,mood_0:.8,mood_1:.8,mood_2:.8,mood_3:.8,mood_4:.8};
+    const g=pk>0?.42*(LV[name]||1)/pk:1,fade=Math.floor(SR*.05);
+    for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<d.length;i++){d[i]*=g;if(i>d.length-fade)d[i]*=(d.length-i)/fade}}
+    return buf;
   }
-  function noise(t,dur,peak,o={}){
-    const {type="bandpass",freq=2000,q=1,sweep=0,wet=.2}=o;
-    const len=Math.ceil(ctx.sampleRate*(dur+.05)),b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);
-    for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
-    const s=ctx.createBufferSource();s.buffer=b;const f=ctx.createBiquadFilter();f.type=type;f.frequency.setValueAtTime(freq,t);
-    if(sweep)f.frequency.exponentialRampToValueAtTime(sweep,t+dur);f.Q.value=q;
-    const g=ctx.createGain();env(g,t,Math.min(.03,dur/3),peak,dur);s.connect(f);f.connect(g);out(g,wet);s.start(t);s.stop(t+dur+.05);
+  async function prime(){
+    if(ready||!P().on)return;ready=true;
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    ctx=ctx||new C();
+    for(const n of Object.keys(DEF)){try{bufs[n]=await render(n)}catch(e){}}
   }
-  /* instruments */
-  const koto=(f,t,p=.24,d=1.1)=>{osc("triangle",f,t,d,p,{a:.002,bend:.025,lp:f*7,wet:.3});osc("sine",f*2,t,d*.45,p*.22,{a:.002,wet:.25});osc("sine",f*3.01,t,d*.2,p*.08,{a:.002,wet:.2})};
-  const bell=(f,t,p=.12,d=2.4)=>[[1,1],[2.76,.45],[5.4,.22],[8.9,.1]].forEach(([r,m],i)=>osc("sine",f*r,t,d/(1+i*.8),p*m,{a:.002,wet:.65}));
-  const wood=(t,f=800,p=.3)=>{osc("sine",f,t,.09,p,{a:.001,bend:.7,wet:.12});noise(t,.035,p*.45,{freq:f*2.2,q:5,wet:.05})};
-  const pop=(t,f=480,p=.22)=>osc("sine",f,t,.12,p,{a:.003,to:f*2.8,wet:.15});
-  /* Japanese "yo" pentatonic: C D F G A */
-  const N={C4:261.63,D4:293.66,F4:349.23,G4:392,A4:440,C5:523.25,D5:587.33,F5:698.46,G5:783.99,A5:880,C6:1046.5,D6:1174.66,F6:1396.91,G6:1567.98,A6:1760,C7:2093};
-  const run=(names,step,fn,t0,p)=>names.forEach((n,i)=>fn(N[n],t0+i*step,p));
-  const reveal=(t,r)=>{
-    if(r==="l"){run(["C5","D5","F5","G5","A5","C6","D6","F6","G6","A6"],.045,(f,tt)=>koto(f,tt,.2,1.3),t);
-      run(["C6","G6","C7","A6","G6"],.12,(f,tt)=>bell(f,tt,.08,3),t+.45);noise(t+.4,1.6,.05,{type:"highpass",freq:6000,wet:.8})}
-    else if(r==="t"){run(["D5","F5","G5","A5","C6","D6"],.06,(f,tt)=>koto(f,tt,.22),t);bell(N.D6,t+.36,.1);bell(N.A6,t+.48,.06)}
-    else if(r==="r"){run(["G5","A5","D6"],.08,(f,tt)=>koto(f,tt,.24),t);bell(N.D6,t+.24,.08)}
-    else{koto(N.G5,t,.24);koto(N.C6,t+.09,.24)}
-  };
-  const SOUNDS={
-    tick:t=>wood(t,1500,.09),
-    tab:t=>koto(N.A5,t,.12,.45),
-    open:t=>{koto(N.D5,t,.1,.5);koto(N.A5,t+.05,.08,.6)},
-    mood:(t,i=0)=>{const ns=[N.C6,N.A5,N.G5,N.D5,N.C5];koto(ns[i]||N.G5,t,.26);bell((ns[i]||N.G5)*2,t+.07,.04,1.4)},
-    goal:t=>{run(["C5","D5","F5","G5","A5","C6"],.075,(f,tt)=>koto(f,tt,.22),t);bell(N.C7,t+.5,.07)},
-    sticker:t=>{pop(t,520,.2);koto(N.A5,t+.05,.14,.5)},
-    photo:t=>{noise(t,.04,.22,{type:"highpass",freq:3500});wood(t+.05,520,.18);bell(N.G6,t+.12,.05,1.4)},
-    drop:t=>wood(t,620,.14),
-    remove:t=>{osc("sine",700,t,.16,.14,{to:420,wet:.1});osc("sine",400,t+.08,.18,.1,{wet:.1})},
-    add:t=>koto(N.D6,t,.18,.5),
-    check:t=>{koto(N.G5,t,.22);koto(N.C6,t+.09,.24);bell(N.C7,t+.14,.04,1.2)},
-    uncheck:t=>{koto(N.C6,t,.14,.35);koto(N.G5,t+.08,.12,.4)},
-    petals:t=>[N.C7,N.A6,N.G6,N.D6*2,N.F6].forEach((f,i)=>bell(f,t+i*.07+Math.random()*.03,.035,1.5)),
-    coin:t=>{bell(N.A6,t,.09,1.1);bell(N.D6*2,t+.09,.09,1.6)},
-    page:t=>{noise(t,.32,.4,{type:"bandpass",freq:700,q:.7,sweep:4200,wet:.1});noise(t+.18,.12,.12,{type:"highpass",freq:5000,wet:.05})},
-    key:t=>wood(t,1100,.18),
-    wrong:t=>{osc("triangle",233,t,.14,.16,{wet:.1});osc("triangle",196,t+.15,.22,.16,{wet:.1})},
-    unlock:t=>run(["G5","A5","C6","D6"],.07,(f,tt)=>bell(f,tt,.08,1.6),t),
-    flame:t=>{noise(t,.55,.16,{type:"lowpass",freq:380,sweep:2200,wet:.15});for(let i=0;i<5;i++)noise(t+.05+Math.random()*.4,.02,.08,{freq:3000,q:3,wet:0});koto(N.D5,t+.12,.2);koto(N.A5,t+.24,.2);bell(N.D6,t+.36,.06)},
-    flameSoft:t=>{noise(t,.45,.3,{type:"lowpass",freq:300,sweep:1300,wet:.1});for(let i=0;i<4;i++)noise(t+Math.random()*.4,.02,.12,{freq:2600,q:3,wet:0})},
-    sparkle:t=>[N.G6,N.C7,N.A6].forEach((f,i)=>bell(f,t+i*.06,.05,1.3)),
-    mascot:t=>{pop(t,300,.24);pop(t+.13,440,.2)},
-    chime:t=>bell(N.D6,t,.12),
-    crank:t=>{for(let i=0;i<6;i++)wood(t+i*.085,1500-i*70,.15);noise(t,.5,.05,{freq:1200,q:2,wet:0})},
-    thud:t=>{osc("sine",130,t,.2,.35,{a:.002,bend:.6,wet:.08});wood(t+.13,480,.16);wood(t+.24,520,.08)},
-    rattle:t=>{wood(t,1900,.07);wood(t+.06,1700,.05)},
-    stamp:(t,r="c")=>{osc("sine",95,t,.13,.38,{a:.001,bend:.5,wet:.05});noise(t,.06,.28,{type:"lowpass",freq:700,wet:.05});reveal(t+.14,r)},
-    reveal:(t,r="c")=>reveal(t,r),
-    capopen:t=>{pop(t,360,.3);noise(t,.08,.14,{type:"highpass",freq:2600})},
-    share:t=>{koto(N.G5,t,.18,.5);koto(N.D6,t+.07,.18,.6)}
-  };
-  return {
-    play(name,arg){const s=P();if(!s.on)return;if(!ac())return;last=performance.now();try{SOUNDS[name]&&SOUNDS[name](ctx.currentTime+.015,arg)}catch(e){}},
-    get last(){return last},
-    setVol(){if(master)master.gain.value=P().vol*1.4},
-    names:Object.keys(SOUNDS)
-  };
+  async function play(name,arg){
+    const s=P();if(!s.on)return;
+    const key=ALIAS[name]?ALIAS[name](arg):name;if(!DEF[key])return;
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    ctx=ctx||new C();if(ctx.state==="suspended")try{await ctx.resume()}catch(e){}
+    const now=performance.now();if(last[key]&&now-last[key]<120)return;last[key]=now;
+    let buf=bufs[key];if(!buf){try{buf=bufs[key]=await render(key)}catch(e){return}}
+    if(!buf)return;
+    const src=ctx.createBufferSource(),g=ctx.createGain();src.buffer=buf;g.gain.value=s.vol;src.connect(g);g.connect(ctx.destination);src.start();
+    if(!ready)prime();
+  }
+  return {play,prime,setVol(){},get last(){return 0}};
 })();
-document.addEventListener("click",e=>{
-  const b=e.target.closest("button,.tab,label.nsw,label.ghost");if(!b||b.disabled)return;
-  const t0=performance.now();setTimeout(()=>{if(Sfx.last<t0)Sfx.play("tick")},0);
-},true);
+document.addEventListener("pointerdown",()=>Sfx.prime(),{once:true,capture:true});
 var rattleTimer=null;
 
 /* ================= side ================= */
@@ -2178,14 +2167,14 @@ let settingsTab="masc";
 function reqHtml(list){return '<ul class="reqs">'+list.map(x=>`<li class="${x.ok?"ok":""}">${x.ok?"✓":"○"} ${esc(x.txt)}</li>`).join("")+"</ul>"}
 
 function renderSoundTab(body){
-  const S={on:true,vol:.6,...(prefs.sound||{})},s=sec("Sons","おと");
-  const n=document.createElement("p");n.className="note";n.textContent="Chaque geste a son petit son, composé sur une gamme japonaise : notes de koto, clochettes fūrin, bloc de bois et « pon » des tampons. Les plus rares sont les plus magiques ✿";
+  const S={on:true,vol:.45,...(prefs.sound||{})},s=sec("Sons","おと");
+  const n=document.createElement("p");n.className="note";n.textContent="Des sons doux et apaisants, seulement pour les moments qui comptent : une humeur, une tâche faite, un tampon, un tirage. Notes de kalimba et clochettes fūrin, sur une gamme japonaise ✿";
   const box=document.createElement("div");box.className="pinform";
   box.innerHTML=`<label class="nsw" for="sOn"><input type="checkbox" id="sOn" ${S.on?"checked":""}><span class="nknob" aria-hidden="true"></span><span><b>Sons de l'application</b><small>Suivent le volume « média » du téléphone</small></span></label>
     <label for="sVol">Volume</label><input type="range" id="sVol" min="5" max="100" value="${Math.round(S.vol*100)}" style="accent-color:var(--sakura-deep)">
     <p class="note" style="margin:6px 0 0">Écouter :</p><div class="gbtns" id="sPrev"></div>`;
   s.append(n,box);body.append(s);
-  [["Koto","goal"],["Humeur","mood",0],["Tâche faite","check"],["Tampon","stamp","c"],["Tampon rare","stamp","t"],["Légendaire","reveal","l"],["Flamme","flame"],["Pétales","petals"],["Page","page"],["Gachapon","crank"]].forEach(([l,name,arg])=>{
+  [["Objectif","goal"],["Humeur","mood",0],["Tâche faite","check"],["Tampon","stamp","c"],["Tampon rare","stamp","t"],["Légendaire","reveal","l"],["Flamme","flame"],["Pétales","petals"],["Page","page"],["Gachapon","crank"]].forEach(([l,name,arg])=>{
     const b=document.createElement("button");b.className="ghost";b.type="button";b.textContent=l;b.onclick=()=>Sfx.play(name,arg);$("sPrev").append(b)});
   $("sOn").onchange=()=>{prefs.sound={...S,...(prefs.sound||{}),on:$("sOn").checked};savePrefs();if(prefs.sound.on)Sfx.play("chime")};
   $("sVol").oninput=()=>{prefs.sound={...S,...(prefs.sound||{}),vol:+$("sVol").value/100};Sfx.setVol()};
@@ -2576,13 +2565,17 @@ function showView(v){
   if(v==="deco"){renderDeco()}
   try{store.setItem("nikki.view",v)}catch(e){}
 }
-document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();Sfx.play("tab");showView(t.dataset.v)}));
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();showView(t.dataset.v)}));
 function buzz(kind){try{const H=PL_().Haptics;if(H)H.impact({style:kind||"LIGHT"})}catch(e){}}
 var widgetTimer=null,widgetLast="";
 function pushWidget(){
   const W=PL_().NikkiWidget;if(!W)return;
   try{
-    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:(todo.items||[]).filter(t=>!t.done).length,caps:capsInfo(objectives()).avail,mascot:curMascot()});
+    const open=(todo.items||[]).filter(t=>!t.done).sort((a,b)=>(b.star?1:0)-(a.star?1:0)||a.created-b.created);
+    const days={},prompts={};
+    for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
+    for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
+    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts});
     if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});
   }catch(e){}
 }
@@ -2781,6 +2774,20 @@ if(isNative&&PL_().LocalNotifications){
     if(x.key&&hasContent(entries[x.key])){showView("journal");openReader(x.key)}
     else showView(x.view||"ecrire");
   });
+}
+
+/* --- deep links from widgets --- */
+function routeUrl(url){
+  if(!url||!/^petitjournal:/.test(url))return;
+  const v=url.replace(/^petitjournal:\/*/,"").split(/[/?#]/)[0];
+  closeReader();closeModal(true);
+  if(v==="todo")showView("todo");
+  else if(v==="flamme"){showView("ecrire");setTimeout(openFlame,250)}
+  else{openDay(todayKey());showView("ecrire")}
+}
+if(isNative&&PL_().App){
+  PL_().App.addListener("appUrlOpen",({url})=>routeUrl(url));
+  try{PL_().App.getLaunchUrl().then(r=>{if(r&&r.url)setTimeout(()=>routeUrl(r.url),400)}).catch(()=>{})}catch(e){}
 }
 
 /* --- android back button, relock, status bar --- */

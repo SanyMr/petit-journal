@@ -1,83 +1,66 @@
 package com.petitjournal.nikki;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RemoteViews;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.Calendar;
 import org.json.JSONObject;
 
-/** Home-screen widget: mascot, flame (streak), today's page status, tasks or capsules. */
+/** "Ma semaine" widget: flame, streak and the mood of the last 7 days. */
 public class NikkiWidget extends AppWidgetProvider {
-    static final String PREFS = "nikki_widget";
+    private static final int[] DOTS = {R.id.w_d0, R.id.w_d1, R.id.w_d2, R.id.w_d3, R.id.w_d4, R.id.w_d5, R.id.w_d6};
+    private static final int[] LBLS = {R.id.w_l0, R.id.w_l1, R.id.w_l2, R.id.w_l3, R.id.w_l4, R.id.w_l5, R.id.w_l6};
+    private static final String[] LETTERS = {"D", "L", "M", "M", "J", "V", "S"};
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager manager, int[] ids) {
-        for (int id : ids) update(context, manager, id);
-    }
+    public void onUpdate(Context c, AppWidgetManager m, int[] ids) { for (int id : ids) render(c, m, id); }
 
     @Override
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager manager, int id, Bundle options) {
-        update(context, manager, id);
+    public void onAppWidgetOptionsChanged(Context c, AppWidgetManager m, int id, Bundle o) { render(c, m, id); }
+
+    static int moodColor(Context c, String mood) {
+        switch (mood) {
+            case "super": return 0xFFFFB6C9;
+            case "bien": return 0xFFFFD8A1;
+            case "bof": return 0xFFC6E3C2;
+            case "triste": return 0xFFB8D6F0;
+            case "fatigue": return 0xFFD9C9F1;
+            default: return 0xFFF5A9BC;
+        }
     }
 
-    public static void refreshAll(Context context) {
-        AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        int[] ids = manager.getAppWidgetIds(new ComponentName(context, NikkiWidget.class));
-        for (int id : ids) update(context, manager, id);
-    }
+    static void render(Context c, AppWidgetManager m, int id) {
+        JSONObject j = WidgetData.read(c);
+        RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_week);
+        int s = WidgetData.streak(j);
+        boolean today = WidgetData.writtenToday(j);
+        v.setImageViewResource(R.id.w_flame, s > 0 ? (today ? R.drawable.w_flame_on : R.drawable.w_flame_dim) : R.drawable.w_flame_off);
+        v.setTextViewText(R.id.w_streak, String.valueOf(s));
+        v.setTextViewText(R.id.w_streak_lbl, s > 1 ? "jours d'affilée" : "jour d'affilée");
+        v.setImageViewResource(R.id.w_mascot, WidgetData.mascotRes(c, j));
 
-    private static String dayKey(long millis) {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date(millis));
-    }
-
-    static void update(Context c, AppWidgetManager manager, int id) {
-        RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.nikki_widget);
-        String raw = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getString("data", "{}");
-        int streak = 0, todo = 0, caps = 0;
-        boolean wroteThatDay = false;
-        String mascot = "onigiri", day = "";
-        try {
-            JSONObject j = new JSONObject(raw);
-            streak = j.optInt("streak", 0);
-            todo = j.optInt("todo", 0);
-            caps = j.optInt("caps", 0);
-            wroteThatDay = j.optBoolean("today", false);
-            mascot = j.optString("mascot", "onigiri");
-            day = j.optString("day", "");
-        } catch (Exception ignored) { }
-
-        long now = System.currentTimeMillis();
-        String today = dayKey(now), yesterday = dayKey(now - 86400000L);
-        boolean writtenToday = today.equals(day) && wroteThatDay;
-        int shown = streak;
-        if (!today.equals(day) && !(yesterday.equals(day) && wroteThatDay)) shown = 0;
-
-        int mascotRes = c.getResources().getIdentifier("w_" + mascot.toLowerCase(Locale.US), "drawable", c.getPackageName());
-        if (mascotRes == 0) mascotRes = R.drawable.w_onigiri;
-        v.setImageViewResource(R.id.w_mascot, mascotRes);
-        v.setImageViewResource(R.id.w_flame, shown > 0 ? (writtenToday ? R.drawable.w_flame_on : R.drawable.w_flame_dim) : R.drawable.w_flame_off);
-        v.setTextViewText(R.id.w_streak, String.valueOf(shown));
-        v.setTextViewText(R.id.w_streak_lbl, shown > 1 ? "jours d'affilée" : "jour d'affilée");
-        v.setTextViewText(R.id.w_msg, writtenToday ? "Page du jour écrite ✓ À demain !" : "Ta page du jour t'attend ✿");
-
-        String extra = "";
-        if (todo > 0) extra = todo + (todo > 1 ? " tâches à faire" : " tâche à faire");
-        else if (caps > 0) extra = caps + (caps > 1 ? " capsules à ouvrir" : " capsule à ouvrir");
-        v.setTextViewText(R.id.w_extra, extra);
-        v.setViewVisibility(R.id.w_extra, extra.isEmpty() ? View.GONE : View.VISIBLE);
-
-        Intent open = new Intent(c, MainActivity.class);
-        open.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pi = PendingIntent.getActivity(c, 0, open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        v.setOnClickPendingIntent(R.id.w_root, pi);
-        manager.updateAppWidget(id, v);
+        JSONObject days = j.optJSONObject("days");
+        int written = 0;
+        for (int i = 0; i < 7; i++) {
+            int back = 6 - i;
+            JSONObject d = days == null ? null : days.optJSONObject(WidgetData.daysAgo(back));
+            boolean w = d != null && d.optBoolean("w", false);
+            if (w) written++;
+            int color = w ? moodColor(c, d.optString("m", "")) : c.getColor(R.color.w_soft);
+            v.setInt(DOTS[i], "setColorFilter", color);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_YEAR, -back);
+            v.setTextViewText(LBLS[i], LETTERS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+            v.setTextColor(LBLS[i], back == 0 ? c.getColor(R.color.w_accent) : c.getColor(R.color.w_muted));
+        }
+        String msg;
+        if (today) msg = written >= 5 ? "Superbe semaine ✿ " + written + " pages sur 7" : "Page du jour écrite ✓ À demain !";
+        else if (s > 0) msg = "Ta flamme t'attend ce soir ✿";
+        else msg = "Une page aujourd'hui pour allumer ta flamme ✿";
+        v.setTextViewText(R.id.w_msg, msg);
+        v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "flamme", 11));
+        m.updateAppWidget(id, v);
     }
 }
