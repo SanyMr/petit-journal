@@ -1299,7 +1299,7 @@ function renderMoods(){
   MOODS.forEach(m=>{
     const b=document.createElement("button");b.className="mood";b.setAttribute("aria-pressed",String(s===m.id));
     b.innerHTML=face(m)+`<span>${m.label}</span>`;b.title=m.jp;
-    b.onclick=()=>{const now=entry(current).mood===m.id?null:m.id;touch(current,{mood:now});renderMoods();if(now){say(MOOD_REPLY[m.id]);hop()}renderSide()};
+    b.onclick=()=>{const now=entry(current).mood===m.id?null:m.id;touch(current,{mood:now});renderMoods();Sfx.play(now?"mood":"uncheck",MOODS.indexOf(m));if(now){say(MOOD_REPLY[m.id]);hop()}renderSide()};
     box.append(b);
   });
 }
@@ -1315,7 +1315,7 @@ function renderCount(react=true){
   else if(w<15) say("C'est parti ! がんばって ✿");
   else if(w<GOAL) say("Continue comme ça, j'adore te lire ~");
   else say("Objectif atteint ! Tu peux continuer autant que tu veux ♡");
-  if(w>=GOAL&&!celebrated[current]){celebrated[current]=true;petals(28);hop()}
+  if(w>=GOAL&&!celebrated[current]){celebrated[current]=true;petals(28);hop();Sfx.play("goal")}
 }
 function renderTags(){
   const tags=tagsOf($("text").value), box=$("tagsLine");box.innerHTML="";
@@ -1388,10 +1388,10 @@ function onDrag(e){
 function endDrag(){
   const d=drag;drag=null;if(!d) return;
   d.el.removeEventListener("pointermove",onDrag);
-  if(d.moved){const a=decoOf();if(a[d.i]){a[d.i].x=+d.nx.toFixed(1);a[d.i].y=+d.ny.toFixed(1);setDeco(a)}}
+  if(d.moved){Sfx.play("drop");const a=decoOf();if(a[d.i]){a[d.i].x=+d.nx.toFixed(1);a[d.i].y=+d.ny.toFixed(1);setDeco(a)}}
 }
 function editSel(fn){if(sel<0)return;const a=decoOf();if(!a[sel])return;fn(a);setDeco(a);renderDeco()}
-function removeSel(){editSel(a=>{a.splice(sel,1);sel=-1})}
+function removeSel(){Sfx.play("remove");editSel(a=>{a.splice(sel,1);sel=-1})}
 $("board").addEventListener("pointerdown",e=>{if(e.target===$("board")||e.target.classList.contains("hint"))select(-1)});
 $("rotL").onclick=()=>editSel(a=>a[sel].r=(a[sel].r||0)-12);
 $("rotR").onclick=()=>editSel(a=>a[sel].r=(a[sel].r||0)+12);
@@ -1404,7 +1404,7 @@ function addSticker(id){
   const a=decoOf();
   if(a.length>=24){say("Ta page est déjà pleine de stickers ! Retires-en un pour en ajouter un autre.");return}
   a.push({k:"st",id,x:+(22+Math.random()*56).toFixed(1),y:+(25+Math.random()*50).toFixed(1),r:Math.round(Math.random()*24-12),s:1});
-  sel=a.length-1;setDeco(a);renderDeco();hop();
+  sel=a.length-1;setDeco(a);renderDeco();hop();Sfx.play("sticker");
 }
 async function processPhoto(file){
   if(!file) return;
@@ -1420,7 +1420,7 @@ async function processPhoto(file){
     while(src.length>100000&&q>.35){q-=.1;src=cv.toDataURL("image/jpeg",q)}
     a.push({k:"ph",src,x:+(26+Math.random()*12).toFixed(1),y:48,r:Math.round(Math.random()*10-5),s:1});
     if(JSON.stringify({...entry(current),deco:a}).length>240000){say("Cette page est déjà bien remplie : plus de place pour une photo.");return}
-    sel=a.length-1;setDeco(a);renderDeco();hop();say("Quelle jolie photo ! Glisse-la où tu veux ~");
+    sel=a.length-1;setDeco(a);renderDeco();hop();Sfx.play("photo");say("Quelle jolie photo ! Glisse-la où tu veux ~");
   }catch(e){say("Je n'ai pas réussi à ouvrir cette image. Essaie avec une photo JPG ou PNG.")}
   finally{$("photoInput").value=""}
 }
@@ -1661,6 +1661,7 @@ function nextToast(){
   else{const o=it.o;rar=o.r;icon=stampSvg(o,true);t1=(o.monthly?"ぽん！ Défi du mois réussi":"ぽん！ Nouveau tampon")+" · "+RAR[o.r].stars+" "+RAR[o.r].name;t2=o.k+" "+o.name;t3=o.mean+" +"+plural(RAR[o.r].caps,"capsule");
     go=()=>openBook(o.id);say((o.r==="l"?"LÉGENDAIRE !! ":o.r==="t"?"Très rare ! ":"ぽん！ ")+"Tu as gagné le tampon « "+o.name+" » ✿")}
   t.className="toast tr-"+rar;
+  if(it.sticker)Sfx.play("reveal","l");else if(it.masc||it.acc||it.accMany)Sfx.play("sparkle");else Sfx.play("stamp",rar);
   t.innerHTML=icon+'<span><span class="t1"></span><span class="t2"></span><span class="t3"></span></span>';
   const sv=t.querySelector("svg");if(sv&&!it.sticker)sv.classList.add("press");
   t.querySelector(".t1").textContent=t1;t.querySelector(".t2").textContent=t2;t.querySelector(".t3").textContent=t3;
@@ -1716,7 +1717,7 @@ function renderGacha(res){
   $("pullBtn").onclick=doPull;
   ctrl.querySelector(".pill").innerHTML=`<svg viewBox="0 0 100 100" width="18" height="18" aria-hidden="true">${SAKURA("#ffc2d1","#f59ab3","#ff8fab")}</svg> <b>${petalBal()}</b> pétales`;
   $("swapBtn").textContent="Échanger 20 pétales → 1 capsule";$("swapBtn").disabled=petalBal()<20;
-  $("swapBtn").onclick=()=>{if(petalBal()<20)return;coll.pspent=(coll.pspent||0)+20;coll.bought=(coll.bought||0)+1;saveColl();renderGacha();renderSide();say("Échange réussi ! Une capsule de plus ✿")};
+  $("swapBtn").onclick=()=>{if(petalBal()<20)return;Sfx.play("coin");coll.pspent=(coll.pspent||0)+20;coll.bought=(coll.bought||0)+1;saveColl();renderGacha();renderSide();say("Échange réussi ! Une capsule de plus ✿")};
   $("albumBtn").onclick=()=>openAlbum();
   const info=document.createElement("div");info.className="panel ginfo";
   const pityLeft=15-(coll.pity||0);
@@ -1730,16 +1731,16 @@ function doPull(){
   if(pulling) return;
   const res=pull();
   if(!res){say("Plus de capsule… écris une page pour en gagner une !");renderGacha();return}
-  pulling=true;$("pullBtn").disabled=true;
+  pulling=true;$("pullBtn").disabled=true;Sfx.play("crank");
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cap=$("capsule"),gm=$("stage").querySelector(".gm"),prize=$("prize"),rays=$("rays"),gres=$("gres");
   prize.innerHTML="";prize.className="prize";rays.className="rays";gres.innerHTML="";
   cap.className="capsule cap-"+res.r;cap.hidden=false;gm.classList.add("dim");
   const wait=reduce?[0,0,0]:[700,res.r==="l"?1700:res.r==="t"?1300:800,450];
   if(!reduce){cap.classList.add("drop");gm.classList.add("turn")}
-  setTimeout(()=>{if(!reduce)cap.classList.add("wobble")},wait[0]);
+  setTimeout(()=>{Sfx.play("thud");if(!reduce){cap.classList.add("wobble");clearInterval(rattleTimer);rattleTimer=setInterval(()=>Sfx.play("rattle"),res.r==="l"||res.r==="t"?200:330)}},wait[0]);
   setTimeout(()=>{
-    cap.classList.remove("wobble");cap.classList.add("open");
+    clearInterval(rattleTimer);cap.classList.remove("wobble");cap.classList.add("open");Sfx.play("capopen");setTimeout(()=>Sfx.play("reveal",res.r),130);
     rays.className="rays show r-"+res.r;
     prize.innerHTML=`<span class="stk">${res.s.svg}</span>`;
     setTimeout(()=>{prize.classList.add("show");showResult(res);pulling=false;
@@ -1749,7 +1750,7 @@ function doPull(){
   },wait[0]+wait[1]);
 }
 function showResult(res){
-  const g=$("gres");
+  const g=$("gres");if(!res.isNew)setTimeout(()=>Sfx.play("petals"),650);
   g.innerHTML=`${rarBadge(res.r)}<p class="gname"></p><p class="note" style="margin:0"></p><div class="gbtns"><button class="ghost" id="useIt">Coller sur ma page</button></div>`;
   g.querySelector(".gname").textContent=res.s.name;
   g.querySelector(".note").textContent=res.isNew?"Nouveau dans ton album ! あたらしい ✿":"Doublon : +"+res.pet+" pétale"+(res.pet>1?"s":"")+" (tu en as "+petalBal()+")";
@@ -1811,10 +1812,10 @@ function renderFlame(){
   b.innerHTML=flameSvg(n,risk,false)+`<span class="num">${n}</span>`+(b.dataset.long?`<span class="flbl">${n>1?"jours d'affilée":"jour d'affilée"}</span>`:"")+(risk?'<i class="fdot" aria-hidden="true"></i>':"");
   b.classList.toggle("glow",!!l.glow&&today);b.style.setProperty("--glow",l.glow||"transparent");
   b.setAttribute("aria-label",`${plural(n,"jour")} d'affilée.${risk?" Écris aujourd'hui pour garder ta flamme.":""} Voir ma flamme`);
-  if(flameLast!==null&&n>flameLast&&today){b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump");say(n===1?"Ta flamme est allumée ! Reviens demain pour la faire grandir ✿":"Ta flamme grandit : "+n+" jours d'affilée ✿")}
+  if(flameLast!==null&&n>flameLast&&today){b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump");Sfx.play("flame");say(n===1?"Ta flamme est allumée ! Reviens demain pour la faire grandir ✿":"Ta flamme grandit : "+n+" jours d'affilée ✿")}
   flameLast=n;
 }
-function openFlame(){openModal("Ma flamme","ほのお",renderFlameSheet)}
+function openFlame(){Sfx.play("flameSoft");openModal("Ma flamme","ほのお",renderFlameSheet)}
 function renderFlameSheet(){
   const body=$("modalBody"),n=streak(),today=written(todayKey()),l=flameLevel(n),{st}=stampState(),best=Math.max(st.maxStreak||0,n);
   body.innerHTML="";
@@ -1836,6 +1837,98 @@ function renderFlameSheet(){
   body.append(hero,msg,wk,tiles,nx,lv,tip);
 }
 $("flameBtn").onclick=openFlame;
+
+
+/* ================= sounds (synthesised, Japanese pentatonic) ================= */
+var Sfx=(function(){
+  let ctx=null,master=null,rev=null,last=0;
+  const P=()=>({on:true,vol:.6,...(prefs.sound||{})});
+  function impulse(sec){const len=Math.floor(ctx.sampleRate*sec),b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}return b}
+  function ac(){
+    if(!ctx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+      ctx=new C();master=ctx.createGain();
+      const comp=ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;master.connect(comp);comp.connect(ctx.destination);
+      rev=ctx.createConvolver();rev.buffer=impulse(1.8);const rg=ctx.createGain();rg.gain.value=.28;rev.connect(rg);rg.connect(master)}
+    if(ctx.state==="suspended")ctx.resume();
+    master.gain.value=P().vol*1.4;return ctx;
+  }
+  function out(node,wet){node.connect(master);if(wet>0){const g=ctx.createGain();g.gain.value=wet;node.connect(g);g.connect(rev)}}
+  function env(g,t,a,peak,rel){g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(peak,0.0002),t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+rel)}
+  function osc(type,f,t,dur,peak,o={}){
+    const {a=.005,bend=0,wet=.4,lp=0,to=0}=o;
+    const n=ctx.createOscillator(),g=ctx.createGain();n.type=type;
+    n.frequency.setValueAtTime(f*(1+bend),t);if(bend)n.frequency.exponentialRampToValueAtTime(f,t+.05);if(to)n.frequency.exponentialRampToValueAtTime(to,t+dur);
+    env(g,t,a,peak,dur);let end=g;
+    if(lp){const fl=ctx.createBiquadFilter();fl.type="lowpass";fl.frequency.setValueAtTime(lp,t);fl.frequency.exponentialRampToValueAtTime(Math.max(200,lp/4),t+dur);g.connect(fl);end=fl}
+    n.connect(g);out(end,wet);n.start(t);n.stop(t+a+dur+.05);
+  }
+  function noise(t,dur,peak,o={}){
+    const {type="bandpass",freq=2000,q=1,sweep=0,wet=.2}=o;
+    const len=Math.ceil(ctx.sampleRate*(dur+.05)),b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
+    const s=ctx.createBufferSource();s.buffer=b;const f=ctx.createBiquadFilter();f.type=type;f.frequency.setValueAtTime(freq,t);
+    if(sweep)f.frequency.exponentialRampToValueAtTime(sweep,t+dur);f.Q.value=q;
+    const g=ctx.createGain();env(g,t,Math.min(.03,dur/3),peak,dur);s.connect(f);f.connect(g);out(g,wet);s.start(t);s.stop(t+dur+.05);
+  }
+  /* instruments */
+  const koto=(f,t,p=.24,d=1.1)=>{osc("triangle",f,t,d,p,{a:.002,bend:.025,lp:f*7,wet:.3});osc("sine",f*2,t,d*.45,p*.22,{a:.002,wet:.25});osc("sine",f*3.01,t,d*.2,p*.08,{a:.002,wet:.2})};
+  const bell=(f,t,p=.12,d=2.4)=>[[1,1],[2.76,.45],[5.4,.22],[8.9,.1]].forEach(([r,m],i)=>osc("sine",f*r,t,d/(1+i*.8),p*m,{a:.002,wet:.65}));
+  const wood=(t,f=800,p=.3)=>{osc("sine",f,t,.09,p,{a:.001,bend:.7,wet:.12});noise(t,.035,p*.45,{freq:f*2.2,q:5,wet:.05})};
+  const pop=(t,f=480,p=.22)=>osc("sine",f,t,.12,p,{a:.003,to:f*2.8,wet:.15});
+  /* Japanese "yo" pentatonic: C D F G A */
+  const N={C4:261.63,D4:293.66,F4:349.23,G4:392,A4:440,C5:523.25,D5:587.33,F5:698.46,G5:783.99,A5:880,C6:1046.5,D6:1174.66,F6:1396.91,G6:1567.98,A6:1760,C7:2093};
+  const run=(names,step,fn,t0,p)=>names.forEach((n,i)=>fn(N[n],t0+i*step,p));
+  const reveal=(t,r)=>{
+    if(r==="l"){run(["C5","D5","F5","G5","A5","C6","D6","F6","G6","A6"],.045,(f,tt)=>koto(f,tt,.2,1.3),t);
+      run(["C6","G6","C7","A6","G6"],.12,(f,tt)=>bell(f,tt,.08,3),t+.45);noise(t+.4,1.6,.05,{type:"highpass",freq:6000,wet:.8})}
+    else if(r==="t"){run(["D5","F5","G5","A5","C6","D6"],.06,(f,tt)=>koto(f,tt,.22),t);bell(N.D6,t+.36,.1);bell(N.A6,t+.48,.06)}
+    else if(r==="r"){run(["G5","A5","D6"],.08,(f,tt)=>koto(f,tt,.24),t);bell(N.D6,t+.24,.08)}
+    else{koto(N.G5,t,.24);koto(N.C6,t+.09,.24)}
+  };
+  const SOUNDS={
+    tick:t=>wood(t,1500,.09),
+    tab:t=>koto(N.A5,t,.12,.45),
+    open:t=>{koto(N.D5,t,.1,.5);koto(N.A5,t+.05,.08,.6)},
+    mood:(t,i=0)=>{const ns=[N.C6,N.A5,N.G5,N.D5,N.C5];koto(ns[i]||N.G5,t,.26);bell((ns[i]||N.G5)*2,t+.07,.04,1.4)},
+    goal:t=>{run(["C5","D5","F5","G5","A5","C6"],.075,(f,tt)=>koto(f,tt,.22),t);bell(N.C7,t+.5,.07)},
+    sticker:t=>{pop(t,520,.2);koto(N.A5,t+.05,.14,.5)},
+    photo:t=>{noise(t,.04,.22,{type:"highpass",freq:3500});wood(t+.05,520,.18);bell(N.G6,t+.12,.05,1.4)},
+    drop:t=>wood(t,620,.14),
+    remove:t=>{osc("sine",700,t,.16,.14,{to:420,wet:.1});osc("sine",400,t+.08,.18,.1,{wet:.1})},
+    add:t=>koto(N.D6,t,.18,.5),
+    check:t=>{koto(N.G5,t,.22);koto(N.C6,t+.09,.24);bell(N.C7,t+.14,.04,1.2)},
+    uncheck:t=>{koto(N.C6,t,.14,.35);koto(N.G5,t+.08,.12,.4)},
+    petals:t=>[N.C7,N.A6,N.G6,N.D6*2,N.F6].forEach((f,i)=>bell(f,t+i*.07+Math.random()*.03,.035,1.5)),
+    coin:t=>{bell(N.A6,t,.09,1.1);bell(N.D6*2,t+.09,.09,1.6)},
+    page:t=>{noise(t,.32,.4,{type:"bandpass",freq:700,q:.7,sweep:4200,wet:.1});noise(t+.18,.12,.12,{type:"highpass",freq:5000,wet:.05})},
+    key:t=>wood(t,1100,.18),
+    wrong:t=>{osc("triangle",233,t,.14,.16,{wet:.1});osc("triangle",196,t+.15,.22,.16,{wet:.1})},
+    unlock:t=>run(["G5","A5","C6","D6"],.07,(f,tt)=>bell(f,tt,.08,1.6),t),
+    flame:t=>{noise(t,.55,.16,{type:"lowpass",freq:380,sweep:2200,wet:.15});for(let i=0;i<5;i++)noise(t+.05+Math.random()*.4,.02,.08,{freq:3000,q:3,wet:0});koto(N.D5,t+.12,.2);koto(N.A5,t+.24,.2);bell(N.D6,t+.36,.06)},
+    flameSoft:t=>{noise(t,.45,.3,{type:"lowpass",freq:300,sweep:1300,wet:.1});for(let i=0;i<4;i++)noise(t+Math.random()*.4,.02,.12,{freq:2600,q:3,wet:0})},
+    sparkle:t=>[N.G6,N.C7,N.A6].forEach((f,i)=>bell(f,t+i*.06,.05,1.3)),
+    mascot:t=>{pop(t,300,.24);pop(t+.13,440,.2)},
+    chime:t=>bell(N.D6,t,.12),
+    crank:t=>{for(let i=0;i<6;i++)wood(t+i*.085,1500-i*70,.15);noise(t,.5,.05,{freq:1200,q:2,wet:0})},
+    thud:t=>{osc("sine",130,t,.2,.35,{a:.002,bend:.6,wet:.08});wood(t+.13,480,.16);wood(t+.24,520,.08)},
+    rattle:t=>{wood(t,1900,.07);wood(t+.06,1700,.05)},
+    stamp:(t,r="c")=>{osc("sine",95,t,.13,.38,{a:.001,bend:.5,wet:.05});noise(t,.06,.28,{type:"lowpass",freq:700,wet:.05});reveal(t+.14,r)},
+    reveal:(t,r="c")=>reveal(t,r),
+    capopen:t=>{pop(t,360,.3);noise(t,.08,.14,{type:"highpass",freq:2600})},
+    share:t=>{koto(N.G5,t,.18,.5);koto(N.D6,t+.07,.18,.6)}
+  };
+  return {
+    play(name,arg){const s=P();if(!s.on)return;if(!ac())return;last=performance.now();try{SOUNDS[name]&&SOUNDS[name](ctx.currentTime+.015,arg)}catch(e){}},
+    get last(){return last},
+    setVol(){if(master)master.gain.value=P().vol*1.4},
+    names:Object.keys(SOUNDS)
+  };
+})();
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,.tab,label.nsw,label.ghost");if(!b||b.disabled)return;
+  const t0=performance.now();setTimeout(()=>{if(Sfx.last<t0)Sfx.play("tick")},0);
+},true);
+var rattleTimer=null;
 
 /* ================= side ================= */
 function streak(){let d=new Date();if(!written(keyOf(d)))d.setDate(d.getDate()-1);let s=0;while(written(keyOf(d))){s++;d.setDate(d.getDate()-1)}return s}
@@ -1921,6 +2014,7 @@ function openDay(k){current=k;lastSay="";renderEditor();renderSide();if(typeof s
 /* ================= modal ================= */
 let lastFocus=null;
 function openModal(title,jp,fn){
+  if($("modal").hidden&&!/flamme/i.test(title))Sfx.play("open");
   if($("modal").hidden) lastFocus=document.activeElement;
   const h=$("modalTitle");h.textContent=title;const s=document.createElement("span");s.className="jp";s.textContent=jp;h.append(s);
   $("modal").hidden=false;fn();$("modal").querySelector(".book").scrollTop=0;$("closeModal").focus();
@@ -2082,18 +2176,33 @@ function applySkin(){if(prefs.skin&&prefs.skin!=="sakura")document.documentEleme
 function openSettings(msg){openModal("Réglages","せってい",()=>renderSettings(msg))}
 let settingsTab="masc";
 function reqHtml(list){return '<ul class="reqs">'+list.map(x=>`<li class="${x.ok?"ok":""}">${x.ok?"✓":"○"} ${esc(x.txt)}</li>`).join("")+"</ul>"}
+
+function renderSoundTab(body){
+  const S={on:true,vol:.6,...(prefs.sound||{})},s=sec("Sons","おと");
+  const n=document.createElement("p");n.className="note";n.textContent="Chaque geste a son petit son, composé sur une gamme japonaise : notes de koto, clochettes fūrin, bloc de bois et « pon » des tampons. Les plus rares sont les plus magiques ✿";
+  const box=document.createElement("div");box.className="pinform";
+  box.innerHTML=`<label class="nsw" for="sOn"><input type="checkbox" id="sOn" ${S.on?"checked":""}><span class="nknob" aria-hidden="true"></span><span><b>Sons de l'application</b><small>Suivent le volume « média » du téléphone</small></span></label>
+    <label for="sVol">Volume</label><input type="range" id="sVol" min="5" max="100" value="${Math.round(S.vol*100)}" style="accent-color:var(--sakura-deep)">
+    <p class="note" style="margin:6px 0 0">Écouter :</p><div class="gbtns" id="sPrev"></div>`;
+  s.append(n,box);body.append(s);
+  [["Koto","goal"],["Humeur","mood",0],["Tâche faite","check"],["Tampon","stamp","c"],["Tampon rare","stamp","t"],["Légendaire","reveal","l"],["Flamme","flame"],["Pétales","petals"],["Page","page"],["Gachapon","crank"]].forEach(([l,name,arg])=>{
+    const b=document.createElement("button");b.className="ghost";b.type="button";b.textContent=l;b.onclick=()=>Sfx.play(name,arg);$("sPrev").append(b)});
+  $("sOn").onchange=()=>{prefs.sound={...S,...(prefs.sound||{}),on:$("sOn").checked};savePrefs();if(prefs.sound.on)Sfx.play("chime")};
+  $("sVol").oninput=()=>{prefs.sound={...S,...(prefs.sound||{}),vol:+$("sVol").value/100};Sfx.setVol()};
+  $("sVol").onchange=()=>{savePrefs();Sfx.play("chime")};
+}
 function renderSettings(msg){
   const body=$("modalBody"),sc=$("modal").querySelector(".book").scrollTop;body.innerHTML="";
   const u=unlocks(),ctx=u.ctx;
   const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="10px";
-  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["rappel","Notifications"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
+  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["sons","Sons"],["rappel","Notifications"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
   body.append(seg);
   requestAnimationFrame(()=>{const sel=seg.querySelector('[aria-pressed="true"]');if(sel)sel.scrollIntoView({inline:"center",block:"nearest"})});
   if(settingsTab==="masc"){
     const s1=sec("Mes mascottes",u.masc.size+" / "+Object.keys(MASC_META).length);const o1=document.createElement("div");o1.className="opts";
     Object.entries(MASCOTS).forEach(([id,M])=>{const meta=MASC_META[id],on=u.masc.has(id),b=document.createElement("button");b.className="opt ar-"+meta.r+(on?" got":" locked");b.setAttribute("aria-pressed",String(curMascot()===id));
       b.innerHTML=`<span class="${on?"":"sil"}"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(id,on?wornAcc():[],false)}</svg></span><span>${on||meta.r==="c"||meta.r==="r"?M.name:"???"}</span>${rarBadge(meta.r)}`+(on?`<small>${curMascot()===id?"Avec toi ✿":"Toucher pour choisir"}</small>`:reqHtml(reqList(meta.req,ctx,"m:"+id)));
-      if(on)b.onclick=()=>{prefs.mascot=id;savePrefs();renderMascot();hop();say(["Coucou, c'est moi ! ✿","On écrit ensemble ?","よろしくね ~"][hash(id)%3]);renderSettings()};
+      if(on)b.onclick=()=>{Sfx.play("mascot");prefs.mascot=id;savePrefs();renderMascot();hop();say(["Coucou, c'est moi ! ✿","On écrit ensemble ?","よろしくね ~"][hash(id)%3]);renderSettings()};
       else b.setAttribute("aria-disabled","true");
       o1.append(b)});
     s1.append(o1);body.append(s1);
@@ -2109,20 +2218,21 @@ function renderSettings(msg){
         const secret=!on&&a.r==="l"&&!buy;
         const b=document.createElement("div");b.className="opt ar-"+a.r+(on?" got":" locked");b.setAttribute("aria-pressed",String(worn));
         b.innerHTML=`<span class="${on||buy?"":"sil"}"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(curMascot(),[a.id],false)}</svg></span><span>${secret?"???":esc(a.name)}</span>${rarBadge(a.r)}`;
-        if(on){const btn=document.createElement("button");btn.className="ghost";btn.textContent=worn?"Retirer":"Porter";btn.onclick=()=>{prefs.eq={...(prefs.eq||{}),[a.slot]:worn?null:a.id};savePrefs();renderMascot();hop();if(!worn)say("Ça me va bien ? ✿");renderSettings()};b.append(btn)}
+        if(on){const btn=document.createElement("button");btn.className="ghost";btn.textContent=worn?"Retirer":"Porter";btn.onclick=()=>{Sfx.play(worn?"uncheck":"sparkle");prefs.eq={...(prefs.eq||{}),[a.slot]:worn?null:a.id};savePrefs();renderMascot();hop();if(!worn)say("Ça me va bien ? ✿");renderSettings()};b.append(btn)}
         else if(buy){const btn=document.createElement("button");btn.className="openbook";btn.style.cssText="width:auto;margin:4px 0 0;padding:6px 12px;font-size:12px";btn.textContent="Acheter · "+price+" pétales";btn.disabled=petalBal()<price;
-          btn.onclick=()=>{if(petalBal()<price)return;coll.pspent=(coll.pspent||0)+price;coll.shop=[...(coll.shop||[]),a.id];saveColl();prefs.eq={...(prefs.eq||{}),[a.slot]:a.id};savePrefs();checkNew();renderMascot();hop();say("Merci pour cet achat ! "+a.name+", c'est tout moi ✿");renderSettings()};
+          btn.onclick=()=>{if(petalBal()<price)return;Sfx.play("coin");setTimeout(()=>Sfx.play("sparkle"),200);coll.pspent=(coll.pspent||0)+price;coll.shop=[...(coll.shop||[]),a.id];saveColl();prefs.eq={...(prefs.eq||{}),[a.slot]:a.id};savePrefs();checkNew();renderMascot();hop();say("Merci pour cet achat ! "+a.name+", c'est tout moi ✿");renderSettings()};
           b.append(btn);if(petalBal()<price){const sm=document.createElement("small");sm.textContent="Encore "+(price-petalBal())+" pétales";b.append(sm)}}
         else b.insertAdjacentHTML("beforeend",reqHtml(reqList(a.req,ctx,a.id)));
         o2.append(b)});
       s2.append(o2);body.append(s2);
     });
   }
+  if(settingsTab==="sons")renderSoundTab(body);
   if(settingsTab==="theme"){
   const s3=sec("Thème","いろ");const o3=document.createElement("div");o3.className="opts";
   SKINS.forEach(k=>{const b=document.createElement("button");b.className="opt";b.setAttribute("aria-pressed",String((prefs.skin||"sakura")===k.id));
     b.innerHTML=`<span class="swatch">${k.c.map(c=>`<i style="background:${c}"></i>`).join("")}</span><span>${k.name}</span>`;
-    b.onclick=()=>{prefs.skin=k.id;savePrefs();applySkin();renderSettings()};o3.append(b)});
+    b.onclick=()=>{Sfx.play("chime");prefs.skin=k.id;savePrefs();applySkin();renderSettings()};o3.append(b)});
   s3.append(o3);body.append(s3);
   }
   if(settingsTab==="code"){
@@ -2168,12 +2278,12 @@ function showLock(){
 function lockNow(){unlocked=false;showLock()}
 function renderPins(){[...$("pins").children].forEach((c,i)=>c.classList.toggle("on",i<pinBuf.length))}
 async function pressKey(d){
-  if(d==="del"){pinBuf=pinBuf.slice(0,-1);renderPins();return}
-  if(pinBuf.length>=4)return;pinBuf+=d;renderPins();
+  if(d==="del"){Sfx.play("key");pinBuf=pinBuf.slice(0,-1);renderPins();return}
+  if(pinBuf.length>=4)return;pinBuf+=d;renderPins();Sfx.play("key");
   if(pinBuf.length===4){
     const h=await sha("nikki:"+pinBuf);
-    if(h===prefs.pinHash){unlocked=true;$("lock").hidden=true;document.body.classList.remove("locked");say("おかえり ! Contente de te revoir ✿");hop()}
-    else{const p=$("pins");p.classList.remove("shake");void p.offsetWidth;p.classList.add("shake");$("lockMsg").textContent="Ce n'est pas le bon code, réessaie.";setTimeout(()=>{pinBuf="";renderPins()},300)}
+    if(h===prefs.pinHash){Sfx.play("unlock");unlocked=true;$("lock").hidden=true;document.body.classList.remove("locked");say("おかえり ! Contente de te revoir ✿");hop()}
+    else{Sfx.play("wrong");const p=$("pins");p.classList.remove("shake");void p.offsetWidth;p.classList.add("shake");$("lockMsg").textContent="Ce n'est pas le bon code, réessaie.";setTimeout(()=>{pinBuf="";renderPins()},300)}
   }
 }
 ["1","2","3","4","5","6","7","8","9","","0","del"].forEach(k=>{
@@ -2209,7 +2319,7 @@ function renderTodo(){
     li.querySelector(".tstar").hidden=!!t.done;
     ck.onclick=()=>toggleTodo(t.id,li);
     li.querySelector(".tstar").onclick=()=>{t.star=!t.star;saveTodo();renderTodo()};
-    li.querySelector(".tdel").onclick=()=>{todo.items=todo.items.filter(x=>x.id!==t.id);saveTodo();renderTodo()};
+    li.querySelector(".tdel").onclick=()=>{Sfx.play("remove");todo.items=todo.items.filter(x=>x.id!==t.id);saveTodo();renderTodo()};
     list.append(li);
   });
   const n=(todo.daily||{})[tk]||0,got=todoPetalsOn(tk);
@@ -2230,16 +2340,16 @@ function toggleTodo(id,li){
       todo.daily={...(todo.daily||{}),[tk]:((todo.daily||{})[tk]||0)+1};
       bonus=todoPetalsOn(tk)>before;capped=!bonus&&before>=TODO_MAX_PETALS;
     }
-    saveTodo();li.classList.add("pop");buzz();petals(bonus?18:8);hop();
+    saveTodo();li.classList.add("pop");Sfx.play("check");if(bonus)setTimeout(()=>Sfx.play("petals"),260);buzz();petals(bonus?18:8);hop();
     const open=todo.items.filter(x=>!x.done).length;
     say(bonus?"Bravo ! +1 pétale pour toi ✿":capped&&!open?"Tout est fait ! Tu as déjà tes 3 pétales du jour ✿":open?["Une de moins ! がんばって ✿","Bien joué ~","Tu avances super bien !"][Math.floor(Math.random()*3)]:"Tout est fait ! お疲れさま ✿✿");
     setTimeout(()=>{renderTodo();checkNew();renderSide()},350);
-  } else {t.doneAt=null;t.doneTime=null;saveTodo();renderTodo()}
+  } else {Sfx.play("uncheck");t.doneAt=null;t.doneTime=null;saveTodo();renderTodo()}
 }
 $("todoForm").addEventListener("submit",e=>{
   e.preventDefault();const v=$("todoIn").value.trim();if(!v)return;
   if((todo.items||[]).length>=200){say("Ta liste est très longue ! Termine ou supprime quelques tâches d'abord.");return}
-  todo.items=[...(todo.items||[]),{id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:v.slice(0,120),done:false,star:false,created:Date.now()}];
+  Sfx.play("add");todo.items=[...(todo.items||[]),{id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:v.slice(0,120),done:false,star:false,created:Date.now()}];
   $("todoIn").value="";todoFilter="todo";saveTodo();renderTodo();
 });
 
@@ -2352,7 +2462,7 @@ function renderSpread(){
   $("rprev").disabled=rd.i===0;$("rnext").disabled=rd.i===n-1;
 }
 function turn(dir){
-  const ni=rd.i+dir;if(ni<0||ni>=spreadCount()||rd.anim)return;
+  const ni=rd.i+dir;if(ni<0||ni>=spreadCount()||rd.anim)return;Sfx.play("page");
   if(rd.mode==="scroll"){scrollToCard(ni);return}
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduce||isSingle()){rd.i=ni;renderSpread();if(!reduce){const sp=$("spread");sp.style.setProperty("--sx",dir>0?"40px":"-40px");sp.classList.remove("slide");void sp.offsetWidth;sp.classList.add("slide")}return}
@@ -2366,6 +2476,7 @@ function turn(dir){
   setTimeout(()=>{under.remove();t.remove();rd.anim=false},780);
 }
 function openReader(startKey){
+  Sfx.play("page");
   rd.pages=Object.keys(entries).filter(k=>hasContent(entries[k])).sort();
   rd.stamps={};objectives().forEach(o=>{if(o.done){(rd.stamps[o.done]=rd.stamps[o.done]||[]).push(o)}});
   const idx=startKey?rd.pages.indexOf(startKey):-1;rd.i=idx>=0?idx+1:0;rd.anim=false;
@@ -2465,7 +2576,7 @@ function showView(v){
   if(v==="deco"){renderDeco()}
   try{store.setItem("nikki.view",v)}catch(e){}
 }
-document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();showView(t.dataset.v)}));
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();Sfx.play("tab");showView(t.dataset.v)}));
 function buzz(kind){try{const H=PL_().Haptics;if(H)H.impact({style:kind||"LIGHT"})}catch(e){}}
 function updateBadges(){
   try{
@@ -2509,7 +2620,7 @@ async function exportDeco(){
   row.append(btn);body.append(img,row,msg);
   btn.onclick=async()=>{
     btn.disabled=true;
-    try{const r=await saveOrShare(fname,b64,{base64:true,mime:"image/png",title:"Mon coin déco"});msg.textContent=r==="shared"?"C'est parti ✿":"Image téléchargée ✿";say("Ton joli coin déco est prêt ✿");hop();buzz()}
+    Sfx.play("share");try{const r=await saveOrShare(fname,b64,{base64:true,mime:"image/png",title:"Mon coin déco"});msg.textContent=r==="shared"?"C'est parti ✿":"Image téléchargée ✿";say("Ton joli coin déco est prêt ✿");hop();buzz()}
     catch(e){msg.textContent=/cancel/i.test(String(e&&e.message))?"Partage annulé.":"Ça n'a pas marché. Réessaie dans un instant."}
     finally{btn.disabled=false}
   };
