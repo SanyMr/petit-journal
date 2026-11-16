@@ -438,7 +438,7 @@ body.locked .wrap{visibility:hidden}
 .rscroll .leaf{overflow:visible;flex:none;border-radius:18px;background:var(--paper);box-shadow:0 8px 20px rgba(0,0,0,.1);content-visibility:auto;contain-intrinsic-size:auto 640px;width:100%;max-width:760px;justify-self:center}
 .rscroll .leaf.cover{background:linear-gradient(135deg,color-mix(in srgb,var(--sakura) 30%,var(--paper)),var(--paper))}
 .rscroll .pnum{right:24px;left:auto}
-@media (max-width:760px){.rscroll{height:auto;min-height:0}.rhead .note{order:3;width:100%;text-align:left;margin:0}}
+@media (max-width:760px){#reader .reader{position:fixed;inset:0;width:auto;height:auto;max-height:none}.rscroll{height:auto;min-height:0;touch-action:pan-y}.rbook{min-height:0}.rhead .note{order:3;width:100%;text-align:left;margin:0}}
 @media (prefers-reduced-motion: reduce){.flame.flick,.flamebtn.bump .flame{animation:none}}
 .nsw{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:12px 14px;cursor:pointer;position:relative}
 .nsw input{position:absolute;opacity:0;width:1px;height:1px}
