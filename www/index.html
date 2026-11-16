@@ -440,6 +440,16 @@ body.locked .wrap{visibility:hidden}
 .rscroll .pnum{right:24px;left:auto}
 @media (max-width:760px){.rscroll{height:auto;min-height:0}.rhead .note{order:3;width:100%;text-align:left;margin:0}}
 @media (prefers-reduced-motion: reduce){.flame.flick,.flamebtn.bump .flame{animation:none}}
+.nsw{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;background:var(--card);border-radius:16px;padding:12px 14px;cursor:pointer;position:relative}
+.nsw input{position:absolute;opacity:0;width:1px;height:1px}
+.nknob{width:46px;height:28px;border-radius:14px;background:var(--line);position:relative;transition:background .2s}
+.nknob::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.nsw input:checked+.nknob{background:var(--sakura-deep)}
+.nsw input:checked+.nknob::after{transform:translateX(18px)}
+.nsw input:focus-visible+.nknob{outline:3px solid var(--sky);outline-offset:2px}
+.nsw b{display:block;font-size:14px}
+.nsw small{display:block;font-size:12px;color:var(--muted);line-height:1.35}
+.nsub{display:grid;gap:8px}
 /* gachapon */
 .gbox{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center}
 .gmachine{position:relative;background:none;border:none;padding:0}
@@ -1833,7 +1843,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();
+  renderDefi(objs);renderGachaCard(objs);renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2076,7 +2086,7 @@ function renderSettings(msg){
   const body=$("modalBody"),sc=$("modal").querySelector(".book").scrollTop;body.innerHTML="";
   const u=unlocks(),ctx=u.ctx;
   const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="10px";
-  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["rappel","Rappel"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
+  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["rappel","Notifications"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
   body.append(seg);
   requestAnimationFrame(()=>{const sel=seg.querySelector('[aria-pressed="true"]');if(sel)sel.scrollIntoView({inline:"center",block:"nearest"})});
   if(settingsTab==="masc"){
@@ -2536,31 +2546,116 @@ function renderBackupTab(body){
   s.append(n,b1,lab,inp,pick,confirmBox,msg);body.append(s);
 }
 
-/* --- daily reminder --- */
-var REMIND_MSG=["Ta mascotte t'attend pour écrire ✿","Une petite page avant de dormir ?","Comment s'est passée ta journée ? 日記","Trois lignes suffisent, promis ~","Ton carnet a hâte de te lire ✿"];
-async function applyReminder(){
+/* --- gentle notifications --- */
+var NOTIF_DEF={on:false,h:20,m:30,soir:true,souvenirs:true,fetes:true,gacha:true};
+function notifPrefs(){
+  if(!prefs.notif){const r=prefs.remind||{};prefs.notif={...NOTIF_DEF,on:!!r.on,h:r.h??20,m:r.m??30}}
+  return {...NOTIF_DEF,...prefs.notif};
+}
+var FETE_NAMES={shogatsu:"le Nouvel an",setsubun:"Setsubun",hina:"Hinamatsuri, la fête des poupées",hanami:"la saison de Hanami",kodomo:"Kodomo no hi, la fête des enfants",tanabata:"Tanabata",tsukimi:"la saison de Tsukimi",obake:"Halloween",noel:"Noël",omisoka:"le réveillon"};
+var NOTIF_SOFT=[
+  "Comment s'est passée ta journée ? {M} t'écoute ✿",
+  "Une petite page avant de dormir ? Même trois lignes, c'est parfait ~",
+  "{M} a préparé ton carnet. Quand tu veux ✿",
+  "Un moment rien qu'à toi ce soir ? 日記",
+  "Raconte-moi un joli détail de ta journée ✿",
+  "Une question douce t'attend : « {Q} »",
+  "Qu'est-ce qui t'a fait sourire aujourd'hui ? {M} est curieux·se ~"
+];
+var NOTIF_FLAME=[
+  "Ta flamme de {S} jours brille encore ✿ Une page pour la faire grandir ?",
+  "{M} garde ta flamme bien au chaud ({S} jours). On écrit un peu ?",
+  "{S} jours d'affilée, quelle jolie série ! Une page ce soir ? ✿"
+];
+var NOTIF_AWAY=[
+  "{M} pense à toi. Ton carnet t'attend, sans aucune pression ✿",
+  "Pas de pression : une page, quand tu en as envie ~",
+  "Coucou ! {M} a gardé ta place au chaud. À bientôt ✿"
+];
+function fillMsg(t,v){return t.replace(/\{(\w)\}/g,(_,k)=>v[k]??"")}
+async function notifPermission(ask){
   const LN=PL_().LocalNotifications;if(!LN)return "na";
-  try{await LN.cancel({notifications:[{id:1001}]})}catch(e){}
-  const r=prefs.remind||{};if(!r.on)return "off";
-  let perm;try{perm=await LN.requestPermissions()}catch(e){return "denied"}
-  if(!perm||perm.display!=="granted")return "denied";
-  await LN.schedule({notifications:[{id:1001,title:"Mon petit journal",body:REMIND_MSG[Math.floor(Math.random()*REMIND_MSG.length)],schedule:{on:{hour:r.h??20,minute:r.m??30},allowWhileIdle:true}}]});
+  try{let p=await LN.checkPermissions();if(p.display!=="granted"&&ask)p=await LN.requestPermissions();return p.display==="granted"?"ok":"denied"}catch(e){return "denied"}
+}
+var planTimer=null;
+function schedulePlan(delay=2500){clearTimeout(planTimer);planTimer=setTimeout(planNotifications,delay)}
+async function planNotifications(){
+  const LN=PL_().LocalNotifications;if(!LN)return "na";
+  try{const pend=await LN.getPending();const ids=(pend.notifications||[]).filter(n=>n.id===1001||(n.id>=3000&&n.id<4000)).map(n=>({id:n.id}));if(ids.length)await LN.cancel({notifications:ids})}catch(e){}
+  const N=notifPrefs();if(!N.on)return "off";
+  if(await notifPermission(false)!=="ok")return "denied";
+  try{await LN.createChannel({id:"doux",name:"Petits rappels doux",description:"Au maximum une notification par jour",importance:3,vibration:false,visibility:0})}catch(e){}
+  const M=(MASCOTS[curMascot()]||MASCOTS.onigiri).name,now=new Date(),list=[];
+  const objs=objectives(),caps=capsInfo(objs).avail,defi=objs.find(o=>o.current&&o.monthly);
+  let s=streak();const writtenToday=written(todayKey());
+  for(let d=0;d<7;d++){
+    const day=new Date();day.setDate(day.getDate()+d);const k=keyOf(day),md=k.slice(5);
+    const at=(h,m)=>{const t=new Date(day);t.setHours(h,m,0,0);return t};
+    const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
+    const vars={M,S:s,Q:PROMPTS[hash(k)%PROMPTS.length]};
+    if(N.fetes){const f=Object.keys(FETE).find(id=>FETE[id](md)&&(id!=="hanami"||md==="04-01")&&(id!=="tsukimi"||md==="09-15"));
+      if(f){add(at(10,0),`C'est ${FETE_NAMES[f]} aujourd'hui ! Une page ce jour-là t'offre un tampon spécial ✿`,{view:"ecrire"});continue}}
+    if(N.souvenirs){const y=new Date(day);y.setFullYear(y.getFullYear()-1);const mo=new Date(day);mo.setMonth(mo.getMonth()-1);
+      const ky=keyOf(y),km=keyOf(mo);
+      if(hasContent(entries[ky])){add(at(12,30),"Il y a un an jour pour jour, tu écrivais dans ton carnet. On relit ce souvenir ? ✿",{view:"journal",key:ky});continue}
+      if(d>0&&hasContent(entries[km])&&day.getDay()===6){add(at(12,30),"Il y a un mois, tu avais écrit une page. Envie de la relire ? ✿",{view:"journal",key:km});continue}}
+    if(N.soir){
+      if(d===0&&writtenToday)continue;
+      if(d>=3&&d%2===1)continue;
+      let body;
+      if(d>=3)body=fillMsg(NOTIF_AWAY[(d+hash(k))%NOTIF_AWAY.length],vars);
+      else if(N.gacha&&d===0&&day.getDay()===0&&defi&&!defi.done){const [c,t]=defi.prog;body=`Ton défi « ${defi.name} » avance : ${Math.min(c,t)} / ${t} ✿ Une page ce soir ?`}
+      else if(s>=2&&(d===0||(d===1&&writtenToday)))body=fillMsg(NOTIF_FLAME[hash(k)%NOTIF_FLAME.length],vars);
+      else body=fillMsg(NOTIF_SOFT[hash(k+"s")%NOTIF_SOFT.length],vars);
+      if(N.gacha&&caps>0&&d<=1&&!/défi/.test(body))body+=` Et ${plural(caps,"capsule")} t'attend${caps>1?"ent":""} au gachapon !`;
+      add(at(N.h,N.m),body);
+    }
+  }
+  try{if(list.length)await LN.schedule({notifications:list})}catch(e){return "error"}
+  return "ok";
+}
+async function testNotif(){
+  const LN=PL_().LocalNotifications;if(!LN)return "na";
+  if(await notifPermission(true)!=="ok")return "denied";
+  try{await LN.createChannel({id:"doux",name:"Petits rappels doux",description:"Au maximum une notification par jour",importance:3,vibration:false,visibility:0})}catch(e){}
+  const M=(MASCOTS[curMascot()]||MASCOTS.onigiri).name;
+  await LN.schedule({notifications:[{id:3999,title:M+" ✿",body:fillMsg(NOTIF_SOFT[0],{M}),channelId:"doux",schedule:{at:new Date(Date.now()+5000),allowWhileIdle:true},smallIcon:"ic_stat_nikki",iconColor:"#d9708d",extra:{view:"ecrire"}}]});
   return "ok";
 }
 function renderReminderTab(body){
-  const s=sec("Rappel quotidien","おしらせ"),r=prefs.remind||{on:false,h:20,m:30};
-  const n=document.createElement("p");n.className="note";n.textContent="Une petite notification chaque jour pour penser à écrire. C'est le meilleur moyen de garder l'habitude (et tes séries de jours) !";
-  const f=document.createElement("form");f.className="pinform";
-  f.innerHTML=`<label for="remTime">Heure du rappel</label><input id="remTime" type="time" value="${pad(r.h??20)}:${pad(r.m??30)}" style="letter-spacing:0">
-    <button class="openbook" type="submit" style="width:auto;justify-self:start">${r.on?"Mettre à jour le rappel":"Activer le rappel"}</button>
-    ${r.on?'<button class="ghost" type="button" id="remOff" style="justify-self:start">Désactiver le rappel</button>':""}<p class="formmsg" id="remMsg" role="status"></p>`;
-  f.onsubmit=async e=>{e.preventDefault();const [h,m]=($("remTime").value||"20:30").split(":").map(Number);prefs.remind={on:true,h,m};savePrefs();
-    const st=await applyReminder();
-    if(st==="ok"){renderSettings();$("remMsg").textContent="Rappel activé chaque jour à "+pad(h)+" h "+pad(m)+" ✿"}
-    else if(st==="denied"){prefs.remind.on=false;savePrefs();$("remMsg").textContent="Les notifications sont bloquées. Autorise-les dans les réglages du téléphone (Applications → Mon petit journal → Notifications)."}
-    else $("remMsg").textContent="Les rappels fonctionnent seulement dans l'application installée sur le téléphone."};
-  s.append(n,f);body.append(s);
-  const off=f.querySelector("#remOff");if(off)off.onclick=async()=>{prefs.remind={...r,on:false};savePrefs();await applyReminder();renderSettings()};
+  const N=notifPrefs(),s=sec("Notifications douces","おしらせ");
+  const n=document.createElement("p");n.className="note";
+  n.textContent="Des petits mots de ta mascotte pour penser à ton carnet, sans stress : jamais plus d'une notification par jour, rien avant 10 h, aucune notification si tu as déjà écrit, et elles se font plus rares si tu fais une pause. Elles ne montrent jamais le contenu de ton journal.";
+  const box=document.createElement("div");box.className="pinform";
+  const sw=(id,label,desc,on)=>`<label class="nsw" for="${id}"><input type="checkbox" id="${id}" ${on?"checked":""}><span class="nknob" aria-hidden="true"></span><span><b>${label}</b><small>${desc}</small></span></label>`;
+  box.innerHTML=sw("nOn","Activer les notifications","Le reste se règle ci-dessous",N.on)+
+    `<div class="nsub" ${N.on?"":"hidden"}>
+      <label for="remTime">Heure du petit mot du soir</label><input id="remTime" type="time" value="${pad(N.h)}:${pad(N.m)}" style="letter-spacing:0">`+
+      sw("nSoir","Le petit mot du soir","Seulement si tu n'as pas encore écrit ce jour-là",N.soir)+
+      sw("nSouv","Souvenirs","« Il y a un an jour pour jour… » pour relire une ancienne page",N.souvenirs)+
+      sw("nFete","Fêtes japonaises","Tanabata, Hanami, Noël… le matin des jours de fête",N.fetes)+
+      sw("nGacha","Gachapon et défis","Glissé dans le petit mot du soir quand une capsule t'attend",N.gacha)+
+      `<button class="ghost" type="button" id="nTest" style="justify-self:start">Essayer une notification</button>
+    </div><p class="formmsg" id="remMsg" role="status"></p>`;
+  s.append(n,box);body.append(s);
+  const save=async(msg)=>{
+    const t=($("remTime")?.value||"20:30").split(":").map(Number);
+    prefs.notif={on:$("nOn").checked,h:t[0],m:t[1],soir:$("nSoir").checked,souvenirs:$("nSouv").checked,fetes:$("nFete").checked,gacha:$("nGacha").checked};
+    savePrefs();box.querySelector(".nsub").hidden=!prefs.notif.on;
+    if(prefs.notif.on){const p=await notifPermission(true);
+      if(p==="denied"){prefs.notif.on=false;$("nOn").checked=false;savePrefs();box.querySelector(".nsub").hidden=true;$("remMsg").textContent="Les notifications sont bloquées. Autorise-les dans les réglages du téléphone (Applications → Mon petit journal → Notifications).";return}
+      if(p==="na"){$("remMsg").textContent="Les notifications fonctionnent seulement dans l'application installée sur le téléphone.";return}}
+    await planNotifications();$("remMsg").textContent=msg||(prefs.notif.on?"C'est noté ✿ Ta mascotte t'écrira à "+pad(prefs.notif.h)+" h "+pad(prefs.notif.m)+".":"Notifications désactivées.");
+  };
+  box.querySelectorAll("input").forEach(i=>i.addEventListener("change",()=>save()));
+  $("nTest").onclick=async()=>{const r=await testNotif();$("remMsg").textContent=r==="ok"?"Regarde ton téléphone dans 5 secondes ✿":r==="na"?"Disponible seulement dans l'application installée.":"Les notifications sont bloquées dans les réglages du téléphone."};
+}
+if(isNative&&PL_().LocalNotifications){
+  PL_().LocalNotifications.addListener("localNotificationActionPerformed",({notification})=>{
+    const x=(notification&&notification.extra)||{};
+    if(x.key&&hasContent(entries[x.key])){showView("journal");openReader(x.key)}
+    else showView(x.view||"ecrire");
+  });
 }
 
 /* --- android back button, relock, status bar --- */
@@ -2576,7 +2671,7 @@ if(isNative){
       A.minimizeApp();
     });
     A.addListener("appStateChange",({isActive})=>{
-      if(!isActive)bgAt=Date.now();
+      if(!isActive){bgAt=Date.now();schedulePlan(0)}
       else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide()}
     });
   }
@@ -2584,7 +2679,7 @@ if(isNative){
 }
 syncStatusBar();
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change",syncStatusBar);
-if(prefs.remind&&prefs.remind.on)applyReminder();
+schedulePlan(1500);
 {const v=store.getItem("nikki.view");if(v&&v!=="ecrire")showView(v)}
 updateBadges();
 
