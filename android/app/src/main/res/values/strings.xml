@@ -10,4 +10,6 @@
     <string name="wd_clock">L\'heure, la date en japonais et ta page du jour</string>
     <string name="wd_prompt">Une nouvelle question chaque jour pour t\'inspirer</string>
     <string name="wd_todo">Tes prochaines tâches</string>
+    <string name="wd_mail">Les petits mots de tes amis et qui a écrit aujourd\'hui</string>
+    <string name="widget_mail_env">Enveloppe</string>
 </resources>

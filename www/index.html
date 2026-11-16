@@ -2621,7 +2621,7 @@ function pushWidget(){
     const days={},prompts={};
     for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
     for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
-    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts});
+    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60),mailNotif:social.mailNotif!==false});
     if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});
   }catch(e){}
 }
@@ -2985,7 +2985,14 @@ async function amisDeleteAccount(){
   fbBusy=false;amisBadge();renderAmis();
 }
 var confirmDel=false,editName=false;
-function amisBadge(){const b=$("badgeAmis");if(!b)return;const n=amis.requests.length+amis.nudges.length;b.hidden=!n;b.textContent=n>9?"9+":n}
+function mailData(){
+  if(!fbUser||!amis.loaded)return fbUser?undefined:{at:Date.now(),signedIn:false};
+  const t=todayKey(),n=amis.nudges[0],f=n&&amis.friends.find(x=>x.uid===n.from);
+  return {at:Date.now(),signedIn:true,count:amis.nudges.length,friends:amis.friends.length,
+    last:n?{name:f?f.name:"Un·e ami·e",mascot:f?f.mascot:"onigiri",text:NUDGES[n.k]||"✿"}:null,
+    band:amis.friends.slice(0,5).map(x=>({n:x.name,m:x.mascot,w:friendWrote(x,t)}))};
+}
+function amisBadge(){if(isNative)scheduleWidget(400);const b=$("badgeAmis");if(!b)return;const n=amis.requests.length+amis.nudges.length;b.hidden=!n;b.textContent=n>9?"9+":n}
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function mascotEl(m,acc,size){const s=document.createElementNS("http://www.w3.org/2000/svg","svg");s.setAttribute("viewBox","-6 -6 112 112");s.setAttribute("width",size);s.setAttribute("height",size);s.setAttribute("aria-hidden","true");s.style.overflow="visible";s.innerHTML=mascotInner(MASCOTS[m]?m:"onigiri",acc||[],false);return s}
 function renderAmis(){
@@ -3082,7 +3089,9 @@ function renderAmis(){
   const en=el("button","linkbtn","Changer de pseudo");en.onclick=()=>{editName=true;renderAmis()};
   const so=el("button","linkbtn","Se déconnecter");so.onclick=amisSignOut;
   const dl=el("button","linkbtn danger",confirmDel?"Sûr·e ? Touche encore pour tout supprimer":"Supprimer mon compte amis");dl.onclick=amisDeleteAccount;
-  foot.append(en,so,dl);box.append(foot);
+  const nt=el("button","linkbtn",social.mailNotif===false?"Me prévenir des petits mots : non":"Me prévenir des petits mots : oui");
+  nt.onclick=()=>{social.mailNotif=social.mailNotif===false;saveSocial();scheduleWidget(100);renderAmis()};
+  foot.append(nt,en,so,dl);box.append(foot);
 }
 
 /* --- deep links from widgets --- */
@@ -3091,6 +3100,7 @@ function routeUrl(url){
   const v=url.replace(/^petitjournal:\/*/,"").split(/[/?#]/)[0];
   closeReader();closeModal(true);
   if(v==="todo")showView("todo");
+  else if(v==="amis")showView("amis");
   else if(v==="flamme"){showView("ecrire");setTimeout(openFlame,250)}
   else{openDay(todayKey());showView("ecrire")}
 }

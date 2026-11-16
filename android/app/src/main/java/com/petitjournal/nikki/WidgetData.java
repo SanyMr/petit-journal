@@ -80,6 +80,7 @@ final class WidgetData {
         for (int id : m.getAppWidgetIds(new ComponentName(c, ClockWidget.class))) ClockWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, PromptWidget.class))) PromptWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, TodoWidget.class))) TodoWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, MailWidget.class))) MailWidget.render(c, m, id);
     }
 
     private WidgetData() { }

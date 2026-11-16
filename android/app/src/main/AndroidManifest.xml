@@ -45,6 +45,10 @@
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_week_info" />
         </receiver>
+        <receiver android:name=".MailWidget" android:exported="false" android:label="Boîte aux lettres">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_mail_info" />
+        </receiver>
         <receiver android:name=".TodoWidget" android:exported="false" android:label="Ma to-do">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_todo_info" />

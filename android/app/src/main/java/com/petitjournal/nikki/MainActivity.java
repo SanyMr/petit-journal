@@ -8,5 +8,6 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(WidgetPlugin.class);
         super.onCreate(savedInstanceState);
+        try { MailWorker.schedule(this); } catch (Exception ignored) { }
     }
 }
