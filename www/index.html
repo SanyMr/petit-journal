@@ -404,6 +404,42 @@ body.locked .wrap{visibility:hidden}
 @keyframes slide{from{opacity:0;transform:translateX(var(--sx,30px))}}
 @media (max-width:719px){.rhead h2 .jp{display:none}.rhead .note{font-size:12px;text-align:right}.reader{padding:12px}.rbook{height:calc(100vh - 170px)}.leaf{padding:22px 18px 36px}}
 @media (prefers-reduced-motion: reduce){.turn,.spread.slide{animation:none!important}}
+/* flame + scroll book */
+.flamebtn{border:none;cursor:pointer;position:relative}
+.flamebtn .flame{width:22px;height:22px;overflow:visible}
+.flamebtn.glow{box-shadow:0 3px 0 var(--line),0 0 16px color-mix(in srgb,var(--glow) 60%,transparent)}
+.flame.flick{transform-origin:50% 90%;animation:flick 1.8s ease-in-out infinite}
+@keyframes flick{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.07,.95) rotate(-3deg)}60%{transform:scale(.96,1.06) rotate(2deg)}}
+.flame.dim{opacity:.5;filter:saturate(.5)}
+.fdot{position:absolute;top:1px;right:1px;width:10px;height:10px;border-radius:50%;background:var(--sakura-deep);border:2px solid var(--card)}
+.flamebtn.bump .flame{animation:fbump .7s ease}
+@keyframes fbump{40%{transform:scale(1.6) rotate(-6deg)}}
+.flbl{font-size:13px}
+.fhero{display:grid;justify-items:center;text-align:center;gap:2px;margin:6px 0 10px}
+.fhero .flame{width:118px;height:118px}
+.fhero b{font-family:var(--display);font-size:48px;color:var(--sakura-deep);line-height:1;font-weight:500}
+.fhero span{font-weight:700}
+.fhero small{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.fweek{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0}
+.fweek div{display:grid;justify-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
+.fweek span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:2px solid var(--line)}
+.fweek span.on{background:color-mix(in srgb,#ffb347 18%,var(--card));border-color:#ffb347}
+.fweek span svg{width:22px;height:22px}
+.fweek span.today{outline:2px dashed var(--sakura-deep);outline-offset:2px}
+.fmsg{background:var(--card);border-radius:14px;padding:10px 14px;text-align:center;font-weight:500;margin:0}
+.flevels{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.flevels span{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;background:var(--card);border-radius:99px;padding:4px 10px 4px 6px}
+.flevels svg{width:18px;height:18px}
+.flevels span.off{opacity:.4}
+.rhead{flex-wrap:wrap}
+.rmode{margin-left:auto}
+.rhead .rmode+.note{margin-left:0}
+.rscroll{position:relative;overflow-y:auto;height:min(68vh,640px);display:grid;gap:18px;align-content:start;padding:6px 4px 28px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.rscroll .leaf{overflow:visible;flex:none;border-radius:18px;background:var(--paper);box-shadow:0 8px 20px rgba(0,0,0,.1);content-visibility:auto;contain-intrinsic-size:auto 640px;width:100%;max-width:760px;justify-self:center}
+.rscroll .leaf.cover{background:linear-gradient(135deg,color-mix(in srgb,var(--sakura) 30%,var(--paper)),var(--paper))}
+.rscroll .pnum{right:24px;left:auto}
+@media (max-width:760px){.rscroll{height:auto;min-height:0}.rhead .note{order:3;width:100%;text-align:left;margin:0}}
+@media (prefers-reduced-motion: reduce){.flame.flick,.flamebtn.bump .flame{animation:none}}
 /* gachapon */
 .gbox{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center}
 .gmachine{position:relative;background:none;border:none;padding:0}
@@ -529,7 +565,7 @@ input,textarea,select{font-size:16px}
     <h1 class="atitle">Mon petit journal<small>にっき · rien qu'à toi</small></h1>
   </div>
   <div class="abtns">
-    <span class="chip chipmini" title="Jours écrits à la suite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3 4 4.5 4 9a4 4 0 0 1-8 0c0-2 1-3 1.5-4 .3 1.5 1.2 2 2 2C11 8 11 5.5 12 3z" fill="#ff9a6b"/></svg><span class="num" id="streak">0</span></span>
+    <button class="chip chipmini flamebtn" id="flameBtn" aria-label="Ma flamme"></button>
     <button class="iconbtn round" id="setBtn" aria-label="Réglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg></button>
     <button class="iconbtn round" id="lockBtn" hidden aria-label="Verrouiller le journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
   </div>
@@ -677,8 +713,9 @@ input,textarea,select{font-size:16px}
 
 <div class="overlay" id="reader" hidden>
   <div class="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
-    <div class="rhead"><h2 id="readerTitle">Mon livre <span class="jp">にっきちょう</span></h2><span class="note" id="rpos" style="margin:0"></span><button class="close" id="rclose" aria-label="Fermer le livre">×</button></div>
+    <div class="rhead"><h2 id="readerTitle">Mon livre <span class="jp">にっきちょう</span></h2><div class="seg rmode" id="rmode" role="group" aria-label="Mode de lecture"><button data-m="pages">Pages</button><button data-m="scroll">Défiler</button></div><span class="note" id="rpos" style="margin:0"></span><button class="close" id="rclose" aria-label="Fermer le livre">×</button></div>
     <div class="rbook" id="rbook"><div class="spread" id="spread"></div></div>
+    <div class="rscroll" id="rscroll" hidden></div>
     <div class="rnav"><button class="ghost" id="rprev">‹ Précédente</button><label for="rrange" class="sr">Aller à la page</label><input type="range" id="rrange" min="0" value="0"><button class="ghost" id="rnext">Suivante ›</button></div>
   </div>
 </div>
@@ -705,7 +742,7 @@ const store=(()=>{
     async init(){
       db=await open();
       if(db)await new Promise(res=>{try{const rq=db.transaction("kv").objectStore("kv").openCursor();rq.onsuccess=()=>{const c=rq.result;if(c){mem.set(c.key,c.value);c.continue()}else res()};rq.onerror=()=>res()}catch(e){res()}});
-      if(!mem.size){try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("nikki."))this.setItem(k,store.getItem(k))}}catch(e){}}
+      if(!mem.size){try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("nikki."))this.setItem(k,localStorage.getItem(k))}}catch(e){}}
       try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
     },
     getItem:k=>mem.has(k)?mem.get(k):null,
@@ -1741,11 +1778,60 @@ function renderAlbum(){
   body.append(grid);
 }
 
+
+/* ================= flame ================= */
+var FLAME_LV=[
+  {min:100,c1:"url(#gHolo)",c2:"#fff6c2",name:"Flamme arc-en-ciel",glow:"#f6c945"},
+  {min:30,c1:"#7f8cff",c2:"#bdf3ff",name:"Flamme bleue",glow:"#7f8cff"},
+  {min:7,c1:"#ff5e5e",c2:"#ffb347",name:"Grande flamme",glow:"#ff7a59"},
+  {min:3,c1:"#ff8a4c",c2:"#ffd166",name:"Flamme",glow:""},
+  {min:1,c1:"#ffb36b",c2:"#ffe08a",name:"Petite flamme",glow:""},
+  {min:0,c1:"#d6cbd2",c2:"#eee6eb",name:"Flamme éteinte",glow:""}
+];
+var flameLast=null;
+function flameLevel(n){return FLAME_LV.find(l=>n>=l.min)}
+function flameSvg(n,dim,face,anim=true){
+  const l=flameLevel(n);
+  return `<svg viewBox="0 0 24 24" aria-hidden="true" class="flame${n&&anim?" flick":""}${dim?" dim":""}"><path d="M12 1.5C13.2 6 18.5 8 18.5 14.5a6.5 6.5 0 0 1-13 0c0-3.2 1.7-5 2.8-6.4.4 2.1 1.7 3.2 3 3.2C10.6 8 10.8 4.8 12 1.5z" fill="${l.c1}"/><path d="M12 10.5c.7 2.1 3.2 3.2 3.2 5.8a3.2 3.2 0 0 1-6.4 0c0-1.6.9-2.4 1.5-3.2.2 1 .9 1.6 1.5 1.6-.3-1.4-.4-2.8.2-4.2z" fill="${l.c2}"/>`+
+    (face?'<circle cx="10.7" cy="16.2" r=".65" fill="#4b3a47"/><circle cx="13.3" cy="16.2" r=".65" fill="#4b3a47"/><path d="M11.4 17.5q.6.55 1.2 0" stroke="#4b3a47" stroke-width=".45" fill="none" stroke-linecap="round"/>':"")+`</svg>`;
+}
+function renderFlame(){
+  const b=$("flameBtn");if(!b)return;
+  const n=streak(),today=written(todayKey()),l=flameLevel(n),risk=n>0&&!today;
+  b.innerHTML=flameSvg(n,risk,false)+`<span class="num">${n}</span>`+(b.dataset.long?`<span class="flbl">${n>1?"jours d'affilée":"jour d'affilée"}</span>`:"")+(risk?'<i class="fdot" aria-hidden="true"></i>':"");
+  b.classList.toggle("glow",!!l.glow&&today);b.style.setProperty("--glow",l.glow||"transparent");
+  b.setAttribute("aria-label",`${plural(n,"jour")} d'affilée.${risk?" Écris aujourd'hui pour garder ta flamme.":""} Voir ma flamme`);
+  if(flameLast!==null&&n>flameLast&&today){b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump");say(n===1?"Ta flamme est allumée ! Reviens demain pour la faire grandir ✿":"Ta flamme grandit : "+n+" jours d'affilée ✿")}
+  flameLast=n;
+}
+function openFlame(){openModal("Ma flamme","ほのお",renderFlameSheet)}
+function renderFlameSheet(){
+  const body=$("modalBody"),n=streak(),today=written(todayKey()),l=flameLevel(n),{st}=stampState(),best=Math.max(st.maxStreak||0,n);
+  body.innerHTML="";
+  const hero=document.createElement("div");hero.className="fhero";
+  hero.innerHTML=flameSvg(n,n>0&&!today,true)+`<b>${n}</b><span>${n>1?"jours d'affilée":"jour d'affilée"}</span><small>${l.name}</small>`;
+  const msg=document.createElement("p");msg.className="fmsg";
+  msg.textContent=n===0?"Écris une page aujourd'hui pour allumer ta flamme ✿":today?"Ta flamme brille aujourd'hui ! Reviens demain pour la faire grandir.":"Tu n'as pas encore écrit aujourd'hui : écris une page avant minuit pour garder ta flamme !";
+  const wk=document.createElement("div");wk.className="fweek";
+  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),on=written(k);
+    const c=document.createElement("div");c.innerHTML=`<span class="${on?"on":""}${i===0?" today":""}">${on?flameSvg(Math.max(n,1),false,false,false):""}</span>${["D","L","M","M","J","V","S"][d.getDay()]}`;c.title=frDate(k,{weekday:"long",day:"numeric",month:"long"})+(on?" : page écrite":"");wk.append(c)}
+  const tiles=document.createElement("div");tiles.className="tiles";tiles.style.gridTemplateColumns="repeat(2,minmax(0,1fr))";
+  tiles.innerHTML=`<div class="tile"><b>${best}</b><span>meilleure série</span></div><div class="tile"><b>${Object.keys(entries).filter(written).length}</b><span>pages au total</span></div>`;
+  const MIL=[3,7,14,30,60,100,200,365],next=MIL.find(m=>m>n);
+  const nx=document.createElement("div");nx.style.margin="14px 0 0";
+  if(next){nx.innerHTML=`<p class="note" style="margin:0 0 6px;text-align:center">Prochain palier : <b>${next} jours</b> · encore ${plural(next-n,"jour")}</p><span class="bigbar" style="width:100%"><i style="width:${n/next*100}%"></i></span>`}
+  const lv=document.createElement("div");lv.className="flevels";
+  [[1,"1 jour"],[3,"3 jours"],[7,"7 jours"],[30,"30 jours"],[100,"100 jours"]].forEach(([m,t])=>{const sp=document.createElement("span");sp.className=best>=m?"":"off";sp.innerHTML=flameSvg(m,false,false,false)+t+" · "+flameLevel(m).name;lv.append(sp)});
+  const tip=document.createElement("p");tip.className="note";tip.style.textAlign="center";tip.textContent="Ta flamme grandit chaque jour où tu écris, et change de couleur à 7, 30 et 100 jours. Un jour sans page, et elle s'éteint !";
+  body.append(hero,msg,wk,tiles,nx,lv,tip);
+}
+$("flameBtn").onclick=openFlame;
+
 /* ================= side ================= */
 function streak(){let d=new Date();if(!written(keyOf(d)))d.setDate(d.getDate()-1);let s=0;while(written(keyOf(d))){s++;d.setDate(d.getDate()-1)}return s}
 function renderSide(){
   const objs=objectives();
-  $("streak").textContent=streak();
+  renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
   renderDefi(objs);renderGachaCard(objs);renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();
 }
@@ -2221,6 +2307,31 @@ function singleLeaf(i){
   const l=mk("div","leaf"),k=rd.pages[i-1];dayText(k,l,"");l.querySelector(".pnum").remove();
   const sep=mk("div");sep.style.height="18px";l.append(sep);dayDeco(k,l,"p. "+i);return l;
 }
+function readerPos(){
+  const n=spreadCount();
+  $("rpos").textContent=rd.i===0?"Couverture":rd.i===n-1?"Fin":"Jour "+rd.i+" / "+rd.pages.length+" · "+frDate(rd.pages[rd.i-1],{day:"numeric",month:"short",year:"numeric"});
+  $("rrange").max=n-1;$("rrange").value=rd.i;$("rrange").setAttribute("aria-valuetext",$("rpos").textContent);
+  $("rprev").disabled=rd.i===0;$("rnext").disabled=rd.i===n-1;
+}
+var rdObs=null;
+function getPref(k){try{return (typeof store!=="undefined"?store:localStorage).getItem(k)}catch(e){return null}}
+function setPref(k,v){try{(typeof store!=="undefined"?store:localStorage).setItem(k,v)}catch(e){}}
+function renderScroll(){
+  const box=$("rscroll");box.innerHTML="";const n=spreadCount();
+  for(let i=0;i<n;i++){const l=singleLeaf(i);l.classList.add("scard");l.dataset.i=i;box.append(l)}
+  if(rdObs)rdObs.disconnect();
+  if("IntersectionObserver" in window){rdObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){rd.i=+e.target.dataset.i;readerPos()}})},{root:box,rootMargin:"-40% 0px -55% 0px"});
+    box.querySelectorAll(".scard").forEach(c=>rdObs.observe(c))}
+  readerPos();requestAnimationFrame(()=>scrollToCard(rd.i,false));
+}
+function scrollToCard(i,smooth=true){const box=$("rscroll"),c=box.querySelector(`[data-i="${i}"]`);if(c){box.scrollTo({top:c.offsetTop-6,behavior:smooth&&!matchMedia("(prefers-reduced-motion: reduce)").matches?"smooth":"auto"});rd.i=i;readerPos()}}
+function applyMode(){
+  const scroll=rd.mode==="scroll";
+  $("rmode").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.m===rd.mode)));
+  $("rbook").hidden=scroll;$("rscroll").hidden=!scroll;
+  if(scroll)renderScroll();else renderSpread();
+}
+$("rmode").querySelectorAll("button").forEach(b=>b.onclick=()=>{rd.mode=b.dataset.m;setPref("nikki.readmode",rd.mode);applyMode()});
 function renderSpread(){
   const sp=$("spread");sp.innerHTML="";sp.className="spread"+(isSingle()?" single":"");
   if(isSingle())sp.append(singleLeaf(rd.i));else sp.append(leftLeaf(rd.i),rightLeaf(rd.i));
@@ -2232,6 +2343,7 @@ function renderSpread(){
 }
 function turn(dir){
   const ni=rd.i+dir;if(ni<0||ni>=spreadCount()||rd.anim)return;
+  if(rd.mode==="scroll"){scrollToCard(ni);return}
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduce||isSingle()){rd.i=ni;renderSpread();if(!reduce){const sp=$("spread");sp.style.setProperty("--sx",dir>0?"40px":"-40px");sp.classList.remove("slide");void sp.offsetWidth;sp.classList.add("slide")}return}
   rd.anim=true;
@@ -2247,22 +2359,22 @@ function openReader(startKey){
   rd.pages=Object.keys(entries).filter(k=>hasContent(entries[k])).sort();
   rd.stamps={};objectives().forEach(o=>{if(o.done){(rd.stamps[o.done]=rd.stamps[o.done]||[]).push(o)}});
   const idx=startKey?rd.pages.indexOf(startKey):-1;rd.i=idx>=0?idx+1:0;rd.anim=false;
-  rdFocus=document.activeElement;closeModal(true);$("reader").hidden=false;renderSpread();$("rclose").focus();
+  rd.mode=getPref("nikki.readmode")||"pages";rdFocus=document.activeElement;closeModal(true);$("reader").hidden=false;applyMode();$("rclose").focus();
 }
 function closeReader(){if($("reader").hidden)return;$("reader").hidden=true;if(rdFocus&&rdFocus.focus)rdFocus.focus()}
 $("bookBtn").onclick=()=>openReader();
 $("readBtn").onclick=()=>openReader(written(current)||hasContent(entries[current])?current:null);
 $("rclose").onclick=closeReader;
 $("rprev").onclick=()=>turn(-1);$("rnext").onclick=()=>turn(1);
-$("rrange").addEventListener("input",e=>{rd.i=+e.target.value;renderSpread()});
+$("rrange").addEventListener("input",e=>{if(rd.mode==="scroll")scrollToCard(+e.target.value,false);else{rd.i=+e.target.value;renderSpread()}});
 $("reader").addEventListener("click",e=>{if(e.target.id==="reader")closeReader()});
 document.addEventListener("keydown",e=>{if($("reader").hidden)return;
-  if(e.key==="Escape")closeReader();else if(e.key==="ArrowRight"&&e.target.type!=="range")turn(1);else if(e.key==="ArrowLeft"&&e.target.type!=="range")turn(-1)});
+  if(e.key==="Escape")closeReader();else if(rd.mode==="scroll"&&(e.key==="ArrowRight"||e.key==="ArrowLeft")&&e.target.type!=="range")turn(e.key==="ArrowRight"?1:-1);else if(rd.mode==="scroll")return;else if(e.key==="ArrowRight"&&e.target.type!=="range")turn(1);else if(e.key==="ArrowLeft"&&e.target.type!=="range")turn(-1)});
 {let sx=null;const bk=$("rbook");
   bk.addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;sx=e.clientX});
   bk.addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>50)turn(dx<0?1:-1)});
   bk.addEventListener("pointercancel",()=>{sx=null});}
-window.addEventListener("resize",()=>{if(!$("reader").hidden&&!rd.anim)renderSpread()});
+window.addEventListener("resize",()=>{if(!$("reader").hidden&&!rd.anim&&rd.mode!=="scroll")renderSpread()});
 
 /* ================= export deco image ================= */
 function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}
