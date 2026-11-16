@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "759811975729",
+    "project_id": "petit-journal-64125",
+    "storage_bucket": "petit-journal-64125.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759811975729:android:ab9b970721f1b4e5fd4310",
+        "android_client_info": {
+          "package_name": "com.petitjournal.nikki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759811975729-rkuon2i7gtjibjav960m9mdpvk8u4uf7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petitjournal.nikki",
+            "certificate_hash": "29a12e09b0eaaafb89f73c0f1c8eb27dd7923a9b"
+          }
+        },
+        {
+          "client_id": "759811975729-4172rjql60ee5j75dhmrsqj3f49ov5c8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW0I6jqVckG-jUPFipNvU6RVxXU9L9pRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759811975729-4172rjql60ee5j75dhmrsqj3f49ov5c8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
