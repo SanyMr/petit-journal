@@ -523,7 +523,7 @@ button,.tab,.chip,.label,.tagl,.nm,.sub{-webkit-user-select:none;user-select:non
 .page{padding:26px 18px 20px}
 .page::before{width:110px;height:24px;top:-10px}
 .deco{border-top:none;padding-top:0}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:28;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--card);box-shadow:0 -6px 22px rgba(0,0,0,.08);padding:8px 8px calc(8px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;max-width:760px;margin:0 auto}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:28;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:var(--card);box-shadow:0 -6px 22px rgba(0,0,0,.08);padding:8px 8px calc(8px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;max-width:760px;margin:0 auto}
 .tab{position:relative;background:none;border:none;display:grid;justify-items:center;gap:2px;font-size:11px;font-weight:700;color:var(--muted);padding:7px 0 6px;border-radius:16px;min-height:52px;transition:background .2s,color .2s}
 .tab svg{width:24px;height:24px}
 .tab[aria-selected="true"]{color:var(--sakura-deep);background:color-mix(in srgb,var(--sakura) 20%,transparent)}
@@ -565,6 +565,37 @@ input,textarea,select{font-size:16px}
 .keypad{grid-template-columns:repeat(3,72px);gap:12px}
 @media (min-width:761px){.views{padding-top:16px}}
 @media (prefers-reduced-motion: reduce){.view.active,.book{animation:none}}
+/* amis */
+.amis-msg{margin:8px 0}.amis-msg.err{color:var(--shu)}.amis-msg.ok{color:var(--moss);font-weight:700}
+.amis-intro{display:flex;gap:14px;align-items:center;margin:4px 0 10px}
+.amis-lead{font-weight:700;margin:0 0 6px;font-size:16px}
+.amis-promise{margin:0;padding-left:18px;font-size:14px;display:grid;gap:3px}
+.amis-safe{font-size:13px;background:color-mix(in srgb,var(--matcha) 22%,var(--card));border-radius:14px;padding:10px 12px;margin:8px 0 0;line-height:1.45}
+.amis-h{font-weight:700;margin:16px 0 6px;font-size:14px;color:var(--muted)}
+.amis-row{display:flex;gap:8px;margin-top:10px}.amis-row input{flex:1;min-width:0;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font:inherit;background:var(--paper);color:var(--ink)}
+.amis-row .openbook{width:auto;margin:0;flex:none}
+.amis-code{display:flex;align-items:center;justify-content:space-between;gap:10px;background:color-mix(in srgb,var(--sakura) 18%,var(--card));border-radius:16px;padding:10px 14px}
+.amis-k{display:block;font-size:12px;color:var(--muted)}.amis-c{font-size:22px;letter-spacing:3px;font-family:ui-monospace,monospace}
+.amis-req,.amis-nudge{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.amis-req .amis-n{flex:1;font-weight:700}.amis-req .openbook{width:auto;margin:0}
+.amis-nt{flex:1;display:grid}.amis-nt span{font-size:15px}
+.fr-card{border:2px solid var(--line);border-radius:18px;padding:12px;margin-top:10px;display:grid;gap:10px}
+.fr-top{display:flex;gap:12px;align-items:center}.fr-mid{display:grid;gap:2px;min-width:0}
+.fr-name{font-size:17px}.fr-streak{display:flex;align-items:center;gap:4px;font-size:13px}.fr-streak svg{width:20px;height:20px}
+.fr-today{font-size:12px;color:var(--muted)}.fr-today.yes{color:var(--moss);font-weight:700}
+.fr-week{display:flex;align-items:center;gap:6px}.fr-d{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.fr-d.on{background:var(--sakura)}.fr-d.both{background:var(--sakura-deep);box-shadow:0 0 0 2px color-mix(in srgb,var(--sakura) 45%,transparent)}
+.fr-duo{margin-left:auto;font-size:12px;font-weight:700;color:var(--sakura-deep)}
+.fr-rare{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fr-st{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:'Kiwi Maru',serif;font-size:15px;color:#fff;background:var(--rc)}
+.fr-st.r-r{background:var(--rr)}.fr-st.r-t{background:var(--rt)}.fr-st.r-l{background:var(--rl)}
+.fr-cnt{font-size:12px;color:var(--muted);margin-left:4px}
+.fr-act{display:flex;align-items:center;gap:12px}.fr-act .openbook{margin:0;flex:1}.fr-act .openbook:disabled{opacity:.55}
+.fr-nudges{display:flex;flex-wrap:wrap;gap:6px}.fr-nudges .tag{font-size:13px;padding:6px 12px;background:color-mix(in srgb,var(--sakura) 25%,var(--card))}
+.amis-foot{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;margin-top:18px;padding-top:10px;border-top:1px dashed var(--line)}
+.amis-foot .note{width:100%;margin:0}.linkbtn.danger{color:var(--shu)}
+.tab span{white-space:nowrap}
+#amisCode::placeholder{text-transform:none}
 </style>
 </head>
 <body>
@@ -701,6 +732,13 @@ input,textarea,select{font-size:16px}
         <p class="note" id="todoHint" style="margin:8px 0 0"></p>
       </section>
   </section>
+
+  <section class="view" id="v-amis" aria-label="Amis">
+      <section class="card" aria-labelledby="amisTitle">
+        <h2 id="amisTitle">Mes amis <span class="jp">ともだち</span></h2>
+        <div id="amisBody"></div>
+      </section>
+  </section>
 </div>
 
 <nav class="tabbar" role="tablist" aria-label="Sections">
@@ -709,6 +747,7 @@ input,textarea,select{font-size:16px}
   <button class="tab" role="tab" data-v="recomp" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><circle cx="12" cy="12" r="2.2"/></svg><span>Gacha</span><i class="badge" id="badgeRecomp" hidden></i></button>
   <button class="tab" role="tab" data-v="journal" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span>Journal</span></button>
   <button class="tab" role="tab" data-v="todo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg><span>To-do</span><i class="badge" id="badgeTodo" hidden></i></button>
+  <button class="tab" role="tab" data-v="amis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18.5 14.4c1.2.8 1.9 2.4 2.1 4.6"/></svg><span>Amis</span><i class="badge" id="badgeAmis" hidden></i></button>
 </nav>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#f6c945"/><stop offset=".7" stop-color="#e0a21b"/><stop offset="1" stop-color="#fff0a0"/></linearGradient><linearGradient id="gHolo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb3d1"/><stop offset=".25" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#b3f0d1"/><stop offset=".75" stop-color="#b3d4ff"/><stop offset="1" stop-color="#e2b3ff"/></linearGradient></defs><filter id="ink" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -1084,6 +1123,7 @@ const CATS=[
   {id:"col",name:"Collection & déco",jp:"あつめる",color:"var(--sora)"},
   {id:"defi",name:"Défis",jp:"ちょうせん",color:"var(--fuji)"},
   {id:"todo",name:"Organisation",jp:"やること",color:"var(--rr)"},
+  {id:"ami",name:"Amitié",jp:"ともだち",color:"var(--sakura-deep)"},
   {id:"sec",name:"Secrets",jp:"ひみつ",color:"var(--ink)"}
 ];
 const catOf=id=>CATS.find(c=>c.id===id);
@@ -1173,6 +1213,9 @@ const STAMPS=[
   {id:"nishiki",cat:"col",r:"l",kind:"own",k:"錦",kana:"にしき · nishiki",name:"Brocart d'or",mean:"Toute la garde-robe est à toi.",cond:"Débloquer tous les accessoires",p:s=>[s.accs,ACC.length]},
   {id:"nana",cat:"sec",r:"r",hid:true,k:"七",kana:"なな · nana",name:"Chiffre porte-bonheur",mean:"Exactement 77 mots. Le hasard fait bien les choses !",cond:"Écrire une page d'exactement 77 mots",p:s=>[s.lucky77,1]},
   {id:"nanairo",cat:"sec",r:"t",hid:true,k:"色",kana:"なないろ · nanairo",name:"Sept couleurs du cœur",mean:"Cinq jours, cinq humeurs différentes : un vrai arc-en-ciel.",cond:"Choisir les 5 humeurs différentes sur 5 jours d'affilée",p:s=>[s.rainbow,1]},
+  {id:"tomo",cat:"ami",r:"c",kind:"col",k:"友",kana:"とも · tomo",name:"Ami·e",mean:"Quelqu'un écrit à tes côtés désormais.",cond:"Ajouter ton premier ami",p:s=>[s.friends||0,1]},
+  {id:"nakama",cat:"ami",r:"r",kind:"col",k:"仲",kana:"なかま · nakama",name:"Petite bande",mean:"Trois amis pour s'encourager, c'est une vraie équipe.",cond:"Avoir 3 amis",p:s=>[s.friends||0,3]},
+  {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
   {id:"sumi",cat:"todo",r:"c",kind:"col",k:"済",kana:"すみ · sumi",name:"Première tâche",mean:"Une chose de faite, bravo !",cond:"Terminer une tâche de ta to-do",p:s=>[s.todoDone,1]},
   {id:"kinben",cat:"todo",r:"r",kind:"col",k:"勤",kana:"きんべん · kinben",name:"Appliqué·e",mean:"Vingt-cinq tâches terminées, quelle efficacité !",cond:"Terminer 25 tâches",p:s=>[s.todoDone,25]},
   {id:"tatsujin",cat:"todo",r:"t",kind:"col",k:"達",kana:"たつじん · tatsujin",name:"Expert·e",mean:"Cent tâches : rien ne te résiste.",cond:"Terminer 100 tâches",p:s=>[s.todoDone,100]},
@@ -1537,7 +1580,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted()};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -1656,12 +1699,14 @@ function nextToast(){
     go=()=>{settingsTab="acc";openSettings()};say("Plein de nouveaux accessoires ! On essaie ? ✿")}
   else if(it.acc){rar=it.acc.r;icon=`<svg viewBox="0 0 100 100" class="press" style="overflow:visible">${mascotInner(curMascot(),[it.acc.id],false)}</svg>`;t1="Nouvel accessoire · "+RAR[it.acc.r].stars+" "+RAR[it.acc.r].name;t2=it.acc.name;t3="Touche ici pour l'essayer";
     go=()=>{settingsTab="acc";openSettings()};say("Oh, un nouvel accessoire ! Je peux l'essayer ? ✿")}
+  else if(it.nudge){icon=`<svg viewBox="-6 -6 112 112" class="press" style="overflow:visible">${mascotInner(MASCOTS[it.mascot]?it.mascot:"onigiri",it.acc||[],false)}</svg>`;t1="Un petit mot de "+it.name;t2=NUDGES[it.nudge.k]||"✿";t3="Touche ici pour voir tes amis";
+    go=()=>showView("amis");say(it.name+" pense à toi ✿")}
   else if(it.summary){rar=it.o.r;icon=stampSvg(it.o,true);t1="ぽん！ Tes récompenses sont arrivées";t2=it.summary+" tampons dans ton carnet";t3="+ "+plural(it.caps,"capsule")+" de gachapon à ouvrir !";
     go=()=>openBook();say("Regarde ton carnet, il s'est rempli ! ✿")}
   else{const o=it.o;rar=o.r;icon=stampSvg(o,true);t1=(o.monthly?"ぽん！ Défi du mois réussi":"ぽん！ Nouveau tampon")+" · "+RAR[o.r].stars+" "+RAR[o.r].name;t2=o.k+" "+o.name;t3=o.mean+" +"+plural(RAR[o.r].caps,"capsule");
     go=()=>openBook(o.id);say((o.r==="l"?"LÉGENDAIRE !! ":o.r==="t"?"Très rare ! ":"ぽん！ ")+"Tu as gagné le tampon « "+o.name+" » ✿")}
   t.className="toast tr-"+rar;
-  if(it.sticker)Sfx.play("reveal","l");else if(it.masc||it.acc||it.accMany)Sfx.play("sparkle");else Sfx.play("stamp",rar);
+  if(it.nudge)Sfx.play("chime");else if(it.sticker)Sfx.play("reveal","l");else if(it.masc||it.acc||it.accMany)Sfx.play("sparkle");else Sfx.play("stamp",rar);
   t.innerHTML=icon+'<span><span class="t1"></span><span class="t2"></span><span class="t3"></span></span>';
   const sv=t.querySelector("svg");if(sv&&!it.sticker)sv.classList.add("press");
   t.querySelector(".t1").textContent=t1;t.querySelector(".t2").textContent=t2;t.querySelector(".t3").textContent=t3;
@@ -2563,6 +2608,7 @@ function showView(v){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
   window.scrollTo({top:0});
   if(v==="deco"){renderDeco()}
+  if(v==="amis"){renderAmis();if(fbUser)pushProfile(false)}
   try{store.setItem("nikki.view",v)}catch(e){}
 }
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();showView(t.dataset.v)}));
@@ -2581,7 +2627,7 @@ function pushWidget(){
 }
 function scheduleWidget(d=800){clearTimeout(widgetTimer);widgetTimer=setTimeout(pushWidget,d)}
 function updateBadges(){
-  if(isNative)scheduleWidget();
+  if(isNative){scheduleWidget();scheduleProfile()}
   try{
     const n=capsInfo(objectives()).avail,b=$("badgeRecomp");b.hidden=!n;b.textContent=n>99?"99+":n;
     const tp=Object.keys(entries).filter(written).length;$("totalLbl").textContent=tp>1?"pages écrites":"page écrite";
@@ -2776,6 +2822,269 @@ if(isNative&&PL_().LocalNotifications){
   });
 }
 
+/* --- amis (Firebase) : on ne partage jamais le contenu du journal --- */
+var FA=()=>PL_().FirebaseAuthentication,FS=()=>PL_().FirebaseFirestore;
+var social={};try{social=JSON.parse(store.getItem("nikki.social")||"{}")||{}}catch(e){social={}}
+function saveSocial(){try{store.setItem("nikki.social",JSON.stringify(social))}catch(e){}}
+var fbUser=null,fbReady=false,fbBusy=false,fbErr="",amisOpenNudge=null,amisListeners=[];
+var amis={friends:[],requests:[],nudges:[],loaded:false};
+const NUDGES=["Courage ✿","Ta page t'attend ✎","Je pense à toi ♡","Bravo pour ta flamme !","Belle journée ☀","Repose-toi bien ☾","On écrit ensemble ce soir ?","Tu gères ✧","Gros câlin ʕ•ᴥ•ʔ","Merci d'être là ♡"];
+const CODE_ABC="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+const fsGet=async r=>{const x=await FS().getDocument({reference:r});return x&&x.snapshot&&x.snapshot.data?x.snapshot.data:null};
+const fsSet=(r,data,merge)=>FS().setDocument({reference:r,data,merge:!!merge});
+const fsDel=r=>FS().deleteDocument({reference:r});
+const fsList=async r=>{const x=await FS().getCollection({reference:r});return (x&&x.snapshots||[]).filter(s=>s.data).map(s=>({id:s.id,...s.data}))};
+function weekKeys(n){const a=[];for(let i=n-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);a.push(keyOf(d))}return a}
+function friendStreak(f){const t=todayKey(),y=weekKeys(2)[0];if(f.day===t)return f.streak||0;if(f.day===y&&f.today)return f.streak||0;return 0}
+function friendWrote(f,k){return (f.week||[]).includes(k)}
+function myWeek(){return weekKeys(14).filter(written)}
+function duoDays(f){return weekKeys(7).filter(k=>written(k)&&friendWrote(f,k)).length}
+function rareStamps(){
+  try{const ord={l:0,t:1,r:2,c:3};return objectives().filter(o=>o.done&&o.k&&!o.monthly&&STAMPS.some(s=>s.id===o.id)).sort((a,b)=>ord[a.r]-ord[b.r]).slice(0,6).map(o=>o.id)}catch(e){return []}
+}
+function amisErr(e){
+  const m=String(e&&(e.message||e.code)||e||"");
+  if(/cancel|12501|annul/i.test(m))return "";
+  if(/network|unavailable|offline|7:/i.test(m))return "Pas de connexion internet pour l'instant ☁";
+  if(/permission/i.test(m))return "Oups, ce n'est pas autorisé.";
+  return "Oups, quelque chose n'a pas marché. Réessaie dans un instant.";
+}
+async function fbInit(){
+  if(!isNative||!FA()||!FS())return;
+  try{const r=await FA().getCurrentUser();fbUser=r&&r.user||null}catch(e){fbUser=null}
+  fbReady=true;
+  if(fbUser){startAmisListeners();pushProfile(true)}
+  renderAmis();amisBadge();
+}
+async function amisSignIn(){
+  if(fbBusy)return;fbBusy=true;fbErr="";renderAmis();
+  try{
+    const r=await FA().signInWithGoogle();fbUser=r&&r.user||null;
+    if(fbUser){
+      const p=await fsGet("profiles/"+fbUser.uid).catch(()=>null);
+      if(p){social.name=p.name;social.code=p.code;saveSocial()}
+      else if(!social.name){social.name=((fbUser.displayName||"").split(" ")[0]||"").slice(0,24);social.askName=true;saveSocial()}
+      await ensureCode();await pushProfile(true);startAmisListeners();Sfx.play("sparkle");
+    }
+  }catch(e){fbErr=amisErr(e)}
+  fbBusy=false;renderAmis();
+}
+async function ensureCode(){
+  if(social.code&&social.codeUid===fbUser.uid)return;
+  for(let i=0;i<6;i++){
+    let c="";const r=crypto.getRandomValues(new Uint8Array(6));for(const b of r)c+=CODE_ABC[b%CODE_ABC.length];
+    try{await fsSet("codes/"+c,{uid:fbUser.uid});social.code=c;social.codeUid=fbUser.uid;saveSocial();return}catch(e){}
+  }
+  throw new Error("code");
+}
+var profTimer=null,profLast="";
+async function pushProfile(force){
+  if(!fbUser||!social.name||!social.code)return;
+  const data={name:social.name,mascot:curMascot(),acc:wornAcc(),streak:streak(),day:todayKey(),today:written(todayKey()),week:myWeek(),rare:rareStamps(),stampCount:objectives().filter(o=>o.done).length,code:social.code};
+  const sig=JSON.stringify(data);if(!force&&sig===profLast)return;
+  try{await fsSet("profiles/"+fbUser.uid,{...data,updated:Date.now()});profLast=sig}catch(e){}
+}
+function scheduleProfile(){if(!fbUser)return;clearTimeout(profTimer);profTimer=setTimeout(()=>pushProfile(false),4000)}
+async function stopAmisListeners(){for(const id of amisListeners){try{await FS().removeSnapshotListener({callbackId:id})}catch(e){}}amisListeners=[]}
+async function startAmisListeners(){
+  await stopAmisListeners();if(!fbUser)return;const u=fbUser.uid;
+  try{amisListeners.push(await FS().addCollectionSnapshotListener({reference:"requests/"+u+"/from"},(ev)=>{
+    if(!ev)return;amis.requests=(ev.snapshots||[]).filter(s=>s.data).map(s=>({id:s.id,...s.data}));amisBadge();if(curView==="amis")renderAmis()}))}catch(e){}
+  try{amisListeners.push(await FS().addCollectionSnapshotListener({reference:"friends/"+u+"/list"},(ev)=>{
+    if(!ev)return;loadFriends((ev.snapshots||[]).filter(s=>s.data).map(s=>s.id))}))}catch(e){}
+  try{amisListeners.push(await FS().addCollectionSnapshotListener({reference:"nudges/"+u+"/msgs"},(ev)=>{
+    if(!ev)return;const list=(ev.snapshots||[]).filter(s=>s.data).map(s=>({id:s.id,...s.data})).sort((a,b)=>(b.at||0)-(a.at||0));
+    const seenN=social.seenNudges||[];const fresh=list.filter(n=>!seenN.includes(n.id));
+    amis.nudges=list;
+    fresh.forEach(n=>{const f=amis.friends.find(x=>x.uid===n.from);toastQ.push({nudge:n,name:f?f.name:"Un·e ami·e",mascot:f?f.mascot:"onigiri",acc:f?f.acc:[]})});
+    if(fresh.length){social.seenNudges=seenN.concat(fresh.map(n=>n.id)).slice(-60);saveSocial();nextToast()}
+    amisBadge();if(curView==="amis")renderAmis()}))}catch(e){}
+}
+async function loadFriends(ids){
+  const out=[];
+  await Promise.all(ids.map(async id=>{const p=await fsGet("profiles/"+id).catch(()=>null);if(p)out.push({uid:id,...p})}));
+  out.sort((a,b)=>friendStreak(b)-friendStreak(a)||String(a.name).localeCompare(b.name));
+  amis.friends=out;amis.loaded=true;
+  const best=Math.max(0,...out.map(duoDays));
+  const changed=social.friends!==out.length||(social.duoBest||0)<best;
+  social.friends=out.length;social.duoBest=Math.max(social.duoBest||0,best);saveSocial();
+  if(changed){objMemo=null;unlockMemo=null;try{checkNew()}catch(e){}}
+  amisBadge();if(curView==="amis")renderAmis();
+}
+async function addFriend(code){
+  code=String(code||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(code.length!==6){fbErr="Un code ami fait 6 caractères.";renderAmis();return}
+  if(code===social.code){fbErr="C'est ton propre code ✿";renderAmis();return}
+  fbBusy=true;fbErr="";renderAmis();
+  try{
+    const c=await fsGet("codes/"+code);
+    if(!c||!c.uid){fbErr="Ce code n'existe pas. Vérifie les lettres ✿"}
+    else if(amis.friends.some(f=>f.uid===c.uid)){fbErr="Vous êtes déjà amis ♡"}
+    else if(amis.requests.some(r=>r.id===c.uid)){await acceptFriend(c.uid);fbBusy=false;return}
+    else{
+      await fsSet("requests/"+c.uid+"/from/"+fbUser.uid,{name:social.name,mascot:curMascot(),at:Date.now()});
+      social.sent=[...new Set([...(social.sent||[]),c.uid])];saveSocial();
+      fbErr="";amisFlash="Demande envoyée ✉ Ton ami·e doit l'accepter.";Sfx.play("share");
+    }
+  }catch(e){fbErr=amisErr(e)}
+  fbBusy=false;renderAmis();
+}
+var amisFlash="";
+async function acceptFriend(uid){
+  const me=fbUser.uid,now=Date.now();
+  try{
+    await FS().writeBatch({operations:[
+      {type:"set",reference:"friends/"+me+"/list/"+uid,data:{at:now}},
+      {type:"set",reference:"friends/"+uid+"/list/"+me,data:{at:now}},
+      {type:"delete",reference:"requests/"+me+"/from/"+uid}]});
+    amisFlash="Nouvel·le ami·e ♡";Sfx.play("sparkle");buzz("MEDIUM");
+  }catch(e){fbErr=amisErr(e)}
+  renderAmis();
+}
+async function refuseFriend(uid){try{await fsDel("requests/"+fbUser.uid+"/from/"+uid)}catch(e){fbErr=amisErr(e)}renderAmis()}
+async function removeFriend(uid){
+  const me=fbUser.uid;
+  try{await FS().writeBatch({operations:[{type:"delete",reference:"friends/"+me+"/list/"+uid},{type:"delete",reference:"friends/"+uid+"/list/"+me}]})}catch(e){fbErr=amisErr(e)}
+  renderAmis();
+}
+async function sendNudge(uid,k){
+  const day=todayKey();
+  try{
+    await fsSet("nudges/"+uid+"/msgs/"+fbUser.uid+"_"+day,{from:fbUser.uid,day,k,at:Date.now()});
+    social.nudged=social.nudged||{};social.nudged[uid]=day;saveSocial();amisFlash="Petit mot envoyé ✿";Sfx.play("share");buzz();
+  }catch(e){
+    if(/permission/i.test(String(e&&e.message))){social.nudged=social.nudged||{};social.nudged[uid]=day;saveSocial();amisFlash="Tu lui as déjà envoyé un petit mot aujourd'hui ✿"}
+    else fbErr=amisErr(e);
+  }
+  amisOpenNudge=null;renderAmis();
+}
+async function dismissNudge(id){try{await fsDel("nudges/"+fbUser.uid+"/msgs/"+id)}catch(e){}amis.nudges=amis.nudges.filter(n=>n.id!==id);amisBadge();renderAmis()}
+async function amisSignOut(){
+  await stopAmisListeners();try{await FA().signOut()}catch(e){}
+  fbUser=null;amis={friends:[],requests:[],nudges:[],loaded:false};social.code=null;social.codeUid=null;saveSocial();amisBadge();renderAmis();
+}
+async function amisDeleteAccount(){
+  if(!fbUser)return;
+  if(!confirmDel){confirmDel=true;renderAmis();return}
+  confirmDel=false;fbBusy=true;renderAmis();const me=fbUser.uid;
+  try{
+    const ops=[];
+    const fr=await fsList("friends/"+me+"/list").catch(()=>[]);
+    fr.forEach(f=>{ops.push({type:"delete",reference:"friends/"+me+"/list/"+f.id},{type:"delete",reference:"friends/"+f.id+"/list/"+me})});
+    (await fsList("requests/"+me+"/from").catch(()=>[])).forEach(r=>ops.push({type:"delete",reference:"requests/"+me+"/from/"+r.id}));
+    (social.sent||[]).forEach(u=>ops.push({type:"delete",reference:"requests/"+u+"/from/"+me}));
+    (await fsList("nudges/"+me+"/msgs").catch(()=>[])).forEach(n=>ops.push({type:"delete",reference:"nudges/"+me+"/msgs/"+n.id}));
+    if(social.code)ops.push({type:"delete",reference:"codes/"+social.code});
+    ops.push({type:"delete",reference:"profiles/"+me});
+    for(let i=0;i<ops.length;i+=400)await FS().writeBatch({operations:ops.slice(i,i+400)});
+    await stopAmisListeners();
+    try{await FA().deleteUser()}catch(e){try{await FA().signOut()}catch(_){}}
+    fbUser=null;amis={friends:[],requests:[],nudges:[],loaded:false};
+    social={};saveSocial();amisFlash="Ton compte amis a été supprimé. Ton journal, lui, est intact ✿";
+  }catch(e){fbErr=amisErr(e)}
+  fbBusy=false;amisBadge();renderAmis();
+}
+var confirmDel=false,editName=false;
+function amisBadge(){const b=$("badgeAmis");if(!b)return;const n=amis.requests.length+amis.nudges.length;b.hidden=!n;b.textContent=n>9?"9+":n}
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function mascotEl(m,acc,size){const s=document.createElementNS("http://www.w3.org/2000/svg","svg");s.setAttribute("viewBox","-6 -6 112 112");s.setAttribute("width",size);s.setAttribute("height",size);s.setAttribute("aria-hidden","true");s.style.overflow="visible";s.innerHTML=mascotInner(MASCOTS[m]?m:"onigiri",acc||[],false);return s}
+function renderAmis(){
+  const box=$("amisBody");if(!box)return;box.textContent="";
+  const msg=(t,cls)=>{const p=el("p","note amis-msg "+(cls||""),t);box.append(p)};
+  if(!isNative||!FA()){msg("Les amis sont disponibles dans l'application Android ✿");return}
+  if(!fbReady){msg("Un instant…");return}
+  if(!fbUser){
+    const intro=el("div","amis-intro");
+    intro.append(mascotEl(curMascot(),wornAcc(),76));
+    const t=el("div");t.append(el("p","amis-lead","Écris en même temps que tes amis !"));
+    const ul=el("ul","amis-promise");
+    ["Encouragez-vous avec de petits mots doux","Voyez vos flammes et vos plus beaux tampons","Relevez le défi : 7 jours écrits ensemble"].forEach(x=>ul.append(el("li",null,x)));
+    t.append(ul);intro.append(t);box.append(intro);
+    box.append(el("p","amis-safe","🔒 Ton journal reste secret : tes amis ne voient jamais ce que tu écris ni tes humeurs. Seulement ton pseudo, ta mascotte, ta flamme et tes tampons."));
+    const b=el("button","openbook",fbBusy?"Connexion…":"Se connecter avec Google");b.disabled=fbBusy;b.onclick=amisSignIn;box.append(b);
+    if(fbErr)msg(fbErr,"err");return;
+  }
+  if(amisFlash){msg(amisFlash,"ok");setTimeout(()=>{amisFlash="";},50)}
+  if(fbErr)msg(fbErr,"err");
+  // pseudo
+  if(social.askName||editName||!social.name){
+    const f=el("form","amis-row");const lb=el("label","sr","Ton pseudo");lb.htmlFor="amisName";
+    const i=el("input");i.id="amisName";i.maxLength=24;i.value=social.name||"";i.placeholder="Ton pseudo (visible par tes amis)";i.autocomplete="off";
+    const b=el("button","openbook","OK");b.type="submit";
+    f.append(lb,i,b);f.onsubmit=e=>{e.preventDefault();const v=i.value.trim().slice(0,24);if(!v)return;social.name=v;social.askName=false;editName=false;saveSocial();pushProfile(true);renderAmis()};
+    box.append(el("p","amis-h","Comment veux-tu t'appeler ?"),f);
+    if(!social.name)return;
+  }
+  // mon code
+  const mine=el("div","amis-code");
+  const c1=el("div");c1.append(el("span","amis-k","Ton code ami"),el("b","amis-c",social.code||"…"));
+  const sh=el("button","ghost","Partager");sh.onclick=()=>{const txt="Ajoute-moi sur Mon petit journal ✿ Mon code ami : "+social.code;try{PL_().Share.share({text:txt}).catch(()=>{})}catch(e){}};
+  mine.append(c1,sh);box.append(mine);
+  // ajouter
+  const f=el("form","amis-row");const lb=el("label","sr","Code ami");lb.htmlFor="amisCode";
+  const i=el("input");i.id="amisCode";i.maxLength=8;i.placeholder="Code de ton ami·e";i.autocomplete="off";i.style.textTransform="uppercase";
+  const b=el("button","openbook",fbBusy?"…":"Ajouter");b.type="submit";b.disabled=fbBusy;
+  f.append(lb,i,b);f.onsubmit=e=>{e.preventDefault();addFriend(i.value)};box.append(f);
+  // demandes
+  if(amis.requests.length){
+    box.append(el("p","amis-h","Demandes d'amis"));
+    amis.requests.forEach(r=>{
+      const row=el("div","amis-req");row.append(mascotEl(r.mascot,[],40),el("span","amis-n",r.name||"?"));
+      const ok=el("button","openbook","Accepter");ok.onclick=()=>acceptFriend(r.id);
+      const no=el("button","ghost","Refuser");no.onclick=()=>refuseFriend(r.id);
+      row.append(ok,no);box.append(row);
+    });
+  }
+  // petits mots reçus
+  if(amis.nudges.length){
+    box.append(el("p","amis-h","Petits mots reçus"));
+    amis.nudges.slice(0,6).forEach(n=>{
+      const fr=amis.friends.find(x=>x.uid===n.from);
+      const row=el("div","amis-nudge");row.append(mascotEl(fr?fr.mascot:"onigiri",fr?fr.acc:[],36));
+      const t=el("div","amis-nt");t.append(el("b",null,fr?fr.name:"Un·e ami·e"),el("span",null,NUDGES[n.k]||"✿"));row.append(t);
+      const ok=el("button","ghost","Merci ♡");ok.onclick=()=>dismissNudge(n.id);row.append(ok);box.append(row);
+    });
+  }
+  // amis
+  box.append(el("p","amis-h",amis.friends.length?"Mes amis ("+amis.friends.length+")":"Mes amis"));
+  if(!amis.friends.length){msg(amis.loaded?"Pas encore d'amis. Partage ton code ou entre celui d'un·e ami·e ✿":"Chargement…");}
+  const days=weekKeys(7),t=todayKey();
+  amis.friends.forEach(fr=>{
+    const card=el("div","fr-card");
+    const top=el("div","fr-top");top.append(mascotEl(fr.mascot,fr.acc,58));
+    const mid=el("div","fr-mid");mid.append(el("b","fr-name",fr.name));
+    const s=friendStreak(fr);
+    const st=el("span","fr-streak");st.innerHTML=flameSvg(Math.max(s,1),!s,false,false);st.append(el("span",null,s?s+(s>1?" jours d'affilée":" jour"):"Flamme éteinte"));mid.append(st);
+    mid.append(el("span","fr-today "+(friendWrote(fr,t)?"yes":""),friendWrote(fr,t)?"✓ a écrit aujourd'hui":"n'a pas encore écrit aujourd'hui"));
+    top.append(mid);card.append(top);
+    const wk=el("div","fr-week");wk.setAttribute("aria-label","Jours écrits cette semaine");
+    days.forEach(k=>{const both=written(k)&&friendWrote(fr,k);const d=el("span","fr-d"+(friendWrote(fr,k)?" on":"")+(both?" both":""));d.title=k;wk.append(d)});
+    const dd=duoDays(fr);wk.append(el("span","fr-duo",dd+"/7 ensemble"));card.append(wk);
+    if((fr.rare||[]).length){
+      const rr=el("div","fr-rare");
+      fr.rare.forEach(id=>{const o=STAMPS.find(x=>x.id===id);if(!o)return;const sp=el("span","fr-st r-"+o.r,o.k);sp.title=o.name+" · "+RAR[o.r].name;rr.append(sp)});
+      rr.append(el("span","fr-cnt",(fr.stampCount||0)+" tampons"));card.append(rr);
+    }
+    const act=el("div","fr-act");
+    const sent=social.nudged&&social.nudged[fr.uid]===t;
+    const nb=el("button","openbook",sent?"Petit mot envoyé ✓":"Envoyer un petit mot");nb.disabled=sent;
+    nb.onclick=()=>{amisOpenNudge=amisOpenNudge===fr.uid?null:fr.uid;renderAmis()};act.append(nb);
+    const rm=el("button","linkbtn","Retirer");rm.onclick=()=>{if(rm.dataset.c){removeFriend(fr.uid)}else{rm.dataset.c="1";rm.textContent="Confirmer ?"}};act.append(rm);
+    card.append(act);
+    if(amisOpenNudge===fr.uid&&!sent){
+      const g=el("div","fr-nudges");NUDGES.forEach((n,k)=>{const b=el("button","tag",n);b.onclick=()=>sendNudge(fr.uid,k);g.append(b)});card.append(g);
+    }
+    box.append(card);
+  });
+  // compte
+  const foot=el("div","amis-foot");
+  foot.append(el("span","note","Connecté·e en tant que "+social.name));
+  const en=el("button","linkbtn","Changer de pseudo");en.onclick=()=>{editName=true;renderAmis()};
+  const so=el("button","linkbtn","Se déconnecter");so.onclick=amisSignOut;
+  const dl=el("button","linkbtn danger",confirmDel?"Sûr·e ? Touche encore pour tout supprimer":"Supprimer mon compte amis");dl.onclick=amisDeleteAccount;
+  foot.append(en,so,dl);box.append(foot);
+}
+
 /* --- deep links from widgets --- */
 function routeUrl(url){
   if(!url||!/^petitjournal:/.test(url))return;
@@ -2803,7 +3112,7 @@ if(isNative){
       A.minimizeApp();
     });
     A.addListener("appStateChange",({isActive})=>{
-      if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget()}
+      if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget();if(fbUser)pushProfile(false)}
       else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide()}
     });
   }
@@ -2814,6 +3123,7 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",syncStatusB
 schedulePlan(1500);
 {const v=store.getItem("nikki.view");if(v&&v!=="ecrire")showView(v)}
 updateBadges();
+fbInit();
 
 </script>
 </body>

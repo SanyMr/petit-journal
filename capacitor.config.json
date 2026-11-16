@@ -17,6 +17,12 @@
     "LocalNotifications": {
       "smallIcon": "ic_stat_nikki",
       "iconColor": "#d9708d"
+    },
+    "FirebaseAuthentication": {
+      "skipNativeAuth": false,
+      "providers": [
+        "google.com"
+      ]
     }
   }
 }

@@ -1,0 +1,54 @@
+rules_version = '2';
+// Mon petit journal : règles de sécurité Firestore.
+// Le contenu du journal n'est JAMAIS envoyé ici : seulement pseudo, mascotte, flamme, jours écrits et tampons.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function me() { return request.auth.uid; }
+    function isFriend(a, b) { return exists(/databases/$(database)/documents/friends/$(a)/list/$(b)); }
+    function requested(to, from) { return exists(/databases/$(database)/documents/requests/$(to)/from/$(from)); }
+    function okName(d) { return d.name is string && d.name.size() > 0 && d.name.size() <= 24; }
+
+    // Profil public visible uniquement par ses amis (et par qui a reçu sa demande)
+    match /profiles/{uid} {
+      allow read: if signedIn() && (me() == uid || isFriend(uid, me()) || requested(me(), uid));
+      allow create, update: if signedIn() && me() == uid && okName(request.resource.data)
+        && request.resource.data.keys().hasOnly(['name','mascot','acc','streak','day','today','week','rare','stampCount','code','updated']);
+      allow delete: if signedIn() && me() == uid;
+    }
+
+    // Codes amis : on peut vérifier un code précis, jamais lister tous les codes
+    match /codes/{code} {
+      allow get: if signedIn();
+      allow create: if signedIn() && code.size() == 6
+        && request.resource.data.keys().hasOnly(['uid']) && request.resource.data.uid == me();
+      allow delete: if signedIn() && resource.data.uid == me();
+    }
+
+    // Demandes d'amis
+    match /requests/{to}/from/{from} {
+      allow read: if signedIn() && (me() == to || me() == from);
+      allow create: if signedIn() && me() == from && to != from && !isFriend(to, from)
+        && okName(request.resource.data) && request.resource.data.keys().hasOnly(['name','mascot','at']);
+      allow delete: if signedIn() && (me() == to || me() == from);
+    }
+
+    // Liste d'amis : créée des deux côtés quand la personne qui a reçu la demande accepte
+    match /friends/{uid}/list/{other} {
+      allow read: if signedIn() && me() == uid;
+      allow create: if signedIn() && request.resource.data.keys().hasOnly(['at'])
+        && ((me() == uid && requested(uid, other)) || (me() == other && requested(other, uid)));
+      allow delete: if signedIn() && (me() == uid || me() == other);
+    }
+
+    // Petits mots : un seul par ami et par jour, choisi dans une liste (pas de texte libre)
+    match /nudges/{to}/msgs/{id} {
+      allow read, delete: if signedIn() && me() == to;
+      allow create: if signedIn() && isFriend(to, me())
+        && request.resource.data.keys().hasOnly(['from','day','k','at'])
+        && request.resource.data.from == me()
+        && request.resource.data.day is string && id == me() + '_' + request.resource.data.day
+        && request.resource.data.k is number && request.resource.data.k >= 0 && request.resource.data.k < 12;
+    }
+  }
+}
