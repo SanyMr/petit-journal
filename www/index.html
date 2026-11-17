@@ -655,6 +655,15 @@ input,textarea,select{font-size:16px}
 .duo-a b{font-size:12px;color:var(--muted)}.duo-at{display:flex;align-items:center;gap:6px}
 .duo-love{font-size:13px;color:var(--sakura-deep);font-weight:700}
 .duo-page{border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-top:10px;display:grid;gap:8px}.duo-day{margin:0;font-size:12px;color:var(--muted);font-weight:700}
+/* souvenirs du jour */
+#memCard{background:linear-gradient(135deg,color-mix(in srgb,#ffe08a 28%,var(--card)),color-mix(in srgb,var(--sakura) 20%,var(--card)));border-radius:18px;padding:12px 14px;display:grid;gap:8px;animation:paperup .5s ease both}
+#memCard[hidden]{display:none}
+.mem-h{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.mem-h b{display:block;font-size:14px}.mem-h small{display:block;font-size:12px;color:var(--muted)}
+.mem-x{background:none;border:none;color:var(--muted);font-size:16px;min-width:36px;min-height:36px;border-radius:50%}
+.mem-it{display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--card);border:none;border-radius:14px;padding:10px 12px;font:inherit;color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.mem-it.year{box-shadow:0 0 0 2px color-mix(in srgb,#e8c25a 70%,transparent)}
+.mem-face{flex:none;width:40px;height:40px;display:block}.mem-face svg{width:100%;height:100%}.mem-dot{display:grid;place-items:center;font-size:22px;color:var(--sakura-deep)}
+.mem-t{display:grid;gap:2px}.mem-t b{font-size:14px;color:var(--sakura-deep)}.mem-t small{font-size:12px;color:var(--muted)}.mem-x2{font-size:14px;line-height:1.45;font-family:'Kiwi Maru',serif;margin-top:2px}
 </style>
 </head>
 <body>
@@ -684,6 +693,8 @@ input,textarea,select{font-size:16px}
         <svg viewBox="0 0 100 100" id="oni" aria-hidden="true"></svg>
         <div class="bubble" id="bubble" role="status">Coucou ! Comment s'est passée ta journée ?</div>
       </div>
+
+      <div id="memCard" hidden></div>
 
       <div>
         <p class="label">Comment tu te sens ? · きもち</p>
@@ -1325,6 +1336,8 @@ const STAMPS=[
   {id:"tomo",cat:"ami",r:"c",kind:"col",k:"友",kana:"とも · tomo",name:"Ami·e",mean:"Quelqu'un écrit à tes côtés désormais.",cond:"Ajouter ton premier ami",p:s=>[s.friends||0,1]},
   {id:"nakama",cat:"ami",r:"r",kind:"col",k:"仲",kana:"なかま · nakama",name:"Petite bande",mean:"Trois amis pour s'encourager, c'est une vraie équipe.",cond:"Avoir 3 amis",p:s=>[s.friends||0,3]},
   {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
+  {id:"oku",cat:"mom",r:"c",kind:"col",k:"憶",kana:"おもいで · omoide",name:"Souvenir retrouvé",mean:"Tu as relu une page d'autrefois, le même jour.",cond:"Relire un souvenir du jour",p:s=>[s.memN||0,1]},
+  {id:"mukashi",cat:"mom",r:"r",kind:"col",k:"昔",kana:"むかし · mukashi",name:"Un an déjà",mean:"Un an plus tard, tu relis ton propre passé.",cond:"Relire une page écrite il y a un an jour pour jour",p:s=>[s.memY||0,1]},
   {id:"tayori",cat:"ecr",r:"c",kind:"col",k:"便",kana:"たより · tayori",name:"Lettre scellée",mean:"Une lettre voyage vers ton futur toi.",cond:"Sceller une lettre au futur moi",p:s=>[s.letters||0,1]},
   {id:"toki",cat:"ecr",r:"r",kind:"col",k:"時",kana:"とき · toki",name:"Voyage dans le temps",mean:"Tu as reçu une lettre de ton passé.",cond:"Ouvrir une lettre au futur moi",p:s=>[s.opened||0,1]},
   {id:"kintegami",cat:"sec",r:"t",kind:"col",k:"金",kana:"きん · kin",name:"Lettre précieuse",mean:"Une lettre au sceau d'or a traversé le temps jusqu'à toi.",cond:"Ouvrir une lettre au sceau doré",p:s=>[s.goldOpened||0,1]},
@@ -1694,7 +1707,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,memN:(coll.mem&&coll.mem.n)||0,memY:(coll.mem&&coll.mem.y)||0,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -2094,7 +2107,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderMem();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2888,7 +2901,8 @@ async function planNotifications(){
       if(f){add(at(10,0),`C'est ${FETE_NAMES[f]} aujourd'hui ! Une page ce jour-là t'offre un tampon spécial ✿`,{view:"ecrire"});continue}}
     if(N.souvenirs){const y=new Date(day);y.setFullYear(y.getFullYear()-1);const mo=new Date(day);mo.setMonth(mo.getMonth()-1);
       const ky=keyOf(y),km=keyOf(mo);
-      if(hasContent(entries[ky])){add(at(12,30),"Il y a un an jour pour jour, tu écrivais dans ton carnet. On relit ce souvenir ? ✿",{view:"journal",key:ky});continue}
+      if(hasContent(entries[ky])){add(at(9,30),"Souviens-toi du "+frDate(ky,{day:"numeric",month:"long"})+" dernier ✿ Il y a un an jour pour jour, tu écrivais dans ton carnet.",{view:"journal",key:ky});continue}
+      {const k6=memShift(k,{m:6});if(d>0&&hasContent(entries[k6])&&day.getDay()===3){add(at(9,30),"Il y a six mois, le "+frDate(k6,{day:"numeric",month:"long"})+", tu écrivais une page. Ton souvenir du jour t'attend ✿",{view:"journal",key:k6});continue}}
       if(d>0&&hasContent(entries[km])&&day.getDay()===6){add(at(12,30),"Il y a un mois, tu avais écrit une page. Envie de la relire ? ✿",{view:"journal",key:km});continue}}
     if(N.soir){
       if(d===0&&writtenToday)continue;
@@ -3502,6 +3516,38 @@ function openDoux(){openModal("Mode doux","やさしいモード",()=>{
 
 $("douxBtn").onclick=openDoux;$("text").addEventListener("input",douxVis);renderLetters();douxVis();
 {const r=lettersAll().filter(l=>!l.opened&&l.open<=todayKey());if(r.length)setTimeout(()=>say("Une lettre de ton passé t'attend dans ton journal ✉"),1500)}
+/* ================= 思い出 : souvenirs du jour ================= */
+function memShift(k,o){const d=dateOf(k);if(o.y)d.setFullYear(d.getFullYear()-o.y);if(o.m)d.setMonth(d.getMonth()-o.m);if(o.w)d.setDate(d.getDate()-7*o.w);return keyOf(d)}
+function memOffs(){return [{y:3,lbl:"Il y a trois ans"},{y:2,lbl:"Il y a deux ans"},{y:1,lbl:"Il y a un an"},{m:6,lbl:"Il y a six mois"},{m:1,lbl:"Il y a un mois"},{w:1,lbl:"Il y a une semaine"}]}
+function memories(day){day=day||todayKey();const out=[];
+  for(const o of memOffs()){const k=memShift(day,o);if(k!==day&&hasContent(entries[k])&&!out.some(x=>x.k===k))out.push({k,lbl:o.lbl,year:!!o.y})}
+  return out}
+function memExcerpt(e){const t=(e.text||"").replace(/\s+/g," ").trim();if(!t)return (e.deco&&e.deco.length)?"Une page décorée de stickers et de souvenirs ✿":"";return t.length>140?t.slice(0,140).replace(/\s\S*$/,"")+"…":t}
+function renderMem(){
+  const box=$("memCard");if(!box)return;const t=todayKey();
+  let hide=null;try{hide=(typeof store!=="undefined"?store:localStorage).getItem("nikki.memhide")}catch(e){}
+  const list=current===t&&hide!==t?memories(t):[];
+  box.hidden=!list.length;box.innerHTML="";if(!list.length)return;
+  const h=document.createElement("div");h.className="mem-h";h.innerHTML='<span><b>思い出 · Souvenirs du jour</b><small>Ce que tu écrivais un '+frDate(t,{day:"numeric",month:"long"})+'</small></span>';
+  const x=document.createElement("button");x.className="mem-x";x.type="button";x.setAttribute("aria-label","Masquer les souvenirs pour aujourd'hui");x.textContent="✕";
+  x.onclick=()=>{try{(typeof store!=="undefined"?store:localStorage).setItem("nikki.memhide",t)}catch(e){}Sfx.play("tick");renderMem()};h.append(x);box.append(h);
+  list.slice(0,2).forEach(m=>{const e=entries[m.k],mood=MOODS.find(x=>x.id===e.mood);
+    const it=document.createElement("button");it.type="button";it.className="mem-it"+(m.year?" year":"");
+    it.innerHTML=(mood?`<span class="mem-face">${face(mood)}</span>`:`<span class="mem-face mem-dot">✿</span>`)+'<span class="mem-t"><b></b><small></small><span class="mem-x2"></span></span>';
+    it.querySelector("b").textContent=m.lbl;it.querySelector("small").textContent=frDate(m.k,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+    it.querySelector(".mem-x2").textContent=memExcerpt(e);
+    it.onclick=()=>openMem(m.k);box.append(it)});
+  if(list.length>2){const more=document.createElement("p");more.className="note";more.style.margin="6px 0 0";more.textContent="+ "+(list.length-2)+" autre"+(list.length>3?"s":"")+" souvenir"+(list.length>3?"s":"")+" à la même date";box.append(more)}
+  if(memSaid!==t){memSaid=t;setTimeout(()=>say(list[0].lbl+", tu écrivais dans ton carnet… On relit ce souvenir ? ✿"),900)}
+}
+var memSaid=null;
+function openMem(k){
+  coll.mem=coll.mem||{n:0,y:0,days:[]};
+  const day=todayKey();if(!(coll.mem.days||[]).includes(day+":"+k)){coll.mem.days=[...(coll.mem.days||[]),day+":"+k].slice(-60);coll.mem.n=(coll.mem.n||0)+1;if(memShift(day,{y:1})===k||memShift(day,{y:2})===k||memShift(day,{y:3})===k)coll.mem.y=(coll.mem.y||0)+1;saveColl();setTimeout(()=>{try{checkNew();renderSide()}catch(e){}},400)}
+  if(typeof showView==="function"&&$("v-journal"))showView("journal");openReader(k);
+}
+
+renderMem();
 </script>
 </body>
 </html>
