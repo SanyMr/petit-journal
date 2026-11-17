@@ -734,6 +734,55 @@ input,textarea,select{font-size:16px}
 .inv-k{margin:0;font-size:13px;color:var(--muted)}.inv-code svg{display:block;width:min(240px,64vw);height:auto;filter:drop-shadow(0 6px 14px rgba(181,80,109,.18))}
 .inv-n{font-family:var(--display);font-weight:500;font-size:19px}.inv-c{font-family:var(--display);font-size:22px;letter-spacing:3px;color:var(--sakura-deep)}
 .inv-h{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+/* ===== sagesse du jour ===== */
+@font-face{font-family:"Yuji Wis";src:url(fonts/yuji-wis.woff2) format("woff2");font-display:swap}
+#wisCard{margin:0}
+.wis-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
+.wis-ctile{flex:none;width:92px;height:74px;border-radius:16px;position:relative;display:grid;place-items:center;background:#17151b radial-gradient(circle at 70% 18%,rgba(239,230,210,.16),transparent 40%);color:#efe6d6;overflow:hidden}
+.wis-ctile .wis-v{font-size:15px;line-height:1.04;max-height:66px}.wis-ctile .wis-vs{font-size:12px}
+.wis-ctile .wis-seal{position:absolute;left:7px;bottom:7px;width:14px;height:14px;font-size:10px}
+.wis-cbody{flex:1;display:grid;gap:3px;min-width:0}.wis-cbody b{font-family:var(--display);font-weight:500;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.wis-cbody b small{font-size:12px;color:var(--muted)}
+.wis-cfr{font-size:13.5px;line-height:1.35;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wis-v{font-family:"Yuji Wis","Yuji Syuku",serif;writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.02em;white-space:normal;display:block}
+.wis-seal{display:grid;place-items:center;background:#b8322b;color:#fbeee0;border-radius:3px;font-family:"Yuji Wis","Yuji Syuku",serif;font-style:normal;line-height:1}
+#wis{position:fixed;inset:0;z-index:1600;background:rgba(43,35,66,.5);display:flex;align-items:flex-end;justify-content:center;animation:wisIn .25s ease-out}
+@keyframes wisIn{from{opacity:0}to{opacity:1}}
+.wis-panel{width:min(460px,100%);max-height:94vh;overflow:auto;background:#fbf6ef;color:#4b3a47;border-radius:28px 28px 0 0;padding:16px 20px calc(20px + env(safe-area-inset-bottom));box-sizing:border-box;display:grid;gap:12px;box-shadow:0 -10px 40px rgba(0,0,0,.25);animation:wisUp .3s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes wisUp{from{transform:translateY(40px)}to{transform:none}}
+@media (min-width:640px){#wis{align-items:center}.wis-panel{border-radius:28px;max-height:90vh}}
+.wis-top{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:700;color:#7a6672}
+.wis-top b{font-family:"Yuji Wis","Yuji Syuku",serif;font-weight:400;font-size:17px;color:#b5506d;margin-right:4px}
+.wis-x{width:40px;height:40px;border-radius:50%;border:0;background:#f1e6dc;color:#4b3a47;font-size:24px;line-height:1;cursor:pointer}
+.wis-hero{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;min-height:190px;border-radius:22px;padding:14px 18px 12px 10px;background:#17151b;color:#efe6d6;overflow:hidden}
+.wis-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 40% at 30% 110%,rgba(255,255,255,.08),transparent 70%),radial-gradient(circle at 50% 12%,rgba(239,230,210,.12),transparent 30%);pointer-events:none}
+.wis-bowl{width:46%;max-width:190px;position:relative}.wis-bowl svg{width:100%;display:block}
+.wis-steam path{stroke:#fff;stroke-width:3.5;fill:none;opacity:.5;stroke-linecap:round;animation:wisSteam 4s ease-out infinite}
+.wis-steam path:nth-child(2){animation-delay:-1.3s}.wis-steam path:nth-child(3){animation-delay:-2.6s}
+@keyframes wisSteam{0%{transform:translateY(6px);opacity:0}40%{opacity:.55}100%{transform:translateY(-20px);opacity:0}}
+.wis-kbox{position:relative;display:flex;align-items:flex-start;gap:8px;align-self:stretch;justify-content:flex-end}
+.wis-kbox .wis-v{font-size:38px;line-height:1.08;max-height:170px}.wis-kbox .wis-vs{font-size:27px}
+.wis-kbox .wis-seal{width:22px;height:22px;font-size:15px;align-self:flex-end;order:-1}
+.wis-fr{margin:4px 0 0;font-family:var(--display);font-weight:500;font-size:22px;line-height:1.3}
+.wis-ro{margin:-6px 0 0;font-style:italic;font-size:13.5px;color:#a5802b}
+.wis-m{margin:0;font-size:15.5px;line-height:1.55;color:#5e4b58}
+.wis-why{margin:0;font-size:12.5px;font-weight:700;color:#7a6672}
+.wis-q{background:#fff;border-radius:18px;padding:12px 14px;display:grid;gap:8px;border:1.5px solid #f1dce4}
+.wis-q small{font-size:12px;font-weight:700;color:#b5506d}.wis-q p{margin:0;font-family:var(--display);font-size:16.5px;line-height:1.45}
+.wis-row{display:flex;gap:8px;flex-wrap:wrap}
+.wis-btn{flex:1;min-height:44px;border:2px solid #f1dce4;border-radius:999px;background:#fff;color:#4b3a47;font:inherit;font-weight:700;font-size:14px;padding:0 12px;cursor:pointer;white-space:nowrap}
+.wis-btn.on{border-color:#d9708d;color:#b5506d;background:#fde8ee}
+.wis-pink{background:#d9708d;border-color:#d9708d;color:#fff}
+.wis-bk{margin:0;font-size:14px;font-weight:700;display:grid;gap:8px}
+.wis-bk i{display:block;height:8px;border-radius:9px;background:linear-gradient(90deg,#c99a2e,#ffe08a) 0/var(--p) 100% no-repeat,#efe6dc}
+.wis-tabs{display:flex;gap:6px}.wis-tabs button{flex:1;min-height:38px;border-radius:999px;border:2px solid #f1dce4;background:#fff;font:inherit;font-weight:700;font-size:13.5px;color:#7a6672;cursor:pointer}
+.wis-tabs button[aria-selected="true"]{background:#4b3a47;border-color:#4b3a47;color:#fff}
+.wis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.wis-it{display:grid;gap:4px;text-align:left;padding:12px;border-radius:18px;border:0;background:#17151b;color:#efe6d6;font:inherit;cursor:pointer}
+.wis-ik{font-family:"Yuji Wis","Yuji Syuku",serif;font-size:21px;line-height:1.2}
+.wis-ifr{font-size:12.5px;line-height:1.35;color:#d8cfc4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wis-it small{font-size:11px;color:#a99f95}
+.wis-empty,.wis-more{grid-column:1/-1;margin:4px 0;text-align:center;font-size:13.5px;color:#7a6672}
+@media (prefers-reduced-motion:reduce){#wis,.wis-panel,.wis-steam path{animation:none}}
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -2352,7 +2401,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -3625,6 +3674,7 @@ function routeUrl(url){
   else if(v==="pomo"){const d=+((url.match(/pomo\/(\d+)/)||[])[1])||25;showView("ecrire");setTimeout(()=>{if(typeof wgStartPomo==="function")wgStartPomo(d)},300)}
   else if(v==="jour"){const k=(url.match(/jour\/(\d{4}-\d{2}-\d{2})/)||[])[1];if(k){if(written(k)){showView("journal");setTimeout(()=>openReader(k),200)}else openDay(k)}}
   else if(v==="ami"){amisInvite(url)}
+  else if(v==="sagesse"){showView("ecrire");setTimeout(()=>{if(typeof openWisdom==="function")openWisdom()},300)}
   else{openDay(todayKey());showView("ecrire")}
 }
 if(isNative&&PL_().App){
@@ -3638,6 +3688,7 @@ if(isNative){
   if(A){
     A.addListener("backButton",()=>{
       if(!$("lock").hidden){A.minimizeApp();return}
+      if($("wis")&&!$("wis").hidden){wisBack();return}
       if($("jd")&&!$("jd").hidden){jdBack();return}
       if(!$("reader").hidden){closeReader();return}
       if(!$("modal").hidden){closeModal();return}
@@ -4956,6 +5007,77 @@ async function jdWishAct(from,act){const w=(JD.wishes||[]).find(x=>x.from===from
     await fsDel("gvisits/"+fbUser.uid+"/from/"+from);JD.wishes=JD.wishes.filter(x=>x.from!==from);Sfx.play("uncheck");jdToast(act==="report"?"Merci, le vœu est signalé et retiré.":"Le vœu est retiré.");jdRender()}catch(e){jdToast("Impossible pour l'instant, réessaie plus tard.")}}
 JD_READY=true;
 renderJdCard();
+/* ================= sagesse du jour 一期一会 ================= */
+var WIS_P=[["shichiten","七転八起","shichiten hakki","Tomber sept fois, se relever huit.","Ce qui compte n'est pas de ne jamais tomber, mais de toujours se relever.","Raconte une fois où tu t'es relevé·e après une chute.","R"],["amefutte","雨降って地固まる","ame futte ji katamaru","Après la pluie, la terre se raffermit.","Les épreuves traversées rendent plus solide ce qui vient après.","Qu'est-ce qu'une période difficile a rendu plus fort en toi ?","R"],["ashita","明日は明日の風が吹く","ashita wa ashita no kaze ga fuku","Demain soufflera le vent de demain.","Inutile de porter demain dès aujourd'hui : chaque jour apporte ses propres solutions.","Qu'est-ce que tu peux laisser pour demain, sans culpabiliser ?","RP"],["kuareba","苦あれば楽あり","ku areba raku ari","Après la peine vient la douceur.","Les moments durs ne durent pas : la douceur revient toujours à son tour.","Quelle petite douceur t'attend dans les jours qui viennent ?","R"],["fuyukitari","冬来たりなば春遠からじ","fuyu kitarinaba haru tōkaraji","Si l'hiver est là, le printemps n'est pas loin.","Quand tout semble froid et immobile, le renouveau se prépare déjà en silence.","Quel « printemps » espères-tu voir arriver ?","R"],["yamanai","止まない雨はない","yamanai ame wa nai","Il n'existe pas de pluie qui ne cesse.","Même la plus longue averse finit par s'arrêter. Ce que tu ressens passera aussi.","Écris ce que tu feras le jour où la pluie s'arrêtera.","R"],["ungai","雲外蒼天","ungai sōten","Au-delà des nuages, le ciel bleu.","Derrière les difficultés, le ciel clair est toujours là, qui attend.","Qu'est-ce qui t'attend de l'autre côté de ce moment ?","R"],["shippai","失敗は成功のもと","shippai wa seikō no moto","L'échec est la graine du succès.","Chaque erreur t'apprend quelque chose que la réussite ne t'aurait pas appris.","Qu'as-tu appris de ta dernière erreur ?","RE"],["ichiyo","一陽来復","ichiyō raifuku","Le retour de la lumière.","Après la nuit la plus longue de l'hiver, les jours rallongent : les temps sombres finissent par passer.","Où vois-tu une petite lumière revenir en ce moment ?","R"],["saru","猿も木から落ちる","saru mo ki kara ochiru","Même le singe tombe de l'arbre.","Tout le monde se trompe, même les plus doués. Sois aussi doux·ce avec toi qu'avec les autres.","Écris-toi un mot gentil, comme à un·e ami·e qui aurait trébuché.","R"],["hinichi","日にち薬","hinichi-gusuri","Le temps est un remède.","Certaines blessures ne demandent qu'une chose : des jours, tout simplement.","Qu'est-ce qui va déjà un tout petit peu mieux qu'avant ?","R"],["anzuru","案ずるより産むが易し","anzuru yori umu ga yasushi","Faire est plus facile que s'inquiéter.","Ce que l'on redoute est souvent plus simple une fois qu'on s'y met.","Quelle chose t'inquiète et pourrait être plus simple que prévu ?","RE"],["yanagi","柳に雪折れなし","yanagi ni yukiore nashi","Le saule ne rompt pas sous la neige.","La souplesse est plus forte que la rigidité : tu as le droit de plier sans casser.","Où pourrais-tu être un peu plus souple avec toi-même ?","RP"],["isogaba","急がば回れ","isogaba maware","Si tu es pressé·e, fais le détour.","Le chemin sûr et tranquille est souvent le plus rapide.","Qu'est-ce que tu vas faire plus lentement, mais mieux ?","P"],["ishinoue","石の上にも三年","ishi no ue ni mo san nen","Trois ans sur une pierre la réchauffent.","Avec de la patience, même ce qui semble froid et dur finit par céder.","Dans quoi as-tu besoin de patience en ce moment ?","PE"],["kaho","果報は寝て待て","kahō wa nete mate","Attends la chance en dormant.","Tu as fait ta part : repose-toi, les bonnes choses viendront à leur heure.","Qu'as-tu déjà fait dont tu peux être fier·e ?","P"],["seiko","晴耕雨読","seikō udoku","Cultiver quand il fait beau, lire quand il pleut.","Vivre au rythme des jours, sans se forcer : agir quand c'est le moment, se reposer sinon.","De quoi as-tu envie aujourd'hui : agir ou te poser ?","P"],["meikyo","明鏡止水","meikyō shisui","Miroir clair, eau calme.","Un esprit apaisé voit les choses telles qu'elles sont.","Qu'est-ce qui t'aide à retrouver le calme ?","PS"],["koun","行雲流水","kōun ryūsui","Nuages qui passent, eau qui coule.","Se laisser porter comme un nuage, sans s'accrocher à ce qui doit passer.","Qu'est-ce que tu pourrais laisser filer aujourd'hui ?","P"],["mateba","待てば海路の日和あり","mateba kairo no hiyori ari","Qui sait attendre verra le beau temps pour naviguer.","Le bon moment finit toujours par venir pour qui sait l'attendre.","Qu'attends-tu avec patience ?","PR"],["hara","腹が減っては戦ができぬ","hara ga hette wa ikusa ga dekinu","On ne part pas au combat le ventre vide.","Prendre soin de soi d'abord : manger, dormir, souffler. Le reste viendra ensuite.","Qu'as-tu fait pour prendre soin de ton corps aujourd'hui ?","P"],["amadare","雨垂れ石を穿つ","amadare ishi o ugatsu","La goutte de pluie finit par creuser la pierre.","Un petit effort répété chaque jour vient à bout des plus grands obstacles.","Quel petit geste répètes-tu chaque jour ?","PE"],["taru","足るを知る","taru o shiru","Savoir que l'on a assez.","Le bonheur, c'est aussi savoir apprécier ce qu'on a déjà.","Écris trois choses que tu as déjà et qui te suffisent.","PS"],["kacho","花鳥風月","kachō fūgetsu","Fleur, oiseau, vent et lune.","La beauté simple de la nature : prends le temps de la savourer.","Quelle beauté simple as-tu remarquée aujourd'hui ?","J"],["ichigo","一期一会","ichigo ichie","Une rencontre, une seule fois.","Chaque instant est unique et ne reviendra pas : savoure-le pleinement.","Quel moment d'aujourd'hui voudrais-tu garder pour toujours ?","JS"],["warau","笑う門には福来る","warau kado ni wa fuku kitaru","Le bonheur entre dans la maison où l'on rit.","La bonne humeur attire les bonnes choses, et elle se partage.","Qu'est-ce qui t'a fait rire récemment ?","J"],["nichinichi","日日是好日","nichinichi kore kōjitsu","Chaque jour est un bon jour.","Une maxime zen : chaque journée, telle qu'elle est, a sa propre valeur.","Qu'est-ce qui a rendu cette journée bonne, à sa façon ?","JS"],["waki","和気藹々","waki aiai","Une atmosphère douce et chaleureuse.","Le bonheur des moments partagés avec ceux qu'on aime.","Avec qui as-tu partagé un bon moment dernièrement ?","J"],["shunpu","春風駘蕩","shunpū taitō","Une douce brise de printemps.","Un cœur paisible et bienveillant, léger comme le vent d'avril.","Qu'est-ce qui rend ton cœur léger en ce moment ?","J"],["setsugekka","雪月花","setsugekka","Neige, lune et fleurs.","Les trois beautés des saisons, chantées par les poètes japonais.","Quelle est ta beauté préférée de cette saison ?","J"],["sode","袖振り合うも他生の縁","sode furiau mo tashō no en","Même un frôlement de manches est un lien du destin.","Aucune rencontre n'est due au hasard : chacune compte.","Quelle rencontre a compté pour toi ?","JS"],["issho","一笑一少一怒一老","isshō isshō ichido ichirō","Un sourire rajeunit, une colère vieillit.","Chaque rire te rend un peu plus léger·e ; la colère, elle, pèse.","Qu'est-ce qui t'a fait sourire aujourd'hui ?","J"],["hanayori","花より団子","hana yori dango","Les dango plutôt que les fleurs.","Un proverbe malicieux : les plaisirs simples et concrets avant les apparences.","Quel petit plaisir gourmand t'a fait du bien ?","J"],["kishoku","喜色満面","kishoku manmen","Le visage rayonnant de joie.","Quand le bonheur se lit sur le visage, il éclaire aussi les autres.","Raconte ce qui t'a rendu·e radieux·se.","J"],["naseba","為せば成る","naseba naru","Si l'on agit, cela se réalise.","Rien n'est impossible à qui se met en mouvement.","Quelle petite action peux-tu faire dès aujourd'hui ?","E"],["keizoku","継続は力なり","keizoku wa chikara nari","La persévérance est une force.","Continuer, même un peu chaque jour, finit par tout changer.","Qu'est-ce que tu continues de faire, jour après jour ?","E"],["chiri","塵も積もれば山となる","chiri mo tsumoreba yama to naru","La poussière accumulée devient montagne.","Les petits pas, mis bout à bout, forment de grands chemins.","Quels petits pas as-tu faits cette semaine ?","E"],["senri","千里の道も一歩から","senri no michi mo ippo kara","Un voyage de mille lieues commence par un pas.","Inutile de voir tout le chemin : il suffit de faire le premier pas.","Quel est ton premier pas vers ce qui te tient à cœur ?","E"],["shinki","心機一転","shinki itten","Un cœur tout neuf.","Changer de regard suffit parfois à tout recommencer.","Que voudrais-tu recommencer avec un regard neuf ?","ER"],["omoitatta","思い立ったが吉日","omoitatta ga kichijitsu","Le jour où l'on se décide est un jour faste.","Pas besoin d'attendre le moment parfait : c'est aujourd'hui.","Qu'as-tu envie de commencer, dès aujourd'hui ?","E"],["shoshin","初心忘るべからず","shoshin wasuru bekarazu","N'oublie jamais l'esprit du débutant.","Garder la curiosité et l'enthousiasme des premiers jours.","Te souviens-tu pourquoi tu as commencé ce journal ?","ES"],["ichinen","一念発起","ichinen hokki","Se décider du fond du cœur.","Une vraie décision, prise avec le cœur, peut tout mettre en mouvement.","Quelle décision as-tu envie de prendre ?","E"],["suki","好きこそ物の上手なれ","suki koso mono no jōzu nare","On excelle dans ce que l'on aime.","Ce que tu fais avec plaisir, tu finis par le faire avec talent.","Qu'est-ce que tu aimes tellement faire que tu en oublies le temps ?","EJ"],["hayaoki","早起きは三文の徳","hayaoki wa sanmon no toku","Se lever tôt rapporte trois sous.","Le matin offre des petits trésors à ceux qui le prennent.","Que ferais-tu d'une heure en plus le matin ?","E"],["koketsu","虎穴に入らずんば虎子を得ず","koketsu ni irazunba koji o ezu","Qui n'entre pas dans l'antre du tigre n'aura pas son petit.","Les belles choses demandent parfois un peu de courage.","Quel petit risque aurais-tu envie de prendre ?","E"],["sonae","備えあれば憂いなし","sonae areba urei nashi","Qui est préparé n'a rien à craindre.","Un peu de préparation aujourd'hui, c'est beaucoup de sérénité demain.","Qu'est-ce que tu peux préparer pour te simplifier demain ?","ES"],["kendo","捲土重来","kendo chōrai","Revenir en soulevant la poussière.","Après un revers, on peut revenir, plus fort·e qu'avant.","Sur quoi as-tu envie de revenir, avec plus de force ?","ER"],["onko","温故知新","onko chishin","Revisiter l'ancien pour comprendre le nouveau.","Relire ses pages passées éclaire le présent : c'est toute la magie d'un journal.","Relis une ancienne page : qu'est-ce qui a changé depuis ?","S"],["ishin","以心伝心","ishin denshin","De cœur à cœur.","Se comprendre sans un mot : le lien silencieux entre ceux qui s'aiment.","Avec qui te comprends-tu sans parler ?","SJ"],["junin","十人十色","jūnin toiro","Dix personnes, dix couleurs.","Chacun·e est unique : ta couleur a toute sa place.","Quelle est ta couleur, celle qui n'appartient qu'à toi ?","S"],["wa","和を以て貴しと為す","wa o motte tōtoshi to nasu","L'harmonie est ce qu'il y a de plus précieux.","Le premier article de la constitution du prince Shōtoku : vivre ensemble en paix.","Où as-tu trouvé de l'harmonie dernièrement ?","S"],["ichizen","一日一善","ichinichi ichizen","Une bonne action par jour.","Un petit geste de bonté chaque jour rend le monde, et toi, plus doux.","Quelle bonne action as-tu faite (ou reçue) aujourd'hui ?","SJ"],["nito","二兎を追う者は一兎をも得ず","nito o ou mono wa itto o mo ezu","Qui court deux lièvres n'en attrape aucun.","Se concentrer sur une seule chose à la fois, c'est la faire bien.","Quelle est LA chose importante pour toi cette semaine ?","SE"],["nasake","情けは人の為ならず","nasake wa hito no tame narazu","La bonté envers les autres revient toujours.","Ce que tu donnes avec le cœur finit toujours par te revenir.","Qu'est-ce que quelqu'un a fait de gentil pour toi ?","S"],["nokori","残り物には福がある","nokorimono ni wa fuku ga aru","La chance sourit à ceux qui passent en dernier.","Ne pas se presser n'est pas perdre : le meilleur arrive parfois à la fin.","Qu'est-ce qui est arrivé plus tard que prévu, mais au bon moment ?","SP"]];
+var WIS_SEAL={R:"希",P:"憩",J:"喜",E:"進",S:"縁"};
+var WIS_WHY={R:"Choisi pour toi après quelques jours tristes.",P:"Choisi pour toi après quelques jours fatigués.",J:"Choisi pour toi : tes derniers jours étaient lumineux.",E:"Choisi pour te donner un peu d'élan.",S:"La sagesse du jour."};
+var WIS_K="nikki.wisdom",WIS_V=null;
+function wisStore(){return typeof store!=="undefined"?store:localStorage}
+function wisSt(){try{return JSON.parse(wisStore().getItem(WIS_K)||"{}")||{}}catch(e){return{}}}
+function wisSave(s){try{wisStore().setItem(WIS_K,JSON.stringify(s))}catch(e){}}
+function wisDayNum(k){const a=k.split("-").map(Number);return Math.floor(Date.UTC(a[0],a[1]-1,a[2])/864e5)}
+function wisAdd(k,n){const a=k.split("-").map(Number);return keyOf(new Date(a[0],a[1]-1,a[2]+n))}
+/* même algorithme que WisdomData.java : humeurs des 3 jours précédents */
+function wisMoods(k){const o=[];for(let i=1;i<=3;i++){const e=entries[wisAdd(k,-i)];if(e&&e.mood)o.push(e.mood)}return o}
+function wisCat(m){if(!m.length)return"S";if(m.includes("triste"))return"R";if(m.includes("fatigue"))return"P";return m.filter(x=>x==="super"||x==="bien").length*2>=m.length?"J":"E"}
+function wisPick(k){const c=wisCat(wisMoods(k)),pool=WIS_P.filter(p=>p[6].includes(c)),n=pool.length;return{c,p:pool[((wisDayNum(k)+"RPJES".indexOf(c)*7)%n+n)%n]}}
+function wisById(id){return WIS_P.find(p=>p[0]===id)}
+/* le carnet : chaque proverbe rencontré, jour après jour */
+function wisSync(){const s=wisSt(),t=todayKey();if(!s.start){s.start=t;s.last=wisAdd(t,-1);s.seen={};s.fav=[]}s.seen=s.seen||{};s.fav=s.fav||[];
+  let k=s.last&&s.last>=s.start?wisAdd(s.last,1):s.start,g=0;while(k<=t&&g<400){const p=wisPick(k).p;if(!s.seen[p[0]])s.seen[p[0]]=k;k=wisAdd(k,1);g++}
+  const tp=wisPick(t).p;let ch=false;if(!s.seen[tp[0]]){s.seen[tp[0]]=t;ch=true}
+  if(s.last!==t||ch){s.last=t;wisSave(s)}return s}
+function wisEsc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function wisDate(k){const a=k.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString("fr-FR",{day:"numeric",month:"long"})}
+var WIS_BOWL='<svg viewBox="16 40 208 182" aria-hidden="true"><rect x="20" y="170" width="200" height="40" rx="6" fill="#d9c9a0"/><path d="M24 172v36M32 172v36M40 172v36M48 172v36M56 172v36M64 172v36M72 172v36M80 172v36M88 172v36M96 172v36M104 172v36M112 172v36M120 172v36M128 172v36M136 172v36M144 172v36M152 172v36M160 172v36M168 172v36M176 172v36M184 172v36M192 172v36M200 172v36M208 172v36M216 172v36" stroke="#c4b285" stroke-width="2"/><ellipse cx="120" cy="188" rx="70" ry="9" fill="#000" opacity=".14"/><path d="M58 112Q120 106 182 112Q178 176 120 182Q62 176 58 112Z" fill="#3b3b45"/><path d="M58 112Q120 106 182 112Q178 150 120 156Q62 150 58 112Z" fill="#6b5a4e" opacity=".55"/><path d="M62 132Q90 140 120 136T178 132" stroke="#9b6b45" stroke-width="4" fill="none" opacity=".6"/><ellipse cx="120" cy="112" rx="62" ry="10" fill="#4a4a56"/><ellipse cx="120" cy="113" rx="56" ry="7.5" fill="#5b8f6a"/><ellipse cx="110" cy="112" rx="22" ry="2.4" fill="#a3c58a" opacity=".7"/><g class="wis-steam"><path d="M100 98q-6-10 0-20q6-10 0-20"/><path d="M122 96q-6-10 0-20q6-10 0-20"/><path d="M142 98q-6-10 0-20q6-10 0-20"/></g></svg>';
+function wisVert(k,cls){return `<span class="wis-v ${cls||""}" lang="ja">${wisEsc(k)}</span>`}
+/* ---------- carte du jour (page Écrire) ---------- */
+function renderWisCard(){
+  if(typeof WIS_P==="undefined"||!WIS_P||typeof entries==="undefined")return;
+  let box=$("wisCard");if(!box){const jc=$("jdCard");if(!jc)return;box=document.createElement("div");box.id="wisCard";jc.after(box)}
+  if(typeof current!=="undefined"&&current!==todayKey()){box.hidden=true;return}
+  const t=todayKey(),{c,p}=wisPick(t);wisSync();box.hidden=false;
+  box.innerHTML=`<button type="button" class="wis-card" aria-label="La sagesse du jour : ${wisEsc(p[3])}"><span class="wis-ctile">${wisVert(p[1],p[1].length>4?"wis-vs":"")}<i class="wis-seal">${WIS_SEAL[c]}</i></span><span class="wis-cbody"><b>Sagesse du jour</b><span class="wis-cfr">${wisEsc(p[3])}</span></span><span class="jd-go">›</span></button>`;
+  box.querySelector("button").onclick=()=>openWisdom()}
+/* ---------- la fenêtre ---------- */
+function openWisdom(id){
+  if(typeof Sfx!=="undefined")Sfx.play("chime");
+  let ov=$("wis");if(!ov){ov=document.createElement("div");ov.id="wis";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","La sagesse du jour");
+    ov.innerHTML='<div class="wis-panel"></div>';document.body.append(ov);
+    ov.addEventListener("click",e=>{if(e.target===ov)closeWisdom();const b=e.target.closest("[data-w]");if(b)wisAct(b.dataset.w,b.dataset.id)});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("wis")&&!$("wis").hidden){e.stopPropagation();closeWisdom()}},true)}
+  ov.hidden=false;document.body.style.overflow="hidden";WIS_V={view:id?"one":"day",id:id||null};wisRender()}
+function closeWisdom(){const ov=$("wis");if(ov)ov.hidden=true;document.body.style.overflow="";WIS_V=null;renderWisCard()}
+function wisBack(){if(WIS_V&&WIS_V.view==="one"&&WIS_V.from){WIS_V={view:WIS_V.from};wisRender();return}closeWisdom()}
+function wisRender(){
+  const P=document.querySelector("#wis .wis-panel");if(!P||!WIS_V)return;const s=wisSync(),n=Object.keys(s.seen).length,tot=WIS_P.length;
+  const top=`<div class="wis-top"><span><b lang="ja">一期一会</b> ${WIS_V.view==="book"?"Mon carnet de sagesse":"La sagesse du jour"}</span><button type="button" class="wis-x" data-w="${WIS_V.view==="one"&&WIS_V.from?"back":"close"}" aria-label="${WIS_V.view==="one"&&WIS_V.from?"Retour":"Fermer"}">${WIS_V.view==="one"&&WIS_V.from?"‹":"×"}</button></div>`;
+  if(WIS_V.view==="book"){
+    const fav=WIS_V.fav,list=WIS_P.filter(p=>s.seen[p[0]]&&(!fav||s.fav.includes(p[0]))).sort((a,b)=>s.seen[b[0]]<s.seen[a[0]]?-1:1);
+    P.innerHTML=top+`<p class="wis-bk">${n} proverbe${n>1?"s":""} rencontré${n>1?"s":""} sur ${tot}<i style="--p:${Math.round(n/tot*100)}%"></i></p>
+    <div class="wis-tabs" role="tablist"><button type="button" role="tab" aria-selected="${!fav}" data-w="tab0">Tous</button><button type="button" role="tab" aria-selected="${!!fav}" data-w="tab1">♥ Gardés (${s.fav.length})</button></div>
+    <div class="wis-grid">${list.map(p=>`<button type="button" class="wis-it" data-w="one" data-id="${p[0]}"><span class="wis-ik" lang="ja">${wisEsc(p[1])}</span><span class="wis-ifr">${wisEsc(p[3])}</span><small>${s.fav.includes(p[0])?"♥ ":""}${wisDate(s.seen[p[0]])}</small></button>`).join("")||`<p class="wis-empty">${fav?"Touche ♥ sur un proverbe pour le garder ici.":"Ton premier proverbe t'attend aujourd'hui."}</p>`}</div>
+    ${!fav&&n<tot?`<p class="wis-more">Encore ${tot-n} proverbe${tot-n>1?"s":""} à rencontrer, un par jour ✿</p>`:""}`;
+    return}
+  const day=WIS_V.view==="day",pk=day?wisPick(todayKey()):{c:(wisById(WIS_V.id)||[])[6][0],p:wisById(WIS_V.id)},p=pk.p,c=pk.c,isFav=s.fav.includes(p[0]);
+  P.innerHTML=top+`<div class="wis-hero"><span class="wis-bowl">${WIS_BOWL}</span><span class="wis-kbox">${wisVert(p[1],p[1].length>8?"wis-vs":"")}<i class="wis-seal">${WIS_SEAL[c]}</i></span></div>
+  <h2 class="wis-fr">${wisEsc(p[3])}</h2><p class="wis-ro" lang="ja-Latn">${wisEsc(p[2])}</p><p class="wis-m">${wisEsc(p[4])}</p>
+  ${day?`<p class="wis-why">${WIS_WHY[c]}</p>`:`<p class="wis-why">Rencontré le ${wisDate(s.seen[p[0]]||todayKey())}</p>`}
+  <div class="wis-q"><small>Une question pour écrire</small><p>${wisEsc(p[5])}</p><button type="button" class="wis-btn wis-pink" data-w="write" data-id="${p[0]}">✎ En écrire une page</button></div>
+  <div class="wis-row"><button type="button" class="wis-btn${isFav?" on":""}" data-w="fav" data-id="${p[0]}" aria-pressed="${isFav}">${isFav?"♥ Gardé":"♡ Garder"}</button><button type="button" class="wis-btn" data-w="book">Mon carnet · ${n}/${tot}</button>${typeof isNative!=="undefined"&&isNative&&PL_().NikkiWidget?`<button type="button" class="wis-btn" data-w="style">Style du widget</button>`:""}</div>`}
+function wisAct(a,id){
+  const s=wisSync();
+  if(a==="close")closeWisdom();
+  else if(a==="back")wisBack();
+  else if(a==="book"){WIS_V={view:"book"};wisRender()}
+  else if(a==="tab0"||a==="tab1"){WIS_V={view:"book",fav:a==="tab1"};wisRender()}
+  else if(a==="one"){WIS_V={view:"one",id,from:"book"};wisRender()}
+  else if(a==="fav"){const i=s.fav.indexOf(id);if(i<0){s.fav.push(id);if(typeof Sfx!=="undefined")Sfx.play("sparkle")}else s.fav.splice(i,1);wisSave(s);wisRender()}
+  else if(a==="write"){const p=wisById(id);if(!p)return;const t=todayKey();if(hasContent(entries[t]))touch(t,{prompt:p[5]});else entries[t]={...entry(t),prompt:p[5]};closeWisdom();openDay(t);if(typeof say==="function")say("Belle question à méditer ✿");setTimeout(()=>{const ta=$("text");if(ta)ta.focus()},350)}
+  else if(a==="style"){try{PL_().NikkiWidget.wisdomStyle()}catch(e){}}
+}
+try{renderWisCard()}catch(e){}
+/* ===== fin sagesse ===== */
 
 </script>
 </body>

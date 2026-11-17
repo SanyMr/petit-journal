@@ -77,6 +77,14 @@
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_season_info" />
         </receiver>
+        <receiver android:name=".WisdomWidget" android:exported="false" android:label="Sagesse du jour">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_wisdom_info" />
+        </receiver>
+        <activity android:name=".WisdomConfigActivity" android:exported="true" android:label="Sagesse du jour"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" android:screenOrientation="portrait">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
+        </activity>
         <receiver android:name=".TodoWidget" android:exported="false" android:label="Ma to-do">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_todo_info" />

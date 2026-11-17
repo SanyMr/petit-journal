@@ -148,4 +148,20 @@ public class WidgetPlugin extends Plugin {
         savePomo(getContext(), false, 0, false, call);
         call.resolve();
     }
+
+    /** Opens the style chooser of the "Sagesse du jour" widget (applies to all of them). */
+    @PluginMethod
+    public void wisdomStyle(PluginCall call) {
+        Intent i = new Intent(getContext(), WisdomConfigActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getContext().startActivity(i);
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void wisdomInfo(PluginCall call) {
+        JSObject r = new JSObject();
+        r.put("count", WisdomWidget.ids(getContext()).length);
+        call.resolve(r);
+    }
 }
