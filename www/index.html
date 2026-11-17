@@ -664,6 +664,43 @@ input,textarea,select{font-size:16px}
 .mem-it.year{box-shadow:0 0 0 2px color-mix(in srgb,#e8c25a 70%,transparent)}
 .mem-face{flex:none;width:40px;height:40px;display:block}.mem-face svg{width:100%;height:100%}.mem-dot{display:grid;place-items:center;font-size:22px;color:var(--sakura-deep)}
 .mem-t{display:grid;gap:2px}.mem-t b{font-size:14px;color:var(--sakura-deep)}.mem-t small{font-size:12px;color:var(--muted)}.mem-x2{font-size:14px;line-height:1.45;font-family:'Kiwi Maru',serif;margin-top:2px}
+/* ton année en journal */
+#yr{position:fixed;inset:0;z-index:200;background:linear-gradient(170deg,#fff6f9,#fde3ea);color:#4b3a47;overflow:hidden;font-family:'Zen Maru Gothic',sans-serif}
+#yr[hidden]{display:none}#yr.night{background:linear-gradient(170deg,#2e2850,#4a3d72);color:#f4e9f1}
+.yr-bars{position:absolute;left:14px;right:56px;top:calc(14px + env(safe-area-inset-top));display:flex;gap:5px;z-index:3}.yr-bars i{flex:1;height:4px;border-radius:4px;background:rgba(75,58,71,.18);overflow:hidden}.yr-bars b{display:block;height:100%;width:0;background:#d9708d}
+#yr.night .yr-bars i{background:rgba(255,255,255,.22)}#yr.night .yr-bars b{background:#ffb6c9}
+@keyframes yrbar{from{width:0}to{width:100%}}
+.yr-x{position:absolute;right:8px;top:calc(4px + env(safe-area-inset-top));z-index:4;background:none;border:none;color:inherit;font-size:22px;width:44px;height:44px}
+.yr-prev,.yr-next{position:absolute;top:60px;bottom:90px;z-index:1;background:none;border:none}.yr-prev{left:0;width:32%}.yr-next{right:0;width:68%}
+.yr-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:60px 24px 80px;pointer-events:none}
+.yr-s{width:100%;max-width:440px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.yr-s button,.yr-s canvas{pointer-events:auto;position:relative;z-index:2}
+.yr-brand{position:absolute;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom));text-align:center;font-weight:700;color:#b5506d;font-size:14px;margin:0}#yr.night .yr-brand{color:#ffb6c9}
+.yr-s .w{opacity:0;animation:yrIn .6s cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:var(--d,0s)}
+@keyframes yrIn{from{opacity:0;transform:translateY(24px) scale(.92)}to{opacity:1;transform:none}}
+.yk{font-size:17px;font-weight:700;letter-spacing:2px;color:#b5506d;margin:0 0 10px}#yr.night .yk{color:#ffb6c9}
+.ybig{font-family:'Kiwi Maru',serif;font-size:104px;line-height:1;color:#d9708d;margin:6px 0}
+.yh{font-family:'Kiwi Maru',serif;font-size:34px;line-height:1.2;margin:4px 0}.ypink,.ynum{color:#d9708d}.ynum{font-size:72px;line-height:1}
+.ysub{font-size:19px;color:#6e5a68;line-height:1.45;margin:14px 0 0}#yr.night .ysub{color:#d9cce4}.ysub b{color:#d9708d}
+.ynote{font-size:13px;color:#9b8594;margin:14px 0 0}
+.ybob svg{animation:ybob 2.4s ease-in-out infinite}@keyframes ybob{50%{transform:translateY(-8px) rotate(2deg)}}
+.yflame svg{width:190px;height:190px}
+.ymb{display:flex;align-items:flex-end;gap:12px;margin-top:20px;height:230px}.ymb div{display:flex;flex-direction:column;align-items:center;gap:6px;width:52px}.ymb i{display:block;width:34px;border-radius:12px;transform-origin:bottom;transform:scaleY(0);animation:ygrow .7s cubic-bezier(.3,1.3,.5,1) forwards}.ymb small{font-size:13px;color:#9b8594}
+@keyframes ygrow{to{transform:scaleY(1)}}
+.ymos{background:#fff;border-radius:22px;padding:14px 10px;line-height:0;box-shadow:0 14px 34px rgba(120,50,80,.15);margin-top:8px}.ymos i{display:inline-block;width:14px;height:14px;border-radius:4px;margin:1.5px;background:#f3e7ec;opacity:0;animation:yfade .25s ease forwards}
+@keyframes yfade{to{opacity:1}}
+.ystamp{width:180px;height:180px;margin-top:10px}.ystamp svg{width:100%;height:100%}
+.yrar{display:inline-block;color:#fff;font-weight:700;font-size:16px;border-radius:99px;padding:6px 16px;margin:8px 0 0;background:var(--rc)}.yrar.r-r{background:var(--rr)}.yrar.r-t{background:var(--rt)}.yrar.r-l{background:var(--rl)}
+.ystk{display:inline-block;width:40px;height:40px}.ystk svg{width:100%;height:100%}
+.ycloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;margin:10px 0}.ycw{background:none;border:none;font-family:'Kiwi Maru',serif;opacity:0;animation:yIn2 .5s cubic-bezier(.3,1.4,.5,1) forwards;padding:2px}
+.ycw.off{filter:blur(6px);opacity:.35!important}@keyframes yIn2{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.ycard{background:#fff;color:#4b3a47;border-radius:28px;padding:28px 24px;box-shadow:0 18px 40px rgba(120,50,80,.18)}
+.ycanvas{width:min(68vw,300px);height:auto;border-radius:18px;box-shadow:0 16px 40px rgba(120,50,80,.22);margin-top:6px}
+.yshare .openbook{width:auto;margin-top:14px}
+#yrCard{display:flex;align-items:center;gap:6px;background:linear-gradient(120deg,color-mix(in srgb,#ffe08a 40%,var(--card)),color-mix(in srgb,var(--sakura) 30%,var(--card)));border-radius:18px;padding:6px 6px 6px 12px}
+#yrCard[hidden]{display:none}.yrc-main{flex:1;display:flex;align-items:center;gap:12px;text-align:left;background:none;border:none;font:inherit;color:var(--ink);padding:6px 0;min-height:52px}.yrc-ic{font-size:28px}.yrc-main b{display:block;font-size:15px}.yrc-main small{display:block;font-size:12px;color:var(--muted)}
+.ybil{width:100%;margin:0 0 12px}
+@media (prefers-reduced-motion: reduce){.yr-s .w,.ymb i,.ymos i,.ycw{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 </head>
 <body>
@@ -694,6 +731,7 @@ input,textarea,select{font-size:16px}
         <div class="bubble" id="bubble" role="status">Coucou ! Comment s'est passée ta journée ?</div>
       </div>
 
+      <div id="yrCard" hidden></div>
       <div id="memCard" hidden></div>
 
       <div>
@@ -2107,7 +2145,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderMem();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderMem();renderYearCard();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2256,6 +2294,7 @@ let bil={mode:"mois",d:new Date()};bil.d.setDate(1);
 function openBilan(){openModal("Mon bilan","まとめ",renderBilan)}
 function renderBilan(){
   const body=$("modalBody");body.innerHTML="";
+  {const b=document.createElement("button");b.className="openbook ybil";b.type="button";b.textContent="✿ Ton année "+yrYear()+" en journal (story)";b.onclick=()=>{closeModal(true);openYear()};body.append(b)}
   const y=bil.d.getFullYear(),m=bil.d.getMonth(),now=new Date();
   const label=bil.mode==="mois"?bil.d.toLocaleDateString("fr-FR",{month:"long",year:"numeric"}):String(y);
   const nav=document.createElement("div");nav.className="bnav";
@@ -2894,6 +2933,7 @@ async function planNotifications(){
     const day=new Date();day.setDate(day.getDate()+d);const k=keyOf(day),md=k.slice(5);
     const at=(h,m)=>{const t=new Date(day);t.setHours(h,m,0,0);return t};
     const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
+    if(md==="12-01"){const S=yearStats(day.getFullYear());if(S.pages){add(at(11,0),"Ton année "+day.getFullYear()+" en journal est prête ✿ Viens découvrir ta story !",{view:"ecrire"});continue}}
     {const lt=lettersAll().find(l=>!l.opened&&l.open===k);if(lt){add(at(10,0),"Une lettre de ton passé t'attend ✉ Tu l'avais écrite le "+frDate(lt.created,{day:"numeric",month:"long",year:"numeric"})+".",{view:"lettre",id:lt.id});continue}}
     if(N.gacha&&d>0&&md.endsWith("-01")){const e=curEvent(day);if(e){add(at(12,0),"Nouvel événement au gachapon : "+e.name+" ✿ 2 stickers en édition limitée tout le mois !",{view:"recomp"});continue}}
     const vars={M,S:s,Q:PROMPTS[hash(k)%PROMPTS.length]};
@@ -3548,6 +3588,130 @@ function openMem(k){
 }
 
 renderMem();
+/* ================= ton année en journal (story) ================= */
+const YR_STOP=new Set("avec dans pour mais plus tout tous toute toutes très bien comme cette elle elles nous vous ils sont était étais avait avais suis être avoir fait faire aussi alors encore même quand puis donc juste trop peut jour jours journée aujourd'hui demain hier matin soir vraiment chose choses beaucoup leur leurs notre votre quoi dont ceci cela celle celui ceux ainsi après avant depuis pendant sans sous vers chez entre parce rien quelque quelques autre autres moins dire vais allé aller veux voulu peux pouvais étaient sera serai fois bonne petit petite petits grand grande déjà assez enfin moment temps c'est j'ai qu'il qu'elle avons avez ont étais était cette ceux toujours jamais pourquoi comment ici là-bas vraiment trouve trouvé faut fallait semaine ensuite ensemble quand même encore".split(" "));
+function yrYear(){const n=new Date();return n.getMonth()===0&&n.getDate()<=15?n.getFullYear()-1:n.getFullYear()}
+function yrSeason(){const n=new Date();return n.getMonth()===11||(n.getMonth()===0&&n.getDate()<=15)}
+function yearStats(Y){
+  const P=Y+"-",keys=Object.keys(entries).filter(k=>k.startsWith(P)&&hasContent(entries[k])).sort(),wr=keys.filter(written);
+  let words=0;wr.forEach(k=>words+=countWords(entries[k].text||""));
+  let best={n:0,from:null,to:null},run=0,start=null,prev=null;
+  wr.forEach(k=>{const d=dateOf(k);if(prev&&Math.round((d-prev)/864e5)===1)run++;else{run=1;start=k}if(run>best.n)best={n:run,from:start,to:k};prev=d});
+  const mc={};MOODS.forEach(m=>mc[m.id]=0);keys.forEach(k=>{const m=entries[k].mood;if(m in mc)mc[m]++});
+  const totalM=Object.values(mc).reduce((a,b)=>a+b,0),top=totalM?MOODS.slice().sort((a,b)=>mc[b.id]-mc[a.id])[0]:null;
+  let hm=null,hs=-1;for(let mo=1;mo<=12;mo++){const ks=keys.filter(k=>+k.slice(5,7)===mo&&entries[k].mood);if(ks.length<3)continue;const sc=ks.reduce((a,k)=>a+((MOODS.find(x=>x.id===entries[k].mood)||{}).score||0),0)/ks.length;if(sc>hs){hs=sc;hm=mo}}
+  const days=[];{const d=new Date(Y,0,1);while(d.getFullYear()===Y){days.push(keyOf(d));d.setDate(d.getDate()+1)}}
+  const ord={l:0,t:1,r:2,c:3},won=objectives().filter(o=>o.done&&String(o.done).startsWith(P)&&o.k);
+  const rare=won.slice().sort((a,b)=>ord[a.r]-ord[b.r]||(a.done<b.done?1:-1))[0]||null;
+  const sc={};keys.forEach(k=>(entries[k].deco||[]).forEach(x=>{if(x.k==="st")sc[x.id]=(sc[x.id]||0)+1}));
+  const favSt=Object.keys(sc).sort((a,b)=>sc[b]-sc[a])[0]||null;
+  const wc={},tc={};
+  wr.forEach(k=>{const t=(entries[k].text||"").toLowerCase();(t.match(/#[\p{L}\d_-]+/gu)||[]).forEach(x=>tc[x]=(tc[x]||0)+1);
+    (t.replace(/#[\p{L}\d_-]+/gu," ").match(/[\p{L}'’-]{4,}/gu)||[]).forEach(w=>{w=w.replace(/^(l|d|j|m|n|s|t|c|qu)['’]/,"").replace(/['’-]+$/,"");if(w.length<4||YR_STOP.has(w))return;wc[w]=(wc[w]||0)+1})});
+  const topW=Object.entries(wc).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).slice(0,16),topTag=(Object.entries(tc).sort((a,b)=>b[1]-a[1])[0]||[null])[0];
+  const hb=[0,0,0,0];wr.forEach(k=>{const u=entries[k].updatedAt;if(!u)return;const h=new Date(u).getHours();hb[h>=5&&h<12?0:h>=12&&h<18?1:h>=18&&h<22?2:3]++});
+  const mom=hb.some(Boolean)?hb.indexOf(Math.max(...hb)):-1;
+  const sea=[0,0,0,0];wr.forEach(k=>{const m=+k.slice(5,7);sea[m>=3&&m<=5?0:m>=6&&m<=8?1:m>=9&&m<=11?2:3]++});
+  return {Y,pages:wr.length,words,best,mc,top,totalM,hm,days,won:won.length,rare,favSt,topW,topTag,mom,fs:sea.some(Boolean)?sea.indexOf(Math.max(...sea)):-1};
+}
+var yr={i:0,S:null,slides:[],timer:null,audio:null,hideWords:{}};
+const YR_DUR=5600;
+function yrDefs(){const d=document.querySelector("svg defs");return d?d.outerHTML:""}
+function yrMasc(size){return `<svg viewBox="-6 -6 112 112" style="width:${size}px;height:${size}px;overflow:visible" aria-hidden="true">${yrDefs()}${mascotInner(curMascot(),wornAcc(),false)}</svg>`}
+function yrFace(m,size){return `<span style="display:inline-block;width:${size}px;height:${size}px">${face(m)}</span>`}
+function yrSlides(S){
+  const L=[],nf=new Intl.NumberFormat("fr-FR"),small=S.pages<10;
+  const mN=n=>MOIS[n-1],seasons=[["春","le printemps"],["夏","l'été"],["秋","l'automne"],["冬","l'hiver"]];
+  const yearNow=new Date().getFullYear()===S.Y&&new Date().getMonth()<11;
+  L.push({id:"intro",html:`<p class="yk w">MON PETIT JOURNAL · 日記</p><p class="ybig w" style="--d:.2s">${S.Y}</p><p class="yh w" style="--d:.45s">${yearNow?"ton année, jusqu'ici":"ton année en journal"}</p><div class="w ybob" style="--d:.8s">${yrMasc(230)}</div>`});
+  L.push({id:"pages",html:`<p class="yk w">TU AS ÉCRIT</p><p class="ybig w" data-count="${S.pages}" style="--d:.15s">0</p><p class="yh w" style="--d:.3s">page${S.pages>1?"s":""}</p>`+
+    (small?`<p class="ysub w" style="--d:1s">et chacune compte ✿<br>c'est le début de ton histoire</p>`:`<p class="ysub w" style="--d:1.1s">soit <b>${nf.format(S.words)} mots</b><br>${S.words>=20000?"l'équivalent d'un petit roman ✿":S.words>=5000?"l'équivalent d'une belle nouvelle ✿":"des mots rien qu'à toi ✿"}</p>`)});
+  if(S.best.n>=2)L.push({id:"flame",html:`<p class="yk w">TA PLUS LONGUE FLAMME</p><div class="w yflame" style="--d:.2s">${flameSvg(S.best.n,false,true,false)}</div><p class="yh w" style="--d:.6s"><b class="ynum">${S.best.n}</b><br>jours d'affilée</p><p class="ysub w" style="--d:.9s">du ${frDate(S.best.from,{day:"numeric",month:"long"})} au ${frDate(S.best.to,{day:"numeric",month:"long"})}</p>`});
+  if(S.top&&S.totalM>=3){const mx=Math.max(...Object.values(S.mc));
+    L.push({id:"mood",html:`<p class="yk w">TON ANNÉE ÉTAIT SURTOUT…</p><div class="w" style="--d:.25s">${yrFace(S.top,150)}</div><p class="yh w ypink" style="--d:.45s;font-size:56px">${S.top.label}</p><div class="ymb w" style="--d:.7s">${MOODS.map((m,i)=>`<div><i style="height:${Math.round(150*S.mc[m.id]/mx)+4}px;background:${m.color};animation-delay:${.9+i*.1}s"></i>${yrFace(m,44)}<small>${S.mc[m.id]}</small></div>`).join("")}</div>`+(S.hm?`<p class="ysub w" style="--d:1.4s">Ton mois le plus joyeux : <b>${mN(S.hm)}</b></p>`:"")})}
+  L.push({id:"mosaic",html:`<p class="yk w">TON ANNÉE, JOUR APRÈS JOUR</p><div class="ymos w" style="--d:.2s">${S.days.map((k,i)=>{const e=entries[k],m=e&&e.mood&&MOODS.find(x=>x.id===e.mood);const c=written(k)?(m?m.color:"#f5a9bc"):"";return `<i style="${c?"background:"+c+";":""}animation-delay:${(.3+i*.006).toFixed(3)}s"></i>`}).join("")}</div><p class="ysub w" style="--d:1.2s">Chaque carré, c'est une page.<br>Chaque couleur, une humeur.</p>`});
+  if(S.won)L.push({id:"stamps",html:`<p class="yk w">TU AS GAGNÉ</p><p class="yh w" style="--d:.15s"><b class="ynum">${S.won}</b> tampon${S.won>1?"s":""}</p>`+(S.rare?`<p class="ysub w" style="--d:.5s">et ton plus précieux…</p><div class="ystamp w" style="--d:1.1s">${stampSvg(S.rare,true)}</div><p class="yh w" style="--d:1.4s;font-size:36px">${S.rare.k} ${S.rare.name}</p><p class="w yrar r-${S.rare.r}" style="--d:1.6s">${RAR[S.rare.r].stars} ${RAR[S.rare.r].name}</p>`:"")+(S.favSt?`<p class="ysub w" style="--d:1.9s;display:flex;align-items:center;gap:8px;justify-content:center">Ton sticker préféré <span class="ystk">${stickerById(S.favSt).svg}</span></p>`:"")});
+  if(S.topW.length>=5)L.push({id:"words",priv:true,html:`<p class="yk w">TES MOTS DE L'ANNÉE</p><div class="ycloud w" style="--d:.2s">${S.topW.map(([w,n],i)=>`<button type="button" class="ycw" data-w="${w.replace(/"/g,"")}" style="font-size:${Math.round(18+26*n/S.topW[0][1])}px;color:${["#d9708d","#3f86d8","#5f9a68","#c08a22","#8a6bd1","#c0397a"][i%6]};animation-delay:${.3+i*.08}s">${w.replace(/</g,"")}</button>`).join("")}</div>`+(S.topTag?`<p class="ysub w" style="--d:1.6s">Ton #tag préféré : <b>${S.topTag.replace(/</g,"")}</b></p>`:"")+`<p class="ynote w" style="--d:1.8s">Ces mots restent sur ton téléphone. Touche un mot pour le cacher.</p>`});
+  if(S.mom>=0){const MO=[["☀","Tu écris surtout le matin","avant midi, à l'heure du thé"],["☁","Tu écris surtout l'après-midi","entre midi et 18 h"],["☾","Tu écris surtout le soir","entre 18 h et 22 h"],["✦","Tu écris surtout la nuit","quand tout le monde dort"]][S.mom];
+    L.push({id:"moments",night:S.mom>=2,html:`<p class="yk w">TES MOMENTS</p><p class="w" style="--d:.2s;font-size:96px;line-height:1;margin:6px 0">${MO[0]}</p><p class="yh w" style="--d:.4s">${MO[1]}</p><p class="ysub w" style="--d:.6s">${MO[2]}</p>`+(S.fs>=0?`<p class="w" style="--d:1s;font-family:'Kiwi Maru',serif;font-size:72px;margin:26px 0 0">${seasons[S.fs][0]}</p><p class="ysub w" style="--d:1.2s">Ta saison préférée : <b>${seasons[S.fs][1]}</b></p>`:"")});}
+  const M=(MASCOTS[curMascot()]||MASCOTS.onigiri).name;
+  L.push({id:"thanks",html:`<div class="ycard w" style="--d:.1s"><p class="yk" style="font-size:16px">UN PETIT MOT DE ${M.toUpperCase()}</p><p class="yh" style="font-size:30px;line-height:1.4;margin:16px 0 0">${small?"Merci pour ces premières pages.<br>Et si l'an prochain, on en écrivait plein d'autres ? ✿":`Merci de m'avoir confié ton année.<br>On écrit ${S.Y+1} ensemble ? ✿`}</p></div><div class="w ybob" style="--d:.5s;margin-top:20px">${yrMasc(190)}</div>`});
+  L.push({id:"card",share:true,html:`<p class="yk w">TA CARTE ${S.Y}</p><div class="w" style="--d:.2s"><canvas id="yrCanvas" class="ycanvas" width="1080" height="1920" aria-label="Carte récapitulative de ton année"></canvas></div><div class="w yshare" style="--d:.5s"><button type="button" class="openbook" id="yrShare">Partager ma carte ✿</button></div><p class="ynote w" style="--d:.7s">Elle montre tes chiffres et ta mosaïque, jamais ce que tu as écrit.</p>`});
+  return L;
+}
+function openYear(Y){
+  Y=Y||yrYear();const S=yearStats(Y);if(!S.pages&&!S.won){say("Écris quelques pages et ton année en journal prendra vie ✿");return}
+  yr.S=S;yr.slides=yrSlides(S);yr.i=0;yr.hideWords={};
+  let ov=$("yr");if(!ov){ov=document.createElement("div");ov.id="yr";ov.setAttribute("role","dialog");ov.setAttribute("aria-label","Ton année en journal");
+    ov.innerHTML='<div class="yr-bars"></div><button type="button" class="yr-x" aria-label="Fermer">✕</button><div class="yr-stage" aria-live="polite"></div><button type="button" class="yr-prev" aria-label="Écran précédent"></button><button type="button" class="yr-next" aria-label="Écran suivant"></button><p class="yr-brand">Mon petit journal ✿</p>';
+    document.body.append(ov);ov.querySelector(".yr-x").onclick=closeYear;ov.querySelector(".yr-prev").onclick=()=>yrGo(yr.i-1);ov.querySelector(".yr-next").onclick=()=>yrGo(yr.i+1);
+    document.addEventListener("keydown",e=>{if(!$("yr")||$("yr").hidden)return;if(e.key==="Escape")closeYear();if(e.key==="ArrowRight")yrGo(yr.i+1);if(e.key==="ArrowLeft")yrGo(yr.i-1)})}
+  ov.hidden=false;document.body.style.overflow="hidden";
+  ov.querySelector(".yr-bars").innerHTML=yr.slides.map(()=>"<i><b></b></i>").join("");
+  const snd={on:true,vol:.45,...(prefs.sound||{})};
+  try{if(snd.on){if(!yr.audio){yr.audio=new Audio("sounds/bilan-lofi.mp3");yr.audio.loop=true}yr.audio.volume=Math.min(1,.25+snd.vol*.7);yr.audio.currentTime=0;yr.audio.play().catch(()=>{})}}catch(e){}
+  coll.yearSeen=Math.max(coll.yearSeen||0,Y);saveColl();
+  yrGo(0);
+}
+function closeYear(){const ov=$("yr");if(ov)ov.hidden=true;document.body.style.overflow="";clearTimeout(yr.timer);try{yr.audio&&yr.audio.pause()}catch(e){}renderYearCard()}
+function yrGo(i){
+  if(i<0)i=0;if(i>=yr.slides.length){closeYear();return}
+  yr.i=i;const ov=$("yr"),sl=yr.slides[i],st=ov.querySelector(".yr-stage");clearTimeout(yr.timer);
+  ov.classList.toggle("night",!!sl.night);
+  [...ov.querySelectorAll(".yr-bars i")].forEach((b,j)=>{const x=b.firstChild;x.style.animation="none";x.style.width=j<i?"100%":"0";if(j===i){void x.offsetWidth;x.style.animation=sl.share?"none":`yrbar ${YR_DUR}ms linear forwards`;if(sl.share)x.style.width="100%"}});
+  st.innerHTML=`<div class="yr-s">${sl.html}</div>`;
+  st.querySelectorAll("[data-count]").forEach(el=>{const n=+el.dataset.count,t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/1300);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1&&$("yr")&&!$("yr").hidden)requestAnimationFrame(f)};requestAnimationFrame(f)});
+  st.querySelectorAll(".ycw").forEach(b=>b.onclick=e=>{e.stopPropagation();b.classList.toggle("off")});
+  if(sl.id==="stamps"&&yr.S.rare)setTimeout(()=>{if(yr.i===i)Sfx.play("stamp",yr.S.rare.r)},1100);
+  if(sl.id==="intro"||sl.id==="thanks")petals(sl.id==="intro"?26:16);
+  if(sl.share){yrDrawCard(yr.S).then(()=>{}).catch(()=>{});const b=$("yrShare");if(b)b.onclick=yrShare;return}
+  yr.timer=setTimeout(()=>yrGo(i+1),YR_DUR);
+}
+function yrImg(svg){const cs=getComputedStyle(document.documentElement);svg=svg.replace(/var\((--[\w-]+)\)/g,(m,v)=>cs.getPropertyValue(v).trim()||"#d9708d");return new Promise((ok,ko)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=ko;im.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg.replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" '))})}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+async function yrDrawCard(S){
+  const cv=$("yrCanvas");if(!cv)return;const c=cv.getContext("2d"),W=1080,H=1920;
+  try{await Promise.all(["500 110px 'Kiwi Maru'","700 36px 'Zen Maru Gothic'","500 36px 'Zen Maru Gothic'"].map(f=>document.fonts.load(f,"0123456789AÉZaéz日記")))}catch(e){}
+  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,"#fff6f9");g.addColorStop(1,"#fde3ea");c.fillStyle=g;c.fillRect(0,0,W,H);
+  c.fillStyle="#f7c6d3";for(let i=0;i<14;i++){const x=(i*173)%W,y=(i*311)%H;c.save();c.translate(x,y);c.rotate(i);c.beginPath();c.ellipse(0,0,9,14,0,0,7);c.fill();c.restore()}
+  c.save();c.shadowColor="rgba(120,50,80,.18)";c.shadowBlur=60;c.shadowOffsetY=24;c.fillStyle="#fff";rr(c,70,150,940,1620,48);c.fill();c.restore();
+  c.textAlign="center";c.fillStyle="#b5506d";c.font="700 36px 'Zen Maru Gothic',sans-serif";c.fillText("MON ANNÉE "+S.Y+" EN JOURNAL · 日記",W/2,250);
+  const tile=(x,y,w,h)=>{c.fillStyle="#fdeff3";rr(c,x,y,w,h,32);c.fill()};
+  const nf=new Intl.NumberFormat("fr-FR");
+  tile(110,300,420,250);tile(550,300,420,250);tile(110,570,420,250);tile(550,570,420,250);
+  c.fillStyle="#d9708d";c.font="500 120px 'Kiwi Maru',serif";c.fillText(nf.format(S.pages),320,450);c.fillText(String(S.best.n||0),760,450);
+  c.fillStyle="#6e5a68";c.font="500 36px 'Zen Maru Gothic',sans-serif";c.fillText(S.pages>1?"pages":"page",320,510);c.fillText("jours de flamme",760,510);
+  if(S.top){const im=await yrImg(face(S.top));c.drawImage(im,150,620,150,150)}
+  c.textAlign="left";c.fillStyle="#6e5a68";c.font="500 34px 'Zen Maru Gothic',sans-serif";c.fillText("humeur",320,680);c.fillStyle="#4b3a47";c.font="700 46px 'Zen Maru Gothic',sans-serif";c.fillText(S.top?S.top.label:"—",320,740);
+  if(S.rare){try{const im=await yrImg(stampSvg(S.rare,true));c.drawImage(im,580,610,170,170)}catch(e){}}
+  c.fillStyle="#d9708d";c.font="500 72px 'Kiwi Maru',serif";c.fillText(String(S.won),775,690);c.fillStyle="#6e5a68";c.font="500 34px 'Zen Maru Gothic',sans-serif";c.fillText(S.won>1?"tampons":"tampon",775,745);
+  c.textAlign="center";c.fillStyle="#9b8594";c.font="500 30px 'Zen Maru Gothic',sans-serif";c.fillText("mon année jour après jour",W/2,905);
+  const cols=30,sz=26,gap=4,x0=(W-cols*(sz+gap)+gap)/2,y0=935;
+  S.days.forEach((k,i)=>{const e=entries[k],m=e&&e.mood&&MOODS.find(x=>x.id===e.mood);c.fillStyle=written(k)?(m?m.color:"#f5a9bc"):"#f3e7ec";rr(c,x0+(i%cols)*(sz+gap),y0+Math.floor(i/cols)*(sz+gap),sz,sz,6);c.fill()});
+  const yb=y0+Math.ceil(S.days.length/cols)*(sz+gap)+70;
+  try{const im=await yrImg(`<svg viewBox="-6 -6 112 112" width="200" height="200">${yrDefs()}${mascotInner(curMascot(),wornAcc(),false)}</svg>`);c.drawImage(im,140,yb,190,190)}catch(e){}
+  c.textAlign="left";c.fillStyle="#4b3a47";c.font="500 64px 'Kiwi Maru',serif";c.fillText("Mon petit journal",350,yb+95);c.fillStyle="#9b8594";c.font="500 32px 'Zen Maru Gothic',sans-serif";c.fillText("le journal intime kawaii ✿",352,yb+150);
+  c.textAlign="center";c.fillStyle="#d9708d";c.font="700 30px 'Zen Maru Gothic',sans-serif";c.fillText("✿  "+S.Y+"  ✿",W/2,1700);
+}
+async function yrShare(){
+  const cv=$("yrCanvas");if(!cv)return;const name="mon-annee-"+yr.S.Y+"-en-journal.png";Sfx.play("share");
+  try{
+    if(typeof saveOrShare==="function"){await saveOrShare(name,cv.toDataURL("image/png").split(",")[1],{base64:true,mime:"image/png",title:"Mon année en journal"});return}
+    const blob=await new Promise(r=>cv.toBlob(r,"image/png"));let dl=null;try{dl=window.claude&&claude.use?await claude.use("downloads"):null}catch(e){}
+    if(dl){await dl.save({filename:name,data:blob});say("Ta carte est enregistrée ✿");return}
+    say("Fais un appui long sur ta carte pour l'enregistrer ✿");
+  }catch(e){if(!/cancel|declined/i.test(String(e&&(e.message||e.code))))say("Le partage n'a pas marché, réessaie ✿")}
+}
+function renderYearCard(){
+  const box=$("yrCard");if(!box)return;const Y=yrYear(),t=todayKey();let hide=null;try{hide=(typeof store!=="undefined"?store:localStorage).getItem("nikki.yrhide")}catch(e){}
+  const S=yrSeason()&&hide!==String(Y)?yearStats(Y):null;
+  box.hidden=!(S&&(S.pages||S.won));if(box.hidden){box.innerHTML="";return}
+  box.innerHTML=`<button type="button" class="yrc-main"><span class="yrc-ic">🎐</span><span><b>Ton année ${Y} en journal est prête ✿</b><small>${S.pages} page${S.pages>1?"s":""}, ${S.best.n} jours de flamme… on regarde ?</small></span></button><button type="button" class="mem-x" aria-label="Masquer">✕</button>`;
+  box.querySelector(".yrc-main").onclick=()=>openYear(Y);
+  box.querySelector(".mem-x").onclick=()=>{try{(typeof store!=="undefined"?store:localStorage).setItem("nikki.yrhide",String(Y))}catch(e){}renderYearCard()};
+}
+
+renderYearCard();
 </script>
 </body>
 </html>
