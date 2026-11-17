@@ -97,6 +97,13 @@ final class WidgetData {
         for (int id : m.getAppWidgetIds(new ComponentName(c, PromptWidget.class))) PromptWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, TodoWidget.class))) TodoWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, MailWidget.class))) MailWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, GardenWidget.class))) GardenWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, MoodWidget.class))) MoodWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, FocusWidget.class))) FocusWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, MonthWidget.class))) MonthWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, VisitorWidget.class))) VisitorWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, FriendsWidget.class))) FriendsWidget.render(c, m, id);
+        for (int id : m.getAppWidgetIds(new ComponentName(c, SeasonWidget.class))) SeasonWidget.render(c, m, id);
     }
 
     private WidgetData() { }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/w_img_round" android:clipToOutline="true">
+    <ImageView android:id="@+id/w_img" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:contentDescription="Ton jardin japonais" android:scaleType="centerCrop" />
+    <TextView android:id="@+id/w_empty" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:padding="18dp"
+        android:text="Ouvre ton jardin une fois dans l'appli pour le voir fleurir ici ✿" android:textColor="@color/w_text" android:textSize="14sp" />
+    <TextView android:id="@+id/w_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="top|start" android:layout_margin="10dp"
+        android:background="@drawable/widget_pill_soft" android:paddingStart="10dp" android:paddingTop="4dp" android:paddingEnd="10dp" android:paddingBottom="4dp"
+        android:text="Mon jardin · にわ" android:textColor="@color/w_text" android:textSize="12sp" android:textStyle="bold" />
+    <TextView android:id="@+id/w_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="bottom|end" android:layout_margin="10dp"
+        android:background="@drawable/widget_pill_soft" android:paddingStart="10dp" android:paddingTop="4dp" android:paddingEnd="10dp" android:paddingBottom="4dp"
+        android:text="" android:textColor="@color/w_accent" android:textSize="11sp" android:textStyle="bold" />
+</FrameLayout>

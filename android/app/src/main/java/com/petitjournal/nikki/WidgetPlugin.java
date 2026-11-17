@@ -7,7 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Base64;
+import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
+import java.io.File;
+import java.io.FileOutputStream;
+import org.json.JSONObject;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
@@ -79,13 +84,68 @@ public class WidgetPlugin extends Plugin {
             b.setShowWhen(false);
         }
         try { nm.notify(POMO_ID, b.build()); } catch (Exception e) { /* notifications refused */ }
+        savePomo(ctx, true, end, paused, call);
         call.resolve();
+    }
+
+    private void savePomo(Context ctx, boolean on, long end, boolean paused, PluginCall call) {
+        try {
+            JSONObject p = new JSONObject();
+            p.put("on", on);
+            p.put("end", end);
+            p.put("paused", paused);
+            p.put("phase", call.getString("phase", "focus"));
+            p.put("label", call.getString("label", ""));
+            Double left = call.getDouble("left", 0.0);
+            p.put("left", left == null ? 0 : left.longValue());
+            p.put("n", call.getInt("n", 0));
+            p.put("day", WidgetData.today());
+            p.put("done", Boolean.TRUE.equals(call.getBoolean("done", false)));
+            p.put("at", System.currentTimeMillis());
+            ctx.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).edit().putString("pomo", p.toString()).apply();
+            WidgetData.refreshAll(ctx);
+        } catch (Exception ignored) { }
+    }
+
+    /** Pictures of the garden at each time of day, drawn by the journal, for the garden widget. */
+    @PluginMethod
+    public void gardenImgs(PluginCall call) {
+        Context ctx = getContext();
+        JSObject imgs = call.getObject("imgs", new JSObject());
+        for (String t : new String[]{"matin", "aprem", "soir", "nuit"}) {
+            String b64 = imgs.getString(t);
+            if (b64 == null || b64.isEmpty()) continue;
+            try (FileOutputStream o = new FileOutputStream(new File(ctx.getFilesDir(), "garden_" + t + ".jpg"))) {
+                o.write(Base64.decode(b64, Base64.DEFAULT));
+            } catch (Exception ignored) { }
+        }
+        WidgetData.refreshAll(ctx);
+        call.resolve();
+    }
+
+    /** Mood tapped on the home-screen widget, handed over to the journal once. */
+    @PluginMethod
+    public void takeMood(PluginCall call) {
+        Context ctx = getContext();
+        android.content.SharedPreferences sp = ctx.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE);
+        String raw = sp.getString("mood_pending", "");
+        JSObject r = new JSObject();
+        try {
+            if (!raw.isEmpty()) {
+                JSONObject p = new JSONObject(raw);
+                r.put("day", p.optString("day"));
+                r.put("mood", p.optString("mood"));
+            }
+        } catch (Exception ignored) { }
+        sp.edit().remove("mood_pending").apply();
+        call.resolve(r);
     }
 
     @PluginMethod
     public void pomoHide(PluginCall call) {
         NotificationManager nm = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm != null) nm.cancel(POMO_ID);
+        savePomo(getContext(), false, 0, false, call);
         call.resolve();
     }
 }

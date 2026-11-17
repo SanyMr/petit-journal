@@ -3003,10 +3003,10 @@ function pushWidget(){
   try{
     const open=(todo.items||[]).filter(t=>!t.done).sort((a,b)=>(b.star?1:0)-(a.star?1:0)||a.created-b.created);
     const days={},prompts={};
-    for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
+    for(let i=0;i<42;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
     for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
-    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
-    if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});
+    const data=JSON.stringify({vis:(typeof wgVis==="function"?wgVis():null),garden:{sub:(typeof wgGardenSub==="function"?wgGardenSub():"")},streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
+    if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});if(typeof wgSchedule==="function")wgSchedule();
   }catch(e){}
 }
 function scheduleWidget(d=800){clearTimeout(widgetTimer);widgetTimer=setTimeout(pushWidget,d)}
@@ -3621,6 +3621,9 @@ function routeUrl(url){
   if(v==="todo")showView("todo");
   else if(v==="amis")showView("amis");
   else if(v==="flamme"){showView("ecrire");setTimeout(openFlame,250)}
+  else if(v==="jardin"){showView("ecrire");setTimeout(()=>{if(typeof openGarden==="function")openGarden()},300)}
+  else if(v==="pomo"){const d=+((url.match(/pomo\/(\d+)/)||[])[1])||25;showView("ecrire");setTimeout(()=>{if(typeof wgStartPomo==="function")wgStartPomo(d)},300)}
+  else if(v==="jour"){const k=(url.match(/jour\/(\d{4}-\d{2}-\d{2})/)||[])[1];if(k){if(written(k)){showView("journal");setTimeout(()=>openReader(k),200)}else openDay(k)}}
   else if(v==="ami"){amisInvite(url)}
   else{openDay(todayKey());showView("ecrire")}
 }
@@ -4061,6 +4064,35 @@ function invQr(){let ov=$("invQr");if(!ov){ov=document.createElement("div");ov.i
   ov.querySelector(".inv-n").textContent=social.name||"";ov.hidden=false;Sfx.play("chime");
   const close=()=>{ov.hidden=true};ov.querySelector(".inv-x").onclick=close;ov.onclick=e=>{if(e.target===ov)close()};ov.querySelector(".inv-sh").onclick=invShare;ov.querySelector(".inv-x").focus()}
 
+/* ================= widgets : jardin, humeur, concentration, mois, visiteur ================= */
+var wgTimer=null,wgBusy=false;
+function wgVis(){if(typeof JD_READY==="undefined"||!JD_READY)return null;try{const g=jdG(),pres=jdPresent();
+  if(pres.length){const v=pres[0];return {id:v.id,name:v.n+" "+v.k,msg:"se promène dans ton jardin aujourd'hui ✿",kind:"present"}}
+  const nx=JD_VIS.find(v=>!v.pl&&!g.vis[v.id]);if(nx)return {id:nx.id,name:"Un visiteur mystère",msg:nx.hint,kind:"hint"};
+  const met=JD_VIS.filter(v=>g.vis[v.id]);const v=met.length?met[hash(todayKey())%met.length]:null;return v?{id:v.id,name:v.n+" "+v.k,msg:"fait la sieste près de l'étang ✿",kind:"present"}:null}catch(e){return null}}
+function wgGardenSub(){try{const p=jdPages();return p+" page"+(p>1?"s":"")+" ✿"}catch(e){return ""}}
+function wgSchedule(d){clearTimeout(wgTimer);wgTimer=setTimeout(wgGarden,d||4000)}
+async function wgGarden(){
+  if(typeof isNative==="undefined"||!isNative||wgBusy||typeof JD_READY==="undefined"||!JD_READY)return;const W=PL_().NikkiWidget;if(!W||!W.gardenImgs)return;
+  const S=jdStats(),st=jdStage(S.pages),g=jdG(),season=jdSeason(),use=jdUse(),pres=jdPresent().map(v=>v.id);
+  const sig=JSON.stringify({v:2,st,season,objs:g.objs,sand:g.sand,pres,u:[use.koi,Math.min(10,use.sk),Math.min(6,use.todo),use.letters,use.cranes,use.cairn,use.month],m:todayKey().slice(0,7),mascot:curMascot(),acc:wornAcc()});
+  let last="";try{last=(typeof store!=="undefined"?store:localStorage).getItem("nikki.wgsig")||""}catch(e){}
+  if(sig===last)return;wgBusy=true;
+  try{const imgs={};
+    for(const t of ["matin","aprem","soir","nuit"]){
+      let inner=jdScene({stage:st,season,time:t,seed:hash(todayKey())+3,u:"wg"+t,objs:g.objs,vis:jdPresent(),use,photo:true});
+      inner=inner.replace(/ class="[^"]*"/g,"").replace(/ style="animation[^"]*"/g,"");
+      const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 140 390 400" width="780" height="800">${inner}</svg>`;
+      const im=await jdSvgImg(svg),cv=document.createElement("canvas");cv.width=780;cv.height=800;cv.getContext("2d").drawImage(im,0,0,780,800);
+      imgs[t]=cv.toDataURL("image/jpeg",.84).split(",")[1];await new Promise(r=>setTimeout(r,60))}
+    await W.gardenImgs({imgs});try{(typeof store!=="undefined"?store:localStorage).setItem("nikki.wgsig",sig)}catch(e){}
+  }catch(e){}wgBusy=false}
+function wgTakeMood(){if(typeof isNative==="undefined"||!isNative)return;const W=PL_().NikkiWidget;if(!W||!W.takeMood)return;
+  W.takeMood().then(r=>{if(!r||r.day!==todayKey()||!MOODS.some(m=>m.id===r.mood))return;touch(todayKey(),{mood:r.mood});if(current===todayKey())renderMoods();renderSide();try{say(MOOD_REPLY[r.mood])}catch(e){}}).catch(()=>{})}
+function wgStartPomo(d){if(typeof JD_READY==="undefined"||!JD_READY)return;if(pomoGet()){openGarden();return}
+  JD.poDur=[15,25,45].includes(d)?d:25;openGarden(true);const np={ph:"focus",dur:JD.poDur,fd:JD.poDur,end:Date.now()+JD.poDur*60000,left:null,cyc:0,tk:null,label:""};pomoSet(np);pomoNotify(np);jdPomo();Sfx.play("chime")}
+if(typeof isNative!=="undefined"&&isNative){try{PL_().App.addListener("appStateChange",({isActive})=>{if(isActive)wgTakeMood();else wgSchedule(200)})}catch(e){}setTimeout(wgTakeMood,1500);setTimeout(()=>wgSchedule(100),8000)}
+
 /* ================= jardin japonais 庭 ================= */
 var JD_IP={close:'<path d="M6 6l12 12M18 6L6 18"/>',back:'<path d="M15 5l-7 7 7 7"/>',check:'<path d="M5 12.5l4.5 4.5L19 7"/>',undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
  sound:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/>',mute:'<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9.5l5 5M22 9.5l-5 5"/>',
@@ -4275,7 +4307,7 @@ function openGarden(skipPomo){
   ov.hidden=false;document.body.style.overflow="hidden";const S=jdCheckVisitors();jdCheckPlaces(S);jdVisitPlace(jdCurPlace());
   JD.ambOn=!!jdG().amb;if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);
   jdRender();if(pomoGet()&&skipPomo!==true)jdPomo();jdLoadGifts()}
-function closeGarden(){if(JD.po&&pomoLocked())return;const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden()}
+function closeGarden(){if(JD.po&&pomoLocked())return;const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden();if(typeof wgSchedule==="function")wgSchedule(1500)}
 function jdBack(){if(JD.po&&pomoLocked()){jdToast("🔒 Concentration en cours : arrive au bout ou appuie sur Arrêter ✿");return}const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRefreshFlowers();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
 function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2800)}
 function jdEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -4502,12 +4534,12 @@ function jdPomoLbl(){const p=pomoGet();if(!p)return jdI("hourglass")+" Concentra
 function jdFmt(ms){const s=Math.ceil(ms/1000);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
 function pomoLocked(){const p=pomoSync();return !!(p&&p.ph==="focus"&&!p.fin)}
 async function pomoLive(p){if(typeof isNative==="undefined"||!isNative)return;const W=PL_().NikkiWidget;if(!W||!W.pomoShow)return;
-  try{if(!p||p.fin){await W.pomoHide();return}
+  try{if(!p||p.fin){await W.pomoHide({done:!!(p&&p.fin&&p.ph==="focus"),n:(pomoDayG().pomoToday||0)});return}
     const g=pomoDayG(),n=g.pomoToday||0,hh=t=>new Date(t).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),left=Math.ceil(pomoLeft(p)/60000),paused=p.left!=null;
     const foc=p.ph==="focus",title=paused?(foc?"⏸ Concentration en pause":"⏸ Pause en suspens"):foc?"⏳ Concentration · session "+((p.cyc||0)+1):(p.dur>=15?"☕ Grande pause":"☕ Petite pause");
     const text=paused?left+" min restantes"+(p.label?" · "+p.label:""):foc?(p.label?"✎ "+p.label:"Une seule chose à la fois ✿"):"Respire, étire-toi, bois un peu d'eau ✿";
     const sub=(paused?"Touche pour reprendre":(foc?"Fin prévue à ":"Reprise à ")+hh(p.end))+" · "+(n?"🍡".repeat(Math.min(n,6))+" "+(g.pomoMinT||0)+" min aujourd'hui":"première session du jour");
-    await W.pomoShow({end:p.end,paused,title,text,sub})}catch(e){}}
+    await W.pomoShow({end:p.end,paused,title,text,sub,phase:p.ph,label:p.label||"",left:p.left||0,n:n})}catch(e){}}
 async function pomoNotify(p){pomoLive(p);if(typeof isNative==="undefined"||!isNative)return;const LN=PL_().LocalNotifications;if(!LN)return;
   try{await LN.cancel({notifications:[{id:5100}]})}catch(e){}
   if(!p||p.fin||p.left!=null)return;
@@ -4517,7 +4549,7 @@ async function pomoNotify(p){pomoLive(p);if(typeof isNative==="undefined"||!isNa
 function jdPomo(){jdLayer("jd-po","");JD.po={tm:null};JD.poSnd=JD.poSnd||["eau"];jdAmbStart(JD.poSnd);jdPomoDraw();JD.po.tm=setInterval(jdPomoTick,500)}
 function jdPomoLeave(){if($("jd"))$("jd").classList.remove("jd-lock");if(JD.po){clearInterval(JD.po.tm);JD.po=null;jdAmbStop()}}
 function jdPomoTick(){const p=pomoSync();if(!p||!JD.po)return;
-  if(p.justFin){pomoLive(null);Sfx.play("goal");if(typeof buzz==="function")buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
+  if(p.justFin){pomoLive(p);Sfx.play("goal");if(typeof buzz==="function")buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
   if(!p.fin){const t=$("jdPoT"),r=$("jdPoR");if(t)t.textContent=jdFmt(pomoLeft(p));if(r)r.setAttribute("stroke-dashoffset",(552.9*(1-pomoLeft(p)/(p.dur*60000))).toFixed(1))}}
 function jdPomoDraw(){
   const L=document.querySelector("#jd .jd-layer");if(!L||!JD.po)return;const p=pomoSync(),g=pomoDayG(),n=g.pomoToday||0,dur=JD.poDur||25;

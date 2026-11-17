@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_bg">
+    <ImageView android:id="@+id/w_art_br" android:layout_width="150dp" android:layout_height="96dp" android:layout_gravity="bottom|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_br" />
+    <ImageView android:id="@+id/w_art_tr" android:layout_width="96dp" android:layout_height="64dp" android:layout_gravity="top|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_tr" />
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="horizontal" android:padding="14dp">
+    <FrameLayout android:layout_width="96dp" android:layout_height="84dp">
+        <ImageView android:id="@+id/w_vis" android:layout_width="78dp" android:layout_height="78dp" android:layout_gravity="end|bottom" android:contentDescription="Visiteur du jour" android:src="@drawable/w_vis_kitsune" />
+        <ImageView android:id="@+id/w_mascot" android:layout_width="40dp" android:layout_height="40dp" android:layout_gravity="start|bottom" android:contentDescription="@string/widget_mascot" android:src="@drawable/w_onigiri" />
+    </FrameLayout>
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:id="@+id/w_k" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Visiteur du jour · 訪" android:textColor="@color/w_muted" android:textSize="11sp" android:textStyle="bold" />
+        <TextView android:id="@+id/w_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="" android:textColor="@color/w_text" android:textSize="16sp" android:textStyle="bold" />
+        <TextView android:id="@+id/w_msg" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="3" android:text="" android:textColor="@color/w_muted" android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
+</FrameLayout>

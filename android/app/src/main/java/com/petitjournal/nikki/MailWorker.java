@@ -116,9 +116,24 @@ public class MailWorker extends Worker {
                 b.put("m", str(p.get("mascot"), "onigiri"));
                 List<?> week = p.get("week") instanceof List ? (List<?>) p.get("week") : null;
                 b.put("w", week != null && week.contains(today));
+                String pday = str(p.get("day"), "");
+                long pst = num(p.get("streak"));
+                b.put("s", pday.equals(today) || pday.equals(WidgetData.daysAgo(1)) ? pst : 0);
                 band.put(b);
                 if (band.length() >= 5) break;
             }
+            try {
+                QuerySnapshot gv = Tasks.await(db.collection("gvisits").document(uid).collection("from").get(), 20, TimeUnit.SECONDS);
+                DocumentSnapshot best = null;
+                for (DocumentSnapshot d : gv.getDocuments()) if (best == null || num(d.get("at")) > num(best.get("at"))) best = d;
+                if (best != null && System.currentTimeMillis() - num(best.get("at")) < 7L * 86400000L) {
+                    DocumentSnapshot p = prof.get(best.getId());
+                    JSONObject gift = new JSONObject();
+                    gift.put("name", p != null ? str(p.get("name"), "Une amie") : "Une amie");
+                    gift.put("wish", best.get("wish") != null);
+                    mail.put("gift", gift);
+                }
+            } catch (Exception ignored) { }
             mail.put("signedIn", true);
             mail.put("friends", prof.size());
             mail.put("band", band);

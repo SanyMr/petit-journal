@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_bg">
+    <ImageView android:id="@+id/w_art_br" android:layout_width="150dp" android:layout_height="96dp" android:layout_gravity="bottom|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_br" />
+    <ImageView android:id="@+id/w_art_tr" android:layout_width="96dp" android:layout_height="64dp" android:layout_gravity="top|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_tr" />
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="vertical" android:padding="12dp">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Comment tu te sens ? · きもち" android:textColor="@color/w_muted" android:textSize="11sp" android:textStyle="bold" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:orientation="horizontal">
+        <LinearLayout android:id="@+id/w_m0" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="4dp">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:contentDescription="Super" android:src="@drawable/w_mood_super" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Super" android:textColor="@color/w_text" android:textSize="10sp" android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_m1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="4dp">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:contentDescription="Bien" android:src="@drawable/w_mood_bien" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Bien" android:textColor="@color/w_text" android:textSize="10sp" android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_m2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="4dp">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:contentDescription="Bof" android:src="@drawable/w_mood_bof" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Bof" android:textColor="@color/w_text" android:textSize="10sp" android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_m3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="4dp">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:contentDescription="Triste" android:src="@drawable/w_mood_triste" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Triste" android:textColor="@color/w_text" android:textSize="10sp" android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_m4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="4dp">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:contentDescription="Fatigué·e" android:src="@drawable/w_mood_fatigue" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Fatigué·e" android:textColor="@color/w_text" android:textSize="10sp" android:maxLines="1" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:id="@+id/w_msg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:ellipsize="end" android:maxLines="1"
+        android:text="Un toucher suffit ✿" android:textColor="@color/w_accent" android:textSize="12sp" android:textStyle="bold" />
+</LinearLayout>
+</FrameLayout>

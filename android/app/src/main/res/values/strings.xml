@@ -12,4 +12,11 @@
     <string name="wd_todo">Tes prochaines tâches</string>
     <string name="wd_mail">Les petits mots de tes amis et qui a écrit aujourd\'hui</string>
     <string name="widget_mail_env">Enveloppe</string>
+    <string name="wd_garden">Ton jardin japonais, à l\'heure et à la saison du moment</string>
+    <string name="wd_mood">Note ton humeur d\'un seul toucher</string>
+    <string name="wd_focus">Lance une session de concentration au jardin</string>
+    <string name="wd_month">Une fleur par page, de la couleur de ton humeur</string>
+    <string name="wd_visitor">Le visiteur rare qui se promène dans ton jardin</string>
+    <string name="wd_friends">Les flammes de tes amies et leurs petits cadeaux</string>
+    <string name="wd_season">Les 24 saisons japonaises et la phase de la lune</string>
 </resources>
