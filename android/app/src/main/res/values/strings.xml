@@ -18,6 +18,12 @@
     <string name="wd_month">Une fleur par page, de la couleur de ton humeur</string>
     <string name="wd_visitor">Le visiteur rare qui se promène dans ton jardin</string>
     <string name="wd_friends">Les flammes de tes amies et leurs petits cadeaux</string>
+    <string name="wd_craft_omamori">Ton intention du mois, brodée de fils d\'or à chaque page écrite</string>
+    <string name="wd_craft_daruma">Un œil pour ton objectif, le second quand tu l\'atteins</string>
+    <string name="wd_craft_kintsugi">Les jours difficiles deviennent des fils d\'or</string>
+    <string name="wd_craft_grues">Une grue en papier pour chaque page écrite, vers ton grand vœu</string>
+    <string name="wd_craft_goshuin">Un sceau vermillon pour chaque semaine d\'écriture</string>
+    <string name="wd_craft_lanternes">Confie tes soucis à la rivière</string>
     <string name="wd_wisdom">Un proverbe japonais chaque jour, choisi selon tes humeurs (5 fonds, 3 formats)</string>
     <string name="wd_season">Les 24 saisons japonaises et la phase de la lune</string>
 </resources>

@@ -77,6 +77,30 @@
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_season_info" />
         </receiver>
+        <receiver android:name=".OmamoriWidget" android:exported="false" android:label="Omamori brodé">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_omamori_info" />
+        </receiver>
+        <receiver android:name=".DarumaWidget" android:exported="false" android:label="Daruma des objectifs">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_daruma_info" />
+        </receiver>
+        <receiver android:name=".KintsugiWidget" android:exported="false" android:label="Bol kintsugi">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_kintsugi_info" />
+        </receiver>
+        <receiver android:name=".CranesWidget" android:exported="false" android:label="Mille grues">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_grues_info" />
+        </receiver>
+        <receiver android:name=".GoshuinWidget" android:exported="false" android:label="Carnet de sceaux">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_goshuin_info" />
+        </receiver>
+        <receiver android:name=".LanternWidget" android:exported="false" android:label="Rivière des lanternes">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_craft_lanternes_info" />
+        </receiver>
         <receiver android:name=".WisdomWidget" android:exported="false" android:label="Sagesse du jour">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_wisdom_info" />

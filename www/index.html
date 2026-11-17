@@ -782,7 +782,48 @@ input,textarea,select{font-size:16px}
 .wis-ifr{font-size:12.5px;line-height:1.35;color:#d8cfc4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .wis-it small{font-size:11px;color:#a99f95}
 .wis-empty,.wis-more{grid-column:1/-1;margin:4px 0;text-align:center;font-size:13.5px;color:#7a6672}
-@media (prefers-reduced-motion:reduce){#wis,.wis-panel,.wis-steam path{animation:none}}
+#wis{position:fixed}.wis-note{margin:0;font-size:13.5px;line-height:1.5;color:#7a6672}
+.wis-it.sel{outline:3px solid #d9708d;outline-offset:2px}
+.wis-confirm{position:sticky;bottom:0;background:#fbf6ef;padding:10px 0 2px;display:grid;gap:8px;border-top:1.5px dashed #f1dce4}.wis-confirm p{margin:0;font-weight:700;font-size:14.5px}
+.wis-toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#4b3a47;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:2;white-space:nowrap}
+.wis-toast.on{animation:wisToast 2.6s ease forwards}@keyframes wisToast{0%{opacity:0;transform:translate(-50%,10px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.wis-toast.on{animation:none;opacity:1}#wis,.wis-panel,.wis-steam path{animation:none}}
+/* ===== porte-bonheur ===== */
+#crCard{margin:0}
+.cr-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 10px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
+.cr-strip{flex:none;display:grid;grid-template-columns:repeat(3,28px);gap:2px;background:#fbf3ea;border-radius:14px;padding:5px}
+.cr-mini{width:28px;height:28px;display:block}
+.cr-cbody{flex:1;display:grid;gap:2px;min-width:0}.cr-cbody b{font-family:var(--display);font-weight:500;font-size:17px}.cr-cbody small{font-size:12.5px;color:var(--muted);line-height:1.35}
+#cr{position:fixed;inset:0;z-index:1600;background:rgba(43,35,66,.5);display:flex;align-items:flex-end;justify-content:center;animation:wisIn .25s ease-out}
+@media (min-width:640px){#cr{align-items:center}}
+.cr-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.cr-tabs button{border:2px solid #f1e3d8;background:#fff;border-radius:14px;padding:4px;cursor:pointer;aspect-ratio:1}
+.cr-tabs button[aria-selected="true"]{border-color:#d9708d;background:#fde8ee}
+.cr-tab{width:100%;height:100%;display:block}
+.cr-hero{display:grid;place-items:center;background:#17151b radial-gradient(ellipse 70% 50% at 50% 100%,rgba(255,255,255,.07),transparent);border-radius:22px;padding:10px}
+.cr-big{width:min(220px,60vw);height:auto;display:block}
+.cr-state{display:grid;gap:6px;background:#fff;border:1.5px solid #f1dce4;border-radius:18px;padding:12px 14px}
+.cr-state b{font-family:var(--display);font-weight:500;font-size:17px}.cr-state span{font-size:13.5px;color:#7a6672}
+.cr-bar{height:8px;border-radius:9px;background:#efe6dc;overflow:hidden}.cr-bar i{display:block;height:100%;background:linear-gradient(90deg,#c99a2e,#ffe08a);border-radius:9px}
+.cr-h{margin:6px 0 0;font-size:14px;font-weight:700}
+.cr-rows{list-style:none;margin:0;padding:0;display:grid}.cr-rows li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px dashed #eadfd6;font-size:13.5px}.cr-rows b{color:#a5802b;white-space:nowrap}
+.cr-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px}
+.cr-chip{display:flex;align-items:center;gap:6px;border:2px solid #f1e3d8;background:#fff;border-radius:999px;padding:6px 10px;font:inherit;font-size:13px;font-weight:700;color:#4b3a47;cursor:pointer}
+.cr-chip b{font-family:"Yuji Wis","Yuji Syuku",serif;font-weight:400;font-size:17px}
+.cr-chip.on{border-color:#d9708d;background:#fde8ee}
+.cr-coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px}
+.cr-ci{display:grid;justify-items:center;gap:2px;background:#fbf3ea;border-radius:14px;padding:6px}.cr-ci svg{width:64px;height:64px}.cr-ci small{font-size:11.5px;color:#7a6672}
+.cr-seal{background:#fbf6ea;border:1px solid #e5dccb;position:relative;min-height:96px;align-content:center}
+.cr-sv{font-family:"Yuji Wis","Yuji Syuku",serif;writing-mode:vertical-rl;text-orientation:upright;font-size:20px;color:#2b2b33}
+.cr-seal i{position:absolute;bottom:20px;right:6px;transform:rotate(-8deg);width:26px;height:26px;border:2px solid #c8322b;border-radius:50%;display:grid;place-items:center;font-style:normal;font-family:"Yuji Wis","Yuji Syuku",serif;color:#c8322b;font-size:13px;opacity:.85}
+.cr-form{display:grid;gap:10px}.cr-form label{display:grid;gap:5px;font-size:13.5px;font-weight:700}
+.cr-form input,.cr-form select,.cr-form textarea{font:inherit;font-weight:400;font-size:15px;border:2px solid #f1dce4;border-radius:14px;padding:10px 12px;background:#fff;color:#4b3a47}
+.cr-form textarea{resize:vertical;min-height:84px}
+.cr-link{background:none;border:0;color:#7a6672;font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;justify-self:center;padding:6px}
+.cr-sent{display:grid;justify-items:center;gap:10px;text-align:center;padding:6px 0}.cr-sent p{margin:0;font-family:var(--display);font-size:16px}
+.cr-fly{width:64px;height:64px;display:block;animation:crFly 3.2s ease-in forwards}.cr-fly svg{width:100%;height:100%}
+@keyframes crFly{0%{transform:translate(0,0);opacity:1}100%{transform:translate(80px,-60px) scale(.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){.cr-fly,#cr{animation:none}}
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -2401,7 +2442,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();if(typeof renderCrCard==="function")renderCrCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -3055,7 +3096,7 @@ function pushWidget(){
     for(let i=0;i<42;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
     for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
     const data=JSON.stringify({vis:(typeof wgVis==="function"?wgVis():null),garden:{sub:(typeof wgGardenSub==="function"?wgGardenSub():"")},streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
-    if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});if(typeof wgSchedule==="function")wgSchedule();
+    if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});if(typeof crSchedule==="function")crSchedule();if(typeof wgSchedule==="function")wgSchedule();
   }catch(e){}
 }
 function scheduleWidget(d=800){clearTimeout(widgetTimer);widgetTimer=setTimeout(pushWidget,d)}
@@ -3683,6 +3724,7 @@ function routeUrl(url){
   else if(v==="pomo"){const d=+((url.match(/pomo\/(\d+)/)||[])[1])||25;showView("ecrire");setTimeout(()=>{if(typeof wgStartPomo==="function")wgStartPomo(d)},300)}
   else if(v==="jour"){const k=(url.match(/jour\/(\d{4}-\d{2}-\d{2})/)||[])[1];if(k){if(written(k)){showView("journal");setTimeout(()=>openReader(k),200)}else openDay(k)}}
   else if(v==="ami"){amisInvite(url)}
+  else if(v==="porte"){const k=(url.match(/porte\/(\w+)/)||[])[1];showView("ecrire");setTimeout(()=>{if(typeof openCraft==="function")openCraft(k)},300)}
   else if(v==="sagesse"){showView("ecrire");setTimeout(()=>{if(typeof openWisdom==="function")openWisdom()},300)}
   else{openDay(todayKey());showView("ecrire")}
 }
@@ -3697,6 +3739,7 @@ if(isNative){
   if(A){
     A.addListener("backButton",()=>{
       if(!$("lock").hidden){A.minimizeApp();return}
+      if($("cr")&&!$("cr").hidden){closeCraft();return}
       if($("wis")&&!$("wis").hidden){wisBack();return}
       if($("jd")&&!$("jd").hidden){jdBack();return}
       if(!$("reader").hidden){closeReader();return}
@@ -5031,11 +5074,13 @@ function wisMoods(k){const o=[];for(let i=1;i<=3;i++){const e=entries[wisAdd(k,-
 function wisCat(m){if(!m.length)return"S";if(m.includes("triste"))return"R";if(m.includes("fatigue"))return"P";return m.filter(x=>x==="super"||x==="bien").length*2>=m.length?"J":"E"}
 function wisPick(k){const c=wisCat(wisMoods(k)),pool=WIS_P.filter(p=>p[6].includes(c)),n=pool.length;return{c,p:pool[((wisDayNum(k)+"RPJES".indexOf(c)*7)%n+n)%n]}}
 function wisById(id){return WIS_P.find(p=>p[0]===id)}
-/* le carnet : chaque proverbe rencontré, jour après jour */
-function wisSync(){const s=wisSt(),t=todayKey();if(!s.start){s.start=t;s.last=wisAdd(t,-1);s.seen={};s.fav=[]}s.seen=s.seen||{};s.fav=s.fav||[];
-  let k=s.last&&s.last>=s.start?wisAdd(s.last,1):s.start,g=0;while(k<=t&&g<400){const p=wisPick(k).p;if(!s.seen[p[0]])s.seen[p[0]]=k;k=wisAdd(k,1);g++}
-  const tp=wisPick(t).p;let ch=false;if(!s.seen[tp[0]]){s.seen[tp[0]]=t;ch=true}
-  if(s.last!==t||ch){s.last=t;wisSave(s)}return s}
+/* le carnet : 25 pages, on choisit ce qu'on garde ; les rencontres non gardées partent après 7 jours */
+var WIS_MAX=25;
+function wisSync(){const s=wisSt();let ch=false;if(!s.kept){s.kept=(s.fav||[]).slice(0,WIS_MAX).map(id=>({id,at:(s.seen&&s.seen[id])||todayKey()}));delete s.fav;delete s.seen;ch=true}
+  s.kept=s.kept.filter(x=>wisById(x.id));if(ch)wisSave(s);return s}
+function wisKept(s,id){return s.kept.some(x=>x.id===id)}
+function wisWeek(){const t=todayKey(),o=[];for(let i=0;i<7;i++){const k=wisAdd(t,-i),pk=wisPick(k);if(!o.some(x=>x.p[0]===pk.p[0]))o.push({k,i,c:pk.c,p:pk.p})}return o}
+function wisDayLbl(i,k){if(i===0)return"Aujourd'hui";if(i===1)return"Hier";const a=k.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric"})}
 function wisEsc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function wisDate(k){const a=k.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString("fr-FR",{day:"numeric",month:"long"})}
 var WIS_BOWL='<svg viewBox="16 40 208 182" aria-hidden="true"><rect x="20" y="170" width="200" height="40" rx="6" fill="#d9c9a0"/><path d="M24 172v36M32 172v36M40 172v36M48 172v36M56 172v36M64 172v36M72 172v36M80 172v36M88 172v36M96 172v36M104 172v36M112 172v36M120 172v36M128 172v36M136 172v36M144 172v36M152 172v36M160 172v36M168 172v36M176 172v36M184 172v36M192 172v36M200 172v36M208 172v36M216 172v36" stroke="#c4b285" stroke-width="2"/><ellipse cx="120" cy="188" rx="70" ry="9" fill="#000" opacity=".14"/><path d="M58 112Q120 106 182 112Q178 176 120 182Q62 176 58 112Z" fill="#3b3b45"/><path d="M58 112Q120 106 182 112Q178 150 120 156Q62 150 58 112Z" fill="#6b5a4e" opacity=".55"/><path d="M62 132Q90 140 120 136T178 132" stroke="#9b6b45" stroke-width="4" fill="none" opacity=".6"/><ellipse cx="120" cy="112" rx="62" ry="10" fill="#4a4a56"/><ellipse cx="120" cy="113" rx="56" ry="7.5" fill="#d9a23a"/><ellipse cx="110" cy="112" rx="22" ry="2.4" fill="#f6d68a" opacity=".7"/><g class="wis-steam"><path d="M100 98q-6-10 0-20q6-10 0-20"/><path d="M122 96q-6-10 0-20q6-10 0-20"/><path d="M142 98q-6-10 0-20q6-10 0-20"/></g></svg>';
@@ -5045,7 +5090,7 @@ function renderWisCard(){
   if(typeof WIS_P==="undefined"||!WIS_P||typeof entries==="undefined")return;
   let box=$("wisCard");if(!box){const jc=$("jdCard");if(!jc)return;box=document.createElement("div");box.id="wisCard";jc.after(box)}
   if(typeof current!=="undefined"&&current!==todayKey()){box.hidden=true;return}
-  const t=todayKey(),{c,p}=wisPick(t);wisSync();box.hidden=false;
+  const t=todayKey(),{c,p}=wisPick(t);box.hidden=false;
   box.innerHTML=`<button type="button" class="wis-card" aria-label="La sagesse du jour : ${wisEsc(p[3])}"><span class="wis-ctile">${wisVert(p[1],p[1].length>4?"wis-vs":"")}<i class="wis-seal">${WIS_SEAL[c]}</i></span><span class="wis-cbody"><b>Sagesse du jour</b><span class="wis-cfr">${wisEsc(p[3])}</span></span><span class="jd-go">›</span></button>`;
   box.querySelector("button").onclick=()=>openWisdom()}
 /* ---------- la fenêtre ---------- */
@@ -5053,40 +5098,216 @@ function openWisdom(id){
   if(typeof Sfx!=="undefined")Sfx.play("chime");
   let ov=$("wis");if(!ov){ov=document.createElement("div");ov.id="wis";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","La sagesse du jour");
     ov.innerHTML='<div class="wis-panel"></div>';document.body.append(ov);
-    ov.addEventListener("click",e=>{if(e.target===ov)closeWisdom();const b=e.target.closest("[data-w]");if(b)wisAct(b.dataset.w,b.dataset.id)});
+    ov.addEventListener("click",e=>{if(e.target===ov)closeWisdom();const b=e.target.closest("[data-w]");if(b)wisAct(b.dataset.w,b.dataset.id,b)});
     document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("wis")&&!$("wis").hidden){e.stopPropagation();closeWisdom()}},true)}
   ov.hidden=false;document.body.style.overflow="hidden";WIS_V={view:id?"one":"day",id:id||null};wisRender()}
 function closeWisdom(){const ov=$("wis");if(ov)ov.hidden=true;document.body.style.overflow="";WIS_V=null;renderWisCard()}
-function wisBack(){if(WIS_V&&WIS_V.view==="one"&&WIS_V.from){WIS_V={view:WIS_V.from};wisRender();return}closeWisdom()}
+function wisBack(){if(WIS_V&&WIS_V.from){WIS_V={view:WIS_V.from};wisRender();return}closeWisdom()}
 function wisRender(){
-  const P=document.querySelector("#wis .wis-panel");if(!P||!WIS_V)return;const s=wisSync(),n=Object.keys(s.seen).length,tot=WIS_P.length;
-  const top=`<div class="wis-top"><span><b lang="ja">一期一会</b> ${WIS_V.view==="book"?"Mon carnet de sagesse":"La sagesse du jour"}</span><button type="button" class="wis-x" data-w="${WIS_V.view==="one"&&WIS_V.from?"back":"close"}" aria-label="${WIS_V.view==="one"&&WIS_V.from?"Retour":"Fermer"}">${WIS_V.view==="one"&&WIS_V.from?"‹":"×"}</button></div>`;
-  if(WIS_V.view==="book"){
-    const fav=WIS_V.fav,list=WIS_P.filter(p=>s.seen[p[0]]&&(!fav||s.fav.includes(p[0]))).sort((a,b)=>s.seen[b[0]]<s.seen[a[0]]?-1:1);
-    P.innerHTML=top+`<p class="wis-bk">${n} proverbe${n>1?"s":""} rencontré${n>1?"s":""} sur ${tot}<i style="--p:${Math.round(n/tot*100)}%"></i></p>
-    <div class="wis-tabs" role="tablist"><button type="button" role="tab" aria-selected="${!fav}" data-w="tab0">Tous</button><button type="button" role="tab" aria-selected="${!!fav}" data-w="tab1">♥ Gardés (${s.fav.length})</button></div>
-    <div class="wis-grid">${list.map(p=>`<button type="button" class="wis-it" data-w="one" data-id="${p[0]}"><span class="wis-ik" lang="ja">${wisEsc(p[1])}</span><span class="wis-ifr">${wisEsc(p[3])}</span><small>${s.fav.includes(p[0])?"♥ ":""}${wisDate(s.seen[p[0]])}</small></button>`).join("")||`<p class="wis-empty">${fav?"Touche ♥ sur un proverbe pour le garder ici.":"Ton premier proverbe t'attend aujourd'hui."}</p>`}</div>
-    ${!fav&&n<tot?`<p class="wis-more">Encore ${tot-n} proverbe${tot-n>1?"s":""} à rencontrer, un par jour ✿</p>`:""}`;
-    return}
-  const day=WIS_V.view==="day",pk=day?wisPick(todayKey()):{c:(wisById(WIS_V.id)||[])[6][0],p:wisById(WIS_V.id)},p=pk.p,c=pk.c,isFav=s.fav.includes(p[0]);
-  P.innerHTML=top+`<div class="wis-hero"><span class="wis-bowl">${WIS_BOWL}</span><span class="wis-kbox">${wisVert(p[1],p[1].length>8?"wis-vs":"")}<i class="wis-seal">${WIS_SEAL[c]}</i></span></div>
+  const P=document.querySelector("#wis .wis-panel");if(!P||!WIS_V)return;const s=wisSync(),n=s.kept.length,V=WIS_V;
+  const back=!!V.from,title=V.view==="book"?"Mon carnet de sagesse":V.view==="full"?"Ton carnet est plein":"La sagesse du jour";
+  const top=`<div class="wis-top"><span><b lang="ja">一期一会</b> ${title}</span><button type="button" class="wis-x" data-w="${back?"back":"close"}" aria-label="${back?"Retour":"Fermer"}">${back?"‹":"×"}</button></div>`;
+  const pages=`<p class="wis-bk">${n} page${n>1?"s":""} sur ${WIS_MAX} dans ton carnet<i style="--p:${Math.round(n/WIS_MAX*100)}%"></i></p>`;
+  const item=(p,sub,attrs)=>`<button type="button" class="wis-it${attrs.sel?" sel":""}" ${attrs.d}><span class="wis-ik" lang="ja">${wisEsc(p[1])}</span><span class="wis-ifr">${wisEsc(p[3])}</span><small>${sub}</small></button>`;
+  if(V.view==="book"){
+    const wk=V.tab==="week";let body;
+    if(wk)body=`<p class="wis-note">Les proverbes rencontrés ces 7 derniers jours. Ceux que tu ne gardes pas s'envolent ensuite… une rencontre, une seule fois.</p><div class="wis-grid">${wisWeek().map(x=>item(x.p,(wisKept(s,x.p[0])?"♥ ":"")+wisDayLbl(x.i,x.k),{d:`data-w="one" data-id="${x.p[0]}" data-k="${x.k}"`})).join("")}</div>`;
+    else body=n?`<div class="wis-grid">${s.kept.slice().reverse().map(x=>item(wisById(x.id),"♥ gardé le "+wisDate(x.at),{d:`data-w="one" data-id="${x.id}"`})).join("")}</div>`:`<p class="wis-empty">Ton carnet est encore vide. Touche « Garder » sur un proverbe qui te parle ✿</p>`;
+    P.innerHTML=top+pages+`<div class="wis-tabs" role="tablist"><button type="button" role="tab" aria-selected="${!wk}" data-w="tabk">Mon carnet</button><button type="button" role="tab" aria-selected="${wk}" data-w="tabw">Cette semaine</button></div>`+body;return}
+  if(V.view==="full"){
+    const np=wisById(V.pend),sel=V.sel?wisById(V.sel):null;
+    P.innerHTML=top+`<p class="wis-note">Pour garder « ${wisEsc(np[3])} », choisis un proverbe à laisser partir. Il s'envolera comme un pétale ✿</p><div class="wis-grid">${s.kept.slice().reverse().map(x=>item(wisById(x.id),"gardé le "+wisDate(x.at),{sel:V.sel===x.id,d:`data-w="pick" data-id="${x.id}"`})).join("")}</div>
+    ${sel?`<div class="wis-confirm"><p>Laisser partir « ${wisEsc(sel[3])} » ?</p><div class="wis-row"><button type="button" class="wis-btn" data-w="unpick">Annuler</button><button type="button" class="wis-btn wis-pink" data-w="swap">Oui, le laisser partir</button></div></div>`:""}`;return}
+  const day=V.view==="day",id=day?wisPick(todayKey()).p[0]:V.id,p=wisById(id);if(!p){closeWisdom();return}
+  const c=day?wisPick(todayKey()).c:(V.k?wisPick(V.k).c:p[6][0]),kept=wisKept(s,id),kx=s.kept.find(x=>x.id===id);
+  const inWeek=wisWeek().some(x=>x.p[0]===id),canKeep=kept||inWeek;
+  const when=day?WIS_WHY[c]:kept?"Dans ton carnet depuis le "+wisDate(kx.at):V.k?"Rencontré "+(V.k===todayKey()?"aujourd'hui":"le "+wisDate(V.k)):"";
+  const keepBtn=!canKeep?"":kept?(V.ask?`<button type="button" class="wis-btn" data-w="noask">Garder encore</button><button type="button" class="wis-btn wis-pink" data-w="free" data-id="${id}">Oui, le laisser partir</button>`:`<button type="button" class="wis-btn on" data-w="ask" aria-pressed="true">♥ Dans mon carnet</button>`):`<button type="button" class="wis-btn" data-w="keep" data-id="${id}" aria-pressed="false">♡ Garder dans mon carnet</button>`;
+  P.innerHTML=top+`<div class="wis-hero"><span class="wis-bowl">${WIS_BOWL}</span><span class="wis-kbox">${wisVert(p[1],p[1].length>8?"wis-vs":"")}<i class="wis-seal">${WIS_SEAL[c]||"縁"}</i></span></div>
   <h2 class="wis-fr">${wisEsc(p[3])}</h2><p class="wis-ro" lang="ja-Latn">${wisEsc(p[2])}</p><p class="wis-m">${wisEsc(p[4])}</p>
-  ${day?`<p class="wis-why">${WIS_WHY[c]}</p>`:`<p class="wis-why">Rencontré le ${wisDate(s.seen[p[0]]||todayKey())}</p>`}
-  <div class="wis-q"><small>Une question pour écrire</small><p>${wisEsc(p[5])}</p><button type="button" class="wis-btn wis-pink" data-w="write" data-id="${p[0]}">✎ En écrire une page</button></div>
-  <div class="wis-row"><button type="button" class="wis-btn${isFav?" on":""}" data-w="fav" data-id="${p[0]}" aria-pressed="${isFav}">${isFav?"♥ Gardé":"♡ Garder"}</button><button type="button" class="wis-btn" data-w="book">Mon carnet · ${n}/${tot}</button>${typeof isNative!=="undefined"&&isNative&&PL_().NikkiWidget?`<button type="button" class="wis-btn" data-w="style">Style du widget</button>`:""}</div>`}
-function wisAct(a,id){
-  const s=wisSync();
+  ${when?`<p class="wis-why">${when}</p>`:""}
+  <div class="wis-q"><small>Une question pour écrire</small><p>${wisEsc(p[5])}</p><button type="button" class="wis-btn wis-pink" data-w="write" data-id="${id}">✎ En écrire une page</button></div>
+  ${V.ask?`<p class="wis-note">Laisser partir ce proverbe ? Il quittera ton carnet pour toujours.</p>`:""}
+  <div class="wis-row">${keepBtn}${V.ask?"":`<button type="button" class="wis-btn" data-w="book">Mon carnet · ${n}/${WIS_MAX}</button>`}${!V.ask&&day&&typeof isNative!=="undefined"&&isNative&&PL_().NikkiWidget?`<button type="button" class="wis-btn" data-w="style">Style du widget</button>`:""}</div>`}
+function wisFly(){try{const b=$("petals");if(b){b.style.zIndex=1700;clearTimeout(wisFly.t);wisFly.t=setTimeout(()=>b.style.zIndex="",4500)}if(typeof petals==="function")petals(16)}catch(e){}if(typeof Sfx!=="undefined")try{Sfx.play("petals")}catch(e){}}
+function wisToast(t){let d=document.querySelector("#wis .wis-toast");if(!d){d=document.createElement("div");d.className="wis-toast";d.setAttribute("role","status");$("wis").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
+function wisAct(a,id,el){
+  const s=wisSync(),V=WIS_V||{};
   if(a==="close")closeWisdom();
   else if(a==="back")wisBack();
-  else if(a==="book"){WIS_V={view:"book"};wisRender()}
-  else if(a==="tab0"||a==="tab1"){WIS_V={view:"book",fav:a==="tab1"};wisRender()}
-  else if(a==="one"){WIS_V={view:"one",id,from:"book"};wisRender()}
-  else if(a==="fav"){const i=s.fav.indexOf(id);if(i<0){s.fav.push(id);if(typeof Sfx!=="undefined")Sfx.play("sparkle")}else s.fav.splice(i,1);wisSave(s);wisRender()}
+  else if(a==="book"){WIS_V={view:"book",tab:"kept",from:V.view==="day"?"day":null};if(!WIS_V.from)delete WIS_V.from;wisRender()}
+  else if(a==="tabk"||a==="tabw"){WIS_V={...V,view:"book",tab:a==="tabw"?"week":"kept"};wisRender()}
+  else if(a==="one"){WIS_V={view:"one",id,k:el&&el.dataset.k||null,from:"book",tab:V.tab};wisRender()}
+  else if(a==="keep"){if(wisKept(s,id))return;if(s.kept.length<WIS_MAX){s.kept.push({id,at:todayKey()});wisSave(s);if(typeof Sfx!=="undefined")Sfx.play("sparkle");wisRender();wisToast("Gardé dans ton carnet ♥")}else{WIS_V={view:"full",pend:id,ret:V};wisRender()}}
+  else if(a==="pick"){WIS_V={...V,sel:id};wisRender()}
+  else if(a==="unpick"){WIS_V={...V,sel:null};wisRender()}
+  else if(a==="swap"){const old=wisById(V.sel);s.kept=s.kept.filter(x=>x.id!==V.sel);s.kept.push({id:V.pend,at:todayKey()});wisSave(s);wisFly();WIS_V=V.ret||{view:"day"};wisRender();wisToast("« "+(old?old[3]:"")+" » s'est envolé ✿")}
+  else if(a==="ask"){WIS_V={...V,ask:true};wisRender()}
+  else if(a==="noask"){WIS_V={...V,ask:false};wisRender()}
+  else if(a==="free"){s.kept=s.kept.filter(x=>x.id!==id);wisSave(s);wisFly();WIS_V={...V,ask:false};wisRender();wisToast("Il s'est envolé comme un pétale ✿")}
   else if(a==="write"){const p=wisById(id);if(!p)return;const t=todayKey();if(hasContent(entries[t]))touch(t,{prompt:p[5]});else entries[t]={...entry(t),prompt:p[5]};closeWisdom();openDay(t);if(typeof say==="function")say("Belle question à méditer ✿");setTimeout(()=>{const ta=$("text");if(ta)ta.focus()},350)}
   else if(a==="style"){try{PL_().NikkiWidget.wisdomStyle()}catch(e){}}
 }
 try{renderWisCard()}catch(e){}
 /* ===== fin sagesse ===== */
+/* ================= porte-bonheur 工芸 ================= */
+var CR_K="nikki.craft",CR_V=null,CR_BUSY=false;
+var CR_ORDER=["omamori","daruma","kintsugi","grues","goshuin","lanternes"];
+var CR_META={
+  omamori:{k:"お守り",n:"L'omamori brodé",d:"Un sachet de soie qui protège une intention. Chaque jour où tu écris ce mois-ci ajoute des fils d'or à sa broderie."},
+  daruma:{k:"達磨",n:"Le daruma des objectifs",d:"On peint un œil en se fixant un but, le second quand on l'atteint. Les daruma réussis rejoignent ton étagère."},
+  kintsugi:{k:"金継ぎ",n:"Le bol kintsugi",d:"Un jour triste ou fatigué fait apparaître une fêlure. En continuant d'écrire, elle se remplit d'or : ton bol devient unique."},
+  grues:{k:"千羽鶴",n:"Les mille grues",d:"Celui qui plie mille grues voit son vœu exaucé. Chaque page écrite plie une grue, de la couleur de ton humeur."},
+  goshuin:{k:"御朱印",n:"Le carnet de sceaux",d:"Comme dans les temples japonais : chaque semaine avec au moins 3 pages écrites t'offre un sceau vermillon."},
+  lanternes:{k:"灯籠流し",n:"La rivière des lanternes",d:"Écris ce qui te pèse et confie-le à une lanterne. Elle s'éloigne sur l'eau, et ton texte est effacé pour toujours."}
+};
+var CR_INT={courage:{k:"勇",n:"Courage",c:["#e27c9c","#b5506d"]},etudes:{k:"学",n:"Études",c:["#5b6fb8","#2f3d75"]},serenite:{k:"和",n:"Sérénité",c:["#6a9e78","#3f6e4c"]},amitie:{k:"友",n:"Amitié",c:["#e8955a","#b5643a"]},sante:{k:"健",n:"Santé",c:["#3f9a9a","#2b6e6e"]},amour:{k:"愛",n:"Amour",c:["#d9534f","#9e2f2c"]},chance:{k:"福",n:"Chance",c:["#d9a23a","#a8761c"]}};
+var CR_MCOL={super:"#ffb6c9",bien:"#ffd8a1",bof:"#c6e3c2",triste:"#b8d6f0",fatigue:"#d9c9f1"};
+var CR_OM_GOAL=20,CR_GO_MIN=3,CR_KI_DAYS=5;
+function crStore(){return typeof store!=="undefined"?store:localStorage}
+function crSt(){let s;try{s=JSON.parse(crStore().getItem(CR_K)||"{}")||{}}catch(e){s={}}
+  s.om=s.om||{int:"courage",m:null,hist:[]};s.da=s.da||{cur:null,shelf:[]};s.gr=s.gr||{wish:""};s.la=s.la||{n:0,at:[]};return s}
+function crSave(s){try{crStore().setItem(CR_K,JSON.stringify(s))}catch(e){}}
+function crEsc(t){return String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function crW(){return Object.keys(entries).filter(k=>written(k)).sort()}
+function crDate(k,o){const a=k.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString("fr-FR",o||{day:"numeric",month:"long"})}
+function crMonday(k){const a=k.split("-").map(Number),d=new Date(a[0],a[1]-1,a[2]);d.setDate(d.getDate()-((d.getDay()+6)%7));return keyOf(d)}
+function crKanjiNum(n){const D="〇一二三四五六七八九";if(n<=10)return n===10?"十":D[n];if(n<20)return"十"+D[n-10];return D[Math.floor(n/10)]+"十"+(n%10?D[n%10]:"")}
+function crKanjiDate(k){const a=k.split("-").map(Number);return crKanjiNum(a[1])+"月"+crKanjiNum(a[2])+"日"}
+function crAgo(t){const d=Math.floor((Date.now()-t)/864e5);return d<=0?"aujourd'hui":d===1?"hier":"il y a "+d+" jours"}
+/* ---------- état de chaque objet ---------- */
+function crOmamori(s){const m=todayKey().slice(0,7),W=crW();
+  if(s.om.m&&s.om.m!==m){const n=W.filter(k=>k.slice(0,7)===s.om.m).length;s.om.hist=(s.om.hist||[]).filter(h=>h.m!==s.om.m).concat([{m:s.om.m,int:s.om.int,n}]).slice(-60);s.om.m=m;crSave(s)}
+  if(!s.om.m){s.om.m=m;crSave(s)}
+  const n=W.filter(k=>k.slice(0,7)===m).length,I=CR_INT[s.om.int]||CR_INT.courage;return{n,goal:CR_OM_GOAL,prog:Math.min(1,n/CR_OM_GOAL),done:n>=CR_OM_GOAL,I}}
+function crKintsugi(){const W=crW(),cr=Object.keys(entries).filter(k=>entries[k]&&(entries[k].mood==="triste"||entries[k].mood==="fatigue")).sort();
+  return cr.map(k=>{const after=W.filter(x=>x>k).length;return{k,m:entries[k].mood,g:Math.min(1,after/CR_KI_DAYS)}})}
+function crGrues(){const W=crW();return{n:W.length,cols:W.slice(-80).map(k=>CR_MCOL[(entries[k]||{}).mood]||"#f5c3d0")}}
+var CR_GO_PAIR={super:"歓喜",bien:"和楽",bof:"平穏",triste:"慈雨",fatigue:"休息","":"日記"};
+var CR_SEASON=["冬","冬","春","春","春","夏","夏","夏","秋","秋","秋","冬"];
+function crGoshuin(){const W=crW(),wk={};W.forEach(k=>{const m=crMonday(k);(wk[m]=wk[m]||[]).push(k)});
+  const seals=Object.keys(wk).sort().filter(m=>wk[m].length>=CR_GO_MIN).map(m=>{const c={};wk[m].forEach(k=>{const mo=(entries[k]||{}).mood||"";c[mo]=(c[mo]||0)+1});const top=Object.keys(c).sort((a,b)=>c[b]-c[a]||(a===""?1:-1))[0]||"";
+    return{m,pair:CR_GO_PAIR[top]||"日記",season:CR_SEASON[+m.slice(5,7)-1]}});
+  const cur=crMonday(todayKey());return{seals,cur,n:(wk[cur]||[]).length,got:(wk[cur]||[]).length>=CR_GO_MIN}}
+/* ---------- dessins (SVG 250×250 ; les kanji sont posés à part pour le rendu en image) ---------- */
+function crTx(x,y,size,t,col,op){return{x,y,size,t,col,op:op==null?1:op}}
+function crOmSVG(I,prog,done){const tot=600,dash=Math.round(tot*prog),pet=[0,1,2,3,4].map(i=>{const a=i*1.2566-1.57;return`<path d="M125 150C${(125+Math.cos(a)*30).toFixed(1)} ${(150+Math.sin(a)*30-8).toFixed(1)} ${(125+Math.cos(a+.6)*30).toFixed(1)} ${(150+Math.sin(a+.6)*30).toFixed(1)} 125 150"/>`}).join("");
+  const svg=`<defs><linearGradient id="crOs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${I.c[0]}"/><stop offset="1" stop-color="${I.c[1]}"/></linearGradient></defs><g transform="translate(22 10) scale(.82)"><ellipse cx="125" cy="222" rx="52" ry="7" fill="#000" opacity=".14"/><path d="M110 52C100 22 150 22 140 52" stroke="#e8b04a" stroke-width="4" fill="none"/><path d="M118 50L112 70M132 50L138 70" stroke="#e8b04a" stroke-width="3"/><circle cx="125" cy="52" r="7" fill="#e8b04a"/><path d="M82 66Q125 54 168 66L172 196Q172 214 154 214L96 214Q78 214 78 196Z" fill="url(#crOs)"/><path d="M82 66Q125 54 168 66L170 90Q125 80 80 90Z" fill="#000" opacity=".12"/><path d="M90 74Q125 66 160 74" stroke="#fff" stroke-opacity=".25" stroke-width="3" fill="none"/><rect x="96" y="96" width="58" height="96" rx="8" fill="none" stroke="#f3d27a" stroke-width="1.6" stroke-dasharray="3 3" opacity=".9"/><g fill="none" stroke="#ffe7a3" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="${dash} ${tot}">${pet}</g><circle cx="125" cy="150" r="3.5" fill="${prog>.5?"#ffe08a":"none"}" stroke="#ffe7a3" stroke-width="1.5"/></g>${done?'<path d="M198 62l3 8 8 3-8 3-3 8-3-8-8-3 8-3zM52 176l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffe08a"/>':""}`;
+  return{svg,tx:[crTx(125,121,25,I.k,"#f3d27a",prog>.15?1:.45)]}}
+function crDarumaG(x,y,s,eyes,gold){const body=gold?"#e2b23c":"#d9342b";return`<g transform="translate(${x} ${y}) scale(${s})"><ellipse cy="52" rx="44" ry="7" fill="#000" opacity=".14"/><path d="M0-50C38-50 52-18 50 14C48 44 26 54 0 54C-26 54-48 44-50 14C-52-18-38-50 0-50Z" fill="${body}"/><path d="M0-50C38-50 52-18 50 14" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="6"/><ellipse cy="-6" rx="30" ry="25" fill="#fbf1e4"/><circle cx="-11" cy="-8" r="9" fill="#fff" stroke="#d8cfc4" stroke-width="1.6"/><circle cx="11" cy="-8" r="9" fill="#fff" stroke="#d8cfc4" stroke-width="1.6"/>${eyes>=1?'<circle cx="-11" cy="-8" r="5.5" fill="#2b2b33"/>':""}${eyes>=2?'<circle cx="11" cy="-8" r="5.5" fill="#2b2b33"/>':""}<path d="M-24-22Q-14-30-4-24M24-22Q14-30 4-24" stroke="#2b2b33" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M-10 8Q-14 2-20 6M10 8Q14 2 20 6" stroke="#2b2b33" stroke-width="2" fill="none"/><path d="M-6 12Q0 16 6 12" stroke="${gold?"#a8761c":"#d9342b"}" stroke-width="2" fill="none"/></g>`}
+function crDaSVG(st){const d=st.cur;if(d){const done=d.n>=d.t;const conf=done?[[40,60,"#ff8fb1",20],[200,50,"#ffd66b",-30],[50,170,"#8ec9f0",45],[205,150,"#8fd38a",10],[180,34,"#b9a0e6",60],[28,120,"#ffd66b",-20]].map(([x,y,c,r])=>`<rect x="${x}" y="${y}" width="8" height="4" fill="${c}" transform="rotate(${r} ${x} ${y})"/>`).join(""):"";
+    return{svg:conf+crDarumaG(125,118,1.45,done?2:1,false),tx:[crTx(125,118+40*1.45,20*1.45,"福","#f3d27a")]}}
+  const n=st.shelf.length;if(!n)return{svg:crDarumaG(125,118,1.45,0,false),tx:[crTx(125,118+40*1.45,20*1.45,"福","#f3d27a")]};
+  const show=st.shelf.slice(-3),xs=show.length===1?[125]:show.length===2?[85,165]:[60,125,190];
+  return{svg:`<rect x="14" y="196" width="222" height="10" rx="4" fill="#a8744f"/><rect x="14" y="204" width="222" height="5" fill="#7a4e36"/>`+show.map((x,i)=>crDarumaG(xs[i],150,.72,2,false)).join(""),tx:show.map((x,i)=>crTx(xs[i],150+40*.72,20*.72,"福","#f3d27a"))}}
+var CR_CRACK=["M70 120L82 136L78 150L90 168","M150 116L142 132L150 146L144 160","M110 120L114 140L106 156L112 176","M182 128L170 142L176 158","M92 118L100 130L96 144"];
+function crKiSVG(cr){const last=cr.slice(-5);const g1="#8aa7c9",g2="#3e5a86";
+  const paths=last.map((c,i)=>{const p=CR_CRACK[i],L=60,gd=Math.round(L*c.g);return`<path d="${p}" stroke="#2f2f3a" stroke-width="1.8" fill="none" stroke-linejoin="round"/>`+(c.g>0?`<path d="${p}" pathLength="${L}" stroke="#c99a2e" stroke-width="4.4" fill="none" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="${gd} ${L}"/><path d="${p}" pathLength="${L}" stroke="#ffe08a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-dasharray="${gd} ${L}"/>`:"")}).join("");
+  const spark=last.filter(c=>c.g>=1).slice(0,3).map((c,i)=>{const[x,y]=[[84,138],[146,130],[112,150]][i];return`<path d="M${x} ${y}l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff6c9"/>`}).join("");
+  return{svg:`<defs><radialGradient id="crKg" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="${g1}"/><stop offset="1" stop-color="${g2}"/></radialGradient><clipPath id="crKc"><path d="M40 112Q125 104 210 112Q206 190 125 196Q44 190 40 112Z"/></clipPath></defs><ellipse cx="125" cy="206" rx="64" ry="8" fill="#000" opacity=".16"/><path d="M98 192h54l-4 10h-46z" fill="${g2}"/><path d="M40 112Q125 104 210 112Q206 190 125 196Q44 190 40 112Z" fill="url(#crKg)"/><g clip-path="url(#crKc)"><path d="M40 150Q90 140 130 156T214 150V200H40Z" fill="#000" opacity=".08"/>${paths}</g><ellipse cx="125" cy="112" rx="85" ry="13" fill="#e9e2d6"/><ellipse cx="125" cy="113" rx="78" ry="9.5" fill="#d9a23a"/><ellipse cx="112" cy="111" rx="30" ry="3" fill="#f6d68a" opacity=".7"/><path d="M60 124Q70 160 96 182" stroke="#fff" stroke-opacity=".25" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M110 96q-6-10 0-20q6-10 0-20M136 96q-6-10 0-20q6-10 0-20" stroke="#fff" stroke-width="3" fill="none" opacity=".6" stroke-linecap="round"/>${spark}`,tx:[]}}
+function crCrane(x,y,c,s){return`<g transform="translate(${x} ${y}) scale(${s})"><path d="M-9 0L0-5L9 0L0 4Z" fill="${c}"/><path d="M0-5L-3-11L1-6Z" fill="${c}" opacity=".85"/><path d="M0-5L4-12L2-5Z" fill="${c}" opacity=".7"/><path d="M9 0L13-6" stroke="${c}" stroke-width="1.6"/></g>`}
+function crGrSVG(g){const gold=g.n>=1000,strings=7,per=7,tot=strings*per,show=gold?tot:Math.min(tot,g.n);let o="",i=0;
+  for(let s=0;s<strings;s++){const x=40+s*28,cnt=Math.max(0,Math.min(per,show-s*per));o+=`<path d="M${x} 44V${cnt?54+cnt*21:56}" stroke="#d8cbd2" stroke-width="1"/>`;
+    for(let j=0;j<cnt;j++){o+=crCrane(x,62+j*21,gold?"#e2b23c":(g.cols[g.cols.length-1-(i%Math.max(1,g.cols.length))]||"#f5c3d0"),1.35);i++}if(cnt)o+=`<circle cx="${x}" cy="${58+cnt*21}" r="2.6" fill="#e0533f"/>`}
+  return{svg:`<rect x="20" y="36" width="210" height="8" rx="3" fill="#8a5a3c"/>${o}${gold?crCrane(190,200,"#e2b23c",3):""}`,tx:[]}}
+function crGoSVG(go){const last=go.seals[go.seals.length-1],show=last,faint=!last;
+  const pair=show?show.pair:"日記",season=show?show.season:CR_SEASON[new Date().getMonth()],date=crKanjiDate(show?show.m:go.cur),col="#c8322b";
+  const svg=`<rect x="44" y="12" width="162" height="226" rx="4" fill="#fbf6ea" stroke="#e5dccb"/><rect x="44" y="12" width="162" height="226" rx="4" fill="#000" opacity=".02"/><g opacity="${faint?.28:.9}" transform="translate(125 118) rotate(-8)"><circle r="46" fill="none" stroke="${col}" stroke-width="3.4"/><circle r="40" fill="none" stroke="${col}" stroke-width="1.2"/></g>`;
+  const tx=[crTx(125,128,28,season,col,faint?.28:.9)].concat([...pair].map((c,i)=>crTx(125,72+i*102,34,c,"#2b2b33",faint?.35:1))).concat([...date].map((c,i)=>crTx(190,34+i*13,10.5,c,"#2b2b33",.8)));
+  return{svg,tx}}
+function crLantern(x,y,s){return`<g transform="translate(${x} ${y}) scale(${s})"><ellipse cy="20" rx="20" ry="7" fill="#ffd66b" opacity=".28"/><circle cy="-4" r="22" fill="#ffe08a" opacity=".22"/><path d="M-12 8h24l-3-22h-18z" fill="#fff4d6"/><path d="M-12 8h24l-3-22h-18z" fill="#ffd66b" opacity=".35"/><path d="M-14-14h28l-4-5h-20z" fill="#7a4e36"/><rect x="-14" y="8" width="28" height="4" fill="#7a4e36"/><path d="M-4-8v10M4-8v10" stroke="#e8b04a" stroke-width=".8"/></g>`}
+function crLaSVG(la){const n=Math.min(12,la.n);let r=7,ls="";const pos=[[125,150],[88,168],[160,172],[110,192],[150,200],[70,196],[186,192],[128,214],[95,216],[170,218],[60,170],[195,160]];
+  const pts=pos.slice(0,n).sort((a,b)=>a[1]-b[1]);pts.forEach(([x,y])=>{ls+=crLantern(x,y,.55+(y-140)/80*.45)});
+  return{svg:`<ellipse cx="125" cy="188" rx="118" ry="52" fill="#16224a" opacity=".85"/><ellipse cx="125" cy="188" rx="118" ry="52" fill="none" stroke="#8ea6e8" stroke-opacity=".25"/>${[[60,176,30],[150,206,40],[96,224,26],[170,166,22]].map(([x,y,w])=>`<path d="M${x} ${y}h${w}" stroke="#8ea6e8" stroke-width="1.4" opacity=".4"/>`).join("")}<circle cx="190" cy="70" r="16" fill="#fff6cf" opacity=".9"/><circle cx="190" cy="70" r="30" fill="#fff6cf" opacity=".12"/><path d="M190 150V230" stroke="#fff6cf" stroke-width="8" opacity=".08"/>${ls}${n?"":crLantern(125,160,.9).replace('fill="#fff4d6"','fill="#fff4d6" opacity=".4"')}`,tx:[]}}
+function crSprite(kind,s){
+  if(kind==="omamori"){const o=crOmamori(s);return crOmSVG(o.I,o.prog,o.done)}
+  if(kind==="daruma")return crDaSVG(s.da);
+  if(kind==="kintsugi")return crKiSVG(crKintsugi());
+  if(kind==="grues")return crGrSVG(crGrues());
+  if(kind==="goshuin")return crGoSVG(crGoshuin());
+  return crLaSVG(s.la)}
+function crInline(kind,s,cls){const o=crSprite(kind,s);return`<svg class="${cls||"cr-sp"}" viewBox="0 0 250 250" aria-hidden="true">${o.svg}${o.tx.map(t=>`<text x="${t.x}" y="${t.y}" text-anchor="middle" font-family="Yuji Wis,Yuji Syuku,serif" font-size="${t.size}" fill="${t.col}" opacity="${t.op}">${t.t}</text>`).join("")}</svg>`}
+/* ---------- textes pour les widgets ---------- */
+function crInfo(kind,s){const M=CR_META[kind];
+  if(kind==="omamori"){const o=crOmamori(s);return{k:M.k,n:"Omamori",t:o.I.n,s:o.done?"Brodé ✿ "+o.n+" jours ce mois-ci":o.n+" / "+o.goal+" fils d'or ce mois-ci",sm:o.done?"Brodé ✿":o.n+" / "+o.goal+" fils",p:o.prog,r:(s.om.hist||[]).slice(-3).reverse().map(h=>[crDate(h.m+"-01",{month:"long",year:"numeric"}),(CR_INT[h.int]||CR_INT.courage).n+(h.n>=CR_OM_GOAL?" ✿":"")])}}
+  if(kind==="daruma"){const d=s.da.cur,n=s.da.shelf.length;if(d)return{k:M.k,n:"Daruma",t:d.g,s:d.n>=d.t?"Accompli ! Le second œil est peint ✿":d.n+" / "+d.t+(d.t>1?" étapes":" étape"),sm:d.n>=d.t?"Accompli ✿":d.n+" / "+d.t,p:d.t?d.n/d.t:0,r:s.da.shelf.slice(-3).reverse().map(x=>[x.g,"✓ "+crDate(x.done,{day:"numeric",month:"short"})]),d:n?n+" sur ton étagère":""};
+    return{k:M.k,n:"Daruma",t:n?"Fixe ton prochain objectif":"Fixe-toi un objectif",s:n?n+" daruma sur ton étagère ✿":"Peins le premier œil de ton daruma",sm:n?n+" réussis":"Un objectif ?",p:-1,r:s.da.shelf.slice(-3).reverse().map(x=>[x.g,"✓ "+crDate(x.done,{day:"numeric",month:"short"})])}}
+  if(kind==="kintsugi"){const cr=crKintsugi(),gold=cr.filter(c=>c.g>=1).length,open=cr.filter(c=>c.g<1).pop();
+    return{k:M.k,n:"Kintsugi",t:!cr.length?"Un bol tout neuf":gold+(gold>1?" fêlures devenues or":" fêlure devenue or"),s:open?"Fêlure du "+crDate(open.k,{day:"numeric",month:"short"})+" · "+Math.round(open.g*100)+" % d'or":cr.length?"Chaque fêlure devient or":"Ton histoire commence",sm:cr.length?gold+" fil"+(gold>1?"s":"")+" d'or":"Tout neuf",p:open?open.g:-1,r:cr.slice(-4).reverse().map(c=>[crDate(c.k,{day:"numeric",month:"long"})+" · "+(c.m==="triste"?"jour triste":"jour fatigué"),c.g>=1?"✦ or":Math.round(c.g*100)+" %"])}}
+  if(kind==="grues"){const g=crGrues(),w=s.gr.wish||"Que mes vœux s'envolent";return{k:M.k,n:"Mille grues",t:"« "+w+" »",s:g.n>=1000?"Mille grues pliées ✦ ton vœu s'envole":g.n+" grue"+(g.n>1?"s":"")+" pliée"+(g.n>1?"s":"")+" sur 1000",sm:g.n+" / 1000",p:Math.min(1,g.n/1000),r:[]}}
+  if(kind==="goshuin"){const go=crGoshuin(),n=go.seals.length;return{k:M.k,n:"Sceaux",t:go.got?"Sceau de la semaine obtenu ✓":"Sceau de la semaine",s:go.got?n+" sceau"+(n>1?"x":"")+" dans ton carnet":go.n+" / "+CR_GO_MIN+" pages cette semaine",sm:go.got?"Obtenu ✓":go.n+" / "+CR_GO_MIN+" pages",p:go.got?1:go.n/CR_GO_MIN,r:go.seals.slice(-4).reverse().map(x=>["Semaine du "+crDate(x.m,{day:"numeric",month:"short"}),x.pair+" · "+x.season]),d:!go.got&&n?n+" sceau"+(n>1?"x":"")+" dans ton carnet":""}}
+  const la=s.la;return{k:M.k,n:"La rivière",t:la.n?la.n+(la.n>1?" soucis confiés":" souci confié")+" à la rivière":"La rivière t'attend",s:la.n&&la.at.length?"Dernière lanterne "+crAgo(la.at[la.at.length-1]):"Confie-lui ce qui te pèse",sm:la.n+(la.n>1?" soucis libérés":" souci libéré"),p:-1,r:[],h:"Touche pour confier un souci"}}
+/* ---------- envoi aux widgets (images rendues ici, assemblées par Android) ---------- */
+var crTimer=null;function crSchedule(d){clearTimeout(crTimer);crTimer=setTimeout(crPush,d||3000)}
+async function crPng(o){const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" width="600" height="600">${o.svg}</svg>`;
+  const im=await jdSvgImg(svg),cv=document.createElement("canvas");cv.width=cv.height=600;const x=cv.getContext("2d");x.drawImage(im,0,0,600,600);
+  if(o.tx.length){try{await document.fonts.load('40px "Yuji Wis"',o.tx.map(t=>t.t).join(""))}catch(e){}
+    x.textAlign="center";x.textBaseline="alphabetic";o.tx.forEach(t=>{x.globalAlpha=t.op;x.fillStyle=t.col;x.font=(t.size*2.4)+'px "Yuji Wis","Yuji Syuku",serif';x.fillText(t.t,t.x*2.4,t.y*2.4)});x.globalAlpha=1}
+  return cv.toDataURL("image/png").split(",")[1]}
+async function crPush(){
+  if(typeof isNative==="undefined"||!isNative||CR_BUSY||typeof jdSvgImg!=="function")return;const W=PL_().NikkiWidget;if(!W||!W.craftPush)return;
+  const s=crSt(),data={},imgs={};let sigs={};try{sigs=JSON.parse(crStore().getItem("nikki.crsig")||"{}")}catch(e){}
+  CR_BUSY=true;
+  try{for(const k of CR_ORDER){data[k]=crInfo(k,s);const o=crSprite(k,s),sig=o.svg.length+":"+hash(o.svg+JSON.stringify(o.tx));if(sigs[k]!==sig){imgs[k]=await crPng(o);sigs[k]=sig;await new Promise(r=>setTimeout(r,40))}}
+    await W.craftPush({data:JSON.stringify(data),imgs});crStore().setItem("nikki.crsig",JSON.stringify(sigs))}catch(e){}
+  CR_BUSY=false}
+/* ---------- carte « Mes porte-bonheur » (page Écrire) ---------- */
+function renderCrCard(){
+  if(typeof CR_ORDER==="undefined"||!CR_ORDER||typeof entries==="undefined"||typeof keyOf!=="function")return;
+  let box=$("crCard");if(!box){const anchor=$("wisCard")||$("jdCard");if(!anchor)return;box=document.createElement("div");box.id="crCard";anchor.after(box)}
+  if(typeof current!=="undefined"&&current!==todayKey()){box.hidden=true;return}
+  const s=crSt();box.hidden=false;
+  box.innerHTML=`<button type="button" class="cr-card" aria-label="Mes porte-bonheur"><span class="cr-strip">${CR_ORDER.map(k=>crInline(k,s,"cr-mini")).join("")}</span><span class="cr-cbody"><b>Mes porte-bonheur</b><small>Omamori, daruma, kintsugi, grues, sceaux, lanternes</small></span><span class="jd-go">›</span></button>`;
+  box.querySelector("button").onclick=()=>openCraft();
+  if(typeof isNative!=="undefined"&&isNative)crSchedule()}
+/* ---------- la fenêtre ---------- */
+function openCraft(kind,sub){
+  if(typeof Sfx!=="undefined")Sfx.play("chime");
+  let ov=$("cr");if(!ov){ov=document.createElement("div");ov.id="cr";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","Mes porte-bonheur");
+    ov.innerHTML='<div class="wis-panel cr-panel"></div>';document.body.append(ov);
+    ov.addEventListener("click",e=>{if(e.target===ov)closeCraft();const b=e.target.closest("[data-c]");if(b)crAct(b.dataset.c,b.dataset.v,b)});
+    ov.addEventListener("submit",e=>{e.preventDefault();const f=e.target;crAct(f.dataset.c,null,f)});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("cr")&&!$("cr").hidden){e.stopPropagation();closeCraft()}},true)}
+  ov.hidden=false;document.body.style.overflow="hidden";CR_V={kind:CR_ORDER.includes(kind)?kind:"omamori",sub:sub||null};crRender()}
+function closeCraft(){const ov=$("cr");if(ov)ov.hidden=true;document.body.style.overflow="";CR_V=null;renderCrCard()}
+function crToast(t){let d=document.querySelector("#cr .wis-toast");if(!d){d=document.createElement("div");d.className="wis-toast";d.setAttribute("role","status");$("cr").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
+function crFly(){try{const b=$("petals");if(b){b.style.zIndex=1700;setTimeout(()=>b.style.zIndex="",4500)}if(typeof petals==="function")petals(16)}catch(e){}}
+function crRender(){
+  const P=document.querySelector("#cr .cr-panel");if(!P||!CR_V)return;const s=crSt(),k=CR_V.kind,M=CR_META[k],I=crInfo(k,s);
+  const tabs=`<div class="cr-tabs" role="tablist">${CR_ORDER.map(x=>`<button type="button" role="tab" aria-selected="${x===k}" data-c="tab" data-v="${x}" aria-label="${CR_META[x].n}">${crInline(x,s,"cr-tab")}</button>`).join("")}</div>`;
+  const head=`<div class="wis-top"><span><b lang="ja">工芸</b> Mes porte-bonheur</span><button type="button" class="wis-x" data-c="close" aria-label="Fermer">×</button></div>`;
+  const bar=I.p>=0?`<div class="cr-bar"><i style="width:${Math.round(I.p*100)}%"></i></div>`:"";
+  const rows=r=>r&&r.length?`<ul class="cr-rows">${r.map(x=>`<li><span>${crEsc(x[0])}</span><b>${crEsc(x[1])}</b></li>`).join("")}</ul>`:"";
+  let act="";
+  if(k==="omamori")act=`<p class="cr-h">Ton intention ce mois-ci</p><div class="cr-chips">${Object.keys(CR_INT).map(x=>`<button type="button" class="cr-chip${s.om.int===x?" on":""}" data-c="int" data-v="${x}" aria-pressed="${s.om.int===x}"><b lang="ja" style="color:${CR_INT[x].c[1]}">${CR_INT[x].k}</b>${CR_INT[x].n}</button>`).join("")}</div>${(s.om.hist||[]).length?`<p class="cr-h">Tes omamori des mois passés</p><div class="cr-coll">${s.om.hist.slice().reverse().map(h=>{const II=CR_INT[h.int]||CR_INT.courage;return`<div class="cr-ci">${(o=>`<svg viewBox="0 0 250 250" aria-hidden="true">${o.svg.replace(/crOs/g,"crOs"+h.m)}<text x="125" y="121" text-anchor="middle" font-family="Yuji Wis,Yuji Syuku,serif" font-size="25" fill="#f3d27a">${II.k}</text></svg>`)(crOmSVG(II,Math.min(1,h.n/CR_OM_GOAL),h.n>=CR_OM_GOAL))}<small>${crDate(h.m+"-01",{month:"short",year:"2-digit"})}</small></div>`}).join("")}</div>`:""}`;
+  if(k==="daruma"){const d=s.da.cur;
+    if(d)act=d.n>=d.t?`<div class="wis-row"><button type="button" class="wis-btn wis-pink" data-c="shelf">Ranger sur l'étagère ✿</button></div>`:`<div class="wis-row"><button type="button" class="wis-btn" data-c="dminus" aria-label="Retirer une étape">−</button><button type="button" class="wis-btn wis-pink" data-c="dplus">+1 étape franchie</button></div><button type="button" class="cr-link" data-c="dgive">Abandonner cet objectif</button>`;
+    else act=`<form class="cr-form" data-c="dset"><label>Ton objectif<input name="g" maxlength="40" required placeholder="Lire 3 livres, courir 5 km…"></label><label>Nombre d'étapes<select name="t">${[1,2,3,4,5,6,7,8,10,12,15,20,30].map(n=>`<option${n===3?" selected":""}>${n}</option>`).join("")}</select></label><button class="wis-btn wis-pink">Peindre le premier œil</button></form>`;
+    if(CR_V.sub==="give")act=`<p class="wis-note">Abandonner « ${crEsc(d&&d.g)} » ? Ce n'est pas grave : un objectif peut changer.</p><div class="wis-row"><button type="button" class="wis-btn" data-c="nogive">Garder</button><button type="button" class="wis-btn wis-pink" data-c="give">Abandonner</button></div>`;
+    if(s.da.shelf.length)act+=`<p class="cr-h">Ton étagère · ${s.da.shelf.length} objectif${s.da.shelf.length>1?"s":""} accompli${s.da.shelf.length>1?"s":""}</p><ul class="cr-rows">${s.da.shelf.slice().reverse().map(x=>`<li><span>${crEsc(x.g)}</span><b>✓ ${crDate(x.done,{day:"numeric",month:"short",year:"numeric"})}</b></li>`).join("")}</ul>`}
+  if(k==="grues")act=`<form class="cr-form" data-c="wish"><label>Ton grand vœu<input name="w" maxlength="60" value="${crEsc(s.gr.wish)}" placeholder="Que ma famille reste en bonne santé"></label><button class="wis-btn">Enregistrer mon vœu</button></form>`;
+  if(k==="goshuin"){const go=crGoshuin();act=go.seals.length?`<p class="cr-h">Ton carnet de sceaux</p><div class="cr-coll">${go.seals.slice().reverse().map(x=>`<div class="cr-ci cr-seal"><span class="cr-sv" lang="ja">${x.pair}</span><i lang="ja">${x.season}</i><small>${crDate(x.m,{day:"numeric",month:"short"})}</small></div>`).join("")}</div>`:`<p class="wis-note">Écris au moins ${CR_GO_MIN} pages dans la semaine pour recevoir ton premier sceau.</p>`}
+  if(k==="lanternes")act=CR_V.sub==="sent"?`<div class="cr-sent"><span class="cr-fly">${crLantern(0,0,1).replace("<g ",'<svg viewBox="-30 -30 60 60" aria-hidden="true"><g ')+"</svg>"}</span><p>Ton souci s'éloigne sur la rivière… Il est effacé pour toujours.</p><button type="button" class="wis-btn" data-c="again">Confier un autre souci</button></div>`:`<form class="cr-form" data-c="lantern"><label>Ce qui te pèse<textarea name="w" rows="3" maxlength="400" required placeholder="Écris-le ici, il ne sera jamais enregistré."></textarea></label><button class="wis-btn wis-pink">Confier à la rivière</button></form>`;
+  P.innerHTML=head+tabs+`<div class="cr-hero">${crInline(k,s,"cr-big")}</div><h2 class="wis-fr">${crEsc(M.n)}</h2><p class="wis-m">${M.d}</p><div class="cr-state"><b>${crEsc(I.t)}</b><span>${crEsc(I.s)}</span>${bar}</div>${k==="kintsugi"?rows(I.r):""}${act}${typeof isNative!=="undefined"&&isNative&&PL_().NikkiWidget&&PL_().NikkiWidget.craftStyle?`<button type="button" class="cr-link" data-c="style">Style du widget</button>`:""}`}
+function crAct(a,v,el){
+  const s=crSt();
+  if(a==="close")return closeCraft();
+  if(a==="tab"){CR_V={kind:v};crRender();return}
+  if(a==="int"){s.om.int=v;crSave(s);if(typeof Sfx!=="undefined")Sfx.play("sparkle")}
+  else if(a==="dset"){const g=(el.g.value||"").trim();if(!g)return;s.da.cur={g:g.slice(0,40),t:+el.t.value||3,n:0,at:todayKey()};crSave(s);crToast("Le premier œil est peint ✿")}
+  else if(a==="dplus"&&s.da.cur){s.da.cur.n=Math.min(s.da.cur.t,s.da.cur.n+1);crSave(s);if(s.da.cur.n>=s.da.cur.t){crFly();if(typeof Sfx!=="undefined")Sfx.play("sparkle");crToast("Objectif atteint ! Le second œil est peint ✿")}else if(typeof Sfx!=="undefined")Sfx.play("check")}
+  else if(a==="dminus"&&s.da.cur){s.da.cur.n=Math.max(0,s.da.cur.n-1);crSave(s)}
+  else if(a==="shelf"&&s.da.cur){s.da.shelf.push({g:s.da.cur.g,t:s.da.cur.t,at:s.da.cur.at,done:todayKey()});s.da.cur=null;crSave(s);crToast("Il rejoint ton étagère ✿")}
+  else if(a==="dgive"){CR_V.sub="give"}
+  else if(a==="nogive"){CR_V.sub=null}
+  else if(a==="give"){s.da.cur=null;crSave(s);CR_V.sub=null}
+  else if(a==="wish"){s.gr.wish=(el.w.value||"").trim().slice(0,60);crSave(s);crToast("Ton vœu est noté ✿")}
+  else if(a==="lantern"){el.w.value="";s.la.n++;s.la.at=(s.la.at||[]).concat([Date.now()]).slice(-30);crSave(s);CR_V.sub="sent";if(typeof Sfx!=="undefined")try{Sfx.play("chime")}catch(e){}}
+  else if(a==="again"){CR_V.sub=null}
+  else if(a==="style"){try{PL_().NikkiWidget.craftStyle({kind:CR_V.kind})}catch(e){}return}
+  crRender();if(typeof isNative!=="undefined"&&isNative)crSchedule(800)}
+try{renderCrCard()}catch(e){}
+/* ===== fin porte-bonheur ===== */
 
 </script>
 </body>

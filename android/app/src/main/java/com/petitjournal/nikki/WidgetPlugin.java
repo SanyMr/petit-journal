@@ -164,4 +164,31 @@ public class WidgetPlugin extends Plugin {
         r.put("count", WisdomWidget.ids(getContext()).length);
         call.resolve(r);
     }
+
+    /** Pictures + texts of the craft widgets, prepared by the journal. */
+    @PluginMethod
+    public void craftPush(PluginCall call) {
+        Context ctx = getContext();
+        String data = call.getString("data", "");
+        if (data != null && !data.isEmpty()) WisdomWidget.prefs(ctx).edit().putString("craft", data).apply();
+        JSObject imgs = call.getObject("imgs", new JSObject());
+        for (String k : CraftWidget.KINDS) {
+            String b64 = imgs.getString(k);
+            if (b64 == null || b64.isEmpty()) continue;
+            try (FileOutputStream o = new FileOutputStream(new File(ctx.getFilesDir(), "craft_" + k + ".png"))) {
+                o.write(Base64.decode(b64, Base64.DEFAULT));
+            } catch (Exception ignored) { }
+        }
+        CraftWidget.refreshAll(ctx);
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void craftStyle(PluginCall call) {
+        Intent i = new Intent(getContext(), WisdomConfigActivity.class);
+        i.putExtra("kind", call.getString("kind", "omamori"));
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getContext().startActivity(i);
+        call.resolve();
+    }
 }
