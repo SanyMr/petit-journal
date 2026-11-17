@@ -3277,6 +3277,7 @@ function renderBackupTab(body){
     confirmBox.append(p,ok);
   };
   if(prefs.lastBackup){const l=document.createElement("p");l.className="note";l.textContent="Dernière sauvegarde : "+frDate(prefs.lastBackup,{day:"numeric",month:"long",year:"numeric"});s.append(l)}
+  if(typeof shdBackupBtn==="function")shdBackupBtn(s);
   s.append(n,b1,lab,inp,pick,confirmBox,msg);body.append(s);
 }
 
@@ -5236,6 +5237,7 @@ var SH_KANJI=["春","夢","心","旅","愛","空","花","月","星","海"];
 var SH_SPINE=["#2f4a8a","#d9708d","#5f8f6a","#e07a4f","#2a1a1a","#c9a274","#7b5fc9","#9cc9ea"];
 var SH_FS=[15,17,20];
 function shStore(){return typeof store!=="undefined"?store:localStorage}
+function shKeys(){const S=shStore();try{return typeof S.keys==="function"?S.keys():Object.keys(localStorage)}catch(e){return[]}}
 function shSt(){let s;try{s=JSON.parse(shStore().getItem(SH_K)||"{}")||{}}catch(e){s={}}s.books=s.books||[];s.reads=s.reads||[];return s}
 function shSave(s){try{shStore().setItem(SH_K,JSON.stringify(s))}catch(e){}if(typeof shdQueue==="function")shdQueue()}
 function shChGet(id){try{return shStore().getItem("nikki.shch."+id)||""}catch(e){return""}}
@@ -5299,7 +5301,7 @@ function openShelf(view){
     ov.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&b.tagName!=="FORM"&&ov.contains(b)&&!b.closest("[contenteditable]"))shAct(b.dataset.a,b.dataset.id,b)});
     ov.addEventListener("input",e=>shInput(e));ov.addEventListener("submit",e=>{e.preventDefault();shAct(e.target.dataset.a,e.target.dataset.id,e.target)});
     document.addEventListener("keydown",e=>{if(!$("sh")||$("sh").hidden)return;if(SH_V&&SH_V.view==="read"){if(e.key==="ArrowRight"){shTurn(1);e.preventDefault()}else if(e.key==="ArrowLeft"){shTurn(-1);e.preventDefault()}}if(e.key==="Escape"){e.stopPropagation();shBack()}},true);
-    document.addEventListener("visibilitychange",()=>{if(document.hidden){shFlush();if(shdOn()&&shdSt().pending)shdSync()}});window.addEventListener("online",()=>{if(shdOn()&&shdSt().pending)shdQueue(1000)});window.addEventListener("pagehide",shFlush);
+    document.addEventListener("visibilitychange",()=>{if(document.hidden){shFlush();if(shdOn()&&shdSt().pending)shdSync(true)}});window.addEventListener("online",()=>{if(shdOn()&&shdSt().pending)shdQueue(1000)});window.addEventListener("pagehide",shFlush);
     window.addEventListener("resize",()=>{if(SH_V&&SH_V.view==="read"){clearTimeout(SH_RD&&SH_RD.rt);if(SH_RD)SH_RD.rt=setTimeout(()=>shReadLayout(true),250)}})}
   if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
   ov.hidden=false;document.body.style.overflow="hidden";SH_STACK=[];if(shdOn()&&shdSt().pending)shdQueue(1500);SH_V=view||{view:"shelf",tab:"books"};shRender()}
@@ -5310,7 +5312,7 @@ function shToast(t){let d=document.querySelector("#sh .sh-toast");if(!d){d=docum
 function shHead(title,k,right){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${SH_STACK.length?"Retour":"Fermer"}">${SH_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${title}</b>${k?`<span lang="ja">${k}</span>`:""}<span class="sh-hr">${right||""}</span></div>`}
 function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",V.view==="read");
   if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);
-  if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="noask">Annuler</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
+  if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="${V.ask.no||"noask"}" data-id="${V.ask.id||""}">${shEsc(V.ask.nol||"Annuler")}</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
 /* ---------- l'étagère ---------- */
 function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)-(b.created||0)),reads=s.reads;
   const r1=books.map(b=>shSpineBtn(b,"book")).join("")+`<button type="button" class="sh-spine sh-new" data-a="newbook" aria-label="Commencer un nouveau livre"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>`;
@@ -5415,8 +5417,9 @@ function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="back")return shBack();
   if(a==="drive")return shGo({view:"drive"});
   if(a==="dconnect"||a==="dreauth")return shdConnect(a==="dreauth");
-  if(a==="dnow"){const d=shdSt();d.err="";shdPut(d);return shdQueue(0)}
+  if(a==="dnow"){const d=shdSt();d.err="";shdPut(d);clearTimeout(SHD_T);SHD_T=null;return shdSync(true)}
   if(a==="drestore")return shdRestoreAsk();
+  if(a==="dkeep"){SHD_RESTORE=null;const d=shdSt();d.check=0;if(id)d.full=id;shdPut(d);SH_V={...V,ask:null};shRender();return shdSync(true)}
   if(a==="drestoreok")return shdRestoreDo();
   if(a==="askdoff"){SH_V={...V,ask:{msg:"Arrêter la sauvegarde ? Les fichiers déjà envoyés restent sur ton Drive.",ok:"doff",okl:"Arrêter"}};return shRender()}
   if(a==="doff"){shdPut({});SHD_TOK=null;SH_V={...V,ask:null};shToast("Sauvegarde Drive arrêtée");return shRender()}
@@ -5461,7 +5464,12 @@ function shdPlug(){if(window.__shdMock)return window.__shdMock;if(typeof isNativ
 function shdSt(){try{return JSON.parse(shStore().getItem(SHD_K)||"{}")||{}}catch(e){return{}}}
 function shdPut(d){try{shStore().setItem(SHD_K,JSON.stringify(d))}catch(e){}}
 function shdOn(){return!!(shdPlug()&&shdSt().email)}
-function shdQueue(ms){if(!shdOn())return;const d=shdSt();if(!d.pending){d.pending=1;shdPut(d)}clearTimeout(SHD_T);SHD_T=setTimeout(shdSync,ms==null?4000:ms);shdUi()}
+function shdQueue(ms){if(!shdOn())return;const d=shdSt();if(!d.pending){d.pending=1;shdPut(d)}if(SHD_T&&ms==null)return;clearTimeout(SHD_T);SHD_T=setTimeout(()=>{SHD_T=null;shdSync(false)},ms==null?6000:ms);shdUi()}
+function shdTouch(k){if(typeof k==="string"&&k.startsWith("nikki.")&&k!=="nikki.view"&&k!==SHD_K)shdQueue()}
+(function(){if(typeof store==="undefined"||!store||store.__shd)return;const S=store.setItem.bind(store),R=store.removeItem.bind(store);store.setItem=function(k,v){S(k,v);shdTouch(k)};store.removeItem=function(k){R(k);shdTouch(k)};store.__shd=1})();
+function shdBackup(){const o={app:"petit-journal",version:1,date:new Date().toISOString(),data:{}};try{shKeys().forEach(k=>{if(k.startsWith("nikki.")&&k!=="nikki.view"&&k!==SHD_K)o.data[k]=shStore().getItem(k)})}catch(e){}return JSON.stringify(o)}
+function shdJournalHtml(){const E=typeof entries!=="undefined"&&entries||{};const ks=Object.keys(E).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)&&E[k]&&(E[k].text||"").trim()).sort().reverse();
+  return`<html><head><meta charset="utf-8"></head><body><h1 style="text-align:center">Mon petit journal</h1><p style="text-align:center"><i>${ks.length} page${ks.length>1?"s":""}</i></p>`+ks.map(k=>{const e=E[k],dt=new Date(k+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});return`<h2>${shEsc(dt)}</h2>${e.prompt?`<p><i>${shEsc(e.prompt)}</i></p>`:""}`+String(e.text).split(/\n+/).map(x=>`<p>${shEsc(x)}</p>`).join("")}).join("")+"</body></html>"}
 async function shdToken(inter){if(SHD_TOK&&Date.now()<SHD_TOK.exp)return SHD_TOK.t;const d=shdSt();const r=await shdPlug().token({email:d.email,interactive:!!inter});SHD_TOK={t:r.token,exp:Date.now()+40*60e3};return r.token}
 async function shdFetch(method,url,body,ctype,again){const t=await shdToken(false),h={Authorization:"Bearer "+t};if(ctype)h["Content-Type"]=ctype;
   let r;try{r=await fetch(url,{method,headers:h,body})}catch(e){throw new Error("network")}
@@ -5469,7 +5477,7 @@ async function shdFetch(method,url,body,ctype,again){const t=await shdToken(fals
   if(r.status===403||r.status===429){const x=await r.text().catch(()=>"");throw new Error(/rateLimit|userRateLimit|429/.test(x+r.status)?"busy":/accessNotConfigured|has not been used|disabled/i.test(x)?"api_off":"forbidden")}
   return r}
 function shdMulti(meta,content,mime){const b="nikki"+Math.random().toString(36).slice(2);return{ct:"multipart/related; boundary="+b,body:`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${b}\r\nContent-Type: ${mime}; charset=UTF-8\r\n\r\n${content}\r\n--${b}--`}}
-async function shdFind(key){const q=encodeURIComponent(`appProperties has { key='nikki' and value='${key}' } and trashed=false`);const r=await shdFetch("GET",SHD_API+"files?q="+q+"&fields=files(id,modifiedTime)&orderBy=modifiedTime desc&pageSize=5");if(!r.ok)throw new Error("http"+r.status);const j=await r.json();return(j.files&&j.files[0])||null}
+async function shdFind(key,prop){const q=encodeURIComponent(`appProperties has { key='${prop||"nikki"}' and value='${key}' } and trashed=false`);const r=await shdFetch("GET",SHD_API+"files?q="+q+"&fields=files(id,modifiedTime)&orderBy=modifiedTime desc&pageSize=5");if(!r.ok)throw new Error("http"+r.status);const j=await r.json();return(j.files&&j.files[0])||null}
 async function shdDir(d,key,name,parent){const f=d.dirs&&d.dirs[key];if(f){const r=await shdFetch("GET",SHD_API+"files/"+f+"?fields=id,trashed");if(r.ok){const j=await r.json();if(!j.trashed)return f}}
   let x=await shdFind(key);let id=x&&x.id;if(!id){const meta={name,mimeType:"application/vnd.google-apps.folder",appProperties:{nikki:key}};if(parent)meta.parents=[parent];const r=await shdFetch("POST",SHD_API+"files?fields=id",JSON.stringify(meta),"application/json; charset=UTF-8");if(!r.ok)throw new Error("http"+r.status);id=(await r.json()).id}
   d.dirs={...(d.dirs||{}),[key]:id};return id}
@@ -5478,19 +5486,26 @@ async function shdUpload(id,meta,content,mime,parent){
   const m=shdMulti({...meta,parents:[parent]},content,mime);const r=await shdFetch("POST",SHD_UP+"files?uploadType=multipart&fields=id",m.body,m.ct);if(!r.ok)throw new Error("http"+r.status);return(await r.json()).id}
 function shdDocHtml(b){return`<html><head><meta charset="utf-8"></head><body><h1 style="text-align:center">${shEsc(b.title||"Sans titre")}</h1>${b.author?`<p style="text-align:center"><i>${shEsc(b.author)}</i></p>`:""}`+(b.chapters||[]).map((c,i)=>`<h2>Chapitre ${i+1}${c.title?" · "+shEsc(c.title):""}</h2>${shChGet(c.id)}`).join("")+"</body></html>"}
 function shdName(b){return String(b.title||"Sans titre").replace(/[\\/:*?"<>|]/g," ").trim().slice(0,80)||"Sans titre"}
-async function shdSync(){if(!shdOn())return;if(SHD_BUSY){SHD_AGAIN=true;return}clearTimeout(SHD_T);SHD_BUSY=true;shdUi();let d=shdSt();
+var SHD_JGAP=180e3,SHD_JT=null;
+async function shdSync(force){if(!shdOn()||shdSt().check)return;if(SHD_BUSY){SHD_AGAIN=true;return}clearTimeout(SHD_T);SHD_T=null;SHD_BUSY=true;shdUi();let d=shdSt(),jwait=0;
   try{if(typeof navigator!=="undefined"&&navigator.onLine===false)throw new Error("network");
     const s=shSt(),root=await shdDir(d,"root","Mon petit journal",null),dir=await shdDir(d,"books","Mes livres",root);d.docs=d.docs||{};d.h=d.h||{};
-    for(const b of s.books){const html=shdDocHtml(b),h=shH(html)+":"+html.length+":"+shdName(b);if(d.docs[b.id]&&d.h[b.id]===h)continue;
-      d.docs[b.id]=await shdUpload(d.docs[b.id],{name:shdName(b),mimeType:"application/vnd.google-apps.document"},html,"text/html",dir);d.h[b.id]=h;shdPut({...shdSt(),docs:d.docs,h:d.h,dirs:d.dirs})}
+    for(const [f,k] of [["full","full"],["jdoc","jdoc"],["json","shelfjson"]])if(!d[f]){const x=await shdFind(k);if(x)d[f]=x.id}
+    for(const b of s.books){const html=shdDocHtml(b),h=shH(html)+":"+html.length+":"+shdName(b);if(d.docs[b.id]&&d.h[b.id]===h)continue;if(!d.docs[b.id]){const x=await shdFind(b.id,"bid");if(x)d.docs[b.id]=x.id}
+      d.docs[b.id]=await shdUpload(d.docs[b.id],{name:shdName(b),mimeType:"application/vnd.google-apps.document",appProperties:{nikki:"book",bid:b.id}},html,"text/html",dir);d.h[b.id]=h;shdPut({...shdSt(),docs:d.docs,h:d.h,dirs:d.dirs})}
     for(const id of Object.keys(d.docs))if(!shBook(s,id)){try{await shdFetch("PATCH",SHD_API+"files/"+d.docs[id],JSON.stringify({trashed:true}),"application/json; charset=UTF-8")}catch(e){}delete d.docs[id];delete d.h[id]}
     const ch={};s.books.forEach(b=>(b.chapters||[]).forEach(c=>ch[c.id]=shChGet(c.id)));
-    d.json=await shdUpload(d.json,{name:"sauvegarde-etagere.json",mimeType:"application/json",appProperties:{nikki:"shelfjson"}},JSON.stringify({v:1,at:Date.now(),shelf:s,ch}),"application/json",dir);
-    d={...shdSt(),dirs:d.dirs,docs:d.docs,h:d.h,json:d.json,last:Date.now(),err:"",pending:SHD_AGAIN?1:0};shdPut(d)}
-  catch(e){const m=String(e&&e.message||e);d={...shdSt(),dirs:d.dirs||shdSt().dirs,docs:d.docs||shdSt().docs,h:d.h||shdSt().h,err:/network|offline|Failed to fetch/i.test(m)?"offline":/need_consent|no_account|auth/.test(m)?"auth":/api_off/.test(m)?"api":"fail",pending:1};shdPut(d);SHD_TOK=d.err==="auth"?null:SHD_TOK}
-  SHD_BUSY=false;if(SHD_AGAIN){SHD_AGAIN=false;shdQueue(1500)}shdUi()}
+    const sj=JSON.stringify({v:1,shelf:s,ch}),shh=shH(sj)+":"+sj.length;if(!d.json||d.shh!==shh){d.json=await shdUpload(d.json,{name:"sauvegarde-etagere.json",mimeType:"application/json",appProperties:{nikki:"shelfjson"}},JSON.stringify({v:1,at:Date.now(),shelf:s,ch}),"application/json",dir);d.shh=shh}
+    const full=shdBackup(),jh=shH(full.replace(/"date":"[^"]*"/,""))+":"+full.length;
+    if(!d.full||d.jh!==jh){const since=Date.now()-(d.jlast||0);if(force||!d.full||since>=SHD_JGAP){
+      d.full=await shdUpload(d.full,{name:"sauvegarde-journal.json",mimeType:"application/json",appProperties:{nikki:"full"}},full,"application/json",root);
+      d.jdoc=await shdUpload(d.jdoc,{name:"Mon journal",mimeType:"application/vnd.google-apps.document",appProperties:{nikki:"jdoc"}},shdJournalHtml(),"text/html",root);
+      d.jh=jh;d.jlast=Date.now()}else jwait=SHD_JGAP-since}
+    d={...shdSt(),dirs:d.dirs,docs:d.docs,h:d.h,json:d.json,shh:d.shh,full:d.full,jdoc:d.jdoc,jh:d.jh,jlast:d.jlast,last:Date.now(),err:"",pending:SHD_AGAIN||jwait?1:0};shdPut(d)}
+  catch(e){const m=String(e&&e.message||e);d={...shdSt(),dirs:d.dirs||shdSt().dirs,docs:d.docs||shdSt().docs,h:d.h||shdSt().h,json:d.json||shdSt().json,shh:d.shh||shdSt().shh,full:d.full||shdSt().full,jdoc:d.jdoc||shdSt().jdoc,jh:d.jh||shdSt().jh,jlast:d.jlast||shdSt().jlast,err:/network|offline|Failed to fetch/i.test(m)?"offline":/need_consent|no_account|auth/.test(m)?"auth":/api_off/.test(m)?"api":"fail",pending:1};shdPut(d);SHD_TOK=d.err==="auth"?null:SHD_TOK}
+  SHD_BUSY=false;if(SHD_AGAIN){SHD_AGAIN=false;shdQueue(1500)}else if(jwait){clearTimeout(SHD_JT);SHD_JT=setTimeout(()=>{SHD_JT=null;shdSync()},jwait+500)}shdUi()}
 function shdTime(t){const x=new Date(t),n=new Date();return x.toDateString()===n.toDateString()?"à "+x.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"le "+shDate(t)}
-function shdState(){const d=shdSt();if(!shdPlug())return null;if(!d.email)return{k:"off",t:"Sauvegarder mes livres sur Google Drive"};if(SHD_BUSY)return{k:"busy",t:"Envoi sur Drive…"};
+function shdState(){const d=shdSt();if(!shdPlug())return null;if(!d.email)return{k:"off",t:"Sauvegarder mon journal sur Google Drive"};if(d.check)return{k:"wait",t:"Une sauvegarde existe sur ton Drive : à toi de choisir"};if(SHD_BUSY)return{k:"busy",t:"Envoi sur Drive…"};
   if(d.err==="offline")return{k:"wait",t:"Hors ligne · j'enverrai dès que possible"};if(d.err==="auth")return{k:"err",t:"Reconnecte ton compte Google"};if(d.err)return{k:"err",t:"La sauvegarde Drive n'a pas marché"};if(d.pending)return{k:"wait",t:"Sauvegarde Drive en attente"};return{k:"ok",t:d.last?"Sauvegardé sur Drive "+shdTime(d.last):"Drive connecté"}}
 var SHD_ICON='<svg viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.2 4.5 4.5 0 0 0 7 18z"/></svg>';
 function shdRow(){const st=shdState();if(!st)return"";return`<button type="button" class="sh-drv sh-d-${st.k}" data-a="drive" id="shDrv">${SHD_ICON}<span>${shEsc(st.t)}</span><span class="sh-go">›</span></button>`}
@@ -5498,24 +5513,35 @@ function shdUi(){const st=shdState(),r=$("shDrv");if(r&&st){r.className="sh-drv 
   const c=$("shCloud");if(c&&st){c.className="sh-cloud sh-d-"+st.k;c.hidden=st.k==="off";c.setAttribute("aria-label",st.t);c.title=st.t}
   if(SH_V&&SH_V.view==="drive"&&!SH_V.ask){const P=document.querySelector("#sh .sh-in");if(P)shRender()}}
 function shViewDrive(s,V){const d=shdSt(),st=shdState()||{k:"off",t:""};
-  if(!d.email)return shHead("Google Drive","")+`<div class="sh-dbox"><div class="sh-dic">${SHD_ICON}</div><p>Chaque fois que tu écris, tes livres sont copiés dans <b>ton propre</b> Google Drive, dans un dossier « Mon petit journal ». Si tu changes de téléphone, tu les retrouves.</p><p class="sh-dsm">L'appli ne voit que les fichiers qu'elle crée elle-même, jamais le reste de ton Drive.</p>${V.err?`<p class="sh-derr" role="alert">${shEsc(V.err)}</p>`:""}<button type="button" class="sh-btn sh-pink" data-a="dconnect"${V.busy?" disabled":""}>${V.busy?"Connexion…":"Choisir mon compte Google"}</button></div>`;
+  if(!d.email)return shHead("Google Drive","")+`<div class="sh-dbox"><div class="sh-dic">${SHD_ICON}</div><p>Ton journal et tes livres sont copiés automatiquement dans <b>ton propre</b> Google Drive, dans un dossier « Mon petit journal ». Si tu changes de téléphone, tu retrouves tout.</p><p class="sh-dsm">L'appli ne voit que les fichiers qu'elle crée elle-même, jamais le reste de ton Drive.</p>${V.err?`<p class="sh-derr" role="alert">${shEsc(V.err)}</p>`:""}<button type="button" class="sh-btn sh-pink" data-a="dconnect"${V.busy?" disabled":""}>${V.busy?"Connexion…":"Choisir mon compte Google"}</button></div>`;
   return shHead("Google Drive","")+`<div class="sh-dbox"><div class="sh-dic sh-d-${st.k}">${SHD_ICON}</div><b class="sh-dst">${shEsc(st.t)}</b><small>${shEsc(d.email)}</small>
-  <p class="sh-dsm">Tes livres sont dans « Mon petit journal › Mes livres » : un document lisible par livre, et un fichier de sauvegarde pour tout restaurer.</p>
+  <p class="sh-dsm">Dans le dossier « Mon petit journal » : un document « Mon journal » à relire, tes livres dans « Mes livres », et un fichier de sauvegarde pour tout restaurer (pages, humeurs, photos, jardin, réglages, étagère).</p>
+  ${d.check?`<button type="button" class="sh-btn sh-pink" data-a="drestore">Restaurer la sauvegarde</button><button type="button" class="sh-btn" data-a="dkeep">Garder ce téléphone et l'envoyer sur Drive</button>`:""}
   ${st.k==="err"&&d.err==="auth"?`<button type="button" class="sh-btn sh-pink" data-a="dreauth">Reconnecter mon compte</button>`:""}
-  <button type="button" class="sh-btn${st.k==="err"&&d.err==="auth"?"":" sh-pink"}" data-a="dnow"${SHD_BUSY?" disabled":""}>Sauvegarder maintenant</button>
-  <button type="button" class="sh-btn" data-a="drestore"${SHD_BUSY?" disabled":""}>Restaurer depuis Drive</button>
+  ${d.check?"":`<button type="button" class="sh-btn${st.k==="err"&&d.err==="auth"?"":" sh-pink"}" data-a="dnow"${SHD_BUSY?" disabled":""}>Sauvegarder maintenant</button>
+  <button type="button" class="sh-btn" data-a="drestore"${SHD_BUSY?" disabled":""}>Restaurer depuis Drive</button>`}
   ${d.dirs&&d.dirs.books?`<a class="sh-btn sh-dlink" href="https://drive.google.com/drive/folders/${encodeURIComponent(d.dirs.books)}" target="_blank" rel="noopener">Ouvrir le dossier dans Drive</a>`:""}
   <button type="button" class="sh-link" data-a="askdoff">Arrêter la sauvegarde sur Drive</button></div>`}
 async function shdConnect(reauth){const V=SH_V;if(!V)return;V.busy=true;V.err="";shRender();
-  try{const r=await shdPlug().connect();SHD_TOK={t:r.token,exp:Date.now()+40*60e3};const d=shdSt();if(d.email&&d.email!==r.email){d.dirs=null;d.docs={};d.h={};d.json=null}d.email=r.email;d.err="";shdPut(d);V.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}shToast("Drive connecté ✿");shRender();shdQueue(300)}
+  try{const r=await shdPlug().connect();SHD_TOK={t:r.token,exp:Date.now()+40*60e3};const d=shdSt();if(d.email&&d.email!==r.email){d.dirs=null;d.docs={};d.h={};d.json=null}d.email=r.email;d.err="";d.check=1;shdPut(d);V.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}shToast("Drive connecté ✿");shRender();await shdFirstCheck()}
   catch(e){const m=String(e&&e.message||e);V.busy=false;V.err=/cancel/.test(m)?"":/network/.test(m)?"Pas de connexion internet pour l'instant ☁":"La connexion à Google n'a pas marché. Réessaie dans un instant.";shRender()}}
 async function shdRestoreAsk(){const V=SH_V;shToast("Je cherche ta sauvegarde…");
-  try{const d=shdSt();let id=d.json;if(!id){const f=await shdFind("shelfjson");id=f&&f.id}if(!id)return shToast("Aucune sauvegarde trouvée sur ce Drive");
+  try{const d=shdSt();let fid=d.full;if(!fid){const f=await shdFind("full");fid=f&&f.id}
+    if(fid){const r=await shdFetch("GET",SHD_API+"files/"+fid+"?alt=media");if(r.ok){const o=await r.json();if(o&&o.app==="petit-journal"&&o.data){let pages=0,books=0;try{pages=Object.keys(JSON.parse(o.data["nikki.entries.v1"]||"{}")).length}catch(e){}try{books=(JSON.parse(o.data[SH_K]||"{}").books||[]).length}catch(e){}
+      SHD_RESTORE={full:o};SH_V={...SH_V,ask:{msg:`Remplacer ton journal par la sauvegarde du ${shDate(o.date)} (${pages} page${pages>1?"s":""}, ${books} livre${books>1?"s":""}) ? Tout ce qui est sur ce téléphone sera remplacé.`,ok:"drestoreok",okl:"Restaurer"}};return shRender()}}}
+    let id=d.json;if(!id){const f=await shdFind("shelfjson");id=f&&f.id}if(!id)return shToast("Aucune sauvegarde trouvée sur ce Drive");
     const r=await shdFetch("GET",SHD_API+"files/"+id+"?alt=media");if(!r.ok)throw new Error("http"+r.status);const j=await r.json();if(!j||!j.shelf)throw new Error("bad");
     SHD_RESTORE=j;const n=(j.shelf.books||[]).length,m=(j.shelf.reads||[]).length;SH_V={...SH_V,ask:{msg:`Remplacer ton étagère par la sauvegarde du ${shDate(j.at)} (${n} livre${n>1?"s":""}, ${m} lecture${m>1?"s":""}) ?`,ok:"drestoreok",okl:"Restaurer"}};shRender()}
   catch(e){shToast(/network/.test(String(e&&e.message))?"Pas de connexion internet ☁":"Impossible de lire la sauvegarde")}}
 var SHD_RESTORE=null;
-function shdRestoreDo(){const j=SHD_RESTORE;SHD_RESTORE=null;if(!j)return;const old=shSt();old.books.forEach(b=>(b.chapters||[]).forEach(c=>shChDel(c.id)));
+async function shdFirstCheck(){let f=null;try{f=await shdFind("full")}catch(e){const d=shdSt();d.check=0;d.err=/network/.test(String(e&&e.message))?"offline":"fail";shdPut(d);shdQueue(3000);return shdUi()}
+  if(!f){const d=shdSt();d.check=0;shdPut(d);return shdQueue(300)}
+  try{const r=await shdFetch("GET",SHD_API+"files/"+f.id+"?alt=media");const o=await r.json();let pages=0,books=0;try{pages=Object.keys(JSON.parse(o.data["nikki.entries.v1"]||"{}")).length}catch(e){}try{books=(JSON.parse(o.data[SH_K]||"{}").books||[]).length}catch(e){}
+    SHD_RESTORE={full:o,fid:f.id};SH_V={...SH_V,ask:{msg:`Une sauvegarde du ${shDate(o.date)} existe déjà sur ce Drive (${pages} page${pages>1?"s":""}, ${books} livre${books>1?"s":""}). La remettre sur ce téléphone ?`,ok:"drestoreok",okl:"Restaurer",no:"dkeep",nol:"Garder ce téléphone",id:f.id}};shRender()}
+  catch(e){const d=shdSt();d.check=0;d.full=f.id;shdPut(d);shdQueue(300)}}
+function shdBackupBtn(sec){if(!shdPlug())return;const st=shdState(),b=document.createElement("button");b.type="button";b.className="sh-drv sh-d-"+st.k;b.style.cssText="margin:0 0 14px;width:100%";b.innerHTML=SHD_ICON+"<span></span><span class=\"sh-go\">›</span>";b.querySelector("span").textContent=st.k==="off"?"Sauvegarde automatique sur Google Drive":st.t;b.onclick=()=>openShelf({view:"drive"});sec.append(b)}
+function shdRestoreDo(){const j=SHD_RESTORE;SHD_RESTORE=null;if(!j)return;
+  if(j.full){const keep=shStore().getItem(SHD_K),St=shStore();shKeys().filter(k=>k.startsWith("nikki.")).forEach(k=>St.removeItem(k));for(const k in j.full.data)St.setItem(k,j.full.data[k]);if(keep){const d=JSON.parse(keep);d.h={};d.jh="";d.shh="";d.check=0;if(j.fid)d.full=j.fid;St.setItem(SHD_K,JSON.stringify(d))}SH_V={...SH_V,ask:null};shRender();shToast("Journal restauré, redémarrage…");setTimeout(()=>location.reload(),700);return}const old=shSt();old.books.forEach(b=>(b.chapters||[]).forEach(c=>shChDel(c.id)));
   Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[]});SH_V={...SH_V,ask:null};shToast("Étagère restaurée ✿");shRender()}
 try{renderShCard()}catch(e){}
 /* ===== fin étagère ===== */
