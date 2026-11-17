@@ -164,4 +164,42 @@ public class WidgetPlugin extends Plugin {
         r.put("count", WisdomWidget.ids(getContext()).length);
         call.resolve(r);
     }
+
+    /** Habits for the home-screen widgets, with their stamp pictures; drops the widget taps the journal has taken in. */
+    @PluginMethod
+    public void hbUpdate(PluginCall call) {
+        Context ctx = getContext();
+        android.content.SharedPreferences sp = ctx.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE);
+        android.content.SharedPreferences.Editor ed = sp.edit().putString("hb_data", call.getString("data", "{}"));
+        int consumed = call.getInt("consumed", 0);
+        if (consumed > 0) {
+            try {
+                org.json.JSONArray o = new org.json.JSONArray(sp.getString("hb_ops", "[]")), rest = new org.json.JSONArray();
+                for (int i = consumed; i < o.length(); i++) rest.put(o.get(i));
+                ed.putString("hb_ops", rest.toString());
+            } catch (Exception ignored) { }
+        }
+        ed.apply();
+        JSObject imgs = call.getObject("imgs", new JSObject());
+        File dir = new File(ctx.getFilesDir(), "hb");
+        if (!dir.exists()) dir.mkdirs();
+        java.util.Iterator<String> it = imgs.keys();
+        while (it.hasNext()) {
+            String k = it.next();
+            if (!k.matches("[A-Za-z0-9_]+")) continue;
+            String b64 = imgs.getString(k);
+            if (b64 == null || b64.isEmpty()) continue;
+            try (FileOutputStream o = new FileOutputStream(new File(dir, k + ".png"))) { o.write(Base64.decode(b64, Base64.DEFAULT)); } catch (Exception ignored) { }
+        }
+        HabitsData.refresh(ctx);
+        call.resolve();
+    }
+
+    /** Taps made on the habit widgets since the journal last looked. */
+    @PluginMethod
+    public void takeHabits(PluginCall call) {
+        JSObject r = new JSObject();
+        r.put("ops", getContext().getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).getString("hb_ops", "[]"));
+        call.resolve(r);
+    }
 }

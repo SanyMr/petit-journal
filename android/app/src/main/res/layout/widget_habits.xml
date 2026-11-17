@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_bg">
+    <ImageView android:id="@+id/w_art_br" android:layout_width="150dp" android:layout_height="96dp" android:layout_gravity="bottom|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_br" />
+    <ImageView android:id="@+id/w_art_tr" android:layout_width="96dp" android:layout_height="64dp" android:layout_gravity="top|end"
+        android:importantForAccessibility="no" android:scaleType="fitXY" android:src="@drawable/w_art_aki_tr" />
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="vertical" android:padding="12dp">
+    <LinearLayout android:id="@+id/w_head" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Mes habitudes · 習慣" android:textColor="@color/w_text" android:textSize="14sp" android:textStyle="bold" />
+        <TextView android:id="@+id/w_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/w_accent" android:textSize="13sp" android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+        <LinearLayout android:id="@+id/w_h0" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="3dp" android:visibility="gone">
+            <ImageView android:id="@+id/w_hi0" android:layout_width="46dp" android:layout_height="46dp" android:importantForAccessibility="no" android:scaleType="fitCenter" />
+            <TextView android:id="@+id/w_hl0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" android:ellipsize="end" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_h1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="3dp" android:visibility="gone">
+            <ImageView android:id="@+id/w_hi1" android:layout_width="46dp" android:layout_height="46dp" android:importantForAccessibility="no" android:scaleType="fitCenter" />
+            <TextView android:id="@+id/w_hl1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" android:ellipsize="end" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_h2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="3dp" android:visibility="gone">
+            <ImageView android:id="@+id/w_hi2" android:layout_width="46dp" android:layout_height="46dp" android:importantForAccessibility="no" android:scaleType="fitCenter" />
+            <TextView android:id="@+id/w_hl2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" android:ellipsize="end" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_h3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="3dp" android:visibility="gone">
+            <ImageView android:id="@+id/w_hi3" android:layout_width="46dp" android:layout_height="46dp" android:importantForAccessibility="no" android:scaleType="fitCenter" />
+            <TextView android:id="@+id/w_hl3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" android:ellipsize="end" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/w_h4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:padding="3dp" android:visibility="gone">
+            <ImageView android:id="@+id/w_hi4" android:layout_width="46dp" android:layout_height="46dp" android:importantForAccessibility="no" android:scaleType="fitCenter" />
+            <TextView android:id="@+id/w_hl4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" android:ellipsize="end" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:id="@+id/w_empty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center" android:textColor="@color/w_muted" android:textSize="13sp" android:visibility="gone" />
+</LinearLayout>
+</FrameLayout>

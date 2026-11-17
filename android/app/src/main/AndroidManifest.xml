@@ -85,6 +85,18 @@
             android:theme="@android:style/Theme.Material.Light.NoActionBar" android:screenOrientation="portrait">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
         </activity>
+        <receiver android:name=".HabitsWidget" android:exported="false" android:label="Mes habitudes">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_habits_info" />
+        </receiver>
+        <receiver android:name=".HabitCountWidget" android:exported="false" android:label="Compteur d'habitude">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_habit_count_info" />
+        </receiver>
+        <receiver android:name=".HabitMonthWidget" android:exported="false" android:label="Carte du mois">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_habit_month_info" />
+        </receiver>
         <receiver android:name=".TodoWidget" android:exported="false" android:label="Ma to-do">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_todo_info" />

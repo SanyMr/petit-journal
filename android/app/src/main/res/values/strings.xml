@@ -20,4 +20,7 @@
     <string name="wd_friends">Les flammes de tes amies et leurs petits cadeaux</string>
     <string name="wd_wisdom">Un proverbe japonais chaque jour, choisi selon tes humeurs (5 fonds, 3 formats)</string>
     <string name="wd_season">Les 24 saisons japonaises et la phase de la lune</string>
+    <string name="wd_habits">Tes habitudes du jour : un toucher pose le tampon</string>
+    <string name="wd_habit_count">Compte tes verres d\'eau, tes pages… d\'un toucher</string>
+    <string name="wd_habit_month">Les tampons du mois d\'une habitude</string>
 </resources>

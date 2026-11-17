@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_root" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_bg" android:orientation="vertical" android:padding="10dp">
+    <TextView android:id="@+id/w_mt" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/w_text" android:textSize="13sp" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" android:minHeight="24dp" android:gravity="center_vertical" />
+    <TextView android:id="@+id/w_ms" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/w_muted" android:textSize="10.5sp" android:maxLines="1" />
+    <ImageView android:id="@+id/w_mg" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="4dp" android:contentDescription="Les tampons du mois" android:scaleType="fitCenter" />
+</LinearLayout>
