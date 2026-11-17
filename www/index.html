@@ -826,6 +826,42 @@ input,textarea,select{font-size:16px}
 .jd-mini *{animation-play-state:paused}
 .jd-fl,.jd-vis,[data-o],[data-m]{cursor:pointer}
 @media (prefers-reduced-motion: reduce){#jd *,.jd-mini *{animation:none!important}.jd-pzc i{transition:none}}
+.jd-ic{padding:9px 11px;font-size:16px;min-width:40px}
+.jd-use{background:#fff;border:1.5px solid #f1dce4;border-radius:18px;padding:10px 14px}
+.jd-use summary{cursor:pointer;display:grid;gap:2px;list-style:none}.jd-use summary::-webkit-details-marker{display:none}
+.jd-use summary b{font-family:var(--display);font-weight:500;font-size:16px}.jd-use summary b::after{content:" ▾";color:#b5506d;font-size:12px}.jd-use[open] summary b::after{content:" ▴"}
+.jd-use summary small{font-size:12px;color:#8a7683}
+.jd-ugrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.jd-ugrid div{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;background:#fdf6f8;border-radius:12px;padding:8px}
+.jd-ugrid span{grid-row:span 2;font-size:22px}.jd-ugrid b{font-size:17px}.jd-ugrid small{font-size:11px;color:#6e5a68;line-height:1.3}.jd-ugrid em{font-style:normal;font-weight:700}
+.jd-wishes,.jd-frg{display:grid;gap:8px}.jd-wishes>b,.jd-frg>b{font-family:var(--display);font-weight:500;font-size:16px}
+.jd-wi{background:#fff4f7;border:1.5px solid #f6d3de;border-radius:14px;padding:10px 12px;display:grid;gap:6px}.jd-wi p{margin:0;font-family:var(--display);font-size:15px;line-height:1.45}
+.jd-wi span{display:flex;gap:12px}.jd-wi span button{border:none;background:none;padding:4px 0;font:inherit;font-size:12px;color:#9b8594;text-decoration:underline}
+.jd-frg>div{display:flex;flex-wrap:wrap;gap:6px}
+.jd-plnew{background:#f3f8ff;border-color:#cfe0f5}
+.jd-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.jd-acts button{border:1.5px solid #f1dce4;background:#fff;border-radius:18px;padding:12px 4px;display:grid;justify-items:center;gap:4px;font:inherit;font-size:12px;font-weight:700;color:#4b3a47;min-height:84px}
+.jd-acts button span{font-size:24px}.jd-acts button:disabled{opacity:.6}
+.jd-mapl{background:#f8efe2;overflow:auto;padding:calc(12px + env(safe-area-inset-top,0px)) 12px 20px;gap:10px}
+.jd-mapn{font-size:13px;font-weight:700;color:#b5506d;width:44px;text-align:right}
+.jd-mapbox{flex:none}.jd-mapsvg{display:block;width:100%;height:auto}.jd-med{cursor:pointer}.jd-med:focus{outline:none}.jd-med:focus-visible circle:first-child{stroke:#d9708d;stroke-width:3}
+.jd-mapnext{background:#fff;border-radius:20px;padding:12px 14px;display:grid;gap:8px;box-shadow:0 8px 24px rgba(75,58,71,.12)}.jd-mapnext b{font-family:var(--display);font-weight:500;font-size:15px}.jd-mapnext small{font-size:12px;color:#6e5a68}
+.jd-photo{background:#221c30;color:#fff;overflow:auto;padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(18px + env(safe-area-inset-bottom,0px));gap:12px}
+.jd-chdk h2{color:#fff}
+.jd-phbox{position:relative;flex:none;display:grid;place-items:center;min-height:200px}.jd-phbox img{width:min(78vw,340px);height:auto;transform:rotate(-1.5deg);box-shadow:0 14px 40px rgba(0,0,0,.45);background:#fffdf7;min-height:120px}
+.jd-phwait{position:absolute;font-size:13px;color:#cdbfe0;background:rgba(0,0,0,.4);border-radius:999px;padding:6px 12px}
+.jd-phc{display:grid;gap:10px}.jd-phrow{display:flex;align-items:center;gap:10px}.jd-phrow>span{width:52px;font-size:12px;color:#cdbfe0;flex:none}.jd-phrow .jd-seg{flex:1}
+.jd-photo .jd-pzs button{border:1.5px solid rgba(255,255,255,.22);background:transparent;color:#cdbfe0;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px}
+.jd-photo .jd-pzs button[aria-pressed="true"]{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.45)}
+.jd-wish{background:#fdf3f6;overflow:auto;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 24px;gap:12px}
+.jd-emabig{display:grid;place-items:center}.jd-wishp{justify-content:flex-start}.jd-wishp button{border:1.5px solid #f1dce4;background:#fff;color:#4b3a47;border-radius:999px;padding:8px 12px;font:inherit;font-size:13px}
+.jd-wl{display:grid;gap:6px;font-size:13px;color:#6e5a68}.jd-wl textarea{min-height:0!important;height:76px!important;line-height:1.4!important;background-image:none!important;border:1.5px solid #f1dce4;border-radius:14px;padding:10px;font-family:var(--display);font-size:15px;resize:none;background:#fff;color:#4b3a47}
+@keyframes jdbf{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.25)}}.jd-bf{transform-box:fill-box;transform-origin:center;animation:jdbf .32s ease-in-out infinite}
+@keyframes jdsteam{0%{transform:translateY(10px);opacity:0}40%{opacity:.75}100%{transform:translateY(-70px);opacity:0}}.jd-steam{animation:jdsteam 6s ease-out infinite}.jd-steam.jd-d2{animation-delay:-2s}.jd-steam.jd-d3{animation-delay:-4s}
+@keyframes jdrays{0%,100%{opacity:.35}50%{opacity:.7}}.jd-rays{animation:jdrays 7s ease-in-out infinite}
+@keyframes jdbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}.jd-bob{animation:jdbob 2.4s ease-in-out infinite}
+.jd-ema{cursor:pointer}
+@media (prefers-reduced-motion: reduce){.jd-bf,.jd-steam,.jd-rays,.jd-bob{animation:none!important}}
 </style>
 </head>
 <body>
@@ -3202,6 +3238,7 @@ async function pushProfile(force){
   const data={name:social.name,mascot:curMascot(),acc:wornAcc(),streak:streak(),day:todayKey(),today:written(todayKey()),week:myWeek(),rare:rareStamps(),stampCount:objectives().filter(o=>o.done).length,code:social.code};
   const sig=JSON.stringify(data);if(!force&&sig===profLast)return;
   try{await fsSet("profiles/"+fbUser.uid,{...data,updated:Date.now()});profLast=sig}catch(e){}
+  if(typeof jdPushGarden==="function")jdPushGarden();
 }
 function scheduleProfile(){if(!fbUser)return;clearTimeout(profTimer);profTimer=setTimeout(()=>pushProfile(false),4000)}
 async function stopAmisListeners(){for(const id of amisListeners){try{await FS().removeSnapshotListener({callbackId:id})}catch(e){}}amisListeners=[]}
@@ -3292,6 +3329,7 @@ async function amisDeleteAccount(){
     const fr=await fsList("friends/"+me+"/list").catch(()=>[]);
     fr.forEach(f=>{ops.push({type:"delete",reference:"friends/"+me+"/list/"+f.id},{type:"delete",reference:"friends/"+f.id+"/list/"+me})});
     (await fsList("requests/"+me+"/from").catch(()=>[])).forEach(r=>ops.push({type:"delete",reference:"requests/"+me+"/from/"+r.id}));
+    ops.push({type:"delete",reference:"gardens/"+me});(await fsList("gvisits/"+me+"/from").catch(()=>[])).forEach(x=>ops.push({type:"delete",reference:"gvisits/"+me+"/from/"+x.id}));fr.forEach(f=>ops.push({type:"delete",reference:"gvisits/"+f.id+"/from/"+me}));
     (social.sent||[]).forEach(u=>ops.push({type:"delete",reference:"requests/"+u+"/from/"+me}));
     for(const f of fr){const pp=[me,f.id].sort().join("_");const qs=await fsList("duos/"+pp+"/q").catch(()=>[]);qs.forEach(q=>{ops.push({type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+me},{type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+f.id},{type:"delete",reference:"duos/"+pp+"/q/"+q.id})})}
     (await fsList("nudges/"+me+"/msgs").catch(()=>[])).forEach(n=>ops.push({type:"delete",reference:"nudges/"+me+"/msgs/"+n.id}));
@@ -3398,6 +3436,7 @@ function renderAmis(){
     const sent=social.nudged&&social.nudged[fr.uid]===t;
     const nb=el("button","openbook",sent?"Petit mot envoyé ✓":"Envoyer un petit mot");nb.disabled=sent;
     nb.onclick=()=>{amisOpenNudge=amisOpenNudge===fr.uid?null:fr.uid;renderAmis()};act.append(nb);
+    if(typeof openFriendGarden==="function"){const gb=el("button","ghost","🌸 Son jardin");gb.onclick=()=>openFriendGarden(fr,"amis");act.append(gb)}
     const rm=el("button","linkbtn","Retirer");rm.onclick=()=>{if(rm.dataset.c){removeFriend(fr.uid)}else{rm.dataset.c="1";rm.textContent="Confirmer ?"}};act.append(rm);
     card.append(act);
     if(amisOpenNudge===fr.uid&&!sent){
@@ -4000,9 +4039,9 @@ function jdCherry(x,g,stage,P,R,u,winter){
   let can="";cl.slice(0,n).forEach(([dx,dy,r])=>{const cx=x+dx*sc,cy=g+dy*sc,rr=r*sc;for(let k=0;k<6;k++){const a=k*1.05+R.r(),d=rr*.55;can+=`<circle cx="${jdF(cx+Math.cos(a)*d)}" cy="${jdF(cy+Math.sin(a)*d*.7)}" r="${jdF(rr*(.5+R.r()*.25))}" fill="url(#${u}bl${k%3})"/>`}});
   let fl="";if(P.part==="petal"){const m={1:6,2:18,3:34,4:56}[stage];for(let i=0;i<m;i++){const c=cl[Math.floor(R.r()*n)],fx=x+(c[0]+R.u(-c[2],c[2]))*sc,fy=g+(c[1]+R.u(-c[2]*.7,c[2]*.6))*sc;fl+=`<g transform="translate(${jdF(fx)} ${jdF(fy)}) scale(${R.u(.5,.9).toFixed(2)})">${[0,72,144,216,288].map(a=>`<ellipse cy="-3.2" rx="2.4" ry="3.4" fill="#fff" transform="rotate(${a})"/>`).join("")}<circle r="1.3" fill="#ff7fa2"/></g>`}}
   return o+`<g class="jd-sway jd-s2">${can}${fl}</g>`}
-function jdMascot(x,y,s,sleep){
-  let inner="";try{inner=mascotInner(curMascot(),wornAcc(),!sleep)}catch(e){inner='<path d="M50 10C59 10 92 64 90 76C88 89 12 89 10 76C8 64 41 10 50 10Z" fill="#fff" stroke="#e9cfd8" stroke-width="2.5"/>'}
-  const z=sleep?'<text x="78" y="20" font-family="Kiwi Maru,serif" font-size="18" fill="#cbbef0" class="jd-zz">z</text><text x="92" y="4" font-family="Kiwi Maru,serif" font-size="13" fill="#cbbef0" class="jd-zz jd-d2">z</text>':"";
+function jdMascot(x,y,s,sleep,mid,macc){
+  let inner="";try{inner=mascotInner(mid||curMascot(),mid?(macc||[]):wornAcc(),!sleep)}catch(e){inner='<path d="M50 10C59 10 92 64 90 76C88 89 12 89 10 76C8 64 41 10 50 10Z" fill="#fff" stroke="#e9cfd8" stroke-width="2.5"/>'}
+  const z=sleep?'<text x="78" y="20" font-family="Kiwi Maru,serif" font-size="26" fill="#e3d9ff" class="jd-zz">z</text><text x="96" y="-4" font-family="Kiwi Maru,serif" font-size="19" fill="#cbbef0" class="jd-zz jd-d2">z</text>':"";
   return `<g transform="translate(${x} ${y}) scale(${s})" data-m="1"><ellipse cx="50" cy="94" rx="30" ry="5" fill="#000" opacity=".15"/><g class="jd-br"><svg width="100" height="100" viewBox="0 0 100 100" overflow="visible">${inner}</svg></g>${z}</g>`}
 /* ---------- objets à poser ---------- */
 function jdTea(sn,lit){let sh="";for(let v=-42;v<56;v+=14)sh+=`<path d="M${v} -68V-22" stroke="#c9b08c" stroke-width="1.2"/>`;[-58,-46,-34].forEach(h=>sh+=`<path d="M-56 ${h}H56" stroke="#c9b08c" stroke-width="1.2"/>`);
@@ -4021,7 +4060,7 @@ function jdRock(){return '<ellipse cy="-2" rx="30" ry="6" fill="#000" opacity=".
 function jdAzalea(){let o='<ellipse cy="-2" rx="34" ry="6" fill="#000" opacity=".12"/>';[[-18,-14,16],[16,-14,17],[0,-24,18],[-26,-6,10],[26,-6,11]].forEach(([a,b,r])=>o+=`<circle cx="${a}" cy="${b}" r="${r}" fill="#6aa857"/>`);[[-20,-18],[-8,-30],[6,-26],[18,-18],[24,-8],[-26,-8],[0,-12],[12,-34],[-14,-6]].forEach(([a,b])=>o+=`<circle cx="${a}" cy="${b}" r="4" fill="#ff7fa2"/><circle cx="${a}" cy="${b}" r="1.4" fill="#fff"/>`);return o}
 function jdMatsu(){return '<path d="M-4 0C-2-20-14-30-6-50C2-66 20-60 14-80" stroke="#6b4430" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="-24" cy="-50" rx="26" ry="9" fill="#3f7a52"/><ellipse cx="-24" cy="-54" rx="22" ry="6" fill="#4f8f60"/><ellipse cx="22" cy="-70" rx="28" ry="10" fill="#3f7a52"/><ellipse cx="22" cy="-74" rx="24" ry="6" fill="#4f8f60"/><ellipse cx="10" cy="-94" rx="20" ry="8" fill="#3f7a52"/><ellipse cx="10" cy="-97" rx="16" ry="5" fill="#4f8f60"/>'}
 function jdSmallSakura(){return '<path d="M-5 0C-3-24-8-40-2-60L4-60C0-40 6-24 6 0Z" fill="#7a4e36"/>'+[[-22,-66,20,"#ffc2d4"],[20,-70,22,"#f59bb6"],[0,-88,20,"#ffd6e1"],[-6,-60,16,"#f59bb6"],[14,-54,14,"#ffc2d4"]].map(([a,b,r,c])=>`<circle cx="${a}" cy="${b}" r="${r}" fill="${c}"/>`).join("")}
-function jdKoinobori(){const carp=(y,c,w)=>`<g transform="translate(2 ${y})" class="jd-sway jd-s1"><path d="M0 -8Q${w*.6} -12 ${w} -4L${w-8} 0L${w} 4Q${w*.6} 12 0 8Z" fill="${c}"/><circle cx="6" cy="-1" r="3" fill="#fff"/><circle cx="6" cy="-1" r="1.4" fill="#333"/><path d="M14 -6v12M22 -6v12M30 -6v12" stroke="#fff" stroke-opacity=".4"/></g>`;return '<path d="M0 0V-124" stroke="#8a5a3c" stroke-width="4"/><circle cy="-126" r="4" fill="#ffd66b"/>'+carp(-112,"#3b3b45",56)+carp(-92,"#e0533f",48)+carp(-74,"#6fa8dc",40)}
+function jdKoinobori(){const carp=(y,c,w)=>`<g transform="translate(2 ${y})"><g class="jd-sway jd-s1"><path d="M0 -8Q${w*.6} -12 ${w} -4L${w-8} 0L${w} 4Q${w*.6} 12 0 8Z" fill="${c}"/><circle cx="6" cy="-1" r="3" fill="#fff"/><circle cx="6" cy="-1" r="1.4" fill="#333"/><path d="M14 -6v12M22 -6v12M30 -6v12" stroke="#fff" stroke-opacity=".4"/></g></g>`;return '<path d="M0 0V-124" stroke="#8a5a3c" stroke-width="4"/><circle cy="-126" r="4" fill="#ffd66b"/>'+carp(-112,"#3b3b45",56)+carp(-92,"#e0533f",48)+carp(-74,"#6fa8dc",40)}
 var JD_OBJ=[
  {id:"lanterne",n:"Lanterne de pierre",cat:"lumiere",b:1,th:1.5,f:(o,c)=>jdLantern(0,0,c.night,c.winter&&o.snow!==0,1),q:S=>S.pages>=1,ql:"1 page"},
  {id:"rocher",n:"Rocher moussu",cat:"deco",b:.8,th:1.4,f:()=>jdRock(),q:S=>S.pages>=1,ql:"1 page"},
@@ -4044,7 +4083,7 @@ var JD_OBJ=[
 var JD_CATS=[["tout","Tout"],["lumiere","Lanternes"],["plantes","Plantes"],["eau","Eau"],["maisons","Maisons"],["deco","Déco"]];
 var JD_MAX=60;
 function jdObj(id){return JD_OBJ.find(o=>o.id===id)}
-function jdDepth(y){return .45+Math.max(0,Math.min(1,(y-330)/175))*.75}
+function jdDepth(y){const[b0,b1]=JD.band||[332,505];return .45+Math.max(0,Math.min(1,(y-b0)/(b1-b0)))*.75}
 function jdTf(o){const d=jdDepth(o.y)*(o.s||1)*(jdObj(o.t)||{b:1}).b;return `translate(${jdF(o.x)} ${jdF(o.y)}) scale(${(o.f?-d:d).toFixed(3)} ${d.toFixed(3)})`}
 /* ---------- visiteurs ---------- */
 var JD_VIS=[
@@ -4070,9 +4109,10 @@ function jdStats(){
   const st=stampState().st,ks=Object.keys(entries).filter(written);let fm=0,ts=0;
   ks.forEach(k=>{if(jdFullMoon(k)){fm++;const m=+k.slice(5,7);if(m===9||m===10)ts++}});
   let let5=0;try{let5=lettersAll().length}catch(e){}
-  return {pages:ks.length,streak:Math.max(st.maxStreak||0,streak()),morning:st.morning||0,night:st.night||0,maxWords:st.maxWords||0,summer:st.summer||0,memN:(coll.mem&&coll.mem.n)||0,fullMoon:fm,tsukimi:ts,letters:let5,vis:Object.keys(jdG().vis).length,pomo:jdG().pomoN||0}}
+  const wp=ks.filter(k=>{const m=+k.slice(5,7);return m===12||m<=2}).length;
+  const S={winter:wp,seasons:st.seasons||0,pages:ks.length,streak:Math.max(st.maxStreak||0,streak()),morning:st.morning||0,night:st.night||0,maxWords:st.maxWords||0,summer:st.summer||0,memN:(coll.mem&&coll.mem.n)||0,fullMoon:fm,tsukimi:ts,letters:let5,vis:Object.keys(jdG().vis).length,pomo:jdG().pomoN||0};S.places=typeof JD_PL!=="undefined"?JD_PL.filter(p=>p.q(S)).map(p=>p.id):["jardin"];return S}
 function jdCheckVisitors(){const g=jdG(),S=jdStats(),t=todayKey(),nw=[];JD_VIS.forEach(v=>{if(!g.vis[v.id]&&v.ok(S)){g.vis[v.id]=t;nw.push(v.id)}});if(nw.length){g.newVis=nw[0];saveColl()}return S}
-function jdPresent(){const g=jdG(),t=todayKey(),out=[];JD_VIS.forEach(v=>{if(!g.vis[v.id])return;if(g.vis[v.id]===t||g.newVis===v.id||(hash(t+v.id)%5===0))out.push(v)});return out.slice(0,3)}
+function jdPresent(){const g=jdG(),t=todayKey(),out=[];JD_VIS.forEach(v=>{if(!g.vis[v.id]||v.pl)return;if(g.vis[v.id]===t||g.newVis===v.id||(hash(t+v.id)%5===0))out.push(v)});return out.slice(0,3)}
 /* ---------- sable ---------- */
 var JD_SAND0={strokes:[],circles:[{x:195,y:150}],rocks:[{x:195,y:150,r:30},{x:70,y:70,r:14},{x:320,y:220,r:18}]};
 function jdSandInner(sd,live){
@@ -4087,12 +4127,13 @@ function jdSandInner(sd,live){
 /* ---------- fleurs-souvenirs ---------- */
 function jdMonthKeys(){const m=JD.month||todayKey().slice(0,7);return Object.keys(entries).filter(k=>k.slice(0,7)===m&&written(k)).sort()}
 function jdFlowerPos(k){const d=+k.slice(8,10),R=jdR(hash(k)),row=d<=10?0:d<=20?1:2,i=row===0?d-1:row===1?d-11:d-21,n=row===2?11:10,y=[506,521,538][row],x0=[44,26,16][row],x1=[346,364,374][row];return [jdF(x0+(x1-x0)*i/(n-1)+R.u(-5,5)),jdF(y+R.u(-3,3))]}
-function jdFlowers(){let o='<ellipse cx="195" cy="526" rx="192" ry="30" fill="#7fb36a" opacity=".45"/><ellipse cx="195" cy="522" rx="178" ry="22" fill="#9cc987" opacity=".5"/>';
+function jdFlowers(winter){let o=winter?'<ellipse cx="195" cy="526" rx="192" ry="30" fill="#dfe8f4" opacity=".7"/><ellipse cx="195" cy="522" rx="178" ry="22" fill="#fff" opacity=".7"/>':'<ellipse cx="195" cy="526" rx="192" ry="30" fill="#7fb36a" opacity=".45"/><ellipse cx="195" cy="522" rx="178" ry="22" fill="#9cc987" opacity=".5"/>';
   jdMonthKeys().forEach(k=>{const e=entries[k],m=e.mood&&moodById(e.mood),c=m?m.color:"#f5a9bc",[x,y]=jdFlowerPos(k),sel=JD.pop===k;
     o+=`<g data-k="${k}" class="jd-fl" transform="translate(${x} ${y}) scale(${sel?1.5:1.08})">${sel?'<circle r="11" fill="#fff6c9" opacity=".8" class="jd-pulse"/>':""}<circle r="11" fill="transparent"/><path d="M0 4v12" stroke="#5f9a52" stroke-width="1.6"/><path d="M0 11q-6-4-8 0q4 3 8 0" fill="#7cbf6a"/>${[0,72,144,216,288].map(a=>`<ellipse cy="-4.2" rx="3.2" ry="4.4" fill="${c}" stroke="#fff" stroke-width=".6" transform="rotate(${a})"/>`).join("")}<circle r="2.2" fill="#fff6c9"/></g>`});
   return o}
 /* ---------- scène ---------- */
 function jdScene(o){
+  if(o.place&&o.place!=="jardin")return jdPlaceScene(o);
   const stage=o.stage,season=o.season,time=o.time,P=JD_PAL[season],R=jdR(o.seed||7),night=time==="nuit",winter=season==="hiver",u=o.u,[s1,s2,s3]=JD_SKY[time];
   let G=P.grass;if(night)G=winter?["#cfd8ea","#b9c5dc","#a7b4cf"]:["#5d6f8f","#4b5c7c","#3e4d6b"];
   const full=night&&jdFullMoon(todayKey());
@@ -4106,11 +4147,11 @@ function jdScene(o){
   s+=`<path d="M0 318 C70 296 120 316 190 300 C250 288 320 312 390 298 V360 H0Z" fill="${mid[0]}"/>`+[[18,312,16],[40,306,12],[330,302,14],[356,300,18],[380,306,12],[150,310,10],[170,306,13]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${mid[1]}"/>`).join("");
   s+=`<rect x="-20" y="300" width="430" height="34" fill="${night?"#8b84c0":"#fff"}" opacity=".35" filter="url(#${u}blur8)" class="jd-mist"/><path d="M-10 336 C90 318 190 330 260 322 C320 316 360 326 400 320 V560 H-10Z" fill="url(#${u}g)"/>`;
   if(winter)s+='<path d="M-10 336 C90 318 190 330 260 322 C320 316 360 326 400 320 V346 C300 344 160 352 -10 350Z" fill="#fff" opacity=".9"/>';
-  if(stage>=2)s+=`<ellipse cx="96" cy="433" rx="88" ry="31" fill="${night?"#77739a":"#d8cfbf"}"/><g clip-path="url(#${u}sc)"${night?' opacity=".7"':""}><svg x="12" y="404" width="168" height="56" viewBox="0 0 390 300" preserveAspectRatio="none">${jdSandInner(jdG().sand)}</svg></g><ellipse cx="96" cy="432" rx="84" ry="28" fill="none" stroke="${night?"#5f5b80":"#c9bda8"}" stroke-width="2"/>`;
+  if(stage>=2)s+=`<ellipse cx="96" cy="433" rx="88" ry="31" fill="${night?"#77739a":"#d8cfbf"}"/><g clip-path="url(#${u}sc)"${night?' opacity=".7"':""}><svg x="12" y="404" width="168" height="56" viewBox="0 0 390 300" preserveAspectRatio="none">${jdSandInner(o.sand!==undefined?o.sand:jdG().sand)}</svg></g><ellipse cx="96" cy="432" rx="84" ry="28" fill="none" stroke="${night?"#5f5b80":"#c9bda8"}" stroke-width="2"/>`;
   if(stage>=3){s+=`<ellipse cx="262" cy="420" rx="104" ry="34" fill="#cdbfae" opacity=".7"/><ellipse cx="262" cy="418" rx="96" ry="29" fill="url(#${u}water)"/>`;
     if(!winter)s+=`<g opacity=".35" filter="url(#${u}blur)"><ellipse cx="236" cy="414" rx="50" ry="10" fill="${P.canopy[2]}"/></g>`+[[224,418,12],[296,426,10],[270,408,8]].map(([x,y,r],i)=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*.4}" fill="none" stroke="#fff" stroke-width="1" class="jd-rip jd-d${i+1}"/>`).join("")+[[318,424],[206,428],[330,410]].map(([x,y],i)=>`<g transform="translate(${x} ${y})"><ellipse rx="9" ry="3.4" fill="#7cbf6a"/>${i===0&&season!=="automne"?'<circle cx="-2" cy="-2" r="3" fill="#ffd0dc"/>':""}</g>`).join("");
     else s+='<ellipse cx="262" cy="418" rx="90" ry="26" fill="#eef5fd" opacity=".75"/>'}
-  if(stage>=4&&!winter&&!o.mini)[["#ff8a5e","14s","M200 420 C230 404 300 404 320 418 C300 432 230 434 200 420"],["#ffffff","18s","M320 414 C290 432 230 432 214 416 C232 404 290 400 320 414"],["#ffd66b","22s","M250 426 C280 432 318 424 300 410 C276 404 240 410 250 426"]].forEach(([c,d,p])=>s+=`<g><path d="M-8 0q8-5 16 0q-8 5-16 0z" fill="${c}"/><path d="M8 0l6-4v8z" fill="${c}"/><animateMotion dur="${d}" repeatCount="indefinite" rotate="auto" path="${p}"/></g>`);
+  if(stage>=3&&!winter&&!o.mini)s+=jdKoi(o.use?o.use.koi:(stage>=4?3:0));
   if(stage>=4){s+='<path d="M180 432 C220 384 304 384 344 432" stroke="#d94f3d" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M186 424 C224 384 300 384 338 424" stroke="#d94f3d" stroke-width="2.5" fill="none"/>';for(let x=196;x<334;x+=14)s+=`<path d="M${x} ${432-Math.round(48*Math.sin(Math.PI*(x-180)/164))}v-10" stroke="#b33f31" stroke-width="2.4"/>`;if(winter)s+='<path d="M182 428 C220 386 304 386 342 428" stroke="#fff" stroke-width="3" fill="none" opacity=".9"/>'}
   if(stage>=5)s+=`<g><rect x="302" y="266" width="7" height="70" fill="#e0533f"/><rect x="351" y="266" width="7" height="70" fill="#e0533f"/><path d="M290 260Q330 250 370 260v7h-80z" fill="#3b3b45"/><rect x="296" y="274" width="68" height="6" fill="#e0533f"/>${winter?'<path d="M290 258Q330 248 370 258" stroke="#fff" stroke-width="4" fill="none"/>':""}</g>`;
   if(stage>=2)[[150,452],[170,468],[190,484],[214,496]].forEach(([x,y])=>s+=`<ellipse cx="${x}" cy="${y}" rx="13" ry="5" fill="${night?"#7f7a9a":"#b9b2b6"}"/>`);
@@ -4120,19 +4161,19 @@ function jdScene(o){
   if(stage>=3)items.push([470,jdLantern(360,470,night,winter,.85)]);
   if(stage>=3&&!winter)items.push([452,jdBamboo(356,452,150,R)]);
   items.push([442,jdCherry(150,442,[0,1,2,3,3,4,4][stage],P,R,u,winter)]);
-  items.push([436,jdMascot(stage?158:150,402,.36,night)]);
+  if(o.masc!==false)items.push([436,jdMascot(stage?158:150,402,.36,night,o.mascId,o.mascAcc)]);
+  if(o.use&&!o.mini){if(o.use.letters||o.use.wish)items.push([372,`<g transform="translate(40 372) scale(.9)">${jdEma(o.use.letters,o.use.gold,o.use.wish||0)}</g>`]);if(o.use.cairn)items.push([474,`<g transform="translate(240 476)">${jdCairn(o.use.cairn)}</g>`])}
   (o.vis||[]).forEach(v=>{const[x,y,sc]=v.pos;items.push([y,`<g data-v="${v.id}" transform="translate(${x} ${y}) scale(${sc})" class="jd-vis">${v.id===jdG().newVis?'<circle cy="-26" r="44" fill="url(#jdglow)" class="jd-pulse"/>':""}<ellipse cy="4" rx="26" ry="5" fill="#000" opacity=".15"/>${jdAnimal(v.id,false)}</g>`])});
   (o.objs||[]).forEach((ob,i)=>{const T=jdObj(ob.t);if(!T)return;items.push([ob.y+(i*.001),`<g data-o="${i}"><g transform="${jdTf(ob)}">${T.f(ob,{night,winter})}</g></g>`])});
   items.sort((a,b)=>a[0]-b[0]).forEach(it=>s+=it[1]);
-  if(!o.mini)s+=jdFlowers();
+  if(!o.mini)s+=o.flv?jdFlowersV(o.flv,winter):jdFlowers(winter);
+  if(o.use&&!night&&!o.mini)s+=jdButterflies(Math.min(6,o.use.todo),R);
   for(let i=0;i<22;i++){const x=R.i(0,390),y=R.i(540,560);s+=`<path d="M${x} ${y}q2-10 -2-16M${x+3} ${y}q1-8 5-12" stroke="${winter?"#fff":night?"#3f5a52":"#7fbf68"}" stroke-width="2" fill="none" stroke-linecap="round"/>`}
   if(!winter)s+=`<g class="jd-sway jd-s4" opacity=".95"><path d="M-10 20 C30 30 70 26 112 40 M40 30 C30 50 20 60 6 72" stroke="#6b4430" stroke-width="5" fill="none" stroke-linecap="round"/>${[[30,40,16],[56,30,13],[82,48,12],[10,66,14],[64,64,10],[104,34,9]].map(([x,y,r],k)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#${u}bl${k%3})"/>`).join("")}</g>`;
   else s+='<g opacity=".95"><path d="M-10 20 C30 30 70 26 112 40 M40 30 C30 50 20 60 6 72" stroke="#6b4430" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M-10 17 C30 27 70 23 112 37" stroke="#fff" stroke-width="3" fill="none"/></g>';
-  if(!o.mini&&!o.edit){const n={petal:22,leaf:14,snow:40,none:0}[P.part];for(let i=0;i<n;i++){const x=R.i(-10,390),dur=R.u(9,18).toFixed(1),dl=(-R.u(0,18)).toFixed(1);
-    const sh=P.part==="petal"?'<path d="M0 0C-4-4-4-9 0-11C4-9 4-4 0 0Z" fill="#ffb6c9"/>':P.part==="leaf"?`<path d="M0-6l2 4 4-1-1 4 4 2-5 1v4l-4-3-4 3v-4l-5-1 4-2-1-4 4 1z" fill="${R.c(["#ff8f5e","#f2735a","#ffb07a"])}"/>`:`<circle r="${R.c([1.4,2,2.6])}" fill="#fff"/>`;
-    s+=`<g class="jd-fall" style="animation-duration:${dur}s;animation-delay:${dl}s"><g transform="translate(${x} -20)"><g class="jd-spin">${sh}</g></g></g>`}
-    if(night||season==="ete")for(let i=0;i<14;i++)s+=`<circle cx="${R.i(20,370)}" cy="${R.i(300,500)}" r="${i%2?1.4:2.4}" fill="#fff6a8" class="jd-ff jd-d${R.i(1,4)}"${i%2?"":` filter="url(#${u}blur)"`}/>`}
-  if(o.edit)s+=[[330,372,.10],[372,430,.16],[430,505,.22]].map(([a,b,op])=>`<rect x="0" y="${a}" width="390" height="${b-a}" fill="#fff" opacity="${op}" pointer-events="none"/><path d="M0 ${a}H390" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 6" opacity=".9" pointer-events="none"/>`).join("")+[["Fond",351],["Milieu",401],["Devant",468]].map(([t,y])=>`<g transform="translate(330 ${y})" pointer-events="none"><rect y="-10" width="52" height="20" rx="10" fill="#fff" opacity=".85"/><text x="26" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#6e5a68">${t}</text></g>`).join("")+'<g id="jdSel"></g>';
+  if(o.use&&!o.mini){s+=jdCranes(o.use.cranes);if(stage>=1)s+=jdGarland(o.use.sk,night)}
+  if(!o.mini&&!o.edit){s+=jdParticles(P.part,R,u,o.photo);if(night||season==="ete")for(let i=0;i<14+(o.use&&night?Math.min(6,o.use.todo)*2:0);i++)s+=`<circle cx="${R.i(20,370)}" cy="${R.i(300,500)}" r="${i%2?1.4:2.4}" fill="#fff6a8" class="jd-ff jd-d${R.i(1,4)}"${i%2?"":` filter="url(#${u}blur)"`}/>`}
+  if(o.edit)s+=jdEditBands();
   s+=`<rect width="390" height="560" fill="url(#${u}vig)" pointer-events="none"/>`;
   return s}
 /* ---------- carte sur la page Écrire ---------- */
@@ -4142,47 +4183,91 @@ function renderJdCard(){
   const S=jdCheckVisitors(),st=jdStage(S.pages),g=jdG(),nx=JD_ST[st+1],po=pomoSync();
   box.hidden=false;
   box.innerHTML=`<button type="button" class="jd-card" aria-label="Entrer dans mon jardin"><span class="jd-mini"><svg viewBox="0 0 390 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${jdScene({stage:st,season:jdSeason(),time:jdTime(),seed:hash(todayKey()),u:"jm",objs:g.objs,vis:jdPresent(),mini:true})}</svg></span><span class="jd-cbody"><b>Mon jardin <small>にわ</small></b><small>${JD_STN[st]}${nx?" · encore "+plural(nx-S.pages,"page")+" avant "+JD_NEXT[st]:" · jardin complet ✿"}</small>${po?'<i class="jd-new">'+(po.fin?(po.ph==="focus"?"✿ Session terminée : viens voir ton jardin":"☕ La pause est finie"):"⏳ "+(po.ph==="focus"?"Concentration":"Pause")+" · "+Math.ceil(pomoLeft(po)/60000)+" min"+(po.left!=null?" (en pause)":""))+'</i>':g.newVis&&!g.greet[g.newVis]?'<i class="jd-new">✦ Un visiteur rare t\'attend</i>':""}</span><span class="jd-go">›</span></button>`;
-  box.querySelector("button").onclick=openGarden}
+  box.querySelector("button").onclick=()=>openGarden()}
 /* ---------- jardin plein écran ---------- */
-function openGarden(){
-  Sfx.play("chime");JD.month=todayKey().slice(0,7);JD.pop=null;JD.edit=false;JD.sel=-1;
+function openGarden(skipPomo){
+  Sfx.play("chime");JD.month=todayKey().slice(0,7);JD.pop=null;JD.edit=false;JD.sel=-1;JD.visit=null;
   let ov=$("jd");if(!ov){ov=document.createElement("div");ov.id="jd";ov.setAttribute("role","dialog");ov.setAttribute("aria-label","Mon jardin");
     ov.innerHTML='<div class="jd-scene"><svg id="jdSvg" viewBox="0 0 390 560" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ton jardin japonais"></svg><div class="jd-top"></div><div class="jd-pop" hidden></div><div class="jd-toast" role="status" hidden></div></div><div class="jd-sheet"></div><div class="jd-layer" hidden></div>';
     document.body.append(ov);jdBindScene()}
-  ov.hidden=false;document.body.style.overflow="hidden";jdCheckVisitors();jdRender();if(pomoGet())jdPomo()}
-function closeGarden(){const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";jdStopPause();jdPomoLeave();renderJdCard()}
-function jdBack(){const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}closeGarden()}
-function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2600)}
+  ov.hidden=false;document.body.style.overflow="hidden";const S=jdCheckVisitors();jdCheckPlaces(S);jdVisitPlace(jdCurPlace());
+  JD.ambOn=!!jdG().amb;if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);
+  jdRender();if(pomoGet()&&skipPomo!==true)jdPomo();jdLoadGifts()}
+function closeGarden(){const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden()}
+function jdBack(){const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
+function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2800)}
+function jdEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+var JD_SHORT={jardin:"Mon jardin",bambous:"Bambous",torii:"Mille torii",the:"Maison de thé",onsen:"Onsen",rizieres:"Rizières",ile:"Île secrète"};
 function jdRender(){
-  const S=jdStats(),st=jdStage(S.pages),g=jdG(),season=jdSeason(),time=jdTime();
-  $("jdSvg").innerHTML=jdScene({stage:st,season,time,seed:hash(todayKey())+3,u:"jd",objs:JD.edit?JD.work:g.objs,vis:JD.edit?[]:jdPresent(),edit:JD.edit});
+  const S=jdStats(),st=jdStage(S.pages),g=jdG(),season=jdSeason(),time=jdTime(),v=JD.visit,pl=v?"jardin":jdCurPlace(),B=JD_BAND[pl]||JD_BAND.jardin;JD.band=[B[0],B[1]];JD.bandX=[B[2],B[3]];
+  let o;if(v)o=v.d?jdVisitOpts(v.d):{stage:0,season,time,seed:1,u:"jv",objs:[],vis:[],masc:false,use:null};
+  else o={place:pl,stage:st,season,time,seed:hash(todayKey())+3,u:"jd",objs:JD.edit?JD.work:jdObjsOf(pl),vis:JD.edit?[]:(pl==="jardin"?jdPresent():jdPlaceVis(pl)),edit:JD.edit,use:pl==="jardin"?{...jdUse(),wish:(JD.wishes||[]).length}:null};
+  $("jdSvg").innerHTML=!v&&pl!=="jardin"?jdPlaceScene(o):jdScene(o);
+  $("jd").setAttribute("aria-label",v?"Le jardin de "+v.name:jdPl(pl).n);
   const top=document.querySelector("#jd .jd-top"),sh=document.querySelector("#jd .jd-sheet");
   if(JD.edit){
     top.innerHTML='<span class="jd-row"><button type="button" class="jd-pill" data-a="cancel" aria-label="Annuler les changements">✕</button><button type="button" class="jd-pill" data-a="undo" aria-label="Annuler la dernière action"'+(JD.undo.length?"":" disabled")+'>↶</button></span><button type="button" class="jd-pill jd-pink" data-a="done">✓ Terminé</button>';
     jdEditSheet(sh,S,st);jdDrawSel();
+  }else if(v){
+    top.innerHTML=`<button type="button" class="jd-pill" data-a="leave" aria-label="Quitter le jardin de ${jdEsc(v.name)}">‹</button><span class="jd-pill jd-title">Chez ${jdEsc(v.name)}</span><button type="button" class="jd-pill" data-a="photo" aria-label="Mode photo"${v.d?"":" disabled"}>📷</button>`;
+    jdVisitSheet(sh);
   }else{
-    top.innerHTML=`<button type="button" class="jd-pill" data-a="close" aria-label="Fermer le jardin">✕</button><span class="jd-pill jd-title">Mon jardin <small>にわ</small></span><span class="jd-pill jd-seas">${JD_SEAS[season]}</span>`;
-    jdViewSheet(sh,S,st)}
+    top.innerHTML=`<button type="button" class="jd-pill" data-a="close" aria-label="Fermer le jardin">✕</button><span class="jd-pill jd-title">${JD_SHORT[pl]} <small>${jdPl(pl).k.length<=2?jdPl(pl).k:""}</small></span><span class="jd-row"><button type="button" class="jd-pill jd-ic" data-a="amb" aria-label="${JD.ambOn?"Couper":"Écouter"} l'ambiance sonore" aria-pressed="${!!JD.ambOn}">${JD.ambOn?"🔊":"🔇"}</button><button type="button" class="jd-pill jd-ic" data-a="map" aria-label="Carte du voyage">🗺</button><button type="button" class="jd-pill jd-ic" data-a="photo" aria-label="Mode photo">📷</button></span>`;
+    if(pl==="jardin")jdViewSheet(sh,S,st);else jdPlaceSheet(sh,S,pl)}
   top.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
-    if(a==="close")closeGarden();else if(a==="cancel")jdEditCancel();else if(a==="done")jdEditDone();else if(a==="undo"&&JD.undo.length){JD.work=JD.undo.pop();JD.sel=-1;Sfx.play("tick");jdRender()}};
+    if(a==="close")closeGarden();else if(a==="leave")jdLeaveVisit();else if(a==="cancel")jdEditCancel();else if(a==="done")jdEditDone();else if(a==="map")jdMap();else if(a==="photo")jdPhoto();
+    else if(a==="amb"){JD.ambOn=!JD.ambOn;jdG().amb=JD.ambOn;saveColl();if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);else jdAmbStop();Sfx.play("tick");jdRender()}
+    else if(a==="undo"&&JD.undo.length){JD.work=JD.undo.pop();JD.sel=-1;Sfx.play("tick");jdRender()}};
   jdPopRender()}
+function jdUsePanel(u){const R=[["🌸","Fleurs",u.month,"pages ce mois-ci"],["🏮","Lanternes allumées",u.sk>10?"10+":u.sk,"jours d'affilée (ta flamme)"],["🐟","Koï dans l'étang",u.koi,u.words.toLocaleString("fr-FR")+" mots écrits"],["🦋","Papillons",Math.min(6,u.todo),"tâches faites aujourd'hui"],["🪵","Ema",u.letters,"lettres au futur"],["🕊","Grues en papier",u.cranes,u.own+" stickers collectionnés"],["🪨","Pierres empilées",u.cairn,u.stamps+" tampons gagnés"],["🏮","Andon",u.pomo>=5?"✓":u.pomo+"/5","sessions de concentration"]];
+  return `<details class="jd-use"><summary><b>Ce que ton jardin raconte</b><small>Chaque chose que tu fais dans l'appli y laisse une trace</small></summary><div class="jd-ugrid">${R.map(([i,n,v,l])=>`<div><span aria-hidden="true">${i}</span><b>${v}</b><small><em>${n}</em> · ${l}</small></div>`).join("")}</div></details>`}
 function jdViewSheet(sh,S,st){
   const g=jdG(),nx=JD_ST[st+1],pct=nx?Math.max(3,Math.round(100*(S.pages-JD_ST[st])/(nx-JD_ST[st]))):100,ks=jdMonthKeys(),mc={};ks.forEach(k=>{const m=entries[k].mood||"_";mc[m]=(mc[m]||0)+1});
   const mm=JD.month,d=new Date(+mm.slice(0,4),+mm.slice(5,7)-1,1),ml=d.toLocaleDateString("fr-FR",{month:"long",year:"numeric"}),isNow=mm===todayKey().slice(0,7);
-  const nv=g.newVis&&!g.greet[g.newVis]?JD_VIS.find(v=>v.id===g.newVis):null,met=Object.keys(g.vis).length;
+  const nv=g.newVis&&!g.greet[g.newVis]?JD_VIS.find(v=>v.id===g.newVis):null,met=Object.keys(g.vis).length,np=g.newPl?jdPl(g.newPl):null,fr=jdFB()&&typeof amis!=="undefined"?amis.friends:[];
   sh.innerHTML=`<div class="jd-grip"></div>
+  ${np?`<div class="jd-visnew jd-plnew"><svg viewBox="-40 -40 80 80" width="54" height="54" aria-hidden="true"><clipPath id="jdnpc"><circle r="34"/></clipPath><g clip-path="url(#jdnpc)">${jdMedArt(JD_PL.indexOf(np))}</g><circle r="34" fill="none" stroke="#d9a441" stroke-width="3"/></svg><div><b>✦ Nouveau lieu : ${np.n}</b><small>${np.d}</small></div><button type="button" class="jd-btn jd-pink jd-sm" data-a="gonew">Y aller</button></div>`:""}
   ${nv?`<div class="jd-visnew"><svg viewBox="-50 -66 100 74" width="64" height="48" aria-hidden="true">${jdAnimal(nv.id,false)}</svg><div><b>✦ Un visiteur rare : ${nv.n} ${nv.k}</b><small>${nv.why} ✿</small></div><button type="button" class="jd-btn jd-pink jd-sm" data-a="greet">Le saluer · +3 🌸</button></div>`:""}
-  <div class="jd-h"><div><small>Étape ${st+1} / 7</small><h2>${JD_STN[st]}</h2></div><button type="button" class="jd-chip" data-a="carnet">🦊 Visiteurs ${met}/8</button></div>
+  <div class="jd-h"><div><small>Étape ${st+1} / 7</small><h2>${JD_STN[st]}</h2></div><button type="button" class="jd-chip" data-a="carnet">🦊 ${met}/${JD_VIS.length}</button></div>
   <p class="jd-cap">${JD_CAP[st]}</p>
   <div class="jd-prog"><i style="width:${pct}%"></i></div><small class="jd-note">${S.pages} page${S.pages>1?"s":""} · ${nx?"prochaine étape : "+JD_NEXT[st]+" à "+nx+" pages":"jardin complet ✿"}</small>
-  <div class="jd-btns"><button type="button" class="jd-btn" data-a="pause">☾ Une minute</button><button type="button" class="jd-btn" data-a="pomo">${jdPomoLbl()}</button></div><button type="button" class="jd-btn jd-pink" data-a="edit">✿ Décorer mon jardin</button>
+  <div class="jd-btns"><button type="button" class="jd-btn" data-a="pause">☾ Une minute</button><button type="button" class="jd-btn" data-a="pomo">${jdPomoLbl()}</button></div>
+  <div class="jd-btns"><button type="button" class="jd-btn" data-a="map">🗺 Voyager</button><button type="button" class="jd-btn jd-pink" data-a="edit">✿ Décorer</button></div>
+  ${jdUsePanel(jdUse())}
+  ${(JD.wishes||[]).length?`<div class="jd-wishes"><b>🎐 Vœux de tes amis</b>${JD.wishes.map(w=>`<div class="jd-wi"><p><b>${jdEsc(w.name)}</b> ${jdEsc(w.text)}</p><span><button type="button" data-wr="${jdEsc(w.from)}">Retirer</button><button type="button" data-wp="${jdEsc(w.from)}">Signaler</button></span></div>`).join("")}</div>`:""}
+  ${fr&&fr.length?`<div class="jd-frg"><b>Jardins de tes amis</b><div>${fr.slice(0,8).map(f=>`<button type="button" class="jd-chip" data-fr="${jdEsc(f.uid)}">🌸 ${jdEsc(f.name)}</button>`).join("")}</div></div>`:""}
   <div class="jd-month"><button type="button" data-a="prev" aria-label="Mois précédent">‹</button><span><b>Parterre de souvenirs</b><small>${ml} · ${plural(ks.length,"fleur")}</small></span><button type="button" data-a="next" aria-label="Mois suivant"${isNow?" disabled":""}>›</button></div>
   <div class="jd-leg">${MOODS.filter(m=>mc[m.id]).map(m=>`<span><i style="background:${m.color}"></i>${m.label} · ${mc[m.id]}</span>`).join("")}${mc._?`<span><i style="background:#f5a9bc"></i>Sans humeur · ${mc._}</span>`:""}</div>
   <p class="jd-note">${ks.length?"Chaque page fait pousser une fleur de la couleur de ton humeur. Touche une fleur pour relire ce jour-là.":"Aucune fleur ce mois-ci pour l'instant : ta prochaine page en fera pousser une ✿"}</p>`;
-  sh.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
-    if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="pomo")jdPomo();else if(a==="carnet")jdCarnet();
+  sh.onclick=e=>{const fb=e.target.closest("[data-fr]");if(fb){const f=fr.find(x=>x.uid===fb.dataset.fr);if(f)openFriendGarden(f,"jardin");return}
+    const wr=e.target.closest("[data-wr],[data-wp]");if(wr){jdWishAct(wr.dataset.wr||wr.dataset.wp,wr.dataset.wp?"report":"del");return}
+    const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+    if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="pomo")jdPomo();else if(a==="carnet")jdCarnet();else if(a==="map")jdMap();
+    else if(a==="gonew"){const p=g.newPl;g.newPl=null;saveColl();jdGoPlace(p)}
     else if(a==="greet"){g.greet[g.newVis]=1;const v=JD_VIS.find(x=>x.id===g.newVis);coll.petals=(coll.petals||0)+3;g.newVis=null;saveColl();Sfx.play("petals");petals(16);jdToast((v?v.n:"Le visiteur")+" te remercie ✿ +3 pétales");jdRender();renderSide()}
     else if(a==="prev"||a==="next"){const dd=new Date(+JD.month.slice(0,4),+JD.month.slice(5,7)-1+(a==="prev"?-1:1),1);JD.month=keyOf(dd).slice(0,7);JD.pop=null;Sfx.play("page");jdRender()}}}
+function jdPlaceSheet(sh,S,pl){const P=jdPl(pl),g=jdG(),vs=JD_VIS.filter(v=>v.pl===pl),nv=g.newVis&&!g.greet[g.newVis]&&vs.find(v=>v.id===g.newVis),days=((g.pdays||{})[pl]||[]).length,n=jdObjsOf(pl).length;
+  const SN={eau:"💧 eau",shishi:"🎋 shishi-odoshi",vent:"🍃 vent",bambou:"🎍 bambous qui craquent",suzu:"🔔 clochettes du sanctuaire",furin:"🎐 carillons",bulles:"♨️ eau qui bouillonne",grenouilles:"🐸 grenouilles",carillon:"✨ carillon céleste"};
+  sh.innerHTML=`<div class="jd-grip"></div>
+  ${nv?`<div class="jd-visnew"><svg viewBox="-50 -66 100 74" width="64" height="48" aria-hidden="true">${jdAnimal(nv.id,false)}</svg><div><b>✦ Un visiteur rare : ${nv.n} ${nv.k}</b><small>${nv.why} ✿</small></div><button type="button" class="jd-btn jd-pink jd-sm" data-a="greet">Le saluer · +3 🌸</button></div>`:""}
+  <div class="jd-h"><div><small>Lieu ${JD_PL.indexOf(P)+1} / 7 · ${P.k}</small><h2>${P.n}</h2></div><button type="button" class="jd-chip" data-a="carnet">🦊 ${Object.keys(g.vis).length}/${JD_VIS.length}</button></div>
+  <p class="jd-cap">${P.d}</p>
+  <div class="jd-leg">${P.snd.map(s=>`<span>${SN[s]||s}</span>`).join("")}<span>✿ ${n} objet${n>1?"s":""} posé${n>1?"s":""}</span></div>
+  ${vs.map(v=>g.vis[v.id]?`<p class="jd-note">${v.n} ${v.k} habite ici ✿</p>`:`<p class="jd-note">🔍 ${v.hint} <em>(${Math.min(days,v.days||3)}/${v.days||3} jours de visite)</em></p>`).join("")}
+  <div class="jd-btns"><button type="button" class="jd-btn" data-a="pause">☾ Une minute</button><button type="button" class="jd-btn" data-a="pomo">${jdPomoLbl()}</button></div>
+  <div class="jd-btns"><button type="button" class="jd-btn" data-a="home">↩ Mon jardin</button><button type="button" class="jd-btn jd-pink" data-a="edit">✿ Décorer</button></div>
+  <button type="button" class="jd-btn" data-a="map">🗺 Carte du voyage</button>`;
+  sh.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+    if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="pomo")jdPomo();else if(a==="carnet")jdCarnet();else if(a==="map")jdMap();else if(a==="home")jdGoPlace("jardin");
+    else if(a==="greet"){g.greet[g.newVis]=1;coll.petals=(coll.petals||0)+3;const v=nv;g.newVis=null;saveColl();Sfx.play("petals");petals(16);jdToast(v.n+" te remercie ✿ +3 pétales");jdRender();renderSide()}}}
+function jdVisitSheet(sh){const v=JD.visit,d=v.d,t=todayKey(),sent=typeof social!=="undefined"&&social.gpet&&social.gpet[v.uid]===t,nm=jdEsc(v.name);
+  if(!d){sh.innerHTML=`<div class="jd-grip"></div><p class="jd-cap">On ouvre le portail du jardin de ${nm}…</p>`;sh.onclick=null;return}
+  sh.innerHTML=`<div class="jd-grip"></div><div class="jd-h"><div><small>Jardin d'une amie</small><h2>Le jardin de ${nm}</h2></div></div>
+  <p class="jd-cap">${JD_STN[Math.max(0,Math.min(6,d.st||0))]} · ${(d.objs||[]).length} objet${(d.objs||[]).length>1?"s":""} · ${(d.vis||[]).length} visiteur${(d.vis||[]).length>1?"s":""} rencontré${(d.vis||[]).length>1?"s":""} · ${d.pl||1} lieu${(d.pl||1)>1?"x":""} découvert${(d.pl||1)>1?"s":""}</p>
+  <div class="jd-acts"><button type="button" data-a="petal"${sent?" disabled":""}><span>🌸</span>${sent?"Pétale laissé ✓":"Laisser un pétale"}</button><button type="button" data-a="wish"><span>🎐</span>Accrocher un vœu</button><button type="button" data-a="photo"><span>📷</span>Photo souvenir</button></div>
+  <p class="jd-note">🔒 Tu vois son jardin, jamais ses pages ni ses humeurs : ses fleurs gardent leurs secrets.</p>
+  <button type="button" class="jd-btn" data-a="leave">↩ Revenir</button>`;
+  sh.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;if(a==="petal")jdSendPetal();else if(a==="wish")jdWishForm();else if(a==="photo")jdPhoto();else if(a==="leave")jdLeaveVisit()}}
 function jdPopRender(){
   const pop=document.querySelector("#jd .jd-pop");if(!pop)return;const k=JD.pop;if(!k||JD.edit||!entries[k]){pop.hidden=true;return}
   const e=entries[k],m=e.mood&&moodById(e.mood),[x,y]=jdFlowerPos(k),svg=$("jdSvg"),sc=document.querySelector("#jd .jd-scene");
@@ -4197,22 +4282,24 @@ function jdBindScene(){
   svg.addEventListener("pointerdown",e=>{
     if(JD.edit){const og=e.target.closest("[data-o]");if(og){const i=+og.dataset.o;e.preventDefault();if(JD.sel!==i){JD.sel=i;jdRender()}const ob=JD.work[i],p=jdPt(e);JD.drag={i,dx:ob.x-p.x,dy:ob.y-p.y,moved:false,snap:JSON.stringify(JD.work)};try{svg.setPointerCapture(e.pointerId)}catch(_){}}
       else if(JD.sel>=0){JD.sel=-1;jdRender()}return}
+    if(JD.visit)return;
+    if(e.target.closest("[data-ema]")){const u=jdUse();Sfx.play("chime");jdToast("🪵 "+plural(u.letters,"lettre")+" au futur"+((JD.wishes||[]).length?" · 🎐 "+plural(JD.wishes.length,"vœu")+" d'amis":""));return}
     const fl=e.target.closest("[data-k]");if(fl){JD.pop=JD.pop===fl.dataset.k?null:fl.dataset.k;Sfx.play("sticker");jdRender();return}
     const vi=e.target.closest("[data-v]");if(vi){const v=JD_VIS.find(x=>x.id===vi.dataset.v);Sfx.play("sparkle");jdToast(v.n+" "+v.k+" se promène dans ton jardin");return}
     if(e.target.closest("[data-m]")){Sfx.play("mood",0);jdToast(jdTime()==="nuit"?"Chut… ta mascotte dort ✿ おやすみ":"Ta mascotte est heureuse que tu sois là ♡");return}
     if(JD.pop){JD.pop=null;jdRender()}});
   svg.addEventListener("pointermove",e=>{const d=JD.drag;if(!d)return;const p=jdPt(e),ob=JD.work[d.i];
     if(!d.moved){JD.undo.push(JSON.parse(d.snap));if(JD.undo.length>40)JD.undo.shift();d.moved=true}
-    ob.x=Math.max(8,Math.min(382,p.x+d.dx));ob.y=Math.max(332,Math.min(505,p.y+d.dy));
+    const BX=JD.bandX||[8,382],BY=JD.band||[332,505];ob.x=Math.max(BX[0],Math.min(BX[1],p.x+d.dx));ob.y=Math.max(BY[0],Math.min(BY[1],p.y+d.dy));
     const g=svg.querySelector(`[data-o="${d.i}"] > g`);if(g)g.setAttribute("transform",jdTf(ob));jdDrawSel()});
   const up=()=>{const d=JD.drag;JD.drag=null;if(d&&d.moved){Sfx.play("sticker");jdRender()}};
   svg.addEventListener("pointerup",up);svg.addEventListener("pointercancel",up);
   window.addEventListener("resize",()=>{if($("jd")&&!$("jd").hidden)jdPopRender()})}
 function jdPt(e){const svg=$("jdSvg"),p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
 /* ---------- mode création ---------- */
-function jdEditStart(){JD.edit=true;JD.work=JSON.parse(JSON.stringify(jdG().objs));JD.undo=[];JD.sel=-1;JD.pop=null;Sfx.play("unlock");jdRender();jdToast("Glisse les objets : plus ils sont loin, plus ils rapetissent")}
+function jdEditStart(){JD.edit=true;JD.work=JSON.parse(JSON.stringify(jdObjsOf(jdCurPlace())));JD.undo=[];JD.sel=-1;JD.pop=null;Sfx.play("unlock");jdRender();jdToast("Glisse les objets : plus ils sont loin, plus ils rapetissent")}
 function jdEditCancel(){if(JD.undo.length&&!confirm("Quitter sans garder tes changements ?"))return;JD.edit=false;JD.sel=-1;jdRender()}
-function jdEditDone(){jdG().objs=JD.work;JD.edit=false;JD.sel=-1;saveColl();Sfx.play("check");petals(10);jdRender();jdToast("Ton jardin est enregistré ✿")}
+function jdEditDone(){jdSetObjs(jdCurPlace(),JD.work);setTimeout(jdPushGarden,500);JD.edit=false;JD.sel=-1;saveColl();Sfx.play("check");petals(10);jdRender();jdToast("Ton jardin est enregistré ✿")}
 function jdPushUndo(){JD.undo.push(JSON.parse(JSON.stringify(JD.work)));if(JD.undo.length>40)JD.undo.shift()}
 function jdDrawSel(){const box=$("jdSel");if(!box)return;box.innerHTML="";if(JD.sel<0)return;const g=document.querySelector(`#jdSvg [data-o="${JD.sel}"]`);if(!g)return;let b;try{b=g.getBBox()}catch(e){return}
   const x=b.x-5,y=b.y-5,w=b.width+10,h=b.height+10;box.innerHTML=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="none" stroke="#d9708d" stroke-width="2" stroke-dasharray="6 5"/>`+[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(([a,c])=>`<circle cx="${a}" cy="${c}" r="5" fill="#fff" stroke="#d9708d" stroke-width="2.5"/>`).join("")}
@@ -4223,13 +4310,13 @@ function jdEditSheet(sh,S,st){
   sh.innerHTML=`<div class="jd-grip"></div>
   ${ob?`<div class="jd-tools"><b>${T.n}</b><div>${[["flip","⇋","Retourner"],["minus","－","Plus petit"],["plus","＋","Plus grand"],["back","⤓","Derrière"],["dup","⧉","Copier"],["del","🗑","Retirer"]].map(([a,i,t])=>`<button type="button" data-t="${a}"><span>${i}</span><small>${t}</small></button>`).join("")}</div></div>`:""}
   <div class="jd-h"><h2>Mes objets</h2><small>${n} / ${JD_MAX} posés</small></div>
-  ${st>=2?'<button type="button" class="jd-btn jd-sand-btn" data-t="sand">〰 Ratisser le sable du jardin zen</button>':'<p class="jd-note">Le jardin de sable apparaîtra à 20 pages : tu pourras y dessiner.</p>'}
+  ${jdCurPlace()!=="jardin"?"":st>=2?'<button type="button" class="jd-btn jd-sand-btn" data-t="sand">〰 Ratisser le sable du jardin zen</button>':'<p class="jd-note">Le jardin de sable apparaîtra à 20 pages : tu pourras y dessiner.</p>'}
   <div class="jd-tabs">${JD_CATS.map(([id,l])=>`<button type="button" data-c="${id}" aria-pressed="${JD.cat===id}">${l}</button>`).join("")}</div>
   <div class="jd-grid">${tiles}</div>`;
   sh.onclick=e=>{const c=e.target.closest("[data-c]");if(c){JD.cat=c.dataset.c;Sfx.play("tick");jdRender();return}
     const ad=e.target.closest("[data-add]");if(ad){const o=jdObj(ad.dataset.add);if(!o.q(jdStats())){Sfx.play("wrong");jdToast("🔒 "+o.n+" : se débloque avec "+o.ql);return}
       if(JD.work.length>=JD_MAX){jdToast("Ton jardin est plein (60 objets) ✿");return}
-      jdPushUndo();const R=jdR(Date.now()&0xffff);JD.work.push({t:o.id,x:Math.round(R.u(150,250)),y:Math.round(R.u(415,450)),s:1,f:0});JD.sel=JD.work.length-1;Sfx.play("sticker");jdRender();return}
+      jdPushUndo();const R=jdR(Date.now()&0xffff);const BX=JD.bandX||[8,382],BY=JD.band||[332,505];JD.work.push({t:o.id,x:Math.round(R.u(BX[0]+(BX[1]-BX[0])*.35,BX[0]+(BX[1]-BX[0])*.65)),y:Math.round(R.u(BY[0]+(BY[1]-BY[0])*.45,BY[0]+(BY[1]-BY[0])*.7)),s:1,f:0});JD.sel=JD.work.length-1;Sfx.play("sticker");jdRender();return}
     const t=e.target.closest("[data-t]");if(!t)return;const a=t.dataset.t;
     if(a==="sand"){jdSand();return}
     const ob=JD.work[JD.sel];if(!ob)return;jdPushUndo();
@@ -4240,10 +4327,10 @@ function jdEditSheet(sh,S,st){
     Sfx.play(a==="del"?"uncheck":"tick");jdRender()}}
 /* ---------- couches : carnet, pause, sable ---------- */
 function jdLayer(cls,html){const L=document.querySelector("#jd .jd-layer");$("jd").classList.add("jd-hl");L.className="jd-layer "+cls;L.innerHTML=html;L.hidden=false;return L}
-function jdCloseLayer(){const L=document.querySelector("#jd .jd-layer");if(!L)return;if(L.classList.contains("jd-pz"))jdStopPause();if(L.classList.contains("jd-po"))jdPomoLeave();L.hidden=true;L.innerHTML="";$("jd").classList.remove("jd-hl");jdRender()}
+function jdCloseLayer(){const L=document.querySelector("#jd .jd-layer");if(!L)return;if(L.classList.contains("jd-pz"))jdStopPause();if(L.classList.contains("jd-po"))jdPomoLeave();L.hidden=true;L.innerHTML="";$("jd").classList.remove("jd-hl");if(JD.ambOn&&!JD.amb&&!JD.visit)jdAmbStart(jdPl(jdCurPlace()).snd);jdRender()}
 function jdCarnet(){const g=jdG(),met=Object.keys(g.vis).length;Sfx.play("page");
   const L=jdLayer("jd-carnet",`<div class="jd-ch"><button type="button" class="jd-pill" data-a="x" aria-label="Retour au jardin">‹</button><h2>Carnet des visiteurs <small>訪</small></h2><span></span></div>
-  <div class="jd-cprog"><b>${met} / 8</b><div class="jd-prog"><i style="width:${Math.max(3,met/8*100)}%"></i></div><small>${8-met} mystère${8-met>1?"s":""}</small></div>
+  <div class="jd-cprog"><b>${met} / ${JD_VIS.length}</b><div class="jd-prog"><i style="width:${Math.max(3,met/JD_VIS.length*100)}%"></i></div><small>${JD_VIS.length-met} mystère${JD_VIS.length-met>1?"s":""}</small></div>
   <div class="jd-cgrid">${JD_VIS.map(v=>{const d=g.vis[v.id];return `<div class="jd-cv${d?"":" un"}">${d===todayKey()?'<i class="jd-tag">Nouveau</i>':""}<svg viewBox="-50 -66 100 74" width="96" height="70" aria-hidden="true">${d?'<circle cy="-24" r="34" fill="#fff4f7"/>':""}${jdAnimal(v.id,!d)}${d?"":'<text y="-18" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="22" fill="#b9aab3">?</text>'}</svg><b>${d?v.n+" <small>"+v.k+"</small>":"???"}</b><small>${d?"Rencontré"+(v.id==="grue"||v.id==="kaeru"||v.id==="kame"?"e":"")+" le "+frDate(d,{day:"numeric",month:"short"})+"<br>"+v.why:v.hint}</small></div>`}).join("")}</div>`);
   L.onclick=e=>{if(e.target.closest('[data-a="x"]'))jdCloseLayer()}}
 function jdPause(){
@@ -4268,6 +4355,7 @@ function jdSound(id,on){const A=JD.amb;if(!A)return;const ctx=A.ctx,N=A.nodes;
   if(!on){const n=N[id];if(n){try{n.g.gain.setTargetAtTime(0,ctx.currentTime,.3);setTimeout(()=>{try{n.stop()}catch(e){}},1200)}catch(e){}delete N[id]}return}
   if(N[id])return;const g=ctx.createGain();g.gain.value=0;g.connect(A.master);const parts=[];
   const lfo=(f,depth,target)=>{const o=ctx.createOscillator(),k=ctx.createGain();o.frequency.value=f;k.gain.value=depth;o.connect(k);k.connect(target);o.start();parts.push(o)};
+  if(jdEvSound(id,ctx,g,parts)){N[id]={g,stop(){parts.forEach(p=>{try{p.stop()}catch(e){}})}};return}
   if(id==="eau"){const s=jdNoise(ctx),f=ctx.createBiquadFilter();f.type="bandpass";f.frequency.value=1400;f.Q.value=.8;s.connect(f);f.connect(g);s.start();parts.push(s);lfo(.31,500,f.frequency);g.gain.setTargetAtTime(.05,ctx.currentTime,1)}
   if(id==="vent"){const s=jdNoise(ctx),f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=380;s.connect(f);f.connect(g);s.start();parts.push(s);lfo(.07,220,f.frequency);lfo(.11,.03,g.gain);g.gain.setTargetAtTime(.07,ctx.currentTime,1.5)}
   if(id==="cigales"){const s=jdNoise(ctx),f=ctx.createBiquadFilter(),a=ctx.createGain();f.type="bandpass";f.frequency.value=5200;f.Q.value=6;a.gain.value=.5;s.connect(f);f.connect(a);a.connect(g);s.start();parts.push(s);lfo(13,.5,a.gain);g.gain.setTargetAtTime(.05,ctx.currentTime,1)}
@@ -4321,7 +4409,7 @@ async function pomoNotify(p){if(typeof isNative==="undefined"||!isNative)return;
 function jdPomo(){jdLayer("jd-po","");JD.po={tm:null};JD.poSnd=JD.poSnd||["eau"];jdAmbStart(JD.poSnd);jdPomoDraw();JD.po.tm=setInterval(jdPomoTick,500)}
 function jdPomoLeave(){if(JD.po){clearInterval(JD.po.tm);JD.po=null;jdAmbStop()}}
 function jdPomoTick(){const p=pomoSync();if(!p||!JD.po)return;
-  if(p.justFin){Sfx.play("goal");buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
+  if(p.justFin){Sfx.play("goal");if(typeof buzz==="function")buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
   if(!p.fin){const t=$("jdPoT"),r=$("jdPoR");if(t)t.textContent=jdFmt(pomoLeft(p));if(r)r.setAttribute("stroke-dashoffset",(552.9*(1-pomoLeft(p)/(p.dur*60000))).toFixed(1))}}
 function jdPomoDraw(){
   const L=document.querySelector("#jd .jd-layer");if(!L||!JD.po)return;const p=pomoSync(),g=pomoDayG(),n=g.pomoToday||0,dur=JD.poDur||25;
@@ -4359,6 +4447,332 @@ function jdPomoDraw(){
     if(a==="stop"){if(!confirm("Arrêter cette session ? Elle ne comptera pas."))return;pomoSet(null);pomoNotify(null);Sfx.play("uncheck");jdPomoDraw();return}
     if(a==="end"){pomoSet(null);pomoNotify(null);jdCloseLayer();renderJdCard();return}
     if(a==="tick"&&q&&q.tk){const t=(todo.items||[]).find(x=>x.id===q.tk);if(t&&!t.done){try{toggleTodo(t.id,{classList:{add(){}}})}catch(e){}}b.remove();jdToast("Tâche cochée ✿")}}}
+
+/* ================= jardin : usage visible, lieux, carte, photo, visites ================= */
+/* ---------- ce que le jardin raconte de ton usage ---------- */
+function jdUse(){const st=stampState().st,t=todayKey();let L=[],own=0,stamps=0;
+  try{L=lettersAll()}catch(e){}try{own=baseOwnedCount()}catch(e){}try{stamps=objectives().filter(o=>o.done).length}catch(e){}
+  const w=st.totalWords||0;
+  return {words:w,koi:Math.min(7,1+Math.floor(w/2000)),sk:streak(),todo:((typeof todo!=="undefined"&&todo.daily)||{})[t]||0,letters:L.length,gold:L.filter(l=>l.seal==="kin").length,own,cranes:Math.min(12,Math.floor(own/5)),stamps,cairn:Math.min(7,Math.floor(stamps/5)),pomo:jdG().pomoN||0,month:jdMonthKeys().length,pages:jdPages()}}
+function jdGarland(sk,night){const P0=[-10,150],P1=[195,212],P2=[400,140];let o=`<path d="M${P0} Q${P1} ${P2}" stroke="#5e3b29" stroke-width="1.3" fill="none" opacity=".8"/>`;
+  for(let i=0;i<10;i++){const t=(i+.5)/10,x=(1-t)*(1-t)*P0[0]+2*(1-t)*t*P1[0]+t*t*P2[0],y=(1-t)*(1-t)*P0[1]+2*(1-t)*t*P1[1]+t*t*P2[1]+10,lit=i<sk,c=lit?(i%2?"#fff4d6":"#e8553f"):"#efe7eb";
+    o+=`<g transform="translate(${jdF(x)} ${jdF(y)})"><g class="jd-sway jd-s1">${lit?`<circle r="${night?16:11}" fill="url(#jdglow)" class="jd-pulse"/>`:""}<path d="M0-10v-4" stroke="#5e3b29" stroke-width="1"/><ellipse rx="6.5" ry="8.5" fill="${c}" stroke="${lit?"none":"#d6cbd1"}"/><path d="M-6.5-2h13M-6.5 3h13" stroke="${lit?"#fff":"#c9bcc4"}" stroke-opacity=".45"/><rect x="-4" y="-10" width="8" height="2.4" rx="1" fill="#3b3b45"/><rect x="-4" y="7.6" width="8" height="2.4" rx="1" fill="#3b3b45"/></g></g>`}
+  return o}
+function jdKoi(n){const C=["#ff8a5e","#ffffff","#ffd66b","#ff6f6f","#f6f1e6","#ffb38a","#3b3b45"];let o="";
+  for(let i=0;i<n;i++){const rx=36+((i*17)%50),ry=8+((i*5)%14),cx=262+((i*13)%30)-15,cy=418+((i*7)%8)-4,dur=12+i*3,dir=i%2;
+    const p=dir?`M${cx-rx} ${cy} A${rx} ${ry} 0 1 0 ${cx+rx} ${cy} A${rx} ${ry} 0 1 0 ${cx-rx} ${cy}`:`M${cx+rx} ${cy} A${rx} ${ry} 0 1 1 ${cx-rx} ${cy} A${rx} ${ry} 0 1 1 ${cx+rx} ${cy}`,c=C[i%C.length];
+    o+=`<g><path d="M-8 0q8-5 16 0q-8 5-16 0z" fill="${c}"/><path d="M8 0l6-4v8z" fill="${c}"/>${c==="#ffffff"||c==="#f6f1e6"?'<circle cx="-2" cy="-1" r="1.6" fill="#ff8a5e"/>':""}<animateMotion dur="${dur}s" repeatCount="indefinite" rotate="auto" path="${p}"/></g>`}
+  return o}
+function jdButterflies(n,R){let o="";const C=[["#ffd0dc","#ff9fb8"],["#fff3b0","#ffd66b"],["#cfe8ff","#8ec9f0"],["#e6d9ff","#b9a0e6"],["#ffffff","#f5a9bc"],["#d8f5c8","#8fd38a"]];
+  for(let i=0;i<n;i++){const x=R.i(40,350),y=R.i(400,490),c=C[i%C.length],d=(6+R.r()*5).toFixed(1);
+    o+=`<g><g class="jd-bf" style="animation-delay:-${(R.r()*.5).toFixed(2)}s"><path d="M0 0C-8-10-12-2-8 2C-6 4-2 3 0 0ZM0 0C8-10 12-2 8 2C6 4 2 3 0 0Z" fill="${c[0]}" stroke="${c[1]}" stroke-width=".8"/><path d="M0 0C-6 2-7 7-3 7ZM0 0C6 2 7 7 3 7Z" fill="${c[1]}"/></g><path d="M0-2v6" stroke="#4b3a47" stroke-width="1.2"/><animateMotion dur="${d}s" repeatCount="indefinite" path="M${x} ${y} c20 -18 40 6 26 20 c-14 14 -44 6 -30 -10 c10 -12 -16 -24 -22 -8 c-4 10 12 12 26 -2z"/></g>`}
+  return o}
+function jdEma(n,gold,wish){if(!n&&!wish)return "";let o='<g data-ema="1" class="jd-ema"><path d="M-30 0V-46M30 0V-46" stroke="#6b4430" stroke-width="4"/><rect x="-36" y="-50" width="72" height="5" rx="2" fill="#5e3b29"/><path d="M-32-30H32" stroke="#6b4430" stroke-width="2"/><path d="M-38-50L0-58L38-50" fill="none" stroke="#3b3b45" stroke-width="4"/>';
+  const tot=Math.min(12,n+wish);for(let i=0;i<tot;i++){const row=i<6?0:1,col=i%6,x=-25+col*10,y=row?-26:-45,w=i>=n,g=!w&&i<gold;
+    o+=`<g transform="translate(${x} ${y})"><path d="M0 0v2" stroke="#e0533f"/><path d="M-4 2h8v6l-4 2.4-4-2.4z" fill="${w?"#ffc2d4":g?"#ffd66b":"#e8c99a"}" stroke="${w?"#e27c9c":"#b98a64"}" stroke-width=".6"/></g>`}
+  return o+"</g>"}
+function jdCranes(n){if(!n)return "";const C=["#ff8fb1","#8ec9f0","#ffd66b","#b9a0e6","#8fd38a","#ff9a76"];let o="";const strings=[[26,34],[58,30],[92,44]];
+  strings.forEach(([x,y],s)=>{const k=Math.ceil((n-s)/3);if(k<=0)return;o+=`<g class="jd-sway jd-s1"><path d="M${x} ${y}V${y+k*15+4}" stroke="#fff" stroke-width=".8" opacity=".8"/>`;
+    for(let j=0;j<k;j++){const cy=y+10+j*15,c=C[(s+j*3)%C.length];o+=`<path d="M${x-7} ${cy}L${x} ${cy-4}L${x+7} ${cy}L${x} ${cy+3}Z" fill="${c}"/><path d="M${x} ${cy-4}L${x+2} ${cy-8}" stroke="${c}" stroke-width="1.6"/>`}
+    o+="</g>"});return o}
+function jdCairn(n){if(!n)return "";let o='<ellipse cy="2" rx="16" ry="4" fill="#000" opacity=".12"/>',y=0;for(let i=0;i<n;i++){const w=15-i*1.6,h=5.4-i*.3;o+=`<ellipse cy="${jdF(y-h)}" rx="${jdF(w)}" ry="${jdF(h)}" fill="${["#a39ca2","#b4adb2","#9d969c","#c7c0c5"][i%4]}"/>`;y-=h*1.7}return o}
+/* ---------- lieux ---------- */
+var JD_PL=[
+ {id:"jardin",n:"Le jardin du départ",k:"庭",d:"Ton premier jardin, celui qui grandit avec chacune de tes pages.",ql:"Ton premier jardin",q:()=>true,snd:["eau","shishi"]},
+ {id:"bambous",n:"La forêt de bambous",k:"竹林",d:"Un sentier de lumière entre les bambous géants qui craquent doucement dans le vent.",ql:"30 pages",q:S=>S.pages>=30,snd:["vent","bambou"]},
+ {id:"torii",n:"Le chemin aux mille torii",k:"千本鳥居",d:"Des portes vermillon à perte de vue, qui montent vers le sanctuaire de la colline.",ql:"100 pages",q:S=>S.pages>=100,snd:["vent","suzu"]},
+ {id:"the",n:"La maison de thé",k:"茶室",d:"Une maison de thé au bord de l'étang, où les carillons chantent dans la brise.",ql:"5 lettres au futur",q:S=>S.letters>=5,snd:["eau","furin"]},
+ {id:"onsen",n:"L'onsen sous la neige",k:"温泉",d:"Une source chaude fumante au milieu des sapins enneigés.",ql:"15 pages écrites en hiver",q:S=>S.winter>=15,snd:["bulles","vent"]},
+ {id:"rizieres",n:"Les rizières en terrasses",k:"棚田",d:"Des marches d'eau et de riz qui changent de couleur à chaque saison.",ql:"Écrire aux 4 saisons",q:S=>S.seasons>=4,snd:["grenouilles","vent"]},
+ {id:"ile",n:"L'île au-dessus des nuages",k:"浮島",d:"Le lieu secret, tout près du ciel, face au Fuji.",ql:"Un lieu secret…",q:S=>S.vis>=8&&JD_PL.slice(1,6).every(p=>p.q(S)),snd:["vent","carillon"]}];
+function jdPl(id){return JD_PL.find(p=>p.id===id)||JD_PL[0]}
+function jdCurPlace(){const g=jdG();return g.place&&jdPl(g.place).id===g.place?g.place:"jardin"}
+function jdObjsOf(pid){const g=jdG();if(pid==="jardin")return g.objs;g.places=g.places||{};g.places[pid]=g.places[pid]||{objs:[]};g.places[pid].objs=g.places[pid].objs||[];return g.places[pid].objs}
+function jdSetObjs(pid,arr){const g=jdG();if(pid==="jardin")g.objs=arr;else{g.places=g.places||{};g.places[pid]={...(g.places[pid]||{}),objs:arr}}}
+var JD_BAND={jardin:[332,505,8,382],bambous:[336,505,8,382],torii:[350,505,8,382],the:[336,505,8,382],onsen:[318,505,8,382],rizieres:[330,505,8,382],ile:[374,436,70,320]};
+function jdUnlocked(S){S=S||jdStats();return JD_PL.filter(p=>p.q(S)).map(p=>p.id)}
+function jdVisitPlace(pid){const g=jdG(),t=todayKey();g.pdays=g.pdays||{};const a=g.pdays[pid]||[];if(!a.includes(t)){g.pdays[pid]=[...a,t].slice(-10)}
+  JD_VIS.filter(v=>v.pl===pid&&!g.vis[v.id]&&(g.pdays[pid].length>=(v.days||3))).forEach(v=>{g.vis[v.id]=t;g.newVis=v.id});saveColl()}
+/* décor commun */
+function jdSnowGround(y){return `<path d="M-10 ${y} C90 ${y-8} 200 ${y+6} 400 ${y-6} V${y+14} C300 ${y+10} 120 ${y+18} -10 ${y+12}Z" fill="#fff" opacity=".9"/>`}
+function jdStars(R,n){let s="";for(let i=0;i<n;i++)s+=`<circle cx="${R.i(5,385)}" cy="${R.i(5,220)}" r="${R.c([.8,1,1.3,1.7])}" fill="#fff" class="jd-tw jd-d${R.i(1,4)}"/>`;return s}
+function jdMoonSun(c,u){if(c.night)return `<circle cx="304" cy="78" r="40" fill="#fff4c2" opacity=".15"/><circle cx="304" cy="78" r="20" fill="#fff6cf"/>`+(jdFullMoon(todayKey())?"":'<circle cx="314" cy="70" r="18" fill="#141233" opacity=".95"/>');
+  const[sx,sy]={matin:[96,120],aprem:[300,84],soir:[300,236]}[c.time];return `<circle cx="${sx}" cy="${sy}" r="90" fill="url(#${u}sun)"/><circle cx="${sx}" cy="${sy}" r="22" fill="${c.time==="soir"?"#ffc58a":"#fff1c8"}"/>`}
+function jdSkyDefs(c,u,cols){const[s1,s2,s3]=cols||JD_SKY[c.time];return `<linearGradient id="${u}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s1}"/><stop offset=".55" stop-color="${s2}"/><stop offset="1" stop-color="${s3}"/></linearGradient><radialGradient id="${u}sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff8dc" stop-opacity=".95"/><stop offset=".35" stop-color="#ffe9b0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9b0" stop-opacity="0"/></radialGradient>`}
+function jdStalk(R,x,w,c,nc,top,bot){let o=`<rect x="${jdF(x-w/2)}" y="${top}" width="${jdF(w)}" height="${bot-top}" fill="${c}"/>`;for(let yy=R.i(10,60);yy<bot;yy+=R.i(54,80))o+=`<rect x="${jdF(x-w/2-1)}" y="${yy}" width="${jdF(w+2)}" height="3" rx="1.5" fill="${nc}"/>`;return o}
+/* ---- forêt de bambous ---- */
+function jdDrawBambous(c){const{R,u,night,winter,season}=c,T=c.time;
+  const sky=night?["#0f2a24","#1d3d33","#2f5545"]:T==="soir"?["#ffe1b8","#e6d79a","#a9c98a"]:T==="matin"?["#fff3e0","#e7f3cf","#c0e0a0"]:["#fbfde9","#dcefc0","#b9dc98"];
+  const far=night?"#2c4a3e":season==="automne"?"#e6dfb0":"#d6eabd",mid=night?"#3f6b52":season==="automne"?"#b9c97a":"#9fcf84",near=night?"#2f5a43":"#6fae5c",leaf=night?"#3f6b52":season==="automne"?"#c9d36a":"#7cbf6a";
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`;if(night)bg+=jdStars(R,30);
+  bg+='<g filter="url(#'+u+'blur)" opacity=".8">';for(let i=0;i<30;i++)bg+=jdStalk(R,R.u(0,390),R.u(4,7),far,night?"#26423a":"#c4dea8",-10,400);bg+="</g>";
+  bg+=`<path d="M0 360 Q195 330 390 360 V560 H0Z" fill="${winter?"#eef3fb":night?"#2a4a3c":"#b9dc98"}"/><path d="M120 560L188 330H202L270 560Z" fill="${winter?"#fff":night?"#6f6d78":"#eadfc8"}"/>`;
+  if(!night)bg+=`<g class="jd-rays" opacity=".6">${[60,170,250].map(a=>`<polygon points="${a},-10 ${a+30},-10 ${a+80},560 ${a+20},560" fill="url(#${u}ray)"/>`).join("")}</g>`;
+  for(let i=0;i<20;i++){const x=R.r()<.5?R.u(0,165):R.u(225,390);bg+=jdStalk(R,x,R.u(8,12),mid,night?"#355c47":"#86bb6c",-10,R.u(420,520))}
+  [[.25,190],[.4,200],[.58,186],[.78,206],[1,190]].forEach(([k,a])=>bg+=`<ellipse cx="${jdF(195+(a-195)*k)}" cy="${jdF(330+230*k)}" rx="${jdF(16*k)}" ry="${jdF(5*k)}" fill="${night?"#55535e":"#cfc3b0"}"/>`);
+  if(winter)bg+=jdSnowGround(352);
+  const items=[[420,jdLantern(150,420,night,winter,.62)],[420,jdLantern(244,420,night,winter,.62)],[480,jdLantern(118,480,night,winter,.9)],[480,jdLantern(276,480,night,winter,.9)]];
+  let fg='<g class="jd-sway jd-s3">';[[12,22],[48,16],[340,20],[374,26],[300,12]].forEach(([x,w])=>fg+=jdStalk(R,x,w,near,night?"#244a37":"#58944a",-10,600));
+  [[22,60,1],[22,110,1],[58,90,1],[330,70,-1],[364,120,-1],[300,40,-1],[48,160,1]].forEach(([x,y,d])=>fg+=`<path d="M${x} ${y}q${d*16} -8 ${d*30} 0q${-d*14} 4 ${-d*30} 0z" fill="${leaf}"/>${winter?`<path d="M${x} ${y-1}q${d*14} -6 ${d*26} 0" stroke="#fff" stroke-width="2" fill="none"/>`:""}`);fg+="</g>";
+  return {defs:jdSkyDefs(c,u,sky),bg,items,fg,masc:[176,446,.4],part:winter?"snow":"bamboo"}}
+/* ---- chemin aux mille torii ---- */
+function jdToriiGate(x,y,s,snow){const w=74*s,h=150*s,p=8*s;return `<g><rect x="${jdF(x-w/2-p/2)}" y="${jdF(y-h)}" width="${jdF(p)}" height="${jdF(h)}" fill="#e0533f"/><rect x="${jdF(x+w/2-p/2)}" y="${jdF(y-h)}" width="${jdF(p)}" height="${jdF(h)}" fill="#e0533f"/><rect x="${jdF(x-w/2-p/2)}" y="${jdF(y-h)}" width="${jdF(p*.35)}" height="${jdF(h)}" fill="#c2412f"/><rect x="${jdF(x-w/2-8*s)}" y="${jdF(y-h*.84)}" width="${jdF(w+16*s)}" height="${jdF(6*s)}" fill="#e0533f"/><path d="M${jdF(x-w/2-16*s)} ${jdF(y-h-2*s)}Q${x} ${jdF(y-h-12*s)} ${jdF(x+w/2+16*s)} ${jdF(y-h-2*s)}v${jdF(8*s)}h${jdF(-(w+32*s))}z" fill="#3b3b45"/>${snow?`<path d="M${jdF(x-w/2-16*s)} ${jdF(y-h-3*s)}Q${x} ${jdF(y-h-13*s)} ${jdF(x+w/2+16*s)} ${jdF(y-h-3*s)}" stroke="#fff" stroke-width="${jdF(4*s)}" fill="none"/>`:""}<rect x="${jdF(x-w/2-p/2-1.5*s)}" y="${jdF(y-6*s)}" width="${jdF(p+3*s)}" height="${jdF(6*s)}" fill="#3b3b45"/><rect x="${jdF(x+w/2-p/2-1.5*s)}" y="${jdF(y-6*s)}" width="${jdF(p+3*s)}" height="${jdF(6*s)}" fill="#3b3b45"/></g>`}
+function jdFoxStatue(){return '<rect x="-12" y="-6" width="24" height="6" fill="#9d969c"/><path d="M-8-6C-10-22-6-30 0-34C6-30 10-22 8-6Z" fill="#c7c0c5"/><path d="M-6-34L-5-44L-1-36ZM6-34L5-44L1-36Z" fill="#c7c0c5"/><ellipse cy="-34" rx="7" ry="6" fill="#d4ced2"/><path d="M-6-26L6-26L0-18Z" fill="#e0533f"/><path d="M8-10C16-14 16-24 10-28" stroke="#c7c0c5" stroke-width="4" fill="none" stroke-linecap="round"/>'}
+function jdDrawTorii(c){const{R,u,night,winter,season}=c,P=JD_PAL[season];
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`+(night?jdStars(R,40):"")+jdMoonSun(c,u);
+  const hill=night?"#23324a":"#5f8f62",hill2=night?"#2b3d57":"#7aa874";
+  bg+=`<path d="M-10 300 C80 200 160 170 195 160 C230 170 310 200 400 300 V560 H-10Z" fill="${hill2}"/>`;
+  for(let i=0;i<26;i++){const side=i%2?1:-1,x=195+side*R.u(40,200),y=R.u(200,330),s=R.u(.5,1.1);bg+=`<path d="M${jdF(x)} ${jdF(y-90*s)}L${jdF(x-18*s)} ${jdF(y)}L${jdF(x+18*s)} ${jdF(y)}Z" fill="${night?"#1c2a3f":"#3f6e4c"}"/>`+(winter?`<path d="M${jdF(x)} ${jdF(y-90*s)}L${jdF(x-6*s)} ${jdF(y-60*s)}L${jdF(x+6*s)} ${jdF(y-60*s)}Z" fill="#fff"/>`:"")}
+  bg+=`<path d="M-10 340 C100 320 290 320 400 340 V560 H-10Z" fill="${winter?"#eef3fb":hill}"/>`;
+  bg+=`<path d="M60 560 L188 240 L202 240 L330 560Z" fill="${winter?"#fff":night?"#5b5f6e":"#d8cfbf"}"/>`;for(let i=0;i<14;i++){const y=250+i*i*1.65,hw=8+i*i*.75;bg+=`<path d="M${jdF(195-hw)} ${jdF(y)}H${jdF(195+hw)}" stroke="${winter?"#e3e8f0":night?"#4b4f5c":"#c4b9a6"}" stroke-width="${jdF(1+i*.25)}"/>`}
+  [[60,330],[330,330],[30,420],[360,420]].forEach(([x,y])=>{for(let k=0;k<6;k++)bg+=`<circle cx="${x+R.u(-26,26)}" cy="${y+R.u(-14,6)}" r="${R.u(10,18)}" fill="${night?"#3a3666":P.canopy[R.i(1,3)]}" opacity=".95"/>`});
+  const items=[];for(let i=11;i>=0;i--){const s=1.55*Math.pow(.82,i),y=300+260*Math.pow(.82,i);items.push([y+.01,jdToriiGate(195,y,s,winter)])}
+  items.push([470,`<g transform="translate(110 470) scale(.9)">${jdFoxStatue()}</g>`],[470,`<g transform="translate(280 470) scale(-.9 .9)">${jdFoxStatue()}</g>`],[420,jdLantern(140,420,night,winter,.55)],[420,jdLantern(250,420,night,winter,.55)]);
+  return {defs:jdSkyDefs(c,u),bg,items,fg:"",masc:[178,452,.36],part:P.part}}
+/* ---- maison de thé ---- */
+function jdDrawThe(c){const{R,u,night,winter,season}=c,P=JD_PAL[season];
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`+(night?jdStars(R,40):"")+jdMoonSun(c,u);
+  bg+=`<path d="M0 300 C80 270 140 290 200 276 C270 262 330 290 390 278 V360 H0Z" fill="${night?"#3a3666":P.far[0]}"/>`;
+  bg+=`<path d="M-10 330 C100 316 290 316 400 330 V560 H-10Z" fill="${winter?"#eef3fb":night?"#3e5172":P.grass[1]}"/>`;
+  bg+=`<defs><linearGradient id="${u}tw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night?"#4f63a3":"#bfe6f7"}"/><stop offset="1" stop-color="${night?"#2f3d75":"#7cc0e3"}"/></linearGradient><clipPath id="${u}tc"><ellipse cx="195" cy="432" rx="236" ry="58"/></clipPath></defs><ellipse cx="195" cy="432" rx="236" ry="58" fill="url(#${u}tw)"/>`;
+  bg+=`<g clip-path="url(#${u}tc)" opacity=".22"><g transform="translate(0 ${2*392}) scale(1 -1)">${jdTea(winter,night).replace(/^/,'<g transform="translate(292 392) scale(.82)">')+"</g>"}</g></g>`;
+  if(winter)bg+=`<ellipse cx="195" cy="432" rx="226" ry="52" fill="#eef5fd" opacity=".7"/>`;else bg+=[[120,450,10],[250,470,8],[300,420,7]].map(([x,y,r],i)=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*.4}" fill="none" stroke="#fff" stroke-width="1" class="jd-rip jd-d${i+1}"/>`).join("")+[[80,440],[140,470],[330,460],[60,470]].map(([x,y],i)=>`<g transform="translate(${x} ${y})"><ellipse rx="10" ry="3.6" fill="#7cbf6a"/>${season==="ete"||season==="printemps"?`<circle cx="-2" cy="-3" r="${i%2?3:4}" fill="${i%2?"#ffd0dc":"#fff"}"/><circle cx="-2" cy="-3" r="1.4" fill="#ffd66b"/>`:""}</g>`).join("");
+  [[150,500],[176,476],[204,456],[232,440],[258,426]].forEach(([x,y])=>bg+=`<ellipse cx="${x}" cy="${y}" rx="14" ry="5" fill="${night?"#7f7a9a":"#b9b2b6"}"/>`);
+  bg+=`<path d="M-10 480 C100 470 290 488 400 476 V560 H-10Z" fill="${winter?"#fff":night?"#4b5c7c":P.grass[2]}"/>`;
+  const tree=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M-6 0C-4-30-10-50-2-70L4-70C0-50 8-30 8 0Z" fill="#6b4430"/>${winter?'<path d="M-2-70L-30-90M4-70L30-94" stroke="#6b4430" stroke-width="4"/><ellipse cx="-30" cy="-92" rx="10" ry="3" fill="#fff"/><ellipse cx="30" cy="-96" rx="10" ry="3" fill="#fff"/>':[[-30,-86,26],[28,-90,28],[0,-112,26],[-12,-80,22],[18,-70,20]].map(([a,b,r],k)=>`<circle cx="${a}" cy="${b}" r="${r}" fill="${night?"#3a3666":P.canopy[1+k%3]}"/>`).join("")}</g>`;
+  const items=[[392,`<g transform="translate(292 392) scale(.82)">${jdTea(winter,night)}</g>`],[352,`<g class="jd-sway jd-s2">${tree(60,352,.8)}</g>`],[340,`<g class="jd-sway jd-s2">${tree(372,340,.6)}</g>`],[520,`<g transform="translate(92 520) scale(.6)">${jdNodate()}</g>`],[505,jdLantern(30,505,night,winter,1)],[400,`<g transform="translate(206 404) scale(.8)">${jdTsuku()}</g>`]];
+  if(night)items.push([330,`<g transform="translate(246 330) scale(.8)">${jdChochin("#ffecb8",true).replace("<path d=\"M-2 0V-86M-2 -86H14\"","<path d=\"M-2 0V-86M-2 -86H14\" opacity=\"0\"")}</g>`]);
+  return {defs:jdSkyDefs(c,u),bg,items,fg:"",masc:[180,500,.36],part:P.part}}
+/* ---- onsen ---- */
+function jdMonkey(eyes){const e=eyes?'<circle cx="-4" cy="-2" r="1.6" fill="#333"/><circle cx="4" cy="-2" r="1.6" fill="#333"/>':'<path d="M-6-2q2 2 4 0M2-2q2 2 4 0" stroke="#5c4636" stroke-width="1.6" fill="none" stroke-linecap="round"/>';return `<ellipse cy="14" rx="20" ry="10" fill="#9c8e86"/><circle r="17" fill="#a89a90"/><circle cx="-15" r="5" fill="#e8a6a0"/><circle cx="15" r="5" fill="#e8a6a0"/><ellipse cy="2" rx="11" ry="10" fill="#f0a3a0"/>${e}<path d="M-3 6q3 2 6 0" stroke="#5c4636" stroke-width="1.4" fill="none"/><ellipse cy="-16" rx="10" ry="4" fill="#fff"/>`}
+function jdPine(x,y,s,night){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3" y="-10" width="6" height="12" fill="#5e3b29"/>${[[22,-6],[17,-22],[12,-38]].map(([w,yy])=>`<path d="M${-w} ${yy}L0 ${yy-24}L${w} ${yy}Z" fill="${night?"#1f3d34":"#2f5d4b"}"/><path d="M${-w*.8} ${yy-4}Q0 ${yy-14} ${w*.8} ${yy-4}L${w*.5} ${yy-10}L0 ${yy-22}L${-w*.5} ${yy-10}Z" fill="#fff"/>`).join("")}</g>`}
+function jdDrawOnsen(c){const{R,u,night}=c,T=c.time,sky=night?["#141233","#2b2552","#4b3d78"]:T==="soir"?["#5d5a9c","#b98fb8","#f3b8b0"]:T==="matin"?["#c9d6f2","#f0dce6","#fff1e6"]:["#b7cdea","#dfe9f6","#f6f9fd"];
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`+(night?jdStars(R,40):"")+jdMoonSun(c,u);
+  bg+=`<path d="M-10 250L70 170L120 210L200 130L280 200L330 160L400 230V300H-10Z" fill="${night?"#4a4778":"#a6a8cc"}"/><path d="M70 170L88 188L76 186L64 196L52 188ZM200 130L224 154L210 150L198 162L186 150L176 154ZM330 160L346 176L334 174L324 182Z" fill="#fff"/>`;
+  bg+=[[30,300,1.1],[70,290,.8],[330,296,1],[370,306,1.2],[300,286,.7]].map(([x,y,s])=>jdPine(x,y,s,night)).join("");
+  bg+=`<path d="M-10 300Q100 280 200 292Q300 300 400 286V560H-10Z" fill="${night?"#c9d0e4":"#eef3fb"}"/>`;
+  bg+=`<defs><linearGradient id="${u}ow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night?"#6b8fb0":"#a7dbe6"}"/><stop offset="1" stop-color="${night?"#3f6a8a":"#5fa7c0"}"/></linearGradient></defs>`;
+  let rocks="",caps="";for(let i=0;i<18;i++){const a=i*Math.PI/9;rocks+=`<ellipse cx="${jdF(195+Math.cos(a)*150)}" cy="${jdF(420+Math.sin(a)*58)}" rx="${R.i(20,30)}" ry="${R.i(13,18)}" fill="${R.c(["#8f8a8e","#a39ca2","#7d767b"])}"/>`;if(i>=9)caps+=`<ellipse cx="${jdF(195+Math.cos(a)*150)}" cy="${jdF(420+Math.sin(a)*58-10)}" rx="16" ry="6" fill="#fff"/>`}
+  bg+=`<ellipse cx="195" cy="420" rx="150" ry="58" fill="url(#${u}ow)"/>${rocks}${caps}<ellipse cx="195" cy="420" rx="128" ry="44" fill="url(#${u}ow)"/><ellipse cx="170" cy="408" rx="70" ry="10" fill="#fff" opacity=".25"/>`;
+  bg+=`<g transform="translate(150 418) scale(.9)">${jdMonkey(false)}</g><g transform="translate(232 424) scale(.75)">${jdMonkey(false)}</g><rect x="120" y="428" width="140" height="20" fill="url(#${u}ow)" opacity=".9"/>`;
+  bg+=[110,170,230,280].map((a,k)=>`<g class="jd-steam jd-d${k%3+1}" filter="url(#${u}blur8)"><path d="M${a} 420q-14-20 0-40q14-20 0-40" stroke="#fff" stroke-width="14" fill="none" opacity=".55"/></g>`).join("");
+  const gate=`<g><rect x="250" y="236" width="6" height="70" fill="#6b4430"/><rect x="330" y="236" width="6" height="70" fill="#6b4430"/><path d="M236 240Q293 222 350 240L344 246Q293 232 242 246Z" fill="#4a4a56"/><path d="M236 238Q293 220 350 238" stroke="#fff" stroke-width="5" fill="none"/>${Array.from({length:8},(_,i)=>`<rect x="${258+i*9}" y="270" width="7" height="36" fill="#a8744f"/>`).join("")}</g>`;
+  const items=[[306,gate],[520,jdLantern(70,520,true,true,1)],[520,jdLantern(330,520,true,true,.9)]];
+  return {defs:jdSkyDefs(c,u,sky),bg,items,fg:'<path d="M-10 540Q200 520 400 540V560H-10Z" fill="#fff"/>',masc:[292,372,.34],part:"snow"}}
+/* ---- rizières ---- */
+function jdDrawRizieres(c){const{R,u,night,season}=c;
+  const pal={printemps:["#bfe3ef","#a9d8e6","#cfeaf2","#9fd0e0"],ete:["#9fd07a","#86c266","#b7dc8f","#76b965"],automne:["#ecc864","#d9a944","#f2d77e","#c9963a"],hiver:["#f4f7fb","#e6edf6","#ffffff","#dbe5f2"]}[season];
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`+(night?jdStars(R,50):"")+jdMoonSun(c,u);
+  bg+=`<g transform="translate(120 70) scale(.55)">${jdFuji(u,night)}</g>`;
+  bg+=`<path d="M-10 260 C60 230 130 250 200 236 C270 222 330 246 400 236 V320 H-10Z" fill="${night?"#2b2552":JD_PAL[season].far[1]}"/>`;
+  for(let i=0;i<9;i++){const y=290+i*i*3.4+i*6,amp=10+i*3,col=night?["#3e4d6b","#4b5c7c","#435473","#37465f"][i%4]:pal[i%4];
+    bg+=`<path d="M-10 ${jdF(y)} C80 ${jdF(y-amp)} 160 ${jdF(y+amp*.6)} 230 ${jdF(y-amp*.4)} C300 ${jdF(y-amp)} 360 ${jdF(y+amp*.4)} 400 ${jdF(y-amp*.2)} V560 H-10Z" fill="${col}"/><path d="M-10 ${jdF(y)} C80 ${jdF(y-amp)} 160 ${jdF(y+amp*.6)} 230 ${jdF(y-amp*.4)} C300 ${jdF(y-amp)} 360 ${jdF(y+amp*.4)} 400 ${jdF(y-amp*.2)}" stroke="${night?"#26324a":season==="hiver"?"#c9d4e4":"#6b8f4e"}" stroke-width="${jdF(1.5+i*.4)}" fill="none"/>`;
+    if(season==="printemps"&&!night)for(let k=0;k<10+i*2;k++)bg+=`<path d="M${R.i(0,390)} ${jdF(y+6+R.u(0,8+i*3))}v-${jdF(2+i*.5)}" stroke="#5fa857" stroke-width="${jdF(1+i*.15)}"/>`;
+    if(season==="printemps"&&!night&&i%2)bg+=`<path d="M-10 ${jdF(y+4)} C120 ${jdF(y-2)} 260 ${jdF(y+8)} 400 ${jdF(y+2)}" stroke="#fff" stroke-width="1.2" opacity=".5"/>`}
+  const minka=`<g transform="translate(306 316) scale(.75)"><rect x="-40" y="-30" width="80" height="30" fill="#e8dcc4"/><rect x="-10" y="-22" width="20" height="22" fill="${night?"#ffd66b":"#6b4a36"}"/><path d="M-56-28L0-70L56-28Z" fill="${season==="hiver"?"#fff":"#b88b4a"}"/><path d="M-56-28L0-70L56-28" stroke="#8a6234" stroke-width="3" fill="none"/></g>`;
+  const items=[[316,minka],[470,jdLantern(56,470,night,season==="hiver",.8)]];
+  return {defs:jdSkyDefs(c,u),bg,items,fg:"",masc:[190,462,.38],part:JD_PAL[season].part}}
+/* ---- île au-dessus des nuages ---- */
+function jdDrawIle(c){const{R,u,night}=c,T=c.time,sky=night?["#141233","#2b2552","#4b3d78"]:T==="soir"?["#8f7bc4","#ff9f8a","#ffd9a0"]:["#ffd9e4","#ffe9e0","#fff6e8"];
+  let bg=`<rect width="390" height="560" fill="url(#${u}sky)"/>`+(night?jdStars(R,70):"")+jdMoonSun(c,u);
+  bg+=`<g transform="translate(-160 -150) scale(1.85)">${jdFuji(u,night)}</g>`;
+  const cl=night?"#3d3770":"#fff";for(let i=0;i<14;i++){const y=R.u(380,560),x=R.u(-40,430);bg+=`<g class="jd-drift jd-d${i%3+1}" opacity=".95"><ellipse cx="${jdF(x)}" cy="${jdF(y)}" rx="${R.i(50,90)}" ry="${R.i(16,26)}" fill="${cl}"/><ellipse cx="${jdF(x+20)}" cy="${jdF(y-12)}" rx="${R.i(26,40)}" ry="${R.i(14,20)}" fill="${cl}"/></g>`}
+  bg+=`<path d="M40 404 C70 470 120 540 190 560 C260 540 320 470 350 404Z" fill="${night?"#3b3448":"#9b8a8a"}"/><path d="M60 410 C90 460 140 510 190 530 C240 510 300 460 330 410Z" fill="${night?"#4b4258":"#b5a39e"}"/>`;
+  bg+=`<path d="M330 410 C334 440 336 500 338 560" stroke="#bfe6f7" stroke-width="10"/><path d="M330 410 C334 440 336 500 338 560" stroke="#fff" stroke-width="3" stroke-dasharray="6 8" class="jd-flow"/>`;
+  bg+=`<ellipse cx="195" cy="404" rx="160" ry="40" fill="${night?"#4b5c7c":"#a9d690"}"/><ellipse cx="195" cy="398" rx="150" ry="33" fill="${night?"#5d6f8f":"#c8eaa8"}"/>`;
+  for(let i=0;i<4;i++)bg+=`<path d="M${60+i*70} ${120+i*14}q6-5 12 0q6-5 12 0" stroke="${night?"#cbbef0":"#6e5a68"}" stroke-width="1.6" fill="none" class="jd-drift jd-d${i%3+1}"/>`;
+  const items=[[372,`<g transform="translate(0 6)">${jdPagoda(270,374,"#e0533f")}</g>`],[392,jdCherry(130,392,3,JD_PAL.printemps,R,u,false)],[420,jdLantern(250,420,night,false,.7)]];
+  return {defs:jdSkyDefs(c,u,sky)+[0,1,2].map(k=>`<radialGradient id="${u}bl${k}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${JD_PAL.printemps.canopy[k]}"/><stop offset="1" stop-color="${JD_PAL.printemps.canopy[k+1]}"/></radialGradient>`).join("")+`<linearGradient id="${u}bark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b4430"/><stop offset=".5" stop-color="#9a6b4c"/><stop offset="1" stop-color="#5e3b29"/></linearGradient><linearGradient id="${u}fj" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night?"#3b4677":"#7d8fc4"}"/><stop offset="1" stop-color="${night?"#2b3260":"#b6c3e6"}"/></linearGradient><linearGradient id="${u}haze" x1="0" y1="0" x2="0" y2="1"><stop offset=".45" stop-color="${sky[2]}" stop-opacity="0"/><stop offset="1" stop-color="${sky[2]}" stop-opacity=".85"/></linearGradient>`,bg,items,fg:"",masc:[196,372,.34],part:"petal"}}
+var JD_DRAW={bambous:jdDrawBambous,torii:jdDrawTorii,the:jdDrawThe,onsen:jdDrawOnsen,rizieres:jdDrawRizieres,ile:jdDrawIle};
+function jdParticles(kind,R,u,photo){let s="";const n={petal:22,leaf:14,snow:40,bamboo:12,none:0}[kind]||0;
+  for(let i=0;i<n;i++){const x=R.i(-10,390),dur=R.u(9,18).toFixed(1),dl=(-R.u(0,18)).toFixed(1);
+    const sh=kind==="petal"?'<path d="M0 0C-4-4-4-9 0-11C4-9 4-4 0 0Z" fill="#ffb6c9"/>':kind==="leaf"?`<path d="M0-6l2 4 4-1-1 4 4 2-5 1v4l-4-3-4 3v-4l-5-1 4-2-1-4 4 1z" fill="${R.c(["#ff8f5e","#f2735a","#ffb07a"])}"/>`:kind==="bamboo"?'<path d="M0 0q6-3 14 0q-8 3-14 0z" fill="#8fd38a"/>':`<circle r="${R.c([1.4,2,2.6])}" fill="#fff"/>`;
+    s+=photo?`<g transform="translate(${x} ${R.i(10,540)}) rotate(${R.i(0,360)})">${sh}</g>`:`<g class="jd-fall" style="animation-duration:${dur}s;animation-delay:${dl}s"><g transform="translate(${x} -20)"><g class="jd-spin">${sh}</g></g></g>`}
+  return s}
+function jdPlaceScene(o){
+  const night=o.time==="nuit",R=jdR(o.seed||7),u=o.u,c={night,winter:o.season==="hiver",season:o.season,time:o.time,R,u},r=JD_DRAW[o.place](c);
+  let s=`<defs>${r.defs}<radialGradient id="jdglow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe08a" stop-opacity=".75"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient><radialGradient id="${u}vig" cx=".5" cy=".45" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#2b1a33" stop-opacity="${night?.35:.12}"/></radialGradient><linearGradient id="${u}ray" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient><filter id="${u}blur"><feGaussianBlur stdDeviation="3"/></filter><filter id="${u}blur8"><feGaussianBlur stdDeviation="8"/></filter></defs>`+r.bg;
+  const items=r.items.slice();
+  if(o.masc!==false){const[mx,my,ms]=r.masc;items.push([my+34,jdMascot(mx,my,ms,night,o.mascId,o.mascAcc)])}
+  (o.vis||[]).forEach(v=>{const[x,y,sc]=v.pos;items.push([y,`<g data-v="${v.id}" transform="translate(${x} ${y}) scale(${sc})" class="jd-vis">${v.id===jdG().newVis?'<circle cy="-26" r="44" fill="url(#jdglow)" class="jd-pulse"/>':""}<ellipse cy="4" rx="26" ry="5" fill="#000" opacity=".15"/>${jdAnimal(v.id,false)}</g>`])});
+  (o.objs||[]).forEach((ob,i)=>{const T=jdObj(ob.t);if(!T)return;items.push([ob.y+(i*.001),`<g data-o="${i}"><g transform="${jdTf(ob)}">${T.f(ob,{night,winter:c.winter})}</g></g>`])});
+  items.sort((a,b)=>a[0]-b[0]).forEach(it=>s+=it[1]);s+=r.fg;
+  if(!o.mini&&!o.edit){s+=jdParticles(r.part,R,u,o.photo);if(night)for(let i=0;i<12;i++)s+=`<circle cx="${R.i(20,370)}" cy="${R.i(300,500)}" r="${i%2?1.4:2.4}" fill="#fff6a8" class="jd-ff jd-d${R.i(1,4)}"${i%2?"":` filter="url(#${u}blur)"`}/>`}
+  if(o.edit)s+=jdEditBands();
+  return s+`<rect width="390" height="560" fill="url(#${u}vig)" pointer-events="none"/>`}
+function jdEditBands(){const[b0,b1]=JD.band||[332,505],h=(b1-b0)/3;return [[b0,b0+h,.10],[b0+h,b0+2*h,.16],[b0+2*h,b1,.22]].map(([a,b,op])=>`<rect x="0" y="${jdF(a)}" width="390" height="${jdF(b-a)}" fill="#fff" opacity="${op}" pointer-events="none"/><path d="M0 ${jdF(a)}H390" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 6" opacity=".9" pointer-events="none"/>`).join("")+[["Fond",b0+h/2],["Milieu",b0+1.5*h],["Devant",b0+2.5*h]].map(([t,y])=>`<g transform="translate(330 ${jdF(y)})" pointer-events="none"><rect y="-10" width="52" height="20" rx="10" fill="#fff" opacity=".85"/><text x="26" y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#6e5a68">${t}</text></g>`).join("")+'<g id="jdSel"></g>'}
+/* ---------- objets des lieux ---------- */
+function jdFence(){let o='';for(let x=-40;x<=40;x+=8)o+=`<path d="M${x} 0V-34" stroke="#c9b06a" stroke-width="5"/>`;return o+'<path d="M-44-26H44M-44-10H44" stroke="#8a6a3a" stroke-width="3"/><path d="M-44-26H44M-44-10H44" stroke="#5e3b29" stroke-width="1" stroke-dasharray="3 3"/>'}
+function jdBambooLamp(lit){return `${lit?'<circle cy="-24" r="22" fill="url(#jdglow)" class="jd-pulse"/>':""}<rect x="-8" y="-46" width="16" height="46" rx="3" fill="#9cc46a"/><path d="M-8-30h16M-8-14h16" stroke="#6b9a48" stroke-width="2"/>${[-38,-22,-6].map(y=>`<circle cy="${y}" r="2.6" fill="${lit?"#ffe08a":"#5f7f3e"}"/>`).join("")}<ellipse cy="-46" rx="8" ry="3" fill="#7fa851"/>`}
+function jdMiniTorii(){return jdToriiGate(0,0,.42,false)}
+function jdTeaTable(){return '<rect x="-30" y="-14" width="60" height="6" rx="2" fill="#6b4430"/><path d="M-24-8v8M24-8v8" stroke="#5e3b29" stroke-width="4"/><path d="M-12-14q0-10 10-10q10 0 10 10z" fill="#5b8f6a"/><path d="M8-18q6-2 6 4" stroke="#5b8f6a" stroke-width="2" fill="none"/><rect x="12" y="-20" width="8" height="6" rx="2" fill="#f6ead2"/><path d="M-2-28q-3-6 2-10" stroke="#fff" stroke-width="1.5" fill="none" opacity=".7"/>'}
+function jdLotus(){return '<ellipse cy="-2" rx="22" ry="6" fill="#7cbf6a"/><path d="M0-4C-10-6-14-16-10-22C-4-18 0-12 0-4ZM0-4C10-6 14-16 10-22C4-18 0-12 0-4ZM0-4C-4-14-2-24 0-28C2-24 4-14 0-4Z" fill="#ffc2d4" stroke="#e27c9c" stroke-width=".8"/>'}
+function jdSnowman(){return '<ellipse cy="-2" rx="20" ry="5" fill="#000" opacity=".1"/><circle cy="-16" r="16" fill="#fff" stroke="#dbe5f2"/><circle cy="-40" r="11" fill="#fff" stroke="#dbe5f2"/><rect x="-9" y="-56" width="18" height="6" rx="2" fill="#e0533f"/><circle cx="-4" cy="-42" r="1.4" fill="#333"/><circle cx="4" cy="-42" r="1.4" fill="#333"/><path d="M-3-37q3 2 6 0" stroke="#333" stroke-width="1.2" fill="none"/><ellipse cx="-7" cy="-38" rx="2.4" ry="1.4" fill="#f7b8c8"/><ellipse cx="7" cy="-38" rx="2.4" ry="1.4" fill="#f7b8c8"/><path d="M-12-30q12 6 24 0" stroke="#5b8f6a" stroke-width="4" fill="none"/>'}
+function jdBucket(){return '<path d="M-14-24h28l-3 24h-22z" fill="#d9b98a"/><path d="M-14-16h28M-13-6h26" stroke="#8a6a3a" stroke-width="2"/><path d="M-10-24v-6h20v6" stroke="#8a6a3a" stroke-width="2" fill="none"/><rect x="-8" y="-34" width="16" height="4" rx="1" fill="#fff"/>'}
+function jdScarecrow(){return '<path d="M0 0V-70M-28-48H28" stroke="#8a6a3a" stroke-width="4"/><path d="M-14-50H14L10-20H-10Z" fill="#6fa8dc"/><circle cy="-62" r="10" fill="#f6ead2"/><path d="M-22-64Q0-86 22-64Z" fill="#d9b36b"/><path d="M-4-62h2M2-62h2M-3-57q3 2 6 0" stroke="#4b3a47" stroke-width="1.4"/><path d="M-28-48l-6 8M28-48l6 8" stroke="#d9b36b" stroke-width="3"/>'}
+function jdSheaf(){return '<path d="M-14 0L-6-40L6-40L14 0Z" fill="#e2c26a"/><path d="M-10-20h20" stroke="#8a6a3a" stroke-width="3"/><path d="M-6-40C-14-50-10-56 0-48C10-56 14-50 6-40" fill="#f2d77e"/>'}
+function jdMiniPagoda(){return jdPagoda(0,0,"#e0533f")}
+function jdGoldCloud(){return '<g class="jd-drift jd-d2"><ellipse cy="-30" rx="30" ry="10" fill="#ffe7a0"/><ellipse cx="-12" cy="-38" rx="14" ry="10" fill="#ffd66b"/><ellipse cx="10" cy="-40" rx="16" ry="11" fill="#ffe7a0"/><path d="M-30-30q10 6 20 0q10 6 20 0q10 6 20 0" stroke="#ddb043" stroke-width="2" fill="none"/></g>'}
+[
+ {id:"cloture",n:"Clôture tressée",cat:"deco",b:.8,th:1,f:()=>jdFence(),pl:"bambous"},
+ {id:"lampebambou",n:"Lanterne de bambou",cat:"lumiere",b:.9,th:1.4,f:(o,c)=>jdBambooLamp(c.night),pl:"bambous"},
+ {id:"petittorii",n:"Petit torii",cat:"maisons",b:.8,th:.75,f:()=>jdMiniTorii(),pl:"torii"},
+ {id:"kitsunest",n:"Statue de renard",cat:"deco",b:.9,th:1.4,f:()=>jdFoxStatue(),pl:"torii"},
+ {id:"tablethe",n:"Table à thé",cat:"maisons",b:.9,th:1.3,f:()=>jdTeaTable(),pl:"the"},
+ {id:"lotus",n:"Lotus",cat:"eau",b:.9,th:1.4,f:()=>jdLotus(),pl:"the"},
+ {id:"yukidaruma",n:"Bonhomme de neige",cat:"deco",b:.9,th:1.3,f:()=>jdSnowman(),pl:"onsen"},
+ {id:"seau",n:"Seau en bois",cat:"eau",b:.9,th:1.6,f:()=>jdBucket(),pl:"onsen"},
+ {id:"kakashi",n:"Épouvantail",cat:"deco",b:.8,th:1,f:()=>jdScarecrow(),pl:"rizieres"},
+ {id:"meule",n:"Gerbe de riz",cat:"plantes",b:.9,th:1.5,f:()=>jdSheaf(),pl:"rizieres"},
+ {id:"pagode",n:"Petite pagode",cat:"maisons",b:1,th:1.3,f:()=>jdMiniPagoda(),pl:"ile"},
+ {id:"nuagedore",n:"Nuage doré",cat:"deco",b:.9,th:1.1,f:()=>jdGoldCloud(),pl:"ile"}
+].forEach(o=>{o.q=S=>S.places.includes(o.pl);o.ql="Lieu : "+jdPl(o.pl).n;JD_OBJ.push(o)});
+/* ---------- visiteurs des lieux ---------- */
+function jdAnimal2(n,sil){const S="#e3d8de",f=c=>sil?S:c,d=s=>sil?"":s;
+  if(n==="moineau")return `<ellipse cy="-14" rx="16" ry="12" fill="${f("#b98a64")}"/><ellipse cx="2" cy="-10" rx="10" ry="7" fill="${f("#f1dcc3")}"/><circle cx="12" cy="-24" r="9" fill="${f("#8f6648")}"/><path d="M-14-14L-28-8L-14-6Z" fill="${f("#8f6648")}"/>${d('<circle cx="15" cy="-25" r="1.6" fill="#333"/><path d="M20-24l6 1-6 2z" fill="#3b3b45"/><circle cx="14" cy="-19" r="2.4" fill="#fff"/>')}<path d="M-2-2v6M4-2v6" stroke="${f("#c9963a")}" stroke-width="1.6"/>`;
+  if(n==="corbeau")return `<ellipse cy="-16" rx="18" ry="13" fill="${f("#3b3b45")}"/><circle cx="14" cy="-30" r="10" fill="${f("#3b3b45")}"/><path d="M-16-16L-32-6L-14-8Z" fill="${f("#2b2b33")}"/>${d('<circle cx="17" cy="-31" r="2" fill="#fff"/><path d="M23-30l9 2-9 3z" fill="#4b4b55"/><path d="M-4-28q-8 4-8 12" stroke="#55556a" stroke-width="2" fill="none"/>')}<path d="M-2-4v8M6-4v8" stroke="${f("#3b3b45")}" stroke-width="2"/>`;
+  if(n==="neko")return `<ellipse cy="-12" rx="18" ry="16" fill="${f("#fff")}" stroke="${f("#eadfe5")}"/><circle cy="-34" r="14" fill="${f("#fff")}" stroke="${f("#eadfe5")}"/><path d="M-12-42L-10-54L-3-46ZM12-42L10-54L3-46Z" fill="${f("#fff")}" stroke="${f("#eadfe5")}"/><path d="M14-14Q26-30 18-40" stroke="${f("#fff")}" stroke-width="7" stroke-linecap="round" fill="none"/>${d('<circle cx="-12" cy="-40" r="4" fill="#ffb07a"/><path d="M-6-36q2 2 4 0M2-36q2 2 4 0" stroke="#4b3a47" stroke-width="1.6" fill="none"/><path d="M-10-22h20" stroke="#e0533f" stroke-width="3"/><circle cy="-18" r="3.4" fill="#ffd66b"/><ellipse cx="-8" cy="-30" rx="2.6" ry="1.6" fill="#f7b8c8"/><ellipse cx="8" cy="-30" rx="2.6" ry="1.6" fill="#f7b8c8"/>')}`;
+  if(n==="macaque")return jdMonkey(true).replace(/fill="#[0-9a-f]{6}"/g,m=>sil?'fill="'+S+'"':m).replace(/<ellipse cy="-16"/,'<ellipse cy="-16" ')+'';
+  if(n==="heron")return `<ellipse cx="-2" cy="-26" rx="16" ry="10" fill="${f("#fff")}" stroke="${f("#e6dde3")}"/><path d="M10-30C18-44 12-52 18-60" stroke="${f("#fff")}" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="18" cy="-60" r="5" fill="${f("#fff")}"/><path d="M-2-16V4M4-16V4" stroke="${f("#c9963a")}" stroke-width="1.8"/>${d('<path d="M22-60l12 1-12 2z" fill="#f2a33a"/><circle cx="19" cy="-61" r="1.2" fill="#333"/><path d="M14-62q-6-4-10 0" stroke="#3b3b45" stroke-width="1.2" fill="none"/>')}`;
+  if(n==="dragon")return `<path d="M-30-10C-20-30 0-20 4-32C8-44 24-40 26-30" stroke="${f("#8fd3b0")}" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="26" cy="-34" r="11" fill="${f("#8fd3b0")}"/>${d('<path d="M-30-10l-8 4 6-10z" fill="#ffd66b"/><circle cx="29" cy="-36" r="2" fill="#333"/><path d="M20-44l-2-8M30-44l2-8" stroke="#ffd66b" stroke-width="2.4" stroke-linecap="round"/><path d="M34-30q6 0 8 4" stroke="#ff8fb1" stroke-width="1.6" fill="none"/><path d="M-20-24l2-6M-6-24l2-6M6-34l2-6" stroke="#ffb6c9" stroke-width="3" stroke-linecap="round"/>')}`;
+  return ""}
+[
+ {id:"moineau",n:"Le moineau",k:"雀",pl:"bambous",hint:"Il niche dans la forêt de bambous, si tu y reviens souvent…",why:"Tu es venue trois jours dans la forêt de bambous",pos:[240,470,.5]},
+ {id:"corbeau",n:"Le corbeau",k:"烏",pl:"torii",hint:"Il garde les portes vermillon de la colline…",why:"Tu as monté trois fois le chemin des torii",pos:[262,452,.42]},
+ {id:"neko",n:"Le chat porte-bonheur",k:"招き猫",pl:"the",hint:"Il attend les habitués de la maison de thé…",why:"Tu as pris le thé trois jours différents",pos:[120,496,.42]},
+ {id:"macaque",n:"Le macaque",k:"猿",pl:"onsen",hint:"Il se réchauffe dans l'eau chaude quand tu reviens…",why:"Tu es venue trois fois à l'onsen",pos:[316,392,.6]},
+ {id:"heron",n:"Le héron",k:"鷺",pl:"rizieres",hint:"Il pêche dans les rizières, patiemment…",why:"Tu t'es promenée trois jours dans les rizières",pos:[110,430,.5]},
+ {id:"dragon",n:"Le petit dragon",k:"龍",pl:"ile",days:1,hint:"On raconte qu'il dort au-dessus des nuages…",why:"Tu as trouvé l'île secrète",pos:[300,404,.5]}
+].forEach(v=>{v.ok=()=>false;JD_VIS.push(v)});
+var jdAnimalBase=jdAnimal;jdAnimal=function(n,sil){return jdAnimalBase(n,sil)||jdAnimal2(n,sil)};
+function jdPlaceVis(pid){const g=jdG();return JD_VIS.filter(v=>v.pl===pid&&g.vis[v.id])}
+/* ---------- sons des lieux ---------- */
+function jdEvSound(id,ctx,g,parts){let alive=true;parts.push({stop(){alive=false}});
+  const tone=(f,t,dur,peak,type)=>{const o=ctx.createOscillator(),e=ctx.createGain();o.type=type||"sine";o.frequency.setValueAtTime(f,t);e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(peak,t+.008);e.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(e);e.connect(g);o.start(t);o.stop(t+dur+.05);return o};
+  const P={bambou:[3,8,t=>{tone(780,t,.12,.12,"triangle").frequency.exponentialRampToValueAtTime(520,t+.1);if(Math.random()<.4)tone(640,t+.18,.12,.08,"triangle")}],
+    suzu:[7,15,t=>{for(let i=0;i<7;i++)tone(2400+Math.random()*1300,t+i*.06+Math.random()*.03,.5,.035)}],
+    furin:[2.5,6,t=>{const f=1700+Math.random()*900;tone(f,t,2.2,.05);tone(f*2.76,t,1.2,.012)}],
+    bulles:[.8,2.5,t=>{const n=2+Math.floor(Math.random()*4);for(let i=0;i<n;i++){const o=tone(300+Math.random()*200,t+i*.09,.09,.06);o.frequency.exponentialRampToValueAtTime(900,t+i*.09+.08)}}],
+    grenouilles:[1.2,4,t=>{for(let k=0;k<(Math.random()<.5?2:3);k++){const s=t+k*.32,o=ctx.createOscillator(),e=ctx.createGain(),lp=ctx.createBiquadFilter(),am=ctx.createOscillator(),ag=ctx.createGain();o.type="sawtooth";o.frequency.value=110+Math.random()*30;lp.type="lowpass";lp.frequency.value=700;am.frequency.value=28;ag.gain.value=.5;am.connect(ag);ag.connect(e.gain);e.gain.setValueAtTime(0,s);e.gain.linearRampToValueAtTime(.05,s+.02);e.gain.linearRampToValueAtTime(0,s+.22);o.connect(lp);lp.connect(e);e.connect(g);o.start(s);am.start(s);o.stop(s+.25);am.stop(s+.25)}}],
+    carillon:[3,7,t=>{const N=[523.25,587.33,783.99,880,1046.5];tone(N[Math.floor(Math.random()*5)],t,4,.05);}]}[id];
+  if(!P)return false;g.gain.value=1;
+  const loop=()=>{if(!alive||!JD.amb)return;P[2](ctx.currentTime+.05);setTimeout(loop,(P[0]+Math.random()*(P[1]-P[0]))*1000)};setTimeout(loop,600+Math.random()*1200);
+  if(id==="bulles"){const s=jdNoise(ctx),f=ctx.createBiquadFilter(),k=ctx.createGain();f.type="bandpass";f.frequency.value=900;f.Q.value=.7;k.gain.value=.03;s.connect(f);f.connect(k);k.connect(g);s.start();parts.push(s)}
+  return true}
+/* ---------- carte du voyage ---------- */
+function jdMedArt(i){
+  if(i===0)return '<rect x="-40" y="-40" width="80" height="80" fill="#ffe1ea"/><rect x="-40" y="10" width="80" height="30" fill="#a9d690"/><path d="M-3 14V-4h6v18z" fill="#7a4e36"/><circle cx="-10" cy="-10" r="12" fill="#f59bb6"/><circle cx="10" cy="-12" r="13" fill="#ffc2d4"/><circle cy="-22" r="11" fill="#f59bb6"/><path d="M-30 4L-14-14 2 4z" fill="#b6c3e6" opacity=".7"/>';
+  if(i===1)return '<rect x="-40" y="-40" width="80" height="80" fill="#e7f3cf"/>'+[[-28,"#b9dba0",4],[-14,"#7cbf6a",6],[-2,"#a6d38e",3],[10,"#5f9a52",7],[24,"#8fcf78",5]].map(([a,c,w])=>`<path d="M${a} 40V-40" stroke="${c}" stroke-width="${w}"/>`).join("")+'<path d="M-8 40L0 4 8 40z" fill="#e8dcc4"/>';
+  if(i===2)return '<rect x="-40" y="-40" width="80" height="80" fill="#ffe2c8"/>'+[1.4,1.05,.8,.6,.45].map(s=>`<g transform="scale(${s})"><rect x="-18" y="-22" width="4" height="40" fill="#e0533f"/><rect x="14" y="-22" width="4" height="40" fill="#e0533f"/><rect x="-24" y="-26" width="48" height="5" fill="#3b3b45"/><rect x="-20" y="-18" width="40" height="3" fill="#e0533f"/></g>`).join("");
+  if(i===3)return '<rect x="-40" y="-40" width="80" height="80" fill="#dff0fb"/><rect x="-40" y="16" width="80" height="24" fill="#9fd4ee"/><g transform="translate(0 18) scale(.38)">'+jdTea(false,false)+'</g>';
+  if(i===4)return '<rect x="-40" y="-40" width="80" height="80" fill="#4f5d94"/><path d="M-40 6L-16-20 0-4 20-24 40 0V40H-40z" fill="#eef3fb"/><ellipse cy="22" rx="30" ry="11" fill="#8fc9d9"/>'+[-12,0,12].map(a=>`<path d="M${a} 10q-6-8 0-16q6-8 0-16" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/>`).join("");
+  if(i===5)return '<rect x="-40" y="-40" width="80" height="80" fill="#fff3c9"/>'+[[-16,"#b7dc8f"],[-4,"#9fd07a"],[8,"#c9e6a4"],[20,"#8cc26a"],[32,"#a9d68a"]].map(([y,c])=>`<path d="M-40 ${y}Q0 ${y-14} 40 ${y}V${y+12}Q0 ${y-2} -40 ${y+12}Z" fill="${c}"/>`).join("");
+  return '<rect x="-40" y="-40" width="80" height="80" fill="#cdd6ef"/><path d="M-30 14L-6-18h12L30 14z" fill="#8a97c9"/><path d="M-6-18h12l5 7-5-3-3 4-3-4-3 4-3-4-5 3z" fill="#fff"/><ellipse cx="-14" cy="16" rx="24" ry="9" fill="#fff"/><ellipse cx="16" cy="18" rx="26" ry="9" fill="#fff"/>'}
+function jdMap(){const S=jdStats(),un=jdUnlocked(S),cur=jdCurPlace(),R=jdR(9);Sfx.play("page");
+  const PT=[[195,600],[92,504],[290,416],[100,328],[290,242],[104,158],[250,72]];
+  let pth=`M${PT[0][0]} ${PT[0][1]}`;for(let i=1;i<7;i++)pth+=` C${PT[i-1][0]} ${PT[i-1][1]-60} ${PT[i][0]} ${PT[i][1]+60} ${PT[i][0]} ${PT[i][1]}`;
+  let m=`<svg viewBox="0 0 390 680" class="jd-mapsvg" role="img" aria-label="Carte du voyage"><defs><filter id="jmgray"><feColorMatrix type="saturate" values="0"/></filter>${PT.map((_,i)=>`<clipPath id="jmc${i}"><circle r="34"/></clipPath>`).join("")}</defs><rect width="390" height="680" fill="#f8efe2"/>`;
+  for(let i=0;i<110;i++)m+=`<path d="M${R.i(0,390)} ${R.i(0,680)}l${R.i(4,14)} ${R.i(-3,3)}" stroke="#e6d6bf" stroke-width="1"/>`;
+  m+='<path d="M400 120C330 150 360 230 300 300C240 370 340 420 260 500C200 560 60 560 -10 640" stroke="#bfe0ef" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M400 120C330 150 360 230 300 300C240 370 340 420 260 500C200 560 60 560 -10 640" stroke="#fff" stroke-width="2" stroke-dasharray="8 14" fill="none" opacity=".8" class="jd-flow"/>';
+  [[30,60],[52,74],[350,190],[370,206],[20,420],[360,560],[184,250],[196,262]].forEach(([a,b])=>m+=`<path d="M${a-16} ${b}L${a} ${b-20}L${a+16} ${b}z" fill="#d9cbb5"/><path d="M${a-5} ${b-14}L${a} ${b-20}L${a+5} ${b-14}z" fill="#fff"/>`);
+  m+=`<path d="${pth}" stroke="#c99f7a" stroke-width="4" fill="none" stroke-dasharray="1 9" stroke-linecap="round"/>`;
+  const nextI=JD_PL.findIndex(p=>!un.includes(p.id));
+  JD_PL.forEach((p,i)=>{const[x,y]=PT[i],ok=un.includes(p.id),secret=p.id==="ile"&&!ok,nx=i===nextI&&!secret;
+    m+=`<g transform="translate(${x} ${y})" data-pl="${p.id}" class="jd-med" role="button" tabindex="0" aria-label="${ok?"Aller à ":""}${secret?"Lieu secret":p.n}${ok?"":" (verrouillé)"}">`;
+    if(p.id===cur)m+='<circle r="46" fill="#ffd9e4" class="jd-pulse"/>';
+    if(nx){const pr=jdPlaceProg(p,S);m+=`<circle r="40" fill="none" stroke="#f1dce4" stroke-width="5"/><circle r="40" fill="none" stroke="#d9708d" stroke-width="5" stroke-dasharray="${jdF(251.3*pr)} 251.3" stroke-linecap="round" transform="rotate(-90)"/>`}
+    m+=`<circle r="38" fill="#fff"/><g clip-path="url(#jmc${i})"${ok?"":' filter="url(#jmgray)" opacity=".55"'}>${secret?'<rect x="-40" y="-40" width="80" height="80" fill="#e6dde3"/><text y="10" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="30" fill="#b9aab3">?</text>':jdMedArt(i)}</g><circle r="34" fill="none" stroke="${ok?"#d9a441":"#cfc3ca"}" stroke-width="3"/>`;
+    if(!ok)m+='<g transform="translate(24 -26)"><circle r="11" fill="#fff" stroke="#cfc3ca" stroke-width="1.5"/><rect x="-5" y="-2" width="10" height="8" rx="1.5" fill="#9b8594"/><path d="M-3-2v-3a3 3 0 0 1 6 0v3" stroke="#9b8594" stroke-width="1.8" fill="none"/></g>';
+    m+=`<text y="54" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="13" fill="${ok?"#4b3a47":"#8f7f89"}">${secret?"???":p.n}</text><text y="69" text-anchor="middle" font-family="Zen Maru Gothic,sans-serif" font-size="10.5" fill="${nx?"#b5506d":"#9b8594"}">${ok?(p.id===cur?"Tu es ici ✿":"Touche pour y aller"):p.ql}</text></g>`});
+  const ci=JD_PL.findIndex(p=>p.id===cur);m+=`<g class="jd-bob">${jdMascot(PT[ci][0]+22,PT[ci][1]-72,.34,false)}</g>`;
+  m+='<g transform="translate(350 640)"><rect x="-17" y="-17" width="34" height="34" rx="5" fill="#d9534f" opacity=".85" transform="rotate(-6)"/><text y="7" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="20" fill="#fff">旅</text></g></svg>';
+  const np=nextI>=0?JD_PL[nextI]:null;
+  const L=jdLayer("jd-mapl",`<div class="jd-ch"><button type="button" class="jd-pill" data-a="x" aria-label="Retour au jardin">‹</button><h2>Carte du voyage <small>旅</small></h2><span class="jd-mapn">${un.length} / 7</span></div><div class="jd-mapbox">${m}</div>${np?`<div class="jd-mapnext"><b>Prochain lieu : ${np.id==="ile"?"un lieu secret…":np.n}</b><div class="jd-prog"><i style="width:${Math.max(3,Math.round(jdPlaceProg(np,S)*100))}%"></i></div><small>${np.id==="ile"?"Rencontre les 8 visiteurs du jardin et découvre tous les lieux.":"Pour l'ouvrir : "+np.ql}</small></div>`:'<div class="jd-mapnext"><b>Tu as trouvé tous les lieux ✿</b><small>Ton voyage est complet. Chaque lieu garde ses visiteurs et tes décorations.</small></div>'}`);
+  L.onclick=e=>{if(e.target.closest('[data-a="x"]')){jdCloseLayer();return}const md=e.target.closest("[data-pl]");if(!md)return;const p=jdPl(md.dataset.pl);
+    if(!un.includes(p.id)){Sfx.play("wrong");jdToast(p.id==="ile"?"🔒 Un lieu secret… Rencontre les 8 visiteurs du jardin et ouvre tous les lieux":"🔒 "+p.n+" : "+p.ql);return}
+    jdGoPlace(p.id)};
+  L.onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.pl){e.preventDefault();e.target.dispatchEvent(new MouseEvent("click",{bubbles:true}))}}}
+function jdPlaceProg(p,S){const m={bambous:S.pages/30,torii:S.pages/100,the:S.letters/5,onsen:S.winter/15,rizieres:S.seasons/4,ile:Math.min(S.vis/8,JD_PL.slice(1,6).filter(x=>x.q(S)).length/5)}[p.id];return Math.max(0,Math.min(1,m||0))}
+function jdGoPlace(pid){const g=jdG();g.place=pid;JD.pop=null;jdVisitPlace(pid);Sfx.play("chime");jdCloseLayer();if(JD.ambOn)jdAmbStart(jdPl(pid).snd);jdToast(jdPl(pid).n+" ✿")}
+function jdCheckPlaces(S){const g=jdG(),un=jdUnlocked(S);g.unl=g.unl||["jardin"];const nw=un.filter(id=>!g.unl.includes(id));if(nw.length){g.unl=un;g.newPl=nw[nw.length-1];saveColl()}return un}
+function jdFlowersV(cols,winter){let o=jdFlowers(winter).replace(/<g data-k[\s\S]*$/,"");cols.forEach((c,i)=>{const[x,y]=jdFlowerPos("0000-00-"+String(i+1).padStart(2,"0"));o+=`<g transform="translate(${x} ${y}) scale(1.08)"><path d="M0 4v12" stroke="#5f9a52" stroke-width="1.6"/>${[0,72,144,216,288].map(a=>`<ellipse cy="-4.2" rx="3.2" ry="4.4" fill="${c}" stroke="#fff" stroke-width=".6" transform="rotate(${a})"/>`).join("")}<circle r="2.2" fill="#fff6c9"/></g>`});return o}
+/* ---------- mode photo ---------- */
+var JD_STY={naturel:"",aquarelle:'<filter id="phf" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation=".7"/><feColorMatrix type="saturate" values="1.2"/></filter>',estampe:'<filter id="phf"><feComponentTransfer><feFuncR type="discrete" tableValues="0.08 0.35 0.6 0.82 0.98"/><feFuncG type="discrete" tableValues="0.06 0.3 0.55 0.78 0.95"/><feFuncB type="discrete" tableValues="0.1 0.32 0.52 0.72 0.9"/></feComponentTransfer><feColorMatrix type="matrix" values="1 0.05 0 0 0.02  0 0.95 0.02 0 0.02  0 0 0.85 0 0.04  0 0 0 1 0"/></filter>',pastel:'<filter id="phf"><feColorMatrix type="saturate" values=".55"/><feComponentTransfer><feFuncR type="linear" slope=".82" intercept=".18"/><feFuncG type="linear" slope=".82" intercept=".16"/><feFuncB type="linear" slope=".82" intercept=".2"/></feComponentTransfer></filter>'};
+function jdPhoto(){const vis=JD.visit&&JD.visit.d;JD.ph={time:jdTime(),season:jdSeason(),style:"naturel",masc:true,date:true,vis:!!vis};Sfx.play("photo");
+  const seg=(k,items)=>`<div class="jd-seg jd-segdk" data-k="${k}">${items.map(([v,l])=>`<button type="button" data-v="${v}" aria-pressed="${JD.ph[k]===v}">${l}</button>`).join("")}</div>`;
+  const L=jdLayer("jd-photo",`<div class="jd-ch jd-chdk"><button type="button" class="jd-pill jd-dark" data-a="x" aria-label="Fermer le mode photo">✕</button><h2>Mode photo</h2><span></span></div>
+  <div class="jd-phbox"><img id="jdPhImg" alt="Aperçu de la photo du jardin"><span class="jd-phwait">Développement…</span></div>
+  <div class="jd-phc"><div class="jd-phrow"><span>Heure</span>${seg("time",[["matin","Aube"],["aprem","Jour"],["soir","Soir"],["nuit","Nuit"]])}</div>
+  <div class="jd-phrow"><span>Saison</span>${seg("season",[["printemps","春"],["ete","夏"],["automne","秋"],["hiver","冬"]])}</div>
+  <div class="jd-phrow"><span>Style</span>${seg("style",[["naturel","Naturel"],["aquarelle","Aquarelle"],["estampe","Estampe"],["pastel","Pastel"]])}</div>
+  <div class="jd-pzs"><button type="button" data-t="masc" aria-pressed="true">Ma mascotte</button><button type="button" data-t="date" aria-pressed="true">Date</button></div>
+  <div class="jd-btns"><button type="button" class="jd-btn jd-pink" data-a="share">Enregistrer ou partager</button></div></div>`);
+  L.onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.a==="x"){jdCloseLayer();return}if(b.dataset.a==="share"){jdPhotoShare();return}
+    const sg=b.closest("[data-k]");if(sg&&b.dataset.v){JD.ph[sg.dataset.k]=b.dataset.v;sg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));Sfx.play("tick");jdPhotoDraw();return}
+    if(b.dataset.t){JD.ph[b.dataset.t]=!JD.ph[b.dataset.t];b.setAttribute("aria-pressed",JD.ph[b.dataset.t]);Sfx.play("tick");jdPhotoDraw()}};
+  jdPhotoDraw()}
+function jdPhotoOpts(){const P=JD.ph,v=JD.visit&&JD.visit.d,pl=v?"jardin":jdCurPlace();
+  if(v)return jdVisitOpts(v,{time:P.time,season:P.season,photo:true,u:"ph",masc:P.masc});
+  const S=jdStats();return {place:pl,stage:jdStage(S.pages),season:P.season,time:P.time,seed:hash(todayKey())+3,u:"ph",objs:jdObjsOf(pl),vis:pl==="jardin"?jdPresent():jdPlaceVis(pl),use:pl==="jardin"?jdUse():null,photo:true,masc:P.masc}}
+async function jdPhotoCanvas(){const P=JD.ph,o=jdPhotoOpts();
+  let inner=o.place&&o.place!=="jardin"?jdPlaceScene(o):jdScene(o);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 560" width="1080" height="1551"><defs>${JD_STY[P.style]||""}</defs><g${P.style!=="naturel"?' filter="url(#phf)"':""}>${inner}</g></svg>`;
+  const im=await yrImg(svg),cv=document.createElement("canvas");cv.width=1200;cv.height=1620;const c=cv.getContext("2d");
+  try{await Promise.all(["500 56px 'Kiwi Maru'","500 34px 'Zen Maru Gothic'"].map(f=>document.fonts.load(f,"Mon jardin éàç")))}catch(e){}
+  c.fillStyle="#fffdf7";c.fillRect(0,0,1200,1620);c.save();c.beginPath();c.rect(60,60,1080,1350);c.clip();c.drawImage(im,60,60-201,1080,1551);c.restore();
+  if(P.style==="aquarelle"||P.style==="estampe"){c.fillStyle=P.style==="estampe"?"rgba(240,225,190,.16)":"rgba(255,250,240,.12)";c.fillRect(60,60,1080,1350)}
+  c.strokeStyle="rgba(0,0,0,.06)";c.lineWidth=2;c.strokeRect(60,60,1080,1350);
+  const v=JD.visit&&JD.visit.d,pl=v?null:jdPl(jdCurPlace()),sea={printemps:"de printemps",ete:"d'été",automne:"d'automne",hiver:"d'hiver"}[P.season];
+  const cap=v?"Le jardin de "+(JD.visit.name||"mon amie"):pl.id==="jardin"?"Mon jardin "+sea:pl.n;
+  c.fillStyle="#4b3a47";c.font="500 56px 'Kiwi Maru'";c.textAlign="center";c.fillText(cap,600,1500);
+  if(P.date){c.fillStyle="#9b8594";c.font="500 32px 'Zen Maru Gothic'";c.fillText(new Date().toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})+"  ·  Mon petit journal ✿",600,1560)}
+  return cv}
+async function jdPhotoDraw(){const img=$("jdPhImg"),w=document.querySelector(".jd-phwait");if(!img)return;const tk=JD.phTk=(JD.phTk||0)+1;if(w)w.hidden=false;
+  try{const cv=await jdPhotoCanvas();if(tk!==JD.phTk)return;JD.phCv=cv;img.src=cv.toDataURL("image/jpeg",.86);if(w)w.hidden=true}catch(e){if(w)w.textContent="Oups, l'aperçu n'a pas pu se développer."}}
+async function jdPhotoShare(){const cv=JD.phCv;if(!cv)return;const name="mon-jardin-"+todayKey()+".png";Sfx.play("share");
+  try{if(typeof saveOrShare==="function"){await saveOrShare(name,cv.toDataURL("image/png").split(",")[1],{base64:true,mime:"image/png",title:"Mon jardin"});return}
+    const blob=await new Promise(r=>cv.toBlob(r,"image/png"));let dl=null;try{dl=window.claude&&claude.use?await claude.use("downloads"):null}catch(e){}
+    if(dl){await dl.save({filename:name,data:blob});jdToast("Ta photo est enregistrée ✿");return}
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();jdToast("Ta photo est enregistrée ✿")}catch(e){jdToast("Fais un appui long sur la photo pour l'enregistrer ✿")}}
+/* ---------- visites entre amis ---------- */
+function jdFB(){return typeof fbUser!=="undefined"&&!!fbUser&&typeof fsSet==="function"}
+function jdSnap(){const g=jdG(),u=jdUse(),S=jdStats();let sand=g.sand||null;if(sand&&JSON.stringify(sand).length>50000)sand=null;
+  return {v:1,name:(typeof social!=="undefined"&&social.name)||"",mascot:curMascot(),acc:wornAcc(),st:jdStage(S.pages),objs:g.objs.slice(0,JD_MAX),sand,vis:Object.keys(g.vis).filter(id=>{const v=JD_VIS.find(x=>x.id===id);return v&&!v.pl}),fl:Math.min(31,u.month),sk:Math.min(10,u.sk),koi:u.koi,bf:Math.min(6,u.todo),ema:Math.min(12,u.letters),cr:u.cranes,cairn:u.cairn,pl:jdUnlocked(S).length}}
+var jdSnapLast="";
+async function jdPushGarden(){if(!jdFB()||typeof social==="undefined"||!social.name)return;const d=jdSnap(),sig=JSON.stringify(d);if(sig===jdSnapLast)return;try{await fsSet("gardens/"+fbUser.uid,{...d,at:Date.now()});jdSnapLast=sig}catch(e){}}
+async function jdLoadGifts(){if(!jdFB())return;try{const L=await fsList("gvisits/"+fbUser.uid+"/from"),g=jdG();g.gifts=g.gifts||{};let got=0,names=[];JD.wishes=[];
+  L.forEach(x=>{const fr=((typeof amis!=="undefined"&&amis.friends)||[]).find(f=>f.uid===x.id);if(x.petal&&g.gifts[x.id]!==x.petal){g.gifts[x.id]=x.petal;got++;names.push(fr?fr.name:"Un·e ami·e")}
+    if(x.wish)JD.wishes.push({from:x.id,name:fr?fr.name:"Un·e ami·e",mascot:fr?fr.mascot:"onigiri",acc:fr?fr.acc:[],text:String(x.wish).slice(0,80),at:x.at||0})});
+  JD.wishes.sort((a,b)=>b.at-a.at);
+  if(got){coll.petals=(coll.petals||0)+got;saveColl();setTimeout(()=>{jdToast(names.slice(0,2).join(" et ")+(names.length>2?" et d'autres":"")+" t'"+(got>1?"ont":"a")+" laissé "+got+" pétale"+(got>1?"s":"")+" ✿");petals(18);Sfx.play("petals")},900)}
+  if($("jd")&&!$("jd").hidden&&!JD.edit&&!JD.visit)jdRender()}catch(e){}}
+function jdVisitOpts(d,x){x=x||{};const R=jdR(hash(d.name||"ami")),C=["#ffb6c9","#ffd8a1","#c6e3c2","#b8d6f0","#d9c9f1","#f5a9bc"],fl=[];
+  for(let i=0;i<(d.fl||0);i++)fl.push(C[R.i(0,5)]);
+  return {stage:Math.max(0,Math.min(6,d.st||0)),season:x.season||jdSeason(),time:x.time||jdTime(),seed:hash(d.name||"ami")+5,u:x.u||"jv",objs:(d.objs||[]).filter(o=>jdObj(o.t)).slice(0,JD_MAX),vis:JD_VIS.filter(v=>!v.pl&&(d.vis||[]).includes(v.id)).slice(0,3),sand:d.sand||null,use:{koi:d.koi||1,sk:d.sk||0,todo:d.bf||0,letters:d.ema||0,gold:0,cranes:d.cr||0,cairn:d.cairn||0},flv:fl,mascId:d.mascot,mascAcc:d.acc||[],photo:!!x.photo,masc:x.masc!==false}}
+async function openFriendGarden(fr,from){if(!jdFB())return;let ov=$("jd");if(!ov||ov.hidden){openGarden(true)}
+  JD.visit={uid:fr.uid,name:fr.name,from:from||"jardin",d:null};JD.pop=null;jdRender();
+  try{const d=await fsGet("gardens/"+fr.uid);if(!JD.visit||JD.visit.uid!==fr.uid)return;if(!d){JD.visit=null;jdToast(fr.name+" n'a pas encore partagé son jardin. Il apparaîtra quand elle l'ouvrira ✿");if(from==="amis")setTimeout(closeGarden,1800);else jdRender();return}
+    JD.visit.d=d;Sfx.play("chime");jdRender()}catch(e){JD.visit=null;jdToast("Impossible d'ouvrir ce jardin pour l'instant.");jdRender()}}
+function jdLeaveVisit(){const f=JD.visit&&JD.visit.from;JD.visit=null;jdCloseLayer();if(f==="amis")closeGarden();else jdRender()}
+async function jdSendPetal(){const v=JD.visit;if(!v)return;const t=todayKey();social.gpet=social.gpet||{};if(social.gpet[v.uid]===t)return;
+  try{await fsSet("gvisits/"+v.uid+"/from/"+fbUser.uid,{petal:t,at:Date.now()},true);social.gpet[v.uid]=t;saveSocial();Sfx.play("petals");petals(14);jdToast("Tu as laissé un pétale chez "+v.name+" ✿");jdRender()}catch(e){jdToast("Oups, ça n'a pas marché. Réessaie plus tard.")}}
+var JD_WISH=["Que ta semaine soit douce ✿","Je pense fort à toi ♡","Courage, tu vas y arriver !","Que tes rêves fleurissent 🌸","Merci d'être là","Bonne chance pour demain !"];
+function jdWishForm(){const v=JD.visit;if(!v)return;Sfx.play("page");
+  const L=jdLayer("jd-wish",`<div class="jd-ch"><button type="button" class="jd-pill" data-a="x" aria-label="Annuler">‹</button><h2>Accrocher un vœu <small>絵馬</small></h2><span></span></div>
+  <div class="jd-emabig"><svg viewBox="-60 -50 120 100" width="150" aria-hidden="true"><path d="M0-46v8" stroke="#e0533f" stroke-width="2"/><path d="M-48-38h96v52l-48 28-48-28z" fill="#e8c99a" stroke="#b98a64" stroke-width="2"/><text y="2" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="14" fill="#6b4430">絵馬</text></svg></div>
+  <p class="jd-note">Ton vœu sera accroché sur la planche du jardin de ${v.name.replace(/[<>&]/g,"")}. Elle seule pourra le lire.</p>
+  <div class="jd-pzs jd-wishp">${JD_WISH.map((w,i)=>`<button type="button" data-w="${i}"></button>`).join("")}</div>
+  <label class="jd-wl"><span>Ou écris le tien (80 caractères)</span><textarea id="jdWishT" maxlength="80" rows="2" placeholder="Un petit mot gentil…"></textarea></label>
+  <button type="button" class="jd-btn jd-pink" data-a="send">🎐 Accrocher mon vœu</button>`);
+  L.querySelectorAll("[data-w]").forEach(b=>b.textContent=JD_WISH[+b.dataset.w]);
+  L.onclick=async e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.a==="x"){jdCloseLayer();return}
+    if(b.dataset.w){$("jdWishT").value=JD_WISH[+b.dataset.w];Sfx.play("tick");return}
+    if(b.dataset.a==="send"){const t=$("jdWishT").value.replace(/\s+/g," ").trim().slice(0,80);if(!t){jdToast("Écris ou choisis un petit mot ✿");return}b.disabled=true;
+      try{await fsSet("gvisits/"+v.uid+"/from/"+fbUser.uid,{wish:t,at:Date.now(),...(social.gpet&&social.gpet[v.uid]===todayKey()?{petal:todayKey()}:{})},true);social.gwish=social.gwish||{};social.gwish[v.uid]=todayKey();saveSocial();Sfx.play("chime");jdCloseLayer();jdToast("Ton vœu est accroché chez "+v.name+" 🎐")}catch(e){b.disabled=false;jdToast("Oups, ça n'a pas marché. Réessaie plus tard.")}}}}
+async function jdWishAct(from,act){const w=(JD.wishes||[]).find(x=>x.from===from);if(!w)return;
+  if(act==="report"&&!confirm("Signaler ce vœu ? Il sera retiré de ton jardin."))return;
+  try{if(act==="report")await fsSet("reports/"+fbUser.uid+"_"+from+"_"+Date.now(),{by:fbUser.uid,about:from,pair:"ema",day:todayKey(),at:Date.now()});
+    await fsDel("gvisits/"+fbUser.uid+"/from/"+from);JD.wishes=JD.wishes.filter(x=>x.from!==from);Sfx.play("uncheck");jdToast(act==="report"?"Merci, le vœu est signalé et retiré.":"Le vœu est retiré.");jdRender()}catch(e){jdToast("Impossible pour l'instant, réessaie plus tard.")}}
 JD_READY=true;
 renderJdCard();
 

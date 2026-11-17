@@ -73,6 +73,23 @@ service cloud.firestore {
       allow delete: if signedIn() && inPair(pair);
     }
 
+    // Jardin partagé : visible uniquement par les amis (aucun texte du journal, aucune humeur)
+    match /gardens/{uid} {
+      allow read: if signedIn() && (me() == uid || isFriend(uid, me()));
+      allow create, update: if signedIn() && me() == uid
+        && request.resource.data.keys().hasOnly(['v','name','mascot','acc','st','objs','sand','vis','fl','sk','koi','bf','ema','cr','cairn','pl','at'])
+        && request.resource.data.objs is list && request.resource.data.objs.size() <= 60;
+      allow delete: if signedIn() && me() == uid;
+    }
+    // Visites : un pétale par jour et un vœu (80 caractères max) laissés par une amie
+    match /gvisits/{to}/from/{from} {
+      allow read: if signedIn() && (me() == to || me() == from);
+      allow create, update: if signedIn() && me() == from && to != from && isFriend(to, me())
+        && request.resource.data.keys().hasOnly(['petal','wish','at'])
+        && (!('wish' in request.resource.data) || (request.resource.data.wish is string && request.resource.data.wish.size() > 0 && request.resource.data.wish.size() <= 80))
+        && (!('petal' in request.resource.data) || request.resource.data.petal is string);
+      allow delete: if signedIn() && (me() == to || me() == from);
+    }
     // Signalements : personne ne peut les lire depuis l'appli (seulement toi, dans la console Firebase)
     match /reports/{id} {
       allow create: if signedIn() && request.resource.data.by == me()
