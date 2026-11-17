@@ -701,6 +701,21 @@ input,textarea,select{font-size:16px}
 #yrCard[hidden]{display:none}.yrc-main{flex:1;display:flex;align-items:center;gap:12px;text-align:left;background:none;border:none;font:inherit;color:var(--ink);padding:6px 0;min-height:52px}.yrc-ic{font-size:28px}.yrc-main b{display:block;font-size:15px}.yrc-main small{display:block;font-size:12px;color:var(--muted)}
 .ybil{width:100%;margin:0 0 12px}
 @media (prefers-reduced-motion: reduce){.yr-s .w,.ymb i,.ymos i,.ycw{animation-duration:.01s!important;animation-delay:0s!important}}
+/* écrire à la voix */
+.voicebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.voicebar[hidden]{display:none}
+.micbtn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:999px;padding:10px 18px 10px 12px;background:var(--sakura-deep);color:#fff;font:inherit;font-weight:700;font-size:14px;min-height:44px;box-shadow:0 3px 0 color-mix(in srgb,var(--sakura-deep) 60%,#000)}
+.micbtn svg{width:22px;height:22px;flex:none}.micbtn.on{background:#e8524a;box-shadow:0 0 0 6px rgba(232,82,74,.18),0 3px 0 #b33a33;animation:micpulse 1.6s ease-in-out infinite}
+@keyframes micpulse{50%{box-shadow:0 0 0 12px rgba(232,82,74,.08),0 3px 0 #b33a33}}
+.vhint{font-size:12px;color:var(--muted)}
+#voiceBox{border:2px dashed color-mix(in srgb,var(--sakura-deep) 60%,transparent);border-radius:18px;padding:12px 14px;background:color-mix(in srgb,var(--sakura) 12%,var(--card));display:grid;gap:8px}#voiceBox[hidden]{display:none}
+.wave{display:flex;align-items:center;gap:4px;height:34px}.wave i{width:6px;height:30px;border-radius:6px;background:var(--sakura-deep);display:block;animation:wv 1s ease-in-out infinite;transform-origin:center}
+.wave i:nth-child(2n){animation-delay:-.3s}.wave i:nth-child(3n){animation-delay:-.6s;animation-duration:.8s}.wave i:nth-child(5n){animation-delay:-.45s;animation-duration:1.2s}
+@keyframes wv{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+#voiceBox .live{font-family:'Kiwi Maru',serif;font-size:17px;line-height:1.6;color:var(--muted);min-height:27px}
+.vtips{font-size:12px;color:var(--muted)}.vtips b{color:var(--sakura-deep)}
+.vpriv{font-size:12px;background:color-mix(in srgb,var(--matcha) 22%,var(--card));border-radius:12px;padding:8px 10px;margin:0;line-height:1.45}.vpriv[hidden]{display:none}
+#oni.listening{animation:listen 2s ease-in-out infinite;transform-origin:50% 80%}@keyframes listen{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-4deg) translateY(-2px)}}
+@media (prefers-reduced-motion: reduce){.wave i,.micbtn.on,#oni.listening{animation:none}}
 </style>
 </head>
 <body>
@@ -748,6 +763,8 @@ input,textarea,select{font-size:16px}
 
       <button class="linkbtn doux" id="douxBtn" type="button">☾ Pas d'énergie ce soir ? Écris en 30 secondes</button>
       <label for="text" class="label" style="margin:0">Ma page</label>
+      <div class="voicebar" id="voiceBar" hidden><button type="button" class="micbtn" id="micBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span>Écrire à la voix</span></button><span class="vhint" id="voiceHint">Parle, j'écris pour toi ✿</span></div>
+      <div id="voiceBox" hidden aria-live="polite"><div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="live">…</div><div class="vtips">Dis <b>« virgule »</b>, <b>« point »</b> ou <b>« à la ligne »</b> pour la ponctuation</div><p class="vpriv" hidden>🔒 Ta voix est transformée en texte par le service vocal de ton téléphone (souvent Google). Pour que rien ne quitte ton téléphone, cherche « reconnaissance vocale hors ligne » dans les réglages et ajoute le français.</p></div>
       <textarea id="text" placeholder="Écris ici… même trois lignes, c'est déjà très bien ✿"></textarea>
       <div class="tagsline" id="tagsLine"></div>
 
@@ -1376,6 +1393,7 @@ const STAMPS=[
   {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
   {id:"oku",cat:"mom",r:"c",kind:"col",k:"憶",kana:"おもいで · omoide",name:"Souvenir retrouvé",mean:"Tu as relu une page d'autrefois, le même jour.",cond:"Relire un souvenir du jour",p:s=>[s.memN||0,1]},
   {id:"mukashi",cat:"mom",r:"r",kind:"col",k:"昔",kana:"むかし · mukashi",name:"Un an déjà",mean:"Un an plus tard, tu relis ton propre passé.",cond:"Relire une page écrite il y a un an jour pour jour",p:s=>[s.memY||0,1]},
+  {id:"koe",cat:"ecr",r:"c",kind:"col",k:"声",kana:"こえ · koe",name:"Ma voix",mean:"Ta page s'est écrite au son de ta voix.",cond:"Écrire une page à la voix",p:s=>[s.voice||0,1]},
   {id:"tayori",cat:"ecr",r:"c",kind:"col",k:"便",kana:"たより · tayori",name:"Lettre scellée",mean:"Une lettre voyage vers ton futur toi.",cond:"Sceller une lettre au futur moi",p:s=>[s.letters||0,1]},
   {id:"toki",cat:"ecr",r:"r",kind:"col",k:"時",kana:"とき · toki",name:"Voyage dans le temps",mean:"Tu as reçu une lettre de ton passé.",cond:"Ouvrir une lettre au futur moi",p:s=>[s.opened||0,1]},
   {id:"kintegami",cat:"sec",r:"t",kind:"col",k:"金",kana:"きん · kin",name:"Lettre précieuse",mean:"Une lettre au sceau d'or a traversé le temps jusqu'à toi.",cond:"Ouvrir une lettre au sceau doré",p:s=>[s.goldOpened||0,1]},
@@ -1745,7 +1763,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,memN:(coll.mem&&coll.mem.n)||0,memY:(coll.mem&&coll.mem.y)||0,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,voice:coll.voice||0,memN:(coll.mem&&coll.mem.n)||0,memY:(coll.mem&&coll.mem.y)||0,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -2779,6 +2797,7 @@ var curView="ecrire";
 var bgAt=0;
 function showView(v){
   if(!$("v-"+v))return;
+  if(v!=="ecrire"&&typeof vx!=="undefined"&&vx.on)voiceStop();
   curView=v;
   document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="v-"+v));
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
@@ -3427,7 +3446,7 @@ if(isNative){
       A.minimizeApp();
     });
     A.addListener("appStateChange",({isActive})=>{
-      if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget();if(fbUser)pushProfile(false)}
+      if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget();if(vx.on)voiceStop();if(fbUser)pushProfile(false)}
       else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide();if(fbUser)loadDuos()}
     });
   }
@@ -3712,6 +3731,64 @@ function renderYearCard(){
 }
 
 renderYearCard();
+/* ================= écrire à la voix (Android) ================= */
+var vx={on:false,cur:"",last:0,timer:null,dog:null,ok:null,sess:0};
+function VS(){return PL_().SpeechRecognition}
+function voiceFix(t){
+  t=" "+t.trim()+" ";
+  const R=[[/\s+point d'interrogation\b/gi," ?"],[/\s+point d'exclamation\b/gi," !"],[/\s+points? de suspension\b/gi,"…"],[/\s+virgule\b/gi,","],[/\s+point final\b/gi,"."],[/\s+(?:à la ligne|retour à la ligne|nouvelle ligne|nouveau paragraphe)\b/gi,"\n"],[/\s+point\s*$/i,"."],[/\s+point(?=\s*\n)/gi,"."]];
+  R.forEach(([a,b])=>t=t.replace(a,b));
+  t=t.replace(/[ \t]+\n/g,"\n").replace(/\n[ \t]+/g,"\n").replace(/[ \t]{2,}/g," ").replace(/^ +| +$/g,"");
+  t=t.replace(/([.!?…]\s+|\n)(\p{Ll})/gu,(m,a,b)=>a+b.toUpperCase());
+  return t;
+}
+function voiceCommit(){
+  const raw=(vx.cur||"").trim();vx.cur="";voiceLive("");
+  if(!raw)return;
+  const ta=$("text");let v=ta.value;let add=voiceFix(raw);
+  const endsSentence=!v.trim()||/[.!?…]\s*$/.test(v)||/\n\s*$/.test(v);
+  if(endsSentence)add=add.charAt(0).toUpperCase()+add.slice(1);
+  if(v&&!/[\s\n]$/.test(v))v+=" ";
+  ta.value=v+add;ta.dispatchEvent(new Event("input"));
+  if(!(coll.voice>0)){coll.voice=1;saveColl();setTimeout(()=>{try{checkNew();renderSide()}catch(e){}},300)}
+}
+function voiceLive(t){const l=document.querySelector("#voiceBox .live");if(l)l.textContent=t||"…"}
+async function voiceStart(){
+  const S=VS();if(!S)return;
+  try{let p=await S.checkPermissions();if(p.speechRecognition!=="granted")p=await S.requestPermissions();if(p.speechRecognition!=="granted"){say("J'ai besoin du micro pour t'écouter. Tu peux l'autoriser dans les réglages de ton téléphone ✿");return}}catch(e){}
+  vx.on=true;vx.cur="";renderVoice();Sfx.play("key");
+  if(!prefs.voiceNote){prefs.voiceNote=1;savePrefs();const n=document.querySelector("#voiceBox .vpriv");if(n)n.hidden=false}
+  say("Je t'écoute… prends ton temps ✿");$("oni").classList.add("listening");
+  voiceListen();
+  clearInterval(vx.dog);vx.dog=setInterval(()=>{if(vx.on&&Date.now()-vx.last>7000){voiceCommit();voiceListen()}},1000);
+}
+async function voiceListen(){
+  const S=VS();if(!S||!vx.on)return;vx.last=Date.now();const id=++vx.sess;
+  try{await S.stop()}catch(e){}
+  try{await S.start({language:"fr-FR",maxResults:1,partialResults:true,popup:false})}catch(e){if(vx.on&&id===vx.sess)setTimeout(voiceListen,600)}
+}
+async function voiceStop(){
+  if(!vx.on)return;vx.on=false;clearInterval(vx.dog);clearTimeout(vx.timer);
+  try{await VS().stop()}catch(e){}
+  setTimeout(()=>{voiceCommit();renderVoice();$("oni").classList.remove("listening");const n=countWords($("text").value);say(n?"C'est noté ✿ Tu peux continuer à la voix ou au clavier.":"Je n'ai rien entendu… on réessaie ? ✿")},650);
+}
+function renderVoice(){
+  const bar=$("voiceBar");if(!bar)return;
+  if(vx.ok===false){bar.hidden=true;return}
+  bar.hidden=false;const box=$("voiceBox"),b=$("micBtn");
+  b.classList.toggle("on",vx.on);b.querySelector("span").textContent=vx.on?"J'écoute… touche pour arrêter":(countWords($("text").value)?"Continuer à la voix":"Écrire à la voix");
+  $("voiceHint").hidden=vx.on;box.hidden=!vx.on;
+}
+async function voiceInit(){
+  const S=VS();if(!isNative||!S){vx.ok=false;renderVoice();return}
+  try{const r=await S.available();vx.ok=!!(r&&r.available)}catch(e){vx.ok=false}
+  renderVoice();if(!vx.ok)return;
+  S.addListener("partialResults",d=>{if(!vx.on)return;vx.last=Date.now();const m=d&&d.matches&&d.matches[0];if(m){vx.cur=m;voiceLive(voiceFix(m))}});
+  S.addListener("listeningState",d=>{vx.last=Date.now();if(d&&d.status==="stopped"&&vx.on){clearTimeout(vx.timer);vx.timer=setTimeout(()=>{voiceCommit();if(vx.on)voiceListen()},650)}});
+  $("micBtn").onclick=()=>vx.on?voiceStop():voiceStart();
+}
+
+voiceInit();$("text").addEventListener("input",()=>{if(!vx.on)renderVoice()});
 </script>
 </body>
 </html>
