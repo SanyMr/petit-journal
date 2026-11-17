@@ -105,7 +105,6 @@ final class WidgetData {
         for (int id : m.getAppWidgetIds(new ComponentName(c, FriendsWidget.class))) FriendsWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, SeasonWidget.class))) SeasonWidget.render(c, m, id);
         for (int id : m.getAppWidgetIds(new ComponentName(c, WisdomWidget.class))) WisdomWidget.render(c, m, id);
-        CraftWidget.refreshAll(c);
     }
 
     private WidgetData() { }

@@ -34,12 +34,6 @@ public class WisdomConfigActivity extends Activity {
     private String theme = "sumi", fmt = "A", kind = "wisdom";
     private static final String[][] KIND_TXT = {
         {"wisdom", "一期一会", "La sagesse du jour", "Chaque jour, un proverbe japonais choisi selon tes humeurs. Choisis son style."},
-        {"omamori", "お守り", "L'omamori brodé", "Ton intention du mois, brodée de fils d'or à chaque page écrite. Choisis son style."},
-        {"daruma", "達磨", "Le daruma des objectifs", "Un œil pour ton objectif, le second quand tu l'atteins. Choisis son style."},
-        {"kintsugi", "金継ぎ", "Le bol kintsugi", "Les jours difficiles deviennent des fils d'or. Choisis son style."},
-        {"grues", "千羽鶴", "Les mille grues", "Une grue pliée pour chaque page écrite. Choisis son style."},
-        {"goshuin", "御朱印", "Le carnet de sceaux", "Un sceau vermillon pour chaque semaine d'écriture. Choisis son style."},
-        {"lanternes", "灯籠流し", "La rivière des lanternes", "Les soucis confiés à la rivière. Choisis son style."},
     };
 
     private String[] txt() {
@@ -60,7 +54,6 @@ public class WisdomConfigActivity extends Activity {
         Bundle ex = getIntent().getExtras();
         if (ex != null) wid = ex.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         if (ex != null && ex.getString("kind") != null) kind = ex.getString("kind");
-        else if (wid != AppWidgetManager.INVALID_APPWIDGET_ID) kind = CraftWidget.kindOf(this, wid);
         String[] st = WisdomWidget.style(this, wid);
         theme = st[0];
         fmt = st[1];
@@ -209,20 +202,19 @@ public class WisdomConfigActivity extends Activity {
         float w = boxW, h = boxH;
         if ("A".equals(fmt) && wid == AppWidgetManager.INVALID_APPWIDGET_ID) { w = 340; h = 160; }
         try {
-            preview.setImageBitmap("wisdom".equals(kind) ? WisdomWidget.bitmap(this, theme, fmt, w, h) : CraftWidget.bitmap(this, kind, theme, fmt, w, h));
+            preview.setImageBitmap(WisdomWidget.bitmap(this, theme, fmt, w, h));
         } catch (Throwable ignored) { }
     }
 
     private void save() {
         if (wid == AppWidgetManager.INVALID_APPWIDGET_ID) {
             WisdomWidget.setStyle(this, wid, theme, fmt);
-            for (int id : "wisdom".equals(kind) ? WisdomWidget.ids(this) : CraftWidget.ids(this, kind)) WisdomWidget.setStyle(this, id, theme, fmt);
+            for (int id : WisdomWidget.ids(this)) WisdomWidget.setStyle(this, id, theme, fmt);
         } else {
             WisdomWidget.setStyle(this, wid, theme, fmt);
             WisdomWidget.setStyle(this, AppWidgetManager.INVALID_APPWIDGET_ID, theme, fmt);
         }
         WisdomWidget.refresh(this);
-        CraftWidget.refreshAll(this);
         WisdomWidget.scheduleMidnight(this);
         Intent r = new Intent();
         r.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, wid);
