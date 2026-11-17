@@ -797,6 +797,19 @@ input,textarea,select{font-size:16px}
 .jd-sandtools button[aria-pressed="true"]{border-color:#d9708d}
 .jd-seg{display:flex;background:#f6e9ee;border-radius:999px;padding:4px}.jd-seg button{flex:1;border:none;background:none;border-radius:999px;padding:9px;font:inherit;font-size:13px;font-weight:700;color:#9b8594}
 .jd-seg button[aria-pressed="true"]{background:#fff;color:#b5506d;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.jd-poshade{background:linear-gradient(180deg,rgba(43,35,66,.15) 0%,rgba(43,35,66,.45) 40%,#2b2342 64%)}
+.jd-poc{position:relative;flex:1;display:grid;place-items:center;min-height:200px}
+.jd-poring{width:min(62vw,250px);height:auto;filter:drop-shadow(0 6px 20px rgba(0,0,0,.25))}
+.jd-poring circle:last-child{transition:stroke-dashoffset .5s linear}
+.jd-pot{position:absolute;display:grid;justify-items:center;gap:2px}.jd-pot b{font-family:var(--display);font-weight:500;font-size:46px;letter-spacing:1px;font-variant-numeric:tabular-nums}.jd-pot small{font-size:13px;color:#e2d8f0}
+.jd-pofin{display:grid;justify-items:center;gap:6px;background:rgba(43,35,66,.45);border-radius:50%;width:210px;height:210px;place-content:center}.jd-pofin b{font-size:48px}.jd-pofin span{font-family:var(--display);font-size:22px}
+.jd-potask{font-family:var(--display);font-size:16px!important;color:#fff!important}
+.jd-potal{font-size:12px;color:#cdbfe0}
+.jd-btndk{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff}
+.jd-link{border:none;background:none;color:#cdbfe0;font:inherit;font-size:14px;text-decoration:underline;padding:6px}
+.jd-segdk{background:rgba(255,255,255,.12)}.jd-segdk button{color:#cdbfe0}.jd-segdk button[aria-pressed="true"]{background:#fff;color:#2b2342}
+.jd-tasks{align-items:center}.jd-tasks span{font-size:12px;color:#cdbfe0;width:100%}
+.jd-po{color:#fff}
 @keyframes jdsway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
 .jd-sway{transform-box:fill-box;transform-origin:50% 100%;animation:jdsway 6s ease-in-out infinite}.jd-s1{animation-duration:3.5s}.jd-s2{animation-duration:7s}.jd-s3{animation-duration:4.5s}.jd-s4{transform-origin:0 0;animation-duration:8s}
 @keyframes jdfall{from{transform:translate(0,0)}to{transform:translate(-60px,620px)}}.jd-fall{animation:jdfall 12s linear infinite}
@@ -3124,6 +3137,7 @@ if(isNative&&PL_().LocalNotifications){
     if(x.view==="lettre"){showView("journal");setTimeout(()=>openLetter(x.id),350)}
     else if(x.key&&hasContent(entries[x.key])){showView("journal");openReader(x.key)}
     else showView(x.view||"ecrire");
+    if(x.garden&&typeof openGarden==="function")setTimeout(openGarden,400);
   });
 }
 
@@ -4025,6 +4039,7 @@ var JD_OBJ=[
  {id:"glycine",n:"Glycine",cat:"plantes",b:.55,th:.62,f:()=>jdGlycine(),q:S=>S.letters>=5,ql:"5 lettres au futur"},
  {id:"furin",n:"Furin",cat:"deco",b:.9,th:1.1,f:()=>jdFurin(),q:S=>S.summer>0,ql:"Écrire un jour d'été"},
  {id:"ombrelle",n:"Ombrelle et banc",cat:"maisons",b:.55,th:.7,f:()=>jdNodate(),q:S=>S.vis>=3,ql:"3 visiteurs rencontrés"},
+ {id:"andon",n:"Andon",cat:"lumiere",b:.85,th:1.2,f:(o,c)=>jdAndon(c.night),q:S=>S.pomo>=5,ql:"5 sessions de concentration"},
  {id:"koinobori",n:"Koinobori",cat:"deco",b:.6,th:.72,f:()=>jdKoinobori(),q:S=>S.streak>=14,ql:"14 jours d'affilée"}];
 var JD_CATS=[["tout","Tout"],["lumiere","Lanternes"],["plantes","Plantes"],["eau","Eau"],["maisons","Maisons"],["deco","Déco"]];
 var JD_MAX=60;
@@ -4055,7 +4070,7 @@ function jdStats(){
   const st=stampState().st,ks=Object.keys(entries).filter(written);let fm=0,ts=0;
   ks.forEach(k=>{if(jdFullMoon(k)){fm++;const m=+k.slice(5,7);if(m===9||m===10)ts++}});
   let let5=0;try{let5=lettersAll().length}catch(e){}
-  return {pages:ks.length,streak:Math.max(st.maxStreak||0,streak()),morning:st.morning||0,night:st.night||0,maxWords:st.maxWords||0,summer:st.summer||0,memN:(coll.mem&&coll.mem.n)||0,fullMoon:fm,tsukimi:ts,letters:let5,vis:Object.keys(jdG().vis).length}}
+  return {pages:ks.length,streak:Math.max(st.maxStreak||0,streak()),morning:st.morning||0,night:st.night||0,maxWords:st.maxWords||0,summer:st.summer||0,memN:(coll.mem&&coll.mem.n)||0,fullMoon:fm,tsukimi:ts,letters:let5,vis:Object.keys(jdG().vis).length,pomo:jdG().pomoN||0}}
 function jdCheckVisitors(){const g=jdG(),S=jdStats(),t=todayKey(),nw=[];JD_VIS.forEach(v=>{if(!g.vis[v.id]&&v.ok(S)){g.vis[v.id]=t;nw.push(v.id)}});if(nw.length){g.newVis=nw[0];saveColl()}return S}
 function jdPresent(){const g=jdG(),t=todayKey(),out=[];JD_VIS.forEach(v=>{if(!g.vis[v.id])return;if(g.vis[v.id]===t||g.newVis===v.id||(hash(t+v.id)%5===0))out.push(v)});return out.slice(0,3)}
 /* ---------- sable ---------- */
@@ -4124,9 +4139,9 @@ function jdScene(o){
 function renderJdCard(){
   if(!JD_READY)return;const box=$("jdCard");if(!box)return;
   if(current!==todayKey()){box.hidden=true;return}
-  const S=jdCheckVisitors(),st=jdStage(S.pages),g=jdG(),nx=JD_ST[st+1];
+  const S=jdCheckVisitors(),st=jdStage(S.pages),g=jdG(),nx=JD_ST[st+1],po=pomoSync();
   box.hidden=false;
-  box.innerHTML=`<button type="button" class="jd-card" aria-label="Entrer dans mon jardin"><span class="jd-mini"><svg viewBox="0 0 390 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${jdScene({stage:st,season:jdSeason(),time:jdTime(),seed:hash(todayKey()),u:"jm",objs:g.objs,vis:jdPresent(),mini:true})}</svg></span><span class="jd-cbody"><b>Mon jardin <small>にわ</small></b><small>${JD_STN[st]}${nx?" · encore "+plural(nx-S.pages,"page")+" avant "+JD_NEXT[st]:" · jardin complet ✿"}</small>${g.newVis&&!g.greet[g.newVis]?'<i class="jd-new">✦ Un visiteur rare t\'attend</i>':""}</span><span class="jd-go">›</span></button>`;
+  box.innerHTML=`<button type="button" class="jd-card" aria-label="Entrer dans mon jardin"><span class="jd-mini"><svg viewBox="0 0 390 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${jdScene({stage:st,season:jdSeason(),time:jdTime(),seed:hash(todayKey()),u:"jm",objs:g.objs,vis:jdPresent(),mini:true})}</svg></span><span class="jd-cbody"><b>Mon jardin <small>にわ</small></b><small>${JD_STN[st]}${nx?" · encore "+plural(nx-S.pages,"page")+" avant "+JD_NEXT[st]:" · jardin complet ✿"}</small>${po?'<i class="jd-new">'+(po.fin?(po.ph==="focus"?"✿ Session terminée : viens voir ton jardin":"☕ La pause est finie"):"⏳ "+(po.ph==="focus"?"Concentration":"Pause")+" · "+Math.ceil(pomoLeft(po)/60000)+" min"+(po.left!=null?" (en pause)":""))+'</i>':g.newVis&&!g.greet[g.newVis]?'<i class="jd-new">✦ Un visiteur rare t\'attend</i>':""}</span><span class="jd-go">›</span></button>`;
   box.querySelector("button").onclick=openGarden}
 /* ---------- jardin plein écran ---------- */
 function openGarden(){
@@ -4134,8 +4149,8 @@ function openGarden(){
   let ov=$("jd");if(!ov){ov=document.createElement("div");ov.id="jd";ov.setAttribute("role","dialog");ov.setAttribute("aria-label","Mon jardin");
     ov.innerHTML='<div class="jd-scene"><svg id="jdSvg" viewBox="0 0 390 560" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ton jardin japonais"></svg><div class="jd-top"></div><div class="jd-pop" hidden></div><div class="jd-toast" role="status" hidden></div></div><div class="jd-sheet"></div><div class="jd-layer" hidden></div>';
     document.body.append(ov);jdBindScene()}
-  ov.hidden=false;document.body.style.overflow="hidden";jdCheckVisitors();jdRender()}
-function closeGarden(){const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";jdStopPause();renderJdCard()}
+  ov.hidden=false;document.body.style.overflow="hidden";jdCheckVisitors();jdRender();if(pomoGet())jdPomo()}
+function closeGarden(){const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";jdStopPause();jdPomoLeave();renderJdCard()}
 function jdBack(){const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}closeGarden()}
 function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2600)}
 function jdRender(){
@@ -4160,12 +4175,12 @@ function jdViewSheet(sh,S,st){
   <div class="jd-h"><div><small>Étape ${st+1} / 7</small><h2>${JD_STN[st]}</h2></div><button type="button" class="jd-chip" data-a="carnet">🦊 Visiteurs ${met}/8</button></div>
   <p class="jd-cap">${JD_CAP[st]}</p>
   <div class="jd-prog"><i style="width:${pct}%"></i></div><small class="jd-note">${S.pages} page${S.pages>1?"s":""} · ${nx?"prochaine étape : "+JD_NEXT[st]+" à "+nx+" pages":"jardin complet ✿"}</small>
-  <div class="jd-btns"><button type="button" class="jd-btn" data-a="pause">☾ Une minute au jardin</button><button type="button" class="jd-btn jd-pink" data-a="edit">✿ Décorer</button></div>
+  <div class="jd-btns"><button type="button" class="jd-btn" data-a="pause">☾ Une minute</button><button type="button" class="jd-btn" data-a="pomo">${jdPomoLbl()}</button></div><button type="button" class="jd-btn jd-pink" data-a="edit">✿ Décorer mon jardin</button>
   <div class="jd-month"><button type="button" data-a="prev" aria-label="Mois précédent">‹</button><span><b>Parterre de souvenirs</b><small>${ml} · ${plural(ks.length,"fleur")}</small></span><button type="button" data-a="next" aria-label="Mois suivant"${isNow?" disabled":""}>›</button></div>
   <div class="jd-leg">${MOODS.filter(m=>mc[m.id]).map(m=>`<span><i style="background:${m.color}"></i>${m.label} · ${mc[m.id]}</span>`).join("")}${mc._?`<span><i style="background:#f5a9bc"></i>Sans humeur · ${mc._}</span>`:""}</div>
   <p class="jd-note">${ks.length?"Chaque page fait pousser une fleur de la couleur de ton humeur. Touche une fleur pour relire ce jour-là.":"Aucune fleur ce mois-ci pour l'instant : ta prochaine page en fera pousser une ✿"}</p>`;
   sh.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
-    if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="carnet")jdCarnet();
+    if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="pomo")jdPomo();else if(a==="carnet")jdCarnet();
     else if(a==="greet"){g.greet[g.newVis]=1;const v=JD_VIS.find(x=>x.id===g.newVis);coll.petals=(coll.petals||0)+3;g.newVis=null;saveColl();Sfx.play("petals");petals(16);jdToast((v?v.n:"Le visiteur")+" te remercie ✿ +3 pétales");jdRender();renderSide()}
     else if(a==="prev"||a==="next"){const dd=new Date(+JD.month.slice(0,4),+JD.month.slice(5,7)-1+(a==="prev"?-1:1),1);JD.month=keyOf(dd).slice(0,7);JD.pop=null;Sfx.play("page");jdRender()}}}
 function jdPopRender(){
@@ -4225,7 +4240,7 @@ function jdEditSheet(sh,S,st){
     Sfx.play(a==="del"?"uncheck":"tick");jdRender()}}
 /* ---------- couches : carnet, pause, sable ---------- */
 function jdLayer(cls,html){const L=document.querySelector("#jd .jd-layer");$("jd").classList.add("jd-hl");L.className="jd-layer "+cls;L.innerHTML=html;L.hidden=false;return L}
-function jdCloseLayer(){const L=document.querySelector("#jd .jd-layer");if(!L)return;if(L.classList.contains("jd-pz"))jdStopPause();L.hidden=true;L.innerHTML="";$("jd").classList.remove("jd-hl");jdRender()}
+function jdCloseLayer(){const L=document.querySelector("#jd .jd-layer");if(!L)return;if(L.classList.contains("jd-pz"))jdStopPause();if(L.classList.contains("jd-po"))jdPomoLeave();L.hidden=true;L.innerHTML="";$("jd").classList.remove("jd-hl");jdRender()}
 function jdCarnet(){const g=jdG(),met=Object.keys(g.vis).length;Sfx.play("page");
   const L=jdLayer("jd-carnet",`<div class="jd-ch"><button type="button" class="jd-pill" data-a="x" aria-label="Retour au jardin">‹</button><h2>Carnet des visiteurs <small>訪</small></h2><span></span></div>
   <div class="jd-cprog"><b>${met} / 8</b><div class="jd-prog"><i style="width:${Math.max(3,met/8*100)}%"></i></div><small>${8-met} mystère${8-met>1?"s":""}</small></div>
@@ -4245,19 +4260,21 @@ function jdPause(){
     if(left===0&&!P.done){P.done=true;clearInterval(P.breath);$("jdPzW").textContent="Merci ✿";
       if(g.pauseDay!==today){g.pauseDay=today;g.pauseN=(g.pauseN||0)+1;coll.petals=(coll.petals||0)+2;saveColl();petals(14);Sfx.play("petals");jdToast("Une minute de calme ✿ +2 pétales")}else{Sfx.play("chime");jdToast("Une minute de calme ✿")}
       setTimeout(()=>{if(JD.pause===P)jdCloseLayer();renderSide()},2600)}},500);
-  const snd={on:true,vol:.45,...(prefs.sound||{})};if(snd.on){try{const C=window.AudioContext||window.webkitAudioContext;P.ctx=new C();P.master=P.ctx.createGain();P.master.gain.value=Math.min(1,.4+snd.vol);P.master.connect(P.ctx.destination);jdSound("eau",true);jdSound("shishi",true)}catch(e){}}}
+  jdAmbStart(["eau","shishi"])}
+function jdAmbStart(list){jdAmbStop();const snd={on:true,vol:.45,...(prefs.sound||{})};if(!snd.on)return;try{const C=window.AudioContext||window.webkitAudioContext,ctx=new C(),m=ctx.createGain();m.gain.value=Math.min(1,.4+snd.vol);m.connect(ctx.destination);JD.amb={ctx,master:m,nodes:{}};list.forEach(id=>jdSound(id,true))}catch(e){}}
+function jdAmbStop(){const A=JD.amb;if(!A)return;Object.keys(A.nodes).forEach(k=>{try{A.nodes[k].stop()}catch(e){}});try{A.ctx.close()}catch(e){}JD.amb=null}
 function jdNoise(ctx){const len=ctx.sampleRate*3,b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);let x=0;for(let i=0;i<len;i++){x=x*.97+(Math.random()*2-1)*.03;d[i]=x*6+(Math.random()*2-1)*.15}const s=ctx.createBufferSource();s.buffer=b;s.loop=true;return s}
-function jdSound(id,on){const P=JD.pause;if(!P||!P.ctx)return;const ctx=P.ctx,N=P.nodes;
+function jdSound(id,on){const A=JD.amb;if(!A)return;const ctx=A.ctx,N=A.nodes;
   if(!on){const n=N[id];if(n){try{n.g.gain.setTargetAtTime(0,ctx.currentTime,.3);setTimeout(()=>{try{n.stop()}catch(e){}},1200)}catch(e){}delete N[id]}return}
-  if(N[id])return;const g=ctx.createGain();g.gain.value=0;g.connect(P.master);const parts=[];
+  if(N[id])return;const g=ctx.createGain();g.gain.value=0;g.connect(A.master);const parts=[];
   const lfo=(f,depth,target)=>{const o=ctx.createOscillator(),k=ctx.createGain();o.frequency.value=f;k.gain.value=depth;o.connect(k);k.connect(target);o.start();parts.push(o)};
   if(id==="eau"){const s=jdNoise(ctx),f=ctx.createBiquadFilter();f.type="bandpass";f.frequency.value=1400;f.Q.value=.8;s.connect(f);f.connect(g);s.start();parts.push(s);lfo(.31,500,f.frequency);g.gain.setTargetAtTime(.05,ctx.currentTime,1)}
   if(id==="vent"){const s=jdNoise(ctx),f=ctx.createBiquadFilter();f.type="lowpass";f.frequency.value=380;s.connect(f);f.connect(g);s.start();parts.push(s);lfo(.07,220,f.frequency);lfo(.11,.03,g.gain);g.gain.setTargetAtTime(.07,ctx.currentTime,1.5)}
   if(id==="cigales"){const s=jdNoise(ctx),f=ctx.createBiquadFilter(),a=ctx.createGain();f.type="bandpass";f.frequency.value=5200;f.Q.value=6;a.gain.value=.5;s.connect(f);f.connect(a);a.connect(g);s.start();parts.push(s);lfo(13,.5,a.gain);g.gain.setTargetAtTime(.05,ctx.currentTime,1)}
-  if(id==="shishi"){g.gain.value=1;const knock=()=>{if(!JD.pause||!JD.pause.nodes.shishi)return;const t=ctx.currentTime+.05;[[220,.35],[150,.25]].forEach(([fq,p],i)=>{const o=ctx.createOscillator(),e=ctx.createGain();o.type="triangle";o.frequency.setValueAtTime(fq,t+i*.04);o.frequency.exponentialRampToValueAtTime(fq*.6,t+i*.04+.15);e.gain.setValueAtTime(0,t+i*.04);e.gain.linearRampToValueAtTime(p*.25,t+i*.04+.005);e.gain.exponentialRampToValueAtTime(.0001,t+i*.04+.35);o.connect(e);e.connect(g);o.start(t+i*.04);o.stop(t+i*.04+.4)})};
+  if(id==="shishi"){g.gain.value=1;const knock=()=>{if(!JD.amb||!JD.amb.nodes.shishi)return;const t=ctx.currentTime+.05;[[220,.35],[150,.25]].forEach(([fq,p],i)=>{const o=ctx.createOscillator(),e=ctx.createGain();o.type="triangle";o.frequency.setValueAtTime(fq,t+i*.04);o.frequency.exponentialRampToValueAtTime(fq*.6,t+i*.04+.15);e.gain.setValueAtTime(0,t+i*.04);e.gain.linearRampToValueAtTime(p*.25,t+i*.04+.005);e.gain.exponentialRampToValueAtTime(.0001,t+i*.04+.35);o.connect(e);e.connect(g);o.start(t+i*.04);o.stop(t+i*.04+.4)})};
     setTimeout(knock,2500);const iv=setInterval(knock,11000);parts.push({stop(){clearInterval(iv)}})}
   N[id]={g,stop(){parts.forEach(p=>{try{p.stop()}catch(e){}})}}}
-function jdStopPause(){const P=JD.pause;if(!P)return;clearInterval(P.timer);clearInterval(P.breath);Object.keys(P.nodes).forEach(k=>{try{P.nodes[k].stop()}catch(e){}});try{P.ctx&&P.ctx.close()}catch(e){}JD.pause=null}
+function jdStopPause(){const P=JD.pause;if(!P)return;clearInterval(P.timer);clearInterval(P.breath);jdAmbStop();JD.pause=null}
 function jdSand(){
   const g=jdG();JD.sand={sd:JSON.parse(JSON.stringify(g.sand||JD_SAND0)),tool:"rake",w:3,undo:[],live:null};Sfx.play("page");
   const L=jdLayer("jd-sandl",`<div class="jd-ch"><button type="button" class="jd-pill" data-a="x" aria-label="Fermer sans garder">✕</button><h2>Ratisser le sable <small>枯山水</small></h2><button type="button" class="jd-pill jd-pink" data-a="keep">✓ Garder</button></div>
@@ -4282,6 +4299,66 @@ function jdSand(){
     if(t==="undo"){if(S.undo.length){S.sd=JSON.parse(S.undo.pop());draw();Sfx.play("tick")}return}
     if(t==="clear"){snap();S.sd={strokes:[],circles:[],rocks:(S.sd.rocks||[])};draw();Sfx.play("page");jdToast("Le sable est lissé, les rochers restent ✿");return}
     S.tool=t;L.querySelectorAll("[data-s]").forEach(b=>b.setAttribute("aria-pressed",b===s));Sfx.play("tick")}}
+function jdAndon(lit){return `${lit?'<circle cy="-34" r="30" fill="url(#jdglow)" class="jd-pulse"/>':""}<path d="M-16 0v-8M16 0v-8" stroke="#5e3b29" stroke-width="4"/><rect x="-18" y="-60" width="36" height="52" rx="3" fill="${lit?"#fff3c4":"#f6ead2"}" stroke="#6b4430" stroke-width="3"/><path d="M-18 -42h36M-18 -26h36M0 -60v52" stroke="#6b4430" stroke-width="1.6" opacity=".7"/><rect x="-21" y="-64" width="42" height="6" rx="2" fill="#5e3b29"/>`}
+/* ---------- concentration (pomodoro) ---------- */
+var JD_PK="nikki.pomo";
+function jdPS(){return typeof store!=="undefined"?store:localStorage}
+function pomoGet(){try{const v=JSON.parse(jdPS().getItem(JD_PK)||"null");return v&&v.ph?v:null}catch(e){return null}}
+function pomoSet(p){try{jdPS().setItem(JD_PK,JSON.stringify(p||{}))}catch(e){}}
+function pomoLeft(p){return p.left!=null?p.left:Math.max(0,p.end-Date.now())}
+function pomoDayG(){const g=jdG(),t=todayKey();if(g.pomoDay!==t){g.pomoDay=t;g.pomoToday=0;g.pomoMinT=0}return g}
+function pomoSync(){const p=pomoGet();if(!p||p.fin||p.left!=null)return p;
+  if(Date.now()>=p.end){p.fin=true;if(p.ph==="focus"){const g=pomoDayG();g.pomoToday=(g.pomoToday||0)+1;g.pomoN=(g.pomoN||0)+1;g.pomoMin=(g.pomoMin||0)+p.dur;g.pomoMinT=(g.pomoMinT||0)+p.dur;p.cyc=(p.cyc||0)+1;p.pet=g.pomoToday<=4;if(p.pet)coll.petals=(coll.petals||0)+1;saveColl()}
+    pomoSet(p);p.justFin=true}return p}
+function jdPomoLbl(){const p=pomoGet();if(!p)return "⏳ Concentration";if(p.fin)return "✿ Session finie";const m=Math.ceil(pomoLeft(p)/60000);return "⏳ "+m+" min"}
+function jdFmt(ms){const s=Math.ceil(ms/1000);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+async function pomoNotify(p){if(typeof isNative==="undefined"||!isNative)return;const LN=PL_().LocalNotifications;if(!LN)return;
+  try{await LN.cancel({notifications:[{id:5100}]})}catch(e){}
+  if(!p||p.fin||p.left!=null)return;
+  try{let pr=await LN.checkPermissions();if(pr.display!=="granted")pr=await LN.requestPermissions();if(pr.display!=="granted")return;
+    await LN.createChannel({id:"jd_pomo",name:"Minuteur du jardin",description:"Fin des sessions de concentration et des pauses",importance:4,vibration:true,visibility:1,sound:"nikki_furin.wav"});
+    await LN.schedule({notifications:[{id:5100,title:p.ph==="focus"?"Session terminée ✿":"La pause est finie ✿",body:p.ph==="focus"?"Bravo ! Viens cueillir ton pétale, ton jardin t'attend.":"On reprend ? Ton jardin veille sur toi.",channelId:"jd_pomo",sound:"nikki_furin.wav",schedule:{at:new Date(p.end),allowWhileIdle:true},extra:{view:"ecrire",garden:1},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"}]})}catch(e){}}
+function jdPomo(){jdLayer("jd-po","");JD.po={tm:null};JD.poSnd=JD.poSnd||["eau"];jdAmbStart(JD.poSnd);jdPomoDraw();JD.po.tm=setInterval(jdPomoTick,500)}
+function jdPomoLeave(){if(JD.po){clearInterval(JD.po.tm);JD.po=null;jdAmbStop()}}
+function jdPomoTick(){const p=pomoSync();if(!p||!JD.po)return;
+  if(p.justFin){Sfx.play("goal");buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
+  if(!p.fin){const t=$("jdPoT"),r=$("jdPoR");if(t)t.textContent=jdFmt(pomoLeft(p));if(r)r.setAttribute("stroke-dashoffset",(552.9*(1-pomoLeft(p)/(p.dur*60000))).toFixed(1))}}
+function jdPomoDraw(){
+  const L=document.querySelector("#jd .jd-layer");if(!L||!JD.po)return;const p=pomoSync(),g=pomoDayG(),n=g.pomoToday||0,dur=JD.poDur||25;
+  const open=(todo.items||[]).filter(t=>!t.done).slice(0,4);
+  const snd=`<div class="jd-pzs">${[["eau","💧 Fontaine"],["shishi","🎋 Shishi-odoshi"],["vent","🍃 Vent"],["cigales","🦗 Cigales"]].map(([id,l])=>`<button type="button" data-s="${id}" aria-pressed="${JD.poSnd.includes(id)}">${l}</button>`).join("")}</div>`;
+  const ring=(left,tot,lbl,col)=>`<div class="jd-poc"><svg viewBox="0 0 200 200" class="jd-poring" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="rgba(43,35,66,.35)" stroke="rgba(255,255,255,.18)" stroke-width="8"/><circle id="jdPoR" cx="100" cy="100" r="88" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round" transform="rotate(-90 100 100)" stroke-dasharray="552.9" stroke-dashoffset="${(552.9*(1-left/tot)).toFixed(1)}"/></svg><div class="jd-pot"><b id="jdPoT" role="timer">${jdFmt(left)}</b><small>${lbl}</small></div></div>`;
+  const tally=`<small class="jd-potal">Aujourd'hui : ${n?"🍡".repeat(Math.min(n,8))+(n>8?" +"+(n-8):"")+" · "+(g.pomoMinT||0)+" min":"aucune session pour l'instant"} · +1 pétale par session (4 par jour)</small>`;
+  let mid="",bot="";
+  if(!p){mid=ring(dur*60000,dur*60000,"Prête ?","#f5a9bc");
+    bot=`<h2>Concentration <small>集中</small></h2><p>Le jardin veille pendant que tu travailles. Pose ton téléphone, ta mascotte garde le temps.</p>
+    <div class="jd-seg jd-segdk">${[15,25,45].map(m=>`<button type="button" data-d="${m}" aria-pressed="${m===dur}">${m} min</button>`).join("")}</div>
+    ${open.length?`<div class="jd-pzs jd-tasks"><span>Sur quoi ?</span>${open.map(t=>`<button type="button" data-tk="${t.id}" aria-pressed="${JD.poTask===t.id}"></button>`).join("")}</div>`:""}
+    ${snd}<button type="button" class="jd-btn jd-pink" data-a="start">▶ Commencer</button>${tally}`}
+  else if(!p.fin){const tot=p.dur*60000,lb=p.ph==="focus"?"Concentration":p.dur>=15?"Grande pause":"Petite pause";mid=ring(pomoLeft(p),tot,lb+(p.left!=null?" · en pause":""),p.ph==="focus"?"#f5a9bc":"#9fd4ee");
+    bot=`<p class="jd-potask"></p>${snd}<div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="pp">${p.left!=null?"▶ Reprendre":"⏸ Pause"}</button><button type="button" class="jd-btn jd-btndk" data-a="stop">■ Arrêter</button></div><small class="jd-potal">${typeof isNative!=="undefined"&&isNative?"Tu peux fermer l'appli : une notification te préviendra à la fin.":"Le minuteur continue même si tu fermes le jardin."}</small>`}
+  else if(p.ph==="focus"){const lng=p.cyc%4===0,tk=p.tk&&(todo.items||[]).find(t=>t.id===p.tk&&!t.done);
+    mid=`<div class="jd-poc"><div class="jd-pofin"><b>✿</b><span>Session terminée !</span></div></div>`;
+    bot=`<p>${p.dur} minutes de concentration${p.pet?" · +1 pétale 🌸":""}</p>${tk?'<button type="button" class="jd-btn jd-btndk" data-a="tick"></button>':""}<div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="brk">☕ Pause ${lng?15:5} min</button><button type="button" class="jd-btn jd-pink" data-a="again">▶ Encore une</button></div><button type="button" class="jd-link" data-a="end">Terminer pour aujourd'hui</button>${tally}`}
+  else{mid=`<div class="jd-poc"><div class="jd-pofin"><b>☕</b><span>La pause est finie</span></div></div>`;
+    bot=`<p>On reprend en douceur ?</p><div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="end">Terminer</button><button type="button" class="jd-btn jd-pink" data-a="again">▶ Nouvelle session</button></div>${tally}`}
+  L.innerHTML=`<div class="jd-pzshade jd-poshade"></div><div class="jd-pztop"><button type="button" class="jd-pill jd-dark" data-a="x" aria-label="Revenir au jardin">‹ Jardin</button><span class="jd-pill jd-dark">集中</span></div>${mid}<div class="jd-pzb">${bot}</div>`;
+  L.querySelectorAll("[data-tk]").forEach(b=>{const t=open.find(x=>x.id===b.dataset.tk);b.textContent=(t.text.length>24?t.text.slice(0,23)+"…":t.text)});
+  const ta=L.querySelector(".jd-potask");if(ta)ta.textContent=p&&p.label?"✎ "+p.label:"Une seule chose à la fois ✿";
+  const tb=L.querySelector('[data-a="tick"]');if(tb){const t=todo.items.find(x=>x.id===p.tk);tb.textContent="✓ J'ai fini « "+(t.text.length>26?t.text.slice(0,25)+"…":t.text)+" »"}
+  L.onclick=e=>{const b=e.target.closest("[data-a],[data-s],[data-d],[data-tk]");if(!b)return;const q=pomoGet(),now=Date.now();
+    if(b.dataset.s){const id=b.dataset.s,on=!JD.poSnd.includes(id);JD.poSnd=on?[...JD.poSnd,id]:JD.poSnd.filter(x=>x!==id);b.setAttribute("aria-pressed",on);if(JD.amb)jdSound(id,on);else if(on)jdAmbStart(JD.poSnd);return}
+    if(b.dataset.d){JD.poDur=+b.dataset.d;Sfx.play("tick");jdPomoDraw();return}
+    if(b.dataset.tk){JD.poTask=JD.poTask===b.dataset.tk?null:b.dataset.tk;Sfx.play("tick");jdPomoDraw();return}
+    const a=b.dataset.a;
+    if(a==="x"){jdCloseLayer();return}
+    if(a==="start"||a==="again"){const d=a==="start"?(JD.poDur||25):((q&&q.ph==="focus"?q.dur:q&&q.fd)||JD.poDur||25),t=(todo.items||[]).find(x=>x.id===(a==="start"?JD.poTask:q&&q.tk));
+      const np={ph:"focus",dur:d,fd:d,end:now+d*60000,left:null,cyc:(q&&q.cyc)||0,tk:t?t.id:null,label:t?t.text:""};pomoSet(np);pomoNotify(np);Sfx.play("chime");jdPomoDraw();return}
+    if(a==="brk"&&q){const d=q.cyc%4===0?15:5,np={ph:"break",dur:d,fd:q.dur,end:now+d*60000,left:null,cyc:q.cyc,tk:q.tk,label:q.label};pomoSet(np);pomoNotify(np);Sfx.play("chime");jdPomoDraw();return}
+    if(a==="pp"&&q){if(q.left!=null){q.end=now+q.left;q.left=null}else q.left=pomoLeft(q);pomoSet(q);pomoNotify(q);Sfx.play("tick");jdPomoDraw();return}
+    if(a==="stop"){if(!confirm("Arrêter cette session ? Elle ne comptera pas."))return;pomoSet(null);pomoNotify(null);Sfx.play("uncheck");jdPomoDraw();return}
+    if(a==="end"){pomoSet(null);pomoNotify(null);jdCloseLayer();renderJdCard();return}
+    if(a==="tick"&&q&&q.tk){const t=(todo.items||[]).find(x=>x.id===q.tk);if(t&&!t.done){try{toggleTodo(t.id,{classList:{add(){}}})}catch(e){}}b.remove();jdToast("Tâche cochée ✿")}}}
 JD_READY=true;
 renderJdCard();
 
