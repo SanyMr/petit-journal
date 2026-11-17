@@ -701,6 +701,26 @@ input,textarea,select{font-size:16px}
 #yrCard[hidden]{display:none}.yrc-main{flex:1;display:flex;align-items:center;gap:12px;text-align:left;background:none;border:none;font:inherit;color:var(--ink);padding:6px 0;min-height:52px}.yrc-ic{font-size:28px}.yrc-main b{display:block;font-size:15px}.yrc-main small{display:block;font-size:12px;color:var(--muted)}
 .ybil{width:100%;margin:0 0 12px}
 @media (prefers-reduced-motion: reduce){.yr-s .w,.ymb i,.ymos i,.ycw{animation-duration:.01s!important;animation-delay:0s!important}}
+/* anniversaire */
+#bdAsk,#bdCard{background:linear-gradient(120deg,color-mix(in srgb,#ffe08a 35%,var(--card)),color-mix(in srgb,var(--sakura) 28%,var(--card)));border-radius:18px;padding:12px 14px;display:grid;gap:8px}
+#bdAsk[hidden],#bdCard[hidden]{display:none}#bdCard{padding:6px 12px}
+.bd-ask-t{margin:0}.bd-ask-t b{display:block;font-size:15px}.bd-ask-t small{display:block;font-size:12px;color:var(--muted)}
+.bdpick{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.bdpick select{border:2px solid var(--line);border-radius:999px;padding:8px 12px;font:inherit;background:var(--paper);color:var(--ink);min-height:42px}.bdpick .openbook{width:auto;margin:0}
+#bd{position:fixed;inset:0;z-index:210;overflow:auto;background:radial-gradient(circle at 50% 30%,#fff6d6,#fde3ea 70%);color:#4b3a47;font-family:'Zen Maru Gothic',sans-serif}#bd[hidden]{display:none}
+.bd-in{max-width:440px;margin:0 auto;padding:56px 20px 40px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.bd-t{font-size:30px;margin:6px 0 0}.bd-masc{width:150px;height:150px;margin:6px 0 -14px;animation:ybob 2.4s ease-in-out infinite;position:relative;z-index:1}
+.bd-cake{position:relative;width:min(84vw,340px);aspect-ratio:200/150}.bd-cake svg{width:100%;height:100%}
+.bd-c{position:absolute;top:calc(29.3% - 42px);width:44px;height:44px;margin-left:-22px;background:none;border:none;padding:0}
+.bd-c i{position:absolute;left:50%;top:20px;width:14px;height:22px;margin-left:-7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#fff6c2,#ffd66b 45%,#ff9a3d);box-shadow:0 0 14px #ffd66b;animation:flick .5s ease-in-out infinite alternate;transform-origin:50% 100%}
+.bd-c.out i{animation:puff .5s ease forwards}@keyframes flick{to{transform:scale(1.08,.94) rotate(3deg)}}@keyframes puff{to{opacity:0;transform:translateY(-14px) scale(.4)}}
+.bd-msg{font-weight:700;color:#b5506d}
+.bd-gifts{display:grid;gap:8px;width:100%;margin-top:6px}.bd-gifts[hidden]{display:none}
+.bd-g{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:10px 12px;text-align:left;box-shadow:0 6px 18px rgba(120,50,80,.12);animation:yrIn .5s cubic-bezier(.3,1.4,.5,1) both}
+.bd-g:nth-child(2){animation-delay:.12s}.bd-g:nth-child(3){animation-delay:.24s}.bd-g:nth-child(4){animation-delay:.36s}.bd-g:nth-child(5){animation-delay:.48s}
+.bd-gi{flex:none;width:48px;height:48px;display:grid;place-items:center;font-size:30px}.bd-gi .stk{width:48px;height:48px;display:block}.bd-gi .stk svg{width:100%;height:100%}
+.bd-g>span:nth-child(2){flex:1}.bd-g b{display:block;font-size:14px}.bd-g small{display:block;font-size:12px;color:#9b8594}.bd-g .ghost{flex:none}
+.bd-row{display:grid;gap:8px;margin-top:8px}.bd-row .openbook,.bd-row .ghost{width:100%;margin:0;justify-content:center}
+.petal.conf{border-radius:2px;width:8px;height:12px}
 </style>
 </head>
 <body>
@@ -731,6 +751,8 @@ input,textarea,select{font-size:16px}
         <div class="bubble" id="bubble" role="status">Coucou ! Comment s'est passée ta journée ?</div>
       </div>
 
+      <div id="bdCard" hidden></div>
+      <div id="bdAsk" hidden></div>
       <div id="yrCard" hidden></div>
       <div id="memCard" hidden></div>
 
@@ -1177,10 +1199,13 @@ const STICKERS=[
   {id:"kaki",name:"Kaki d'automne",r:"t",src:"event",ev:"momiji",b:`<circle cx="50" cy="58" r="34" fill="#ff9a3d" stroke="#ef7d1a" stroke-width="2.5"/><path d="M50 26L34 18L40 30L26 32L40 38M50 26L66 18L60 30L74 32L60 38" fill="#6cb46a" stroke="#4f9c4a" stroke-width="2" stroke-linejoin="round"/><rect x="47" y="12" width="6" height="12" rx="2" fill="#8a5a3c"/>`+kf(50,62,.85)+spark(86,84,.8)},
   {id:"yukidaruma",name:"Yukidaruma",r:"r",src:"event",ev:"fuyu",b:`<circle cx="50" cy="68" r="26" fill="#fff" stroke="#c7ddf2" stroke-width="2.5"/><circle cx="50" cy="34" r="19" fill="#fff" stroke="#c7ddf2" stroke-width="2.5"/><path d="M33 49q17 9 34 0v7q-17 9-34 0z" fill="#e8524a"/><path d="M60 55l7 15-9 2z" fill="#e8524a"/><path d="M35 20L39 4H61L65 20Z" fill="#6fa8f0" stroke="#3f86d8" stroke-width="2" stroke-linejoin="round"/>`+kf(50,36,.55)},
   {id:"gateauFraise",name:"Gâteau aux fraises",r:"t",src:"event",ev:"fuyu",b:`<path d="M12 56L88 40V80L12 94Z" fill="#fff6ee" stroke="#e6d4c4" stroke-width="2.5" stroke-linejoin="round"/><path d="M12 72L88 58" stroke="#ffb6c9" stroke-width="7"/><path d="M12 52Q50 30 88 36V40L12 56Z" fill="#fff" stroke="#e6d4c4" stroke-width="2" stroke-linejoin="round"/><path d="M58 30q-9-2-11 6q2 11 11 11q9 0 11-11q-2-8-11-6z" fill="#ff5e6b" stroke="#e03e4c" stroke-width="2"/><path d="M53 28q5-7 10 0" stroke="#6cb46a" stroke-width="3" fill="none"/>`+kf(40,80,.55)+spark(22,26,.8)},
+  /* anniversaire : sticker de l'année + bannière */
+  ...Array.from({length:17},(_,i)=>2024+i).map(Y=>({id:"anniv"+Y,name:"Gâteau d'anniversaire "+Y,r:"l",src:"bday",b:`<ellipse cx="50" cy="88" rx="40" ry="7" fill="#e6d4c4"/><path d="M18 58h64v26a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6z" fill="#fff6ee" stroke="#e6d4c4" stroke-width="2.5"/><path d="M18 70h64" stroke="#ffb6c9" stroke-width="7"/><path d="M16 60q6 8 12 0t12 0t12 0t12 0t12 0t12 0" fill="#fff" stroke="#e6d4c4" stroke-width="2"/>${[30,50,70].map((x,j)=>`<rect x="${x-3}" y="36" width="6" height="22" rx="2" fill="${["#8fbaf2","#ffb6c9","#9cd39a"][j]}"/><path d="M${x} 34q-5-7 0-14q5 7 0 14z" fill="#ffd66b"/>`).join("")}<circle cx="38" cy="54" r="5" fill="#ff5e6b"/><circle cx="62" cy="54" r="5" fill="#ff5e6b"/><text x="50" y="84" text-anchor="middle" font-family="'Kiwi Maru',serif" font-size="11" fill="#d9708d">${Y}</text>`+spark(86,18)+spark(12,30,.7)})),
+  {id:"banniereFete",name:"Guirlande de fête",r:"r",src:"bday",b:`<path d="M4 22Q50 44 96 22" stroke="#b9854d" stroke-width="2" fill="none"/>${[[12,26,"#ff8fab"],[27,32,"#ffd66b"],[42,35,"#8fbaf2"],[58,35,"#9cd39a"],[73,32,"#c6a9f0"],[88,26,"#ff8fab"]].map(([x,y,c])=>`<path d="M${x-7} ${y}L${x+7} ${y}L${x} ${y+18}Z" fill="${c}" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>`).join("")}<text x="50" y="80" text-anchor="middle" font-family="'Kiwi Maru',serif" font-size="15" fill="#d9708d">おめでとう</text>`+spark(14,62,.7)+spark(86,64,.7)},
 ].map(s=>({src:"gacha",...s,svg:`<svg viewBox="0 0 100 100" aria-hidden="true">${s.b}</svg>`}));
 const stickerById=id=>STICKERS.find(s=>s.id===id)||STICKERS[0];
 const GACHA_POOL=STICKERS.filter(s=>s.src==="gacha");
-const BASE_TOTAL=STICKERS.filter(s=>s.src!=="excl"&&s.src!=="event").length;
+const BASE_TOTAL=STICKERS.filter(s=>s.src!=="excl"&&s.src!=="event"&&s.src!=="bday").length;
 /* ---------- more mascots ---------- */
 const kfb=(cx,cy,s,b,ec="#4b3a47")=>kf(cx,cy,s,ec).replace(/^(<circle[^>]*\/><circle[^>]*\/>)/,`<g ${b}>$1</g>`);
 Object.assign(MASCOTS,{
@@ -1217,6 +1242,7 @@ const MASC_META={
 const SLOTS=[{id:"head",name:"Tête",jp:"あたま"},{id:"face",name:"Visage",jp:"かお"},{id:"neck",name:"Cou",jp:"くび"},{id:"hand",name:"Main",jp:"て"},{id:"aura",name:"Aura",jp:"オーラ"}];
 const ACC=[
   /* tête */
+  {id:"chapeauFete",slot:"head",r:"r",name:"Chapeau de fête",req:[{stamp:"tanjo"}],d:A=>{const y=A.hat.y,r=A.hat.rx;return `<g transform="rotate(-10 50 ${y})"><path d="M${50-r*.38} ${y+3}L52 ${y-25}L${50+r*.38} ${y+3}Z" fill="#8fbaf2" stroke="#3f86d8" stroke-width="1.5" stroke-linejoin="round"/><path d="M${50-r*.25} ${y-6}L${50+r*.27} ${y-4}M${50-r*.13} ${y-15}L${50+r*.15} ${y-13}" stroke="#ffd66b" stroke-width="3" stroke-linecap="round"/><circle cx="52" cy="${y-26}" r="5" fill="#ff8fab" stroke="#e86f93" stroke-width="1.2"/></g>`}},
   {id:"noeud",slot:"head",r:"c",name:"Ruban",req:[{objs:2}],d:A=>`<g transform="translate(${A.bow.x} ${A.bow.y}) rotate(18)"><path d="M0 0L-13-8V8ZM0 0L13-8V8Z" fill="#ff8fab" stroke="#d9708d" stroke-width="1.5" stroke-linejoin="round"/><circle r="3.6" fill="#d9708d"/></g>`},
   {id:"beret",slot:"head",r:"c",name:"Béret d'artiste",req:[{shop:30}],d:A=>{const y=A.hat.y-2,r=A.hat.rx;return `<ellipse cx="54" cy="${y}" rx="${r*.72}" ry="9" fill="#e8524a" stroke="#c73e37" stroke-width="1.5" transform="rotate(-10 50 ${y})"/><path d="M55 ${y-9}l2-6" stroke="#c73e37" stroke-width="3" stroke-linecap="round"/>`}},
   {id:"bandeau",slot:"head",r:"c",name:"Hachimaki",req:[{objs:8}],d:A=>{const x=50-A.band.w/2,e=50+A.band.w/2;return `<path d="M${e-3} ${A.band.y}l10 6M${e-3} ${A.band.y+1}l6 11" stroke="#f3e4ea" stroke-width="3.5" stroke-linecap="round"/><rect x="${x}" y="${A.band.y-4}" width="${A.band.w}" height="8" rx="3" fill="#fff" stroke="#e5cfd8"/><circle cx="50" cy="${A.band.y}" r="3.4" fill="#e8524a"/>`}},
@@ -1376,6 +1402,7 @@ const STAMPS=[
   {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
   {id:"oku",cat:"mom",r:"c",kind:"col",k:"憶",kana:"おもいで · omoide",name:"Souvenir retrouvé",mean:"Tu as relu une page d'autrefois, le même jour.",cond:"Relire un souvenir du jour",p:s=>[s.memN||0,1]},
   {id:"mukashi",cat:"mom",r:"r",kind:"col",k:"昔",kana:"むかし · mukashi",name:"Un an déjà",mean:"Un an plus tard, tu relis ton propre passé.",cond:"Relire une page écrite il y a un an jour pour jour",p:s=>[s.memY||0,1]},
+  {id:"tanjo",cat:"fete",r:"r",kind:"col",k:"誕",kana:"たんじょうび · tanjōbi",name:"Joyeux anniversaire",mean:"お誕生日おめでとう ! Une nouvelle année de pages commence.",cond:"Souffler tes bougies le jour de ton anniversaire",p:s=>[s.bdays||0,1]},
   {id:"tayori",cat:"ecr",r:"c",kind:"col",k:"便",kana:"たより · tayori",name:"Lettre scellée",mean:"Une lettre voyage vers ton futur toi.",cond:"Sceller une lettre au futur moi",p:s=>[s.letters||0,1]},
   {id:"toki",cat:"ecr",r:"r",kind:"col",k:"時",kana:"とき · toki",name:"Voyage dans le temps",mean:"Tu as reçu une lettre de ton passé.",cond:"Ouvrir une lettre au futur moi",p:s=>[s.opened||0,1]},
   {id:"kintegami",cat:"sec",r:"t",kind:"col",k:"金",kana:"きん · kin",name:"Lettre précieuse",mean:"Une lettre au sceau d'or a traversé le temps jusqu'à toi.",cond:"Ouvrir une lettre au sceau doré",p:s=>[s.goldOpened||0,1]},
@@ -1489,7 +1516,7 @@ function touch(k,patch){
 function written(k){const e=entries[k];return !!(e&&e.text&&e.text.trim().length>0)}
 
 /* ================= editor ================= */
-function promptFor(k){const e=entry(k);return e.prompt||PROMPTS[hash(k)%PROMPTS.length]}
+function promptFor(k){const e=entry(k);return e.prompt||(typeof isBday==="function"&&isBday(k)?bdPrompt():PROMPTS[hash(k)%PROMPTS.length])}
 function renderEditor(){
   const d=dateOf(current), isToday=current===todayKey();
   const fr=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
@@ -1745,7 +1772,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,memN:(coll.mem&&coll.mem.n)||0,memY:(coll.mem&&coll.mem.y)||0,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,bdays:Object.values(coll.bday||{}).filter(x=>x&&x.gifts).length,memN:(coll.mem&&coll.mem.n)||0,memY:(coll.mem&&coll.mem.y)||0,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -1792,7 +1819,7 @@ function capsInfo(objs){
   const pageCaps=Object.keys(entries).filter(k=>written(k)&&countWords(entries[k].text)>=50).length;
   const stampCaps=objs.filter(o=>o.done).reduce((a,o)=>a+RAR[o.r].caps,0);
   const earned=pageCaps+stampCaps;
-  return {pageCaps,stampCaps,earned,avail:Math.max(0,earned+(coll.bought||0)-(coll.spent||0))};
+  return {pageCaps,stampCaps,earned,avail:Math.max(0,earned+(coll.bought||0)+(coll.giftCaps||0)-(coll.spent||0))};
 }
 function stampSvg(o,on){
   const hidden=o.hid&&!on;
@@ -1893,7 +1920,7 @@ const MACHINE=`<svg viewBox="0 0 100 120" aria-hidden="true"><rect x="22" y="62"
 function pull(){
   const ci=capsInfo(objectives());if(ci.avail<=0) return null;
   coll.spent=(coll.spent||0)+1;coll.pulls=(coll.pulls||0)+1;coll.pity=(coll.pity||0)+1;
-  const pool=coll.pity>=15?["r","t","l"]:RORDER;
+  const lucky=(coll.bdayLuck||0)>0;if(lucky)coll.bdayLuck--;const pool=coll.pity>=15||lucky?["r","t","l"]:RORDER;
   const tot=pool.reduce((a,r)=>a+RAR[r].w,0);let x=Math.random()*tot,r=pool[pool.length-1];
   for(const k of pool){if(x<RAR[k].w){r=k;break}x-=RAR[k].w}
   if(r!=="c")coll.pity=0;
@@ -1990,14 +2017,14 @@ function openAlbum(){openModal("Album de stickers","ステッカーちょう",re
 function renderAlbum(){
   const objs=objectives(),own=ownedIds(objs),body=$("modalBody");body.innerHTML="";
   const tiles=document.createElement("div");tiles.className="tiles";
-  RORDER.forEach(r=>{const all=STICKERS.filter(s=>s.r===r),got=all.filter(s=>own.has(s.id)).length;
+  RORDER.forEach(r=>{const all=STICKERS.filter(s=>s.r===r&&(s.src!=="bday"||own.has(s.id))),got=all.filter(s=>own.has(s.id)).length;
     const t=document.createElement("div");t.className="tile rt-"+r;t.innerHTML=`<b>${got}<small> / ${all.length}</small></b><span>${RAR[r].stars} ${RAR[r].name}</span>`;tiles.append(t)});
   const sum=document.createElement("p");sum.className="booksum";sum.textContent=`${own.size} stickers sur ${STICKERS.length}. Les stickers se gagnent au gachapon, sauf les exclusifs, offerts par les tampons légendaires.`;
   const seg=document.createElement("div");seg.className="seg";seg.style.margin="12px 0";
   [["all","Tous"],...RORDER.map(r=>[r,RAR[r].name])].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(albumFilter===v));b.onclick=()=>{albumFilter=v;renderAlbum()};seg.append(b)});
   body.append(sum,tiles,seg);
   const grid=document.createElement("div");grid.className="bookgrid";
-  STICKERS.filter(s=>albumFilter==="all"||s.r===albumFilter).forEach(s=>{
+  STICKERS.filter(s=>(albumFilter==="all"||s.r===albumFilter)&&(s.src!=="bday"||own.has(s.id))).forEach(s=>{
     const on=own.has(s.id),n=coll.owned[s.id]||0,c=document.createElement("div");c.className="acell ar-"+s.r+(on?" got":"");
     const secret=!on&&(s.r==="l"||s.r==="t");
     c.innerHTML=`<span class="stk ${on?"":"sil"}">${s.svg}</span><span class="nm"></span>${rarBadge(s.r)}<span class="sub"></span>`;
@@ -2145,7 +2172,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderMem();renderYearCard();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2405,7 +2432,7 @@ function renderSettings(msg){
   const body=$("modalBody"),sc=$("modal").querySelector(".book").scrollTop;body.innerHTML="";
   const u=unlocks(),ctx=u.ctx;
   const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="10px";
-  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["sons","Sons"],["rappel","Notifications"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
+  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["sons","Sons"],["rappel","Notifications"],["anniv","Anniversaire"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
   body.append(seg);
   requestAnimationFrame(()=>{const sel=seg.querySelector('[aria-pressed="true"]');if(sel)sel.scrollIntoView({inline:"center",block:"nearest"})});
   if(settingsTab==="masc"){
@@ -2445,6 +2472,7 @@ function renderSettings(msg){
     b.onclick=()=>{Sfx.play("chime");prefs.skin=k.id;savePrefs();applySkin();renderSettings()};o3.append(b)});
   s3.append(o3);body.append(s3);
   }
+  if(settingsTab==="anniv")renderBdayTab(body);
   if(settingsTab==="code"){
   // code
   const s4=sec("Code secret","ひみつ");
@@ -2933,6 +2961,7 @@ async function planNotifications(){
     const day=new Date();day.setDate(day.getDate()+d);const k=keyOf(day),md=k.slice(5);
     const at=(h,m)=>{const t=new Date(day);t.setHours(h,m,0,0);return t};
     const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
+    if(isBday(k)){const lt=lettersAll().find(l=>!l.opened&&l.open===k);add(at(9,0),"お誕生日おめでとう ! Joyeux anniversaire ✿ "+M+" t'a préparé une surprise"+(lt?", et une lettre de ton passé t'attend ✉":" 🎂"),{view:"ecrire"});continue}
     if(md==="12-01"){const S=yearStats(day.getFullYear());if(S.pages){add(at(11,0),"Ton année "+day.getFullYear()+" en journal est prête ✿ Viens découvrir ta story !",{view:"ecrire"});continue}}
     {const lt=lettersAll().find(l=>!l.opened&&l.open===k);if(lt){add(at(10,0),"Une lettre de ton passé t'attend ✉ Tu l'avais écrite le "+frDate(lt.created,{day:"numeric",month:"long",year:"numeric"})+".",{view:"lettre",id:lt.id});continue}}
     if(N.gacha&&d>0&&md.endsWith("-01")){const e=curEvent(day);if(e){add(at(12,0),"Nouvel événement au gachapon : "+e.name+" ✿ 2 stickers en édition limitée tout le mois !",{view:"recomp"});continue}}
@@ -3463,17 +3492,18 @@ function renderLetters(){
   ready.forEach(l=>row(l,"ready"));sealed.forEach(l=>row(l,"sealed"));opened.slice(0,4).forEach(l=>row(l,"read"));
   const w=document.createElement("button");w.className="openbook";w.type="button";w.textContent="✉ Écrire une lettre au futur moi";w.onclick=writeLetter;box.append(w);
 }
-function writeLetter(){openModal("Lettre au futur moi","みらいのわたしへ",()=>{
+function writeLetter(o){o=o||{};openModal(o.bday?"Lettre d'anniversaire":"Lettre au futur moi","みらいのわたしへ",()=>{
   const body=$("modalBody");body.innerHTML="";let delay=6,seal="washi";
   const p=document.createElement("p");p.className="note";p.style.marginTop="0";p.textContent="Qu'aimerais-tu dire à la personne que tu seras ? Ce que tu vis, tes rêves, tes peurs, ce que tu espères pour elle… Tu ne pourras pas la relire avant le jour J.";body.append(p);
   const st=document.createElement("div");st.className="starters";
-  ["Chère future moi, ","En ce moment, je ","J'espère que tu ","N'oublie jamais que "].forEach(s=>{const b=document.createElement("button");b.className="starter";b.type="button";b.textContent=s.trim()+"…";b.onclick=()=>{ta.value+=(ta.value&&!/\s$/.test(ta.value)?" ":"")+s;ta.focus();upd()};st.append(b)});body.append(st);
+  [...(o.bday?["Joyeux anniversaire, future moi ! "]:[]),"Chère future moi, ","En ce moment, je ","J'espère que tu ","N'oublie jamais que "].forEach(s=>{const b=document.createElement("button");b.className="starter";b.type="button";b.textContent=s.trim()+"…";b.onclick=()=>{ta.value+=(ta.value&&!/\s$/.test(ta.value)?" ":"")+s;ta.focus();upd()};st.append(b)});body.append(st);
   const ta=document.createElement("textarea");ta.className="lettreta";ta.placeholder="Chère future moi…";ta.setAttribute("aria-label","Ma lettre");body.append(ta);
   const lab=(t)=>{const x=document.createElement("p");x.className="label";x.style.margin="14px 0 6px";x.textContent=t;body.append(x)};
   lab("Elle s'ouvrira dans…");
   const seg=document.createElement("div");seg.className="seg";seg.setAttribute("role","group");
   [[3,"3 mois"],[6,"6 mois"],[12,"1 an"]].forEach(([v,l])=>{const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",String(v===delay));b.onclick=()=>{delay=v;seg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));when.textContent="Ouverture le "+frDate(addMonths(delay),{day:"numeric",month:"long",year:"numeric"})};seg.append(b)});body.append(seg);
   const when=document.createElement("p");when.className="note";when.style.margin="6px 0 0";when.textContent="Ouverture le "+frDate(addMonths(delay),{day:"numeric",month:"long",year:"numeric"});body.append(when);
+  if(o.open){seg.previousElementSibling.textContent="Quand ?";seg.remove();when.textContent="Elle s'ouvrira le jour de ton prochain anniversaire, le "+frDate(o.open,{day:"numeric",month:"long",year:"numeric"})+" 🎂"}
   lab("Le sceau");
   const sg=document.createElement("div");sg.className="seals";
   SEALS.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="sealbtn";b.setAttribute("aria-pressed",String(s.id===seal));b.setAttribute("aria-label","Sceau "+s.name);const miss=s.cost-petalBal(),poor=s.cost&&miss>0;b.disabled=!!poor;b.innerHTML=`<i style="background:${s.c}"></i><span><b>${s.k} ${s.name}</b><small>${!s.cost?"offert":poor?"encore "+miss+" pétale"+(miss>1?"s":""):s.cost+" pétales"}</small></span>`;if(poor)b.title="Il te manque "+miss+" pétales";b.onclick=()=>{seal=s.id;sg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));upd()};sg.append(b)});body.append(sg);
@@ -3482,7 +3512,7 @@ function writeLetter(){openModal("Lettre au futur moi","みらいのわたしへ
   const upd=()=>{const n=countWords(ta.value),S=SEALS.find(x=>x.id===seal)||{};go.disabled=n<5;go.textContent=n<5?"Écris au moins quelques mots ✿":"Sceller ma lettre ✉"+(S.cost?" (−"+S.cost+" pétales)":"")};ta.oninput=upd;upd();
   go.onclick=()=>{const text=ta.value.trim();if(countWords(text)<5)return;
     const S=SEALS.find(x=>x.id===seal)||{};if(S.cost){if(petalBal()<S.cost){say("Il te manque des pétales pour ce sceau ✿");return}coll.pspent=(coll.pspent||0)+S.cost;Sfx.play("coin")}
-    const l={id:Date.now().toString(36),created:todayKey(),open:addMonths(delay),text,seal};
+    const l={id:Date.now().toString(36),created:todayKey(),open:o.open||addMonths(delay),text,seal,...(o.bday?{bday:true}:{})};
     coll.letters=[...lettersAll(),l];saveColl();
     body.innerHTML=`<div class="sealing">${envSvg(seal,"")}<p class="gname">Lettre scellée ✿</p><p class="note"></p><button class="openbook" type="button" style="width:auto">Fermer</button></div>`;
     body.querySelector(".note").textContent="Elle t'attendra jusqu'au "+frDate(l.open,{day:"numeric",month:"long",year:"numeric"})+". Ta mascotte la garde bien au chaud.";
@@ -3560,7 +3590,7 @@ $("douxBtn").onclick=openDoux;$("text").addEventListener("input",douxVis);render
 function memShift(k,o){const d=dateOf(k);if(o.y)d.setFullYear(d.getFullYear()-o.y);if(o.m)d.setMonth(d.getMonth()-o.m);if(o.w)d.setDate(d.getDate()-7*o.w);return keyOf(d)}
 function memOffs(){return [{y:3,lbl:"Il y a trois ans"},{y:2,lbl:"Il y a deux ans"},{y:1,lbl:"Il y a un an"},{m:6,lbl:"Il y a six mois"},{m:1,lbl:"Il y a un mois"},{w:1,lbl:"Il y a une semaine"}]}
 function memories(day){day=day||todayKey();const out=[];
-  for(const o of memOffs()){const k=memShift(day,o);if(k!==day&&hasContent(entries[k])&&!out.some(x=>x.k===k))out.push({k,lbl:o.lbl,year:!!o.y})}
+  for(const o of memOffs()){const k=memShift(day,o);if(k!==day&&hasContent(entries[k])&&!out.some(x=>x.k===k))out.push({k,lbl:o.y&&typeof isBday==="function"&&isBday(day)?(o.y===1?"Ton anniversaire, l'an dernier":"Ton anniversaire, il y a "+(o.y===2?"deux":"trois")+" ans"):o.lbl,year:!!o.y})}
   return out}
 function memExcerpt(e){const t=(e.text||"").replace(/\s+/g," ").trim();if(!t)return (e.deco&&e.deco.length)?"Une page décorée de stickers et de souvenirs ✿":"";return t.length>140?t.slice(0,140).replace(/\s\S*$/,"")+"…":t}
 function renderMem(){
@@ -3712,6 +3742,87 @@ function renderYearCard(){
 }
 
 renderYearCard();
+/* ================= anniversaire (お誕生日) ================= */
+function bdayMD(){return prefs.bday||null}
+function isBday(k){const b=bdayMD();if(!b)return false;const md=k.slice(5);if(md===b)return true;const y=+k.slice(0,4),leap=(y%4===0&&y%100!==0)||y%400===0;return b==="02-29"&&!leap&&md==="02-28"}
+function nextBdayKey(){const b=bdayMD();if(!b)return null;const t=new Date();let y=t.getFullYear()+1;const [m,d]=b.split("-").map(Number);const dd=new Date(y,m-1,d);if(dd.getMonth()!==m-1)dd.setDate(0);return keyOf(dd)}
+function bdayYear(){return String(new Date().getFullYear())}
+function bdPrompt(){return "Qu'est-ce que tu te souhaites pour cette nouvelle année de vie ? ✿"}
+function bdayLabel(){const b=bdayMD();if(!b)return "";const [m,d]=b.split("-").map(Number);return d+(d===1?"er":"")+" "+MOIS[m-1]}
+function bdayPicker(onSave,small){
+  const w=document.createElement("div");w.className="bdpick";const b=bdayMD();const [bm,bd]=b?b.split("-").map(Number):[0,0];
+  const sd=document.createElement("select");sd.setAttribute("aria-label","Jour");sd.innerHTML='<option value="">Jour</option>'+Array.from({length:31},(_,i)=>`<option ${i+1===bd?"selected":""}>${i+1}</option>`).join("");
+  const sm=document.createElement("select");sm.setAttribute("aria-label","Mois");sm.innerHTML='<option value="">Mois</option>'+MOIS.map((m,i)=>`<option value="${i+1}" ${i+1===bm?"selected":""}>${m}</option>`).join("");
+  const ok=document.createElement("button");ok.type="button";ok.className="openbook";ok.textContent="Enregistrer";
+  ok.onclick=()=>{const d=+sd.value,m=+sm.value;if(!d||!m){say("Choisis le jour et le mois ✿");return}const max=new Date(2024,m,0).getDate();if(d>max){say("Ce jour n'existe pas dans ce mois ✿");return}
+    prefs.bday=String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");savePrefs();Sfx.play("sparkle");onSave&&onSave()};
+  w.append(sd,sm,ok);return w;
+}
+function renderBdayAsk(){
+  const box=$("bdAsk");if(!box)return;
+  const pages=Object.keys(entries).filter(written).length;
+  const show=!bdayMD()&&!prefs.bdAskOff&&pages>=5&&current===todayKey();
+  box.hidden=!show;box.innerHTML="";if(!show)return;
+  const h=document.createElement("p");h.className="bd-ask-t";h.innerHTML="<b>🎂 C'est quand ton anniversaire ?</b><small>Je voudrais te préparer une surprise ce jour-là ✿ (jour et mois seulement)</small>";
+  const later=document.createElement("button");later.type="button";later.className="linkbtn";later.textContent="Plus tard";later.onclick=()=>{prefs.bdAskOff=todayKey();savePrefs();renderBdayAsk()};
+  box.append(h,bdayPicker(()=>{say("C'est noté ! Le "+bdayLabel()+", je te réserve une surprise ✿");renderBdayAsk();renderBdayCard()}),later);
+}
+function renderBdayTab(body){
+  const s=sec("Mon anniversaire","お誕生日");
+  const p=document.createElement("p");p.className="note";p.textContent=bdayMD()?"Ton anniversaire : le "+bdayLabel()+" 🎂 Ce jour-là, ta mascotte te prépare une surprise.":"Indique ton jour d'anniversaire (jour et mois seulement) : une surprise t'attendra ce jour-là ✿";
+  s.append(p,bdayPicker(()=>renderSettings("Anniversaire enregistré ✿")));
+  if(bdayMD()){const c=document.createElement("button");c.type="button";c.className="linkbtn";c.textContent="Effacer ma date d'anniversaire";c.onclick=()=>{delete prefs.bday;savePrefs();renderSettings()};s.append(c)}
+  body.append(s);
+}
+function renderBdayCard(){
+  const box=$("bdCard");if(!box)return;const t=todayKey(),on=isBday(t)&&current===t;box.hidden=!on;box.innerHTML="";if(!on)return;
+  const b=document.createElement("button");b.type="button";b.className="yrc-main";b.innerHTML='<span class="yrc-ic">🎂</span><span><b>お誕生日おめでとう ! Joyeux anniversaire ✿</b><small>Touche pour revoir ta surprise</small></span>';b.onclick=openBday;box.append(b);
+}
+function bdayGrant(){
+  const Y=bdayYear();coll.bday=coll.bday||{};if(coll.bday[Y]&&coll.bday[Y].gifts)return false;
+  coll.bday[Y]={gifts:true,at:Date.now()};coll.giftCaps=(coll.giftCaps||0)+1;coll.bdayLuck=(coll.bdayLuck||0)+1;coll.petals=(coll.petals||0)+10;
+  coll.owned={...coll.owned,["anniv"+Y]:(coll.owned["anniv"+Y]||0)+1,banniereFete:Math.max(1,coll.owned.banniereFete||0)};
+  saveColl();invalidate();return true;
+}
+function openBday(){
+  const Y=bdayYear();let ov=$("bd");
+  if(!ov){ov=document.createElement("div");ov.id="bd";ov.setAttribute("role","dialog");ov.setAttribute("aria-label","Joyeux anniversaire");document.body.append(ov)}
+  ov.hidden=false;document.body.style.overflow="hidden";
+  const masc=`<svg viewBox="-6 -6 112 112" aria-hidden="true" class="bd-masc">${(document.querySelector("svg defs")||{outerHTML:""}).outerHTML}${mascotInner(curMascot(),[...wornAcc().filter(a=>{const x=ACC.find(z=>z.id===a);return x&&x.slot!=="head"}),"chapeauFete"],false)}</svg>`;
+  const done=coll.bday&&coll.bday[Y]&&coll.bday[Y].gifts;
+  ov.innerHTML=`<button type="button" class="yr-x" aria-label="Fermer">✕</button><div class="bd-in"><p class="yk">お誕生日おめでとう</p><p class="yh bd-t">Joyeux anniversaire${typeof social!=="undefined"&&social&&social.name?", "+social.name.replace(/</g,""):""} ✿</p>${masc}
+    <div class="bd-cake"><svg viewBox="0 0 200 150" aria-hidden="true"><ellipse cx="100" cy="138" rx="86" ry="10" fill="#e6d4c4"/><path d="M30 80h140v46a10 10 0 0 1-10 10H40a10 10 0 0 1-10-10z" fill="#fff6ee" stroke="#e6d4c4" stroke-width="3"/><path d="M30 104h140" stroke="#ffb6c9" stroke-width="12"/><path d="M28 82q10 14 20 0t20 0t20 0t20 0t20 0t20 0t20 0" fill="#fff" stroke="#e6d4c4" stroke-width="3"/>${[45,72,100,128,155].map((x,i)=>`<rect x="${x-5}" y="44" width="10" height="38" rx="3" fill="${["#8fbaf2","#ffb6c9","#ffd66b","#9cd39a","#c6a9f0"][i]}"/>`).join("")}<circle cx="60" cy="76" r="7" fill="#ff5e6b"/><circle cx="140" cy="76" r="7" fill="#ff5e6b"/><circle cx="100" cy="76" r="7" fill="#ff5e6b"/></svg>${[45,72,100,128,155].map((x,i)=>`<button type="button" class="bd-c${done?" out":""}" style="left:${x/2}%" aria-label="Souffler la bougie ${i+1}"><i></i></button>`).join("")}</div>
+    <p class="ysub bd-msg">${done?"Tes bougies sont soufflées ✿":"Touche les bougies pour les souffler ✿"}</p><div class="bd-gifts" ${done?"":"hidden"}></div></div>`;
+  ov.querySelector(".yr-x").onclick=closeBday;
+  petals(30);rain(30,["#ffd66b","#8fbaf2","#ffb6c9","#9cd39a","#c6a9f0"],"conf");Sfx.play("reveal","t");
+  const cs=[...ov.querySelectorAll(".bd-c")];
+  cs.forEach(c=>c.onclick=()=>{if(c.classList.contains("out"))return;c.classList.add("out");Sfx.play("sparkle");
+    if(cs.every(x=>x.classList.contains("out"))){ov.querySelector(".bd-msg").textContent="Fais un vœu très fort… ✿";
+      setTimeout(()=>{bdayGrant();Sfx.play("goal");petals(40);rain(46,["#ffd66b","#f6c945","#fff3b0","#ffb6c9"],"gold");ov.querySelector(".bd-msg").textContent="Tes cadeaux d'anniversaire 🎁";bdayGifts(ov);checkNew();renderSide()},1400)}});
+  if(done)bdayGifts(ov);
+}
+function bdayGifts(ov){
+  const g=ov.querySelector(".bd-gifts");g.hidden=false;const Y=bdayYear();g.innerHTML="";
+  const item=(ic,t,s,btn,fn)=>{const d=document.createElement("div");d.className="bd-g";d.innerHTML=`<span class="bd-gi">${ic}</span><span><b></b><small></small></span>`;d.querySelector("b").textContent=t;d.querySelector("small").textContent=s;if(btn){const b=document.createElement("button");b.type="button";b.className="ghost";b.textContent=btn;b.onclick=fn;d.append(b)}g.append(d)};
+  item(`<span class="stk">${stickerById("anniv"+Y).svg}</span>`,"Gâteau d'anniversaire "+Y,"Sticker exclusif ✦✦✦ à collectionner chaque année","Coller sur ma page",()=>{closeBday();openDay(todayKey());if(typeof showView==="function"&&$("v-deco"))showView("deco");addSticker("anniv"+Y)});
+  item("🎁","Capsule d'anniversaire","Un sticker rare ou mieux, garanti","Ouvrir",()=>{closeBday();openGacha(true)});
+  item(`<svg viewBox="0 0 100 100" style="width:44px;height:44px">${mascotInner(curMascot(),["chapeauFete"],false)}</svg>`,"Chapeau de fête","Un accessoire pour ta mascotte","Le porter",()=>{prefs.eq={...(prefs.eq||{}),head:"chapeauFete"};savePrefs();renderMascot();hop();Sfx.play("sparkle");say("Je suis trop mignon·ne avec mon chapeau ! ✿")});
+  item(`<svg viewBox="0 0 100 100" width="40" height="40">${SAKURA("#ffc2d1","#f59ab3","#ff8fab")}</svg>`,"+10 pétales","Pour la boutique ou tes sceaux de lettres",null);
+  item(`<span class="stk">${stickerById("banniereFete").svg}</span>`,"Guirlande おめでとう","Pour décorer ta page d'anniversaire","Décorer ma page",()=>{closeBday();openDay(todayKey());if(typeof showView==="function"&&$("v-deco"))showView("deco");addSticker("banniereFete")});
+  const ready=lettersAll().filter(l=>!l.opened&&l.open<=todayKey());
+  const row=document.createElement("div");row.className="bd-row";
+  if(ready.length){const b=document.createElement("button");b.type="button";b.className="openbook";b.textContent="✉ Une lettre de ton passé t'attend";b.onclick=()=>{closeBday();openLetter(ready[0].id)};row.append(b)}
+  const w=document.createElement("button");w.type="button";w.className=ready.length?"ghost":"openbook";w.textContent="✉ Écrire à moi dans un an";w.onclick=()=>{closeBday();writeLetter({open:nextBdayKey(),bday:true})};row.append(w);
+  g.append(row);
+}
+function closeBday(){const ov=$("bd");if(ov)ov.hidden=true;document.body.style.overflow="";renderBdayCard()}
+function bdayStartup(){
+  renderBdayAsk();renderBdayCard();
+  const t=todayKey(),Y=bdayYear();
+  if(isBday(t)&&!(coll.bday&&coll.bday[Y]&&coll.bday[Y].seen)){coll.bday=coll.bday||{};coll.bday[Y]={...(coll.bday[Y]||{}),seen:true};saveColl();setTimeout(openBday,900)}
+}
+
+bdayStartup();
 </script>
 </body>
 </html>
