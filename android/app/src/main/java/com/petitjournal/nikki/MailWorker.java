@@ -96,6 +96,19 @@ public class MailWorker extends Worker {
             notes.sort((a, b) -> Long.compare(num(b.get("at")), num(a.get("at"))));
 
             String today = WidgetData.today();
+            // shared questions waiting for my answer
+            List<String[]> questions = new ArrayList<>();
+            for (Map.Entry<String, DocumentSnapshot> e : prof.entrySet()) {
+                String fid = e.getKey();
+                String pair = uid.compareTo(fid) < 0 ? uid + "_" + fid : fid + "_" + uid;
+                try {
+                    DocumentSnapshot q = Tasks.await(db.document("duos/" + pair + "/q/" + today).get(), 20, TimeUnit.SECONDS);
+                    if (q.exists()) {
+                        List<?> done = q.get("done") instanceof List ? (List<?>) q.get("done") : new ArrayList<>();
+                        if (!done.contains(uid)) questions.add(new String[]{"q_" + pair + "_" + today, str(e.getValue().get("name"), "Un·e ami·e"), str(e.getValue().get("mascot"), "onigiri")});
+                    }
+                } catch (Exception ignored) { }
+            }
             JSONArray band = new JSONArray();
             for (DocumentSnapshot p : prof.values()) {
                 JSONObject b = new JSONObject();
@@ -110,6 +123,13 @@ public class MailWorker extends Worker {
             mail.put("friends", prof.size());
             mail.put("band", band);
             mail.put("count", notes.size());
+            mail.put("duoCount", questions.size());
+            if (!questions.isEmpty()) {
+                JSONObject dq = new JSONObject();
+                dq.put("name", questions.get(0)[1]);
+                dq.put("mascot", questions.get(0)[2]);
+                mail.put("duo", dq);
+            }
             if (!notes.isEmpty()) {
                 DocumentSnapshot n = notes.get(0);
                 DocumentSnapshot p = prof.get(str(n.get("from"), ""));
@@ -121,14 +141,14 @@ public class MailWorker extends Worker {
             }
             sp.edit().putString("mail", mail.toString()).apply();
             WidgetData.refreshAll(c);
-            maybeNotify(c, sp, notes, prof);
+            maybeNotify(c, sp, notes, prof, questions);
             return Result.success();
         } catch (Exception e) {
             return Result.success();
         }
     }
 
-    private void maybeNotify(Context c, SharedPreferences sp, List<DocumentSnapshot> notes, Map<String, DocumentSnapshot> prof) {
+    private void maybeNotify(Context c, SharedPreferences sp, List<DocumentSnapshot> notes, Map<String, DocumentSnapshot> prof, List<String[]> questions) {
         Set<String> seen = new HashSet<>(sp.getStringSet("mail_seen", new HashSet<>()));
         JSONObject data = WidgetData.read(c);
         JSONArray appSeen = data.optJSONArray("mailSeen");
@@ -136,9 +156,11 @@ public class MailWorker extends Worker {
         List<DocumentSnapshot> fresh = new ArrayList<>();
         Set<String> all = new HashSet<>();
         for (DocumentSnapshot n : notes) { all.add(n.getId()); if (!seen.contains(n.getId())) fresh.add(n); }
+        List<String[]> freshQ = new ArrayList<>();
+        for (String[] q : questions) { all.add(q[0]); if (!seen.contains(q[0])) freshQ.add(q); }
         boolean first = !sp.contains("mail_seen");
         sp.edit().putStringSet("mail_seen", all).apply();
-        if (first || fresh.isEmpty()) return;
+        if (first || (fresh.isEmpty() && freshQ.isEmpty())) return;
         if (!data.optBoolean("mailNotif", true)) return;
         int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         if (h < 8 || h >= 21) { sp.edit().putStringSet("mail_seen", seen).apply(); return; } // keep them for the morning
@@ -146,11 +168,18 @@ public class MailWorker extends Worker {
         if (today.equals(sp.getString("mail_notif_day", ""))) return;
         if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(c, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return;
 
-        DocumentSnapshot n = fresh.get(0);
-        DocumentSnapshot p = prof.get(str(n.get("from"), ""));
-        String name = p != null ? str(p.get("name"), "Un·e ami·e") : "Un·e ami·e";
-        String title = fresh.size() == 1 ? "Un petit mot de " + name + " ✉" : name + " et " + (fresh.size() - 1) + (fresh.size() == 2 ? " autre ami·e" : " autres amis") + " t'ont écrit ✉";
-        String text = fresh.size() == 1 ? nudgeText(num(n.get("k"))) : "Ta boîte aux lettres t'attend ✿";
+        String title, text;
+        if (fresh.isEmpty()) {
+            title = freshQ.get(0)[1] + " te pose une question ✿";
+            text = "Réponds-lui : vos réponses se dévoileront ensemble.";
+        } else {
+            DocumentSnapshot n = fresh.get(0);
+            DocumentSnapshot p = prof.get(str(n.get("from"), ""));
+            String name = p != null ? str(p.get("name"), "Un·e ami·e") : "Un·e ami·e";
+            title = fresh.size() == 1 ? "Un petit mot de " + name + " ✉" : name + " et " + (fresh.size() - 1) + (fresh.size() == 2 ? " autre ami·e" : " autres amis") + " t'ont écrit ✉";
+            text = fresh.size() == 1 ? nudgeText(num(n.get("k"))) : "Ta boîte aux lettres t'attend ✿";
+            if (!freshQ.isEmpty()) text += " Et une question t'attend !";
+        }
         ensureChannel(c);
         NotificationCompat.Builder b = new NotificationCompat.Builder(c, CHANNEL)
             .setSmallIcon(R.drawable.ic_stat_nikki)

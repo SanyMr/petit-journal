@@ -50,5 +50,33 @@ service cloud.firestore {
         && request.resource.data.day is string && id == me() + '_' + request.resource.data.day
         && request.resource.data.k is number && request.resource.data.k >= 0 && request.resource.data.k < 12;
     }
+    // Question partagée : réponses dévoilées seulement quand les deux amies ont répondu
+    function inPair(pair) { return pair.split('_').size() == 2 && (pair.split('_')[0] == me() || pair.split('_')[1] == me()); }
+    function friendInPair(pair) { return isFriend(pair.split('_')[0], me()) || isFriend(pair.split('_')[1], me()); }
+    match /duos/{pair}/q/{day} {
+      allow read, delete: if signedIn() && inPair(pair);
+      allow create: if signedIn() && inPair(pair) && friendInPair(pair)
+        && request.resource.data.keys().hasOnly(['qi','by','at','day','done'])
+        && request.resource.data.by == me() && request.resource.data.day == day
+        && request.resource.data.qi is number && request.resource.data.done is list && request.resource.data.done.size() == 0;
+      allow update: if signedIn() && inPair(pair)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['done'])
+        && request.resource.data.done is list && request.resource.data.done.size() <= 2;
+    }
+    match /duos/{pair}/q/{day}/ans/{uid} {
+      allow read: if signedIn() && inPair(pair)
+        && (me() == uid || exists(/databases/$(database)/documents/duos/$(pair)/q/$(day)/ans/$(me())));
+      allow create, update: if signedIn() && inPair(pair) && me() == uid && friendInPair(pair)
+        && exists(/databases/$(database)/documents/duos/$(pair)/q/$(day))
+        && request.resource.data.keys().hasOnly(['text','at','heart'])
+        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 400;
+      allow delete: if signedIn() && inPair(pair);
+    }
+
+    // Signalements : personne ne peut les lire depuis l'appli (seulement toi, dans la console Firebase)
+    match /reports/{id} {
+      allow create: if signedIn() && request.resource.data.by == me()
+        && request.resource.data.keys().hasOnly(['by','about','pair','day','at']);
+    }
   }
 }

@@ -67,6 +67,13 @@ public class MailWidget extends AppWidgetProvider {
             v.setTextViewText(R.id.w_from, last.optString("name", "") + " : " + last.optString("text", ""));
             v.setImageViewResource(R.id.w_from_m, mascot(c, last.optString("mascot", "onigiri")));
             v.setViewVisibility(R.id.w_from_m, View.VISIBLE);
+        } else if (mail.optInt("duoCount", 0) > 0 && mail.optJSONObject("duo") != null) {
+            JSONObject dq = mail.optJSONObject("duo");
+            v.setImageViewResource(R.id.w_env, R.drawable.w_env_letter);
+            v.setTextViewText(R.id.w_title, dq.optString("name", "") + " te pose une question");
+            v.setTextViewText(R.id.w_from, "Réponds, vos réponses se dévoileront ensemble ✿");
+            v.setImageViewResource(R.id.w_from_m, mascot(c, dq.optString("mascot", "onigiri")));
+            v.setViewVisibility(R.id.w_from_m, View.VISIBLE);
         } else {
             v.setTextViewText(R.id.w_title, "Pas de lettre pour l'instant");
             v.setTextViewText(R.id.w_from, "Et si tu envoyais un petit mot ? ✿");

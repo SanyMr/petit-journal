@@ -642,6 +642,19 @@ input,textarea,select{font-size:16px}
 .doux{display:block;margin:-4px 0 0;font-size:14px}
 .douxarea{display:grid;gap:8px;margin-top:12px}
 .douxin{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:999px;padding:10px 16px;font:inherit;font-size:16px;background:var(--paper);color:var(--ink)}
+.duo{border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:8px}
+.duo-h{margin:0;font-size:12px;font-weight:700;color:var(--muted)}
+.duo .note{margin:0}
+.duo-q{text-align:left;font:inherit;font-size:14px;color:var(--ink);background:color-mix(in srgb,var(--sky) 22%,var(--card));border:none;border-radius:14px;padding:10px 12px;min-height:44px}
+.duo-question{margin:0;font-family:'Kiwi Maru',serif;font-size:17px;line-height:1.35}
+.duo-ta{width:100%;box-sizing:border-box;min-height:80px;border:2px solid var(--line);border-radius:14px;padding:10px 12px;font:inherit;font-size:15px;background:var(--paper);color:var(--ink);resize:vertical}
+.duo-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.duo-row .openbook{width:auto;margin:0}
+.duo-wait{margin:0;color:var(--moss);font-weight:700;font-size:14px}
+.duo-a{border-radius:16px;padding:10px 12px;display:grid;gap:4px;font-size:15px;line-height:1.4;white-space:pre-wrap}
+.duo-a.me{background:color-mix(in srgb,var(--sakura) 18%,var(--card))}.duo-a.them{background:color-mix(in srgb,var(--sky) 22%,var(--card));animation:paperup .5s ease both}
+.duo-a b{font-size:12px;color:var(--muted)}.duo-at{display:flex;align-items:center;gap:6px}
+.duo-love{font-size:13px;color:var(--sakura-deep);font-weight:700}
+.duo-page{border:1.5px solid var(--line);border-radius:16px;padding:12px;margin-top:10px;display:grid;gap:8px}.duo-day{margin:0;font-size:12px;color:var(--muted);font-weight:700}
 </style>
 </head>
 <body>
@@ -1307,6 +1320,8 @@ const STAMPS=[
   {id:"nishiki",cat:"col",r:"l",kind:"own",k:"錦",kana:"にしき · nishiki",name:"Brocart d'or",mean:"Toute la garde-robe est à toi.",cond:"Débloquer tous les accessoires",p:s=>[s.accs,ACC.length]},
   {id:"nana",cat:"sec",r:"r",hid:true,k:"七",kana:"なな · nana",name:"Chiffre porte-bonheur",mean:"Exactement 77 mots. Le hasard fait bien les choses !",cond:"Écrire une page d'exactement 77 mots",p:s=>[s.lucky77,1]},
   {id:"nanairo",cat:"sec",r:"t",hid:true,k:"色",kana:"なないろ · nanairo",name:"Sept couleurs du cœur",mean:"Cinq jours, cinq humeurs différentes : un vrai arc-en-ciel.",cond:"Choisir les 5 humeurs différentes sur 5 jours d'affilée",p:s=>[s.rainbow,1]},
+  {id:"kyo",cat:"ami",r:"c",kind:"col",k:"共",kana:"ともに · tomo ni",name:"Une question à deux",mean:"Vos réponses se sont dévoilées ensemble.",cond:"Répondre à une question partagée avec un·e ami·e",p:s=>[s.duoQ||0,1]},
+  {id:"enishi",cat:"ami",r:"r",kind:"col",k:"縁",kana:"えにし · enishi",name:"Carnet à deux",mean:"Dix questions partagées : vous vous connaissez encore mieux.",cond:"Répondre à 10 questions partagées",p:s=>[s.duoQ||0,10]},
   {id:"tomo",cat:"ami",r:"c",kind:"col",k:"友",kana:"とも · tomo",name:"Ami·e",mean:"Quelqu'un écrit à tes côtés désormais.",cond:"Ajouter ton premier ami",p:s=>[s.friends||0,1]},
   {id:"nakama",cat:"ami",r:"r",kind:"col",k:"仲",kana:"なかま · nakama",name:"Petite bande",mean:"Trois amis pour s'encourager, c'est une vraie équipe.",cond:"Avoir 3 amis",p:s=>[s.friends||0,3]},
   {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
@@ -1679,7 +1694,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,opened:lettersAll().filter(l=>l.opened).length,goldOpened:lettersAll().filter(l=>l.opened&&l.seal==="kin").length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0,duoQ:(typeof social!=="undefined"&&social.duoQ)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -1798,6 +1813,8 @@ function nextToast(){
     go=()=>{settingsTab="acc";openSettings()};say("Plein de nouveaux accessoires ! On essaie ? ✿")}
   else if(it.acc){rar=it.acc.r;icon=`<svg viewBox="0 0 100 100" class="press" style="overflow:visible">${mascotInner(curMascot(),[it.acc.id],false)}</svg>`;t1="Nouvel accessoire · "+RAR[it.acc.r].stars+" "+RAR[it.acc.r].name;t2=it.acc.name;t3="Touche ici pour l'essayer";
     go=()=>{settingsTab="acc";openSettings()};say("Oh, un nouvel accessoire ! Je peux l'essayer ? ✿")}
+  else if(it.duoQ){icon=`<svg viewBox="-6 -6 112 112" class="press" style="overflow:visible">${mascotInner(MASCOTS[it.mascot]?it.mascot:"onigiri",it.acc||[],false)}</svg>`;t1=it.t1;t2=it.t2;t3="Touche ici pour répondre";
+    go=()=>showView("amis");say(it.t1)}
   else if(it.nudge){icon=`<svg viewBox="-6 -6 112 112" class="press" style="overflow:visible">${mascotInner(MASCOTS[it.mascot]?it.mascot:"onigiri",it.acc||[],false)}</svg>`;t1="Un petit mot de "+it.name;t2=NUDGES[it.nudge.k]||"✿";t3="Touche ici pour voir tes amis";
     go=()=>showView("amis");say(it.name+" pense à toi ✿")}
   else if(it.summary){rar=it.o.r;icon=stampSvg(it.o,true);t1="ぽん！ Tes récompenses sont arrivées";t2=it.summary+" tampons dans ton carnet";t3="+ "+plural(it.caps,"capsule")+" de gachapon à ouvrir !";
@@ -1805,7 +1822,7 @@ function nextToast(){
   else{const o=it.o;rar=o.r;icon=stampSvg(o,true);t1=(o.monthly?"ぽん！ Défi du mois réussi":"ぽん！ Nouveau tampon")+" · "+RAR[o.r].stars+" "+RAR[o.r].name;t2=o.k+" "+o.name;t3=o.mean+" +"+plural(RAR[o.r].caps,"capsule");
     go=()=>openBook(o.id);say((o.r==="l"?"LÉGENDAIRE !! ":o.r==="t"?"Très rare ! ":"ぽん！ ")+"Tu as gagné le tampon « "+o.name+" » ✿")}
   t.className="toast tr-"+rar;
-  if(it.nudge)Sfx.play("chime");else if(it.sticker)Sfx.play("reveal","l");else if(it.masc||it.acc||it.accMany)Sfx.play("sparkle");else Sfx.play("stamp",rar);
+  if(it.nudge||it.duoQ)Sfx.play("chime");else if(it.sticker)Sfx.play("reveal","l");else if(it.masc||it.acc||it.accMany)Sfx.play("sparkle");else Sfx.play("stamp",rar);
   t.innerHTML=icon+'<span><span class="t1"></span><span class="t2"></span><span class="t3"></span></span>';
   const sv=t.querySelector("svg");if(sv&&!it.sticker)sv.classList.add("press");
   t.querySelector(".t1").textContent=t1;t.querySelector(".t2").textContent=t2;t.querySelector(".t3").textContent=t3;
@@ -2715,7 +2732,7 @@ function showView(v){
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
   window.scrollTo({top:0});
   if(v==="deco"){renderDeco()}
-  if(v==="amis"){renderAmis();if(fbUser)pushProfile(false)}
+  if(v==="amis"){renderAmis();if(fbUser){pushProfile(false);loadDuos()}}
   try{store.setItem("nikki.view",v)}catch(e){}
 }
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{buzz();showView(t.dataset.v)}));
@@ -2728,7 +2745,7 @@ function pushWidget(){
     const days={},prompts={};
     for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
     for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
-    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60),mailNotif:social.mailNotif!==false});
+    const data=JSON.stringify({streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
     if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});
   }catch(e){}
 }
@@ -3021,6 +3038,7 @@ async function loadFriends(ids){
   social.friends=out.length;social.duoBest=Math.max(social.duoBest||0,best);saveSocial();
   if(changed){objMemo=null;unlockMemo=null;try{checkNew()}catch(e){}}
   amisBadge();if(curView==="amis")renderAmis();
+  loadDuos();
 }
 async function addFriend(code){
   code=String(code||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
@@ -3084,6 +3102,7 @@ async function amisDeleteAccount(){
     fr.forEach(f=>{ops.push({type:"delete",reference:"friends/"+me+"/list/"+f.id},{type:"delete",reference:"friends/"+f.id+"/list/"+me})});
     (await fsList("requests/"+me+"/from").catch(()=>[])).forEach(r=>ops.push({type:"delete",reference:"requests/"+me+"/from/"+r.id}));
     (social.sent||[]).forEach(u=>ops.push({type:"delete",reference:"requests/"+u+"/from/"+me}));
+    for(const f of fr){const pp=[me,f.id].sort().join("_");const qs=await fsList("duos/"+pp+"/q").catch(()=>[]);qs.forEach(q=>{ops.push({type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+me},{type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+f.id},{type:"delete",reference:"duos/"+pp+"/q/"+q.id})})}
     (await fsList("nudges/"+me+"/msgs").catch(()=>[])).forEach(n=>ops.push({type:"delete",reference:"nudges/"+me+"/msgs/"+n.id}));
     if(social.code)ops.push({type:"delete",reference:"codes/"+social.code});
     ops.push({type:"delete",reference:"profiles/"+me});
@@ -3101,9 +3120,10 @@ function mailData(){
   const t=todayKey(),n=amis.nudges[0],f=n&&amis.friends.find(x=>x.uid===n.from);
   return {at:Date.now(),signedIn:true,count:amis.nudges.length,friends:amis.friends.length,
     last:n?{name:f?f.name:"Un·e ami·e",mascot:f?f.mascot:"onigiri",text:NUDGES[n.k]||"✿"}:null,
-    band:amis.friends.slice(0,5).map(x=>({n:x.name,m:x.mascot,w:friendWrote(x,t)}))};
+    band:amis.friends.slice(0,5).map(x=>({n:x.name,m:x.mascot,w:friendWrote(x,t)})),
+    duoCount:duoPending().length,duo:(()=>{const f=duoPending()[0];return f?{name:f.name,mascot:f.mascot}:null})()};
 }
-function amisBadge(){if(isNative)scheduleWidget(400);const b=$("badgeAmis");if(!b)return;const n=amis.requests.length+amis.nudges.length;b.hidden=!n;b.textContent=n>9?"9+":n}
+function amisBadge(){if(isNative)scheduleWidget(400);const b=$("badgeAmis");if(!b)return;const n=amis.requests.length+amis.nudges.length+duoPending().length;b.hidden=!n;b.textContent=n>9?"9+":n}
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 function mascotEl(m,acc,size){const s=document.createElementNS("http://www.w3.org/2000/svg","svg");s.setAttribute("viewBox","-6 -6 112 112");s.setAttribute("width",size);s.setAttribute("height",size);s.setAttribute("aria-hidden","true");s.style.overflow="visible";s.innerHTML=mascotInner(MASCOTS[m]?m:"onigiri",acc||[],false);return s}
 function renderAmis(){
@@ -3192,6 +3212,7 @@ function renderAmis(){
     if(amisOpenNudge===fr.uid&&!sent){
       const g=el("div","fr-nudges");NUDGES.forEach((n,k)=>{const b=el("button","tag",n);b.onclick=()=>sendNudge(fr.uid,k);g.append(b)});card.append(g);
     }
+    card.append(duoBox(fr));
     box.append(card);
   });
   // compte
@@ -3204,6 +3225,120 @@ function renderAmis(){
   nt.onclick=()=>{social.mailNotif=social.mailNotif===false;saveSocial();scheduleWidget(100);renderAmis()};
   foot.append(nt,en,so,dl);box.append(foot);
 }
+
+/* --- question partagée entre amis : réponses dévoilées quand les deux ont répondu --- */
+const QDUO=["Quel petit moment t'a rendue heureuse aujourd'hui ?","Si tu pouvais partir n'importe où demain, ce serait où ?","Quelle chanson t'accompagne en ce moment ?","Quel est ton plus beau souvenir de cette année ?","Qu'est-ce qui t'a fait rire récemment ?","Quel plat te réconforte toujours ?","Quel super-pouvoir choisirais-tu pour une journée ?","Qu'aimerais-tu apprendre cette année ?","Quelle est ta saison préférée, et pourquoi ?","Quel est ton endroit secret pour te sentir bien ?","Quel film pourrais-tu revoir mille fois ?","Qu'est-ce qui te rend fière de toi cette semaine ?","Tu préfères : lever de soleil ou coucher de soleil ?","Quel animal serais-tu, et pourquoi ?","Quel conseil donnerais-tu à toi il y a 5 ans ?","Quelle petite chose t'a fait du bien aujourd'hui ?","Quel est ton rêve le plus fou ?","Quel souvenir d'enfance te fait encore sourire ?","Qu'est-ce que tu attends avec impatience ?","Si ta journée était une couleur, laquelle ?","Quel livre ou manga recommanderais-tu ?","Tu préfères : thé matcha ou chocolat chaud ?","Quelle est ta plus grande qualité selon toi ?","Qu'est-ce qui t'a surprise cette semaine ?","Quel est ton snack préféré du moment ?","Où te vois-tu dans un an ?","Qu'est-ce qui te détend après une longue journée ?","Quel mot décrit le mieux ta semaine ?","Quelle tradition aimes-tu le plus ?","Si tu ouvrais une petite boutique, que vendrait-elle ?","Quel est le plus beau compliment qu'on t'ait fait ?","Quelle activité te fait oublier le temps ?","Quel pays du monde aimerais-tu découvrir ?","Qu'est-ce qui te donne du courage ?","Quel est ton rituel préféré du matin ?","Quelle est la dernière chose qui t'a émue ?","Tu préfères : la mer ou la montagne ?","Quel petit défi pourrais-tu relever demain ?","Qu'est-ce que tu aimes chez notre amitié ?","Quelle odeur te rappelle un joli souvenir ?"];
+var duos={},duoOpen=null,duoTimer=null;
+function pairId(o){return [fbUser.uid,o].sort().join("_")}
+function duoBase(o){return "duos/"+pairId(o)+"/q/"+todayKey()}
+function duoChoices(o){const h=hash(todayKey()+pairId(o)),a=[];for(let i=0;a.length<3&&i<50;i++){const x=(h+i*7)%QDUO.length;if(!a.includes(x))a.push(x)}return a}
+async function loadDuo(o){
+  const base=duoBase(o),r={loaded:true,q:null,mine:null,theirs:null};
+  try{r.q=await fsGet(base)}catch(e){}
+  if(r.q){try{r.mine=await fsGet(base+"/ans/"+fbUser.uid)}catch(e){}
+    if(r.mine){try{r.theirs=await fsGet(base+"/ans/"+o)}catch(e){}}}
+  duos[o]=r;if(r.q&&r.mine&&r.theirs)keepDuo(o,r);
+}
+async function loadDuos(){
+  if(!fbUser||!amis.friends.length)return;
+  await Promise.all(amis.friends.map(f=>loadDuo(f.uid)));
+  const day=todayKey();social.qSeen=social.qSeen||[];let tq=false;
+  amis.friends.forEach(f=>{const d=duos[f.uid];if(!d||!d.q)return;const id=pairId(f.uid)+"_"+day;
+    if(!d.mine&&d.q.by!==fbUser.uid&&!social.qSeen.includes("q"+id)){social.qSeen.push("q"+id);toastQ.push({duoQ:true,name:f.name,mascot:f.mascot,acc:f.acc,t1:f.name+" te pose une question ✿",t2:QDUO[d.q.qi]||"✿"});tq=true}
+    if(d.mine&&d.theirs&&!social.qSeen.includes("r"+id)){social.qSeen.push("r"+id);if(curView!=="amis"){toastQ.push({duoQ:true,name:f.name,mascot:f.mascot,acc:f.acc,t1:"Vos réponses se dévoilent ✿",t2:"Découvre la réponse de "+f.name});tq=true}}});
+  if(tq){social.qSeen=social.qSeen.slice(-80);saveSocial();nextToast()}
+  cleanupDuos();amisBadge();if(curView==="amis")renderAmis();
+}
+function duoPending(){return amis.friends.filter(f=>{const d=duos[f.uid];return d&&d.q&&!d.mine&&!(social.duoSkip||{})[pairId(f.uid)+todayKey()]})}
+function keepDuo(o,r){
+  const p=pairId(o),day=todayKey();social.book=social.book||{};const list=social.book[p]=social.book[p]||[];
+  const f=amis.friends.find(x=>x.uid===o);const e={day,qi:r.q.qi,me:r.mine.text,them:r.theirs.text,name:f?f.name:"?"};
+  const i=list.findIndex(x=>x.day===day);if(i>=0){list[i]=e}else{list.push(e);social.duoQ=(social.duoQ||0)+1;objMemo=null;unlockMemo=null;setTimeout(()=>{try{checkNew()}catch(_){}},300)}
+  saveSocial();
+}
+async function askDuo(o,qi){
+  try{await fsSet(duoBase(o),{qi,by:fbUser.uid,at:Date.now(),day:todayKey(),done:[]});Sfx.play("share");amisFlash="Question envoyée ✿ Réponds-y toi aussi !"}
+  catch(e){fbErr=amisErr(e)}
+  duoOpen=o;await loadDuo(o);renderAmis();
+}
+async function answerDuo(o,text){
+  text=String(text||"").trim().slice(0,400);if(!text)return;
+  const base=duoBase(o);
+  try{
+    await fsSet(base+"/ans/"+fbUser.uid,{text,at:Date.now(),heart:false});
+    const q=await fsGet(base);const done=[...new Set([...((q&&q.done)||[]),fbUser.uid])];
+    await FS().updateDocument({reference:base,data:{done}});
+    await loadDuo(o);const d=duos[o];
+    if(d.theirs){Sfx.play("reveal","t");petals(30);hop();amisFlash="Vos réponses se dévoilent ✿"}else{Sfx.play("share");amisFlash="Réponse envoyée ✓ Elle restera cachée jusqu'à ce que ton amie réponde."}
+  }catch(e){fbErr=amisErr(e)}
+  renderAmis();
+}
+async function unanswerDuo(o){
+  const base=duoBase(o);
+  try{await fsDel(base+"/ans/"+fbUser.uid);const q=await fsGet(base);await FS().updateDocument({reference:base,data:{done:((q&&q.done)||[]).filter(x=>x!==fbUser.uid)}})}catch(e){fbErr=amisErr(e)}
+  await loadDuo(o);renderAmis();
+}
+async function heartDuo(o){
+  const d=duos[o];if(!d||!d.mine)return;
+  try{await fsSet(duoBase(o)+"/ans/"+fbUser.uid,{text:d.mine.text,at:d.mine.at||Date.now(),heart:!d.mine.heart});d.mine.heart=!d.mine.heart;Sfx.play(d.mine.heart?"sparkle":"tick")}catch(e){fbErr=amisErr(e)}
+  renderAmis();
+}
+async function reportDuo(o){
+  const d=duos[o];social.duoHide=social.duoHide||{};social.duoHide[pairId(o)+todayKey()]=true;saveSocial();
+  try{await fsSet("reports/"+fbUser.uid+"_"+Date.now(),{by:fbUser.uid,about:o,pair:pairId(o),day:todayKey(),at:Date.now()})}catch(e){}
+  amisFlash="Réponse masquée et signalée. Tu peux aussi retirer cette personne de tes amis.";renderAmis();
+}
+async function cleanupDuos(){
+  if(social.duoClean===todayKey())return;social.duoClean=todayKey();saveSocial();
+  const lim=new Date();lim.setDate(lim.getDate()-30);const L=keyOf(lim);
+  for(const f of amis.friends){
+    const p=pairId(f.uid);
+    try{const qs=await fsList("duos/"+p+"/q");for(const q of qs){if(q.id<L){const ops=[p.split("_")[0],p.split("_")[1]].map(u=>({type:"delete",reference:"duos/"+p+"/q/"+q.id+"/ans/"+u}));ops.push({type:"delete",reference:"duos/"+p+"/q/"+q.id});await FS().writeBatch({operations:ops}).catch(()=>{})}}}catch(e){}
+  }
+}
+function duoBox(fr){
+  const box=el("div","duo"),d=duos[fr.uid],p=pairId(fr.uid),key=p+todayKey();
+  const head=el("p","duo-h","Question partagée · ふたりのしつもん");box.append(head);
+  if(!d||!d.loaded){box.append(el("p","note","Un instant…"));return box}
+  if(!d.q){
+    if(duoOpen!==fr.uid){const b=el("button","ghost","✿ Poser une question à "+fr.name);b.onclick=()=>{duoOpen=fr.uid;renderAmis()};box.append(b);return box}
+    box.append(el("p","note","Choisis la question du jour :"));
+    duoChoices(fr.uid).forEach(qi=>{const b=el("button","duo-q",QDUO[qi]);b.onclick=()=>askDuo(fr.uid,qi);box.append(b)});
+    return box;
+  }
+  box.append(el("p","duo-question",QDUO[d.q.qi]||"✿"));
+  const theyDone=(d.q.done||[]).includes(fr.uid);
+  if(!d.mine){
+    if((social.duoSkip||{})[key]){const b=el("button","linkbtn","Répondre finalement");b.onclick=()=>{delete social.duoSkip[key];saveSocial();renderAmis()};box.append(el("p","note","Question passée pour aujourd'hui."),b);return box}
+    box.append(el("p","note",theyDone?fr.name+" a déjà répondu, à ton tour ✿ Sa réponse se dévoilera dès que tu auras répondu.":"Vos réponses se dévoileront quand vous aurez répondu toutes les deux."));
+    const ta=el("textarea","duo-ta");ta.maxLength=400;ta.placeholder="Ta réponse…";ta.setAttribute("aria-label","Ta réponse");box.append(ta);
+    const row=el("div","duo-row");const go=el("button","openbook","Répondre ✿");go.onclick=()=>answerDuo(fr.uid,ta.value);
+    const sk=el("button","linkbtn","Passer");sk.onclick=()=>{social.duoSkip=social.duoSkip||{};social.duoSkip[key]=true;saveSocial();amisBadge();renderAmis()};
+    row.append(go,sk);box.append(row);return box;
+  }
+  if(!d.theirs){
+    box.append(el("p","duo-wait","✓ Ta réponse est envoyée. En attente de "+fr.name+"…"));
+    const mine=el("div","duo-a me");mine.append(el("b",null,"Toi"),el("span",null,d.mine.text));box.append(mine);
+    const del=el("button","linkbtn","Supprimer ma réponse");del.onclick=()=>unanswerDuo(fr.uid);box.append(del);return box;
+  }
+  const hidden=(social.duoHide||{})[key];
+  const mk=(who,name,m,acc,text,cls)=>{const a=el("div","duo-a "+cls);const t=el("div","duo-at");t.append(mascotEl(m,acc,34),el("b",null,name));a.append(t,el("span",null,text));return a};
+  box.append(mk("me","Toi",curMascot(),wornAcc(),d.mine.text,"me"));
+  box.append(hidden?el("p","note","Réponse masquée."):mk("them",fr.name,fr.mascot,fr.acc,d.theirs.text,"them"));
+  const row=el("div","duo-row");
+  if(!hidden){const h=el("button","ghost",d.mine.heart?"♥ Tu as aimé":"♡ J'aime sa réponse");h.onclick=()=>heartDuo(fr.uid);row.append(h);
+    const r=el("button","linkbtn","Signaler");r.onclick=()=>{if(r.dataset.c)reportDuo(fr.uid);else{r.dataset.c="1";r.textContent="Masquer et signaler ?"}};row.append(r)}
+  if(d.theirs.heart)row.append(el("span","duo-love","♥ "+fr.name+" a aimé ta réponse"));
+  box.append(row);
+  const n=((social.book||{})[p]||[]).length;if(n){const c=el("button","linkbtn","📖 Notre carnet ("+n+")");c.onclick=()=>openDuoBook(fr);box.append(c)}
+  return box;
+}
+function openDuoBook(fr){const list=((social.book||{})[pairId(fr.uid)]||[]).slice().reverse();
+  openModal("Notre carnet à deux","ふたりのノート",()=>{const b=$("modalBody");b.innerHTML="";
+    b.append(el("p","note","Vos questions partagées, gardées sur ton téléphone ✿"));
+    list.forEach(e=>{const c=el("div","duo-page");c.append(el("p","duo-day",frDate(e.day,{weekday:"long",day:"numeric",month:"long"})),el("p","duo-question",QDUO[e.qi]||""));
+      const a=el("div","duo-a me");a.append(el("b",null,"Toi"),el("span",null,e.me));const t=el("div","duo-a them");t.append(el("b",null,fr.name),el("span",null,e.them));c.append(a,t);b.append(c)});
+  })}
 
 /* --- deep links from widgets --- */
 function routeUrl(url){
@@ -3234,7 +3369,7 @@ if(isNative){
     });
     A.addListener("appStateChange",({isActive})=>{
       if(!isActive){bgAt=Date.now();schedulePlan(0);pushWidget();if(fbUser)pushProfile(false)}
-      else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide()}
+      else{if(prefs.pinHash&&bgAt&&Date.now()-bgAt>60000)lockNow();if(current!==todayKey()&&bgAt&&new Date(bgAt).toDateString()!==new Date().toDateString())openDay(todayKey());invalidate();renderSide();if(fbUser)loadDuos()}
     });
   }
   try{PL_().SplashScreen&&PL_().SplashScreen.hide()}catch(e){}
@@ -3245,6 +3380,7 @@ schedulePlan(1500);
 {const v=store.getItem("nikki.view");if(v&&v!=="ecrire")showView(v)}
 updateBadges();
 fbInit();
+setInterval(()=>{if(fbUser&&curView==="amis"&&!document.hidden)loadDuos()},45000);
 
 /* ================= lettres au futur moi (タイムカプセル) ================= */
 function lettersAll(){return Array.isArray(coll.letters)?coll.letters:[]}
