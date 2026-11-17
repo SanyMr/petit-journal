@@ -23,6 +23,7 @@ public class ClockWidget extends AppWidgetProvider {
         boolean today = WidgetData.writtenToday(j);
         v.setTextViewText(R.id.w_status, today ? "✓ Page du jour écrite" : "✎ Ta page du jour t'attend");
         v.setTextColor(R.id.w_status, today ? c.getColor(R.color.w_muted) : c.getColor(R.color.w_accent));
+        WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "ecrire", 21));
         m.updateAppWidget(id, v);
     }

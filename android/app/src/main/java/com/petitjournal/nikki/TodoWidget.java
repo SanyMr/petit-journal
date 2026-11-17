@@ -40,6 +40,7 @@ public class TodoWidget extends AppWidgetProvider {
         int more = total - shown;
         v.setTextViewText(R.id.w_more, more > 0 ? "+ " + more + (more > 1 ? " autres" : " autre") : "");
         v.setViewVisibility(R.id.w_more, more > 0 ? View.VISIBLE : View.GONE);
+        WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "todo", 41));
         m.updateAppWidget(id, v);
     }

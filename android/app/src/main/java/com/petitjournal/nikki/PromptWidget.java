@@ -27,6 +27,7 @@ public class PromptWidget extends AppWidgetProvider {
         v.setTextViewText(R.id.w_btn, today ? "Répondu ✓ À demain" : "Écrire ✎");
         v.setInt(R.id.w_btn, "setBackgroundResource", today ? R.drawable.widget_pill_soft : R.drawable.widget_pill);
         v.setTextColor(R.id.w_btn, today ? c.getColor(R.color.w_muted) : c.getColor(R.color.w_on_accent));
+        WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "ecrire", 31));
         m.updateAppWidget(id, v);
     }

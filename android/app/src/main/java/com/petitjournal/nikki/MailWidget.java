@@ -92,9 +92,7 @@ public class MailWidget extends AppWidgetProvider {
             v.setViewVisibility(R.id.w_band_lbl, View.VISIBLE);
             v.setTextViewText(R.id.w_band_lbl, "Ma bande · " + wrote + "/" + Math.min(friends, n) + (wrote > 1 ? " ont écrit" : " a écrit") + " aujourd'hui");
         }
-        String season = season();
-        v.setImageViewResource(R.id.w_art_br, c.getResources().getIdentifier("w_art_" + season + "_br", "drawable", c.getPackageName()));
-        v.setImageViewResource(R.id.w_art_tr, c.getResources().getIdentifier("w_art_" + season + "_tr", "drawable", c.getPackageName()));
+        WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "amis", 40));
         m.updateAppWidget(id, v);
     }

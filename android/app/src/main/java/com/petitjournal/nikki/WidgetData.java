@@ -74,6 +74,22 @@ final class WidgetData {
         return "Douce nuit ✿";
     }
 
+    /** Japanese seasons: haru (spring), natsu (summer), aki (autumn), fuyu (winter). */
+    static String season() {
+        int mo = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        if (mo >= 3 && mo <= 5) return "haru";
+        if (mo >= 6 && mo <= 8) return "natsu";
+        if (mo >= 9 && mo <= 11) return "aki";
+        return "fuyu";
+    }
+
+    /** Seasonal corner art (sakura, seigaiha waves, momiji, snow) on a widget. */
+    static void seasonArt(Context c, android.widget.RemoteViews v) {
+        String s = season();
+        v.setImageViewResource(R.id.w_art_br, c.getResources().getIdentifier("w_art_" + s + "_br", "drawable", c.getPackageName()));
+        v.setImageViewResource(R.id.w_art_tr, c.getResources().getIdentifier("w_art_" + s + "_tr", "drawable", c.getPackageName()));
+    }
+
     static void refreshAll(Context c) {
         AppWidgetManager m = AppWidgetManager.getInstance(c);
         for (int id : m.getAppWidgetIds(new ComponentName(c, NikkiWidget.class))) NikkiWidget.render(c, m, id);

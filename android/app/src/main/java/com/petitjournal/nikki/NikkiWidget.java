@@ -60,6 +60,7 @@ public class NikkiWidget extends AppWidgetProvider {
         else if (s > 0) msg = "Ta flamme t'attend ce soir ✿";
         else msg = "Une page aujourd'hui pour allumer ta flamme ✿";
         v.setTextViewText(R.id.w_msg, msg);
+        WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "flamme", 11));
         m.updateAppWidget(id, v);
     }

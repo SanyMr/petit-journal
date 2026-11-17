@@ -596,6 +596,35 @@ input,textarea,select{font-size:16px}
 .amis-foot .note{width:100%;margin:0}.linkbtn.danger{color:var(--shu)}
 .tab span{white-space:nowrap}
 #amisCode::placeholder{text-transform:none}
+/* lettres au futur moi */
+.letter{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:color-mix(in srgb,var(--sakura) 10%,var(--card));border:1.5px solid var(--line);border-radius:16px;padding:8px 12px;margin:8px 0 0;color:var(--ink);font:inherit}
+.letter svg{width:64px;height:54px;flex:none}.letter b{display:block;font-size:14px}.letter small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.letter.ready{border-color:var(--sakura-deep);background:color-mix(in srgb,var(--sakura) 26%,var(--card));animation:lglow 2.2s ease-in-out infinite}
+.letter.ready b{color:var(--sakura-deep)}
+@keyframes lglow{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--sakura) 35%,transparent)}}
+.lettreta{width:100%;min-height:200px;border:2px solid var(--line);border-radius:16px;padding:12px 14px;font:inherit;font-size:16px;line-height:1.7;background:var(--paper);color:var(--ink);resize:vertical;margin-top:10px;box-sizing:border-box}
+.seals{display:flex;gap:10px}.sealbtn{display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px 6px 6px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);min-height:40px}
+.sealbtn i{width:24px;height:24px;border-radius:50%;display:block}.sealbtn[aria-pressed="true"]{border-color:var(--sakura-deep);background:color-mix(in srgb,var(--sakura) 20%,var(--card))}
+.sealing,.opening{text-align:center;padding:10px 0}.sealing .env,.opening .env{width:200px;height:170px;display:block;margin:0 auto 6px}
+.env.stamping .seal{transform-origin:60px 70px;animation:stampin .5s cubic-bezier(.3,1.6,.5,1) .3s both}
+@keyframes stampin{from{transform:scale(2.4);opacity:0}to{transform:scale(1);opacity:1}}
+.env.breaking .seal{transform-origin:60px 70px;animation:sealbreak .6s ease-in forwards}
+@keyframes sealbreak{30%{transform:scale(1.15) rotate(-8deg)}100%{transform:scale(.2) rotate(40deg);opacity:0}}
+.env.rise .paper{animation:paperup .8s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes paperup{from{transform:translateY(28px)}to{transform:translateY(0)}}
+.opening.done{display:none}
+.lpaper{background:#fffdf8;color:#4b3a47;border-radius:14px;padding:18px 20px;box-shadow:0 8px 24px rgba(120,50,80,.15);background-image:repeating-linear-gradient(transparent 0 31px,#f6e3ea 31px 32px);animation:paperup .6s ease both}
+.lhead{font-weight:700;color:#b5506d;margin:0 0 10px;font-size:14px}.ltext{white-space:pre-wrap;font-size:17px;line-height:32px;font-family:'Kiwi Maru',serif}.lfoot{text-align:right;margin:14px 0 0;color:#9b8594;font-size:13px}
+@media (prefers-reduced-motion: reduce){.letter.ready,.env *{animation:none!important}}
+/* événement de saison */
+.evban{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;text-align:left;font:inherit;color:var(--ink);border:2px dashed color-mix(in srgb,var(--sakura-deep) 55%,transparent);background:color-mix(in srgb,var(--sakura) 14%,var(--card));border-radius:16px;padding:8px 12px}
+.evban .evst{display:flex;flex:none}.evban .stk{width:44px;height:44px;display:block}.evban .stk svg{width:100%;height:100%}
+.evban b{display:block;font-size:14px}.evban small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.evnote{background:color-mix(in srgb,var(--sakura) 14%,var(--card));border-radius:12px;padding:8px 12px;margin:0 0 10px;font-size:13px}
+/* mode doux */
+.doux{display:block;margin:-4px 0 0;font-size:14px}
+.douxarea{display:grid;gap:8px;margin-top:12px}
+.douxin{width:100%;box-sizing:border-box;border:2px solid var(--line);border-radius:999px;padding:10px 16px;font:inherit;font-size:16px;background:var(--paper);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -638,6 +667,7 @@ input,textarea,select{font-size:16px}
 
       <div class="starters" id="starters" aria-label="Débuts de phrase"></div>
 
+      <button class="linkbtn doux" id="douxBtn" type="button">☾ Pas d'énergie ce soir ? Écris en 30 secondes</button>
       <label for="text" class="label" style="margin:0">Ma page</label>
       <textarea id="text" placeholder="Écris ici… même trois lignes, c'est déjà très bien ✿"></textarea>
       <div class="tagsline" id="tagsLine"></div>
@@ -708,6 +738,7 @@ input,textarea,select{font-size:16px}
       <button class="bigbtn" id="bilanBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12M12 20V5M19 20v-6"/></svg><span><b>Mon bilan</b><small>Humeurs et mots</small></span></button>
     </div>
     <div class="chips"><span class="chip"><span class="num" id="total">0</span> <span id="totalLbl">pages écrites</span></span></div>
+      <section class="card" id="lettersCard"></section>
       <section class="card">
         <h2>Calendrier <span class="jp">カレンダー</span></h2>
         <div class="calnav"><button id="prevM" aria-label="Mois précédent">‹</button><span id="monthLbl"></span><button id="nextM" aria-label="Mois suivant">›</button></div>
@@ -745,7 +776,7 @@ input,textarea,select{font-size:16px}
   <button class="tab" role="tab" data-v="ecrire" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20z"/><path d="M14 7l3 3"/></svg><span>Écrire</span></button>
   <button class="tab" role="tab" data-v="deco" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v9l-6 7H5z"/><path d="M19 13h-6v7"/></svg><span>Déco</span></button>
   <button class="tab" role="tab" data-v="recomp" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><circle cx="12" cy="12" r="2.2"/></svg><span>Gacha</span><i class="badge" id="badgeRecomp" hidden></i></button>
-  <button class="tab" role="tab" data-v="journal" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span>Journal</span></button>
+  <button class="tab" role="tab" data-v="journal" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span>Journal</span><i class="badge" id="badgeJournal" hidden></i></button>
   <button class="tab" role="tab" data-v="todo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg><span>To-do</span><i class="badge" id="badgeTodo" hidden></i></button>
   <button class="tab" role="tab" data-v="amis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18.5 14.4c1.2.8 1.9 2.4 2.1 4.6"/></svg><span>Amis</span><i class="badge" id="badgeAmis" hidden></i></button>
 </nav>
@@ -907,6 +938,26 @@ const eyes2=(y,c="#4b3a47",dx=10)=>`<circle cx="${50-dx}" cy="${y}" r="3.2" fill
 const cheeks=(y,dx=18)=>`<ellipse cx="${50-dx}" cy="${y}" rx="5" ry="3" fill="#f58fab" opacity=".6"/><ellipse cx="${50+dx}" cy="${y}" rx="5" ry="3" fill="#f58fab" opacity=".6"/>`;
 const MOCHI=(f,s,top)=>`<path d="M12 72C12 40 30 26 50 26S88 40 88 72C88 84 70 88 50 88S12 84 12 72Z" fill="${f}" stroke="${s}" stroke-width="2.5"/>${top}`+kf(50,62,.8);
 
+/* ---------- événements de saison (édition limitée) ---------- */
+const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const EVENTS=[
+ {m:1,id:"shogatsu",name:"Shōgatsu",jp:"おしょうがつ",k:"餅",kana:"もち · mochi",sname:"Nouvelle année douce",mean:"Une année toute neuve commence, pleine de pages à écrire.",st:["kadomatsu","kagamiMochi"]},
+ {m:2,id:"setsubun",name:"Setsubun",jp:"せつぶん",k:"豆",kana:"まめ · mame",sname:"Oni dehors !",mean:"Oni wa soto, fuku wa uchi : le bonheur entre chez toi.",st:["oniRouge","masuMame"]},
+ {m:3,id:"hina",name:"Hina matsuri",jp:"ひなまつり",k:"雛",kana:"ひな · hina",sname:"Poupées de mars",mean:"La fête des poupées veille sur toi.",st:["hishiMochi","hinaPoupees"]},
+ {m:4,id:"hanami",name:"Hanami",jp:"はなみ",k:"宴",kana:"うたげ · utage",sname:"Pique-nique sakura",mean:"Un pique-nique sous les cerisiers en fleurs.",st:["bentoHanami","chochinSakura"]},
+ {m:5,id:"kodomo",name:"Kodomo no hi",jp:"こどものひ",k:"鯉",kana:"こい · koi",sname:"Carpes du printemps",mean:"Comme les carpes, tu remontes le courant.",st:["kabuto","koinobori"]},
+ {m:6,id:"tsuyu",name:"Tsuyu",jp:"つゆ",k:"紫",kana:"あじさい · ajisai",sname:"Hortensias sous la pluie",mean:"Même sous la pluie, les hortensias fleurissent.",st:["teruTeru","ajisai"]},
+ {m:7,id:"tanabata",name:"Tanabata",jp:"たなばた",k:"願",kana:"ねがい · negai",sname:"Vœu des étoiles",mean:"Ton vœu est accroché au bambou.",st:["tanzaku","hoshiDuo"]},
+ {m:8,id:"natsu",name:"Natsu matsuri",jp:"なつまつり",k:"火",kana:"はなび · hanabi",sname:"Feu d'artifice",mean:"Un été qui brille dans le ciel.",st:["kingyo","hanabi"]},
+ {m:9,id:"tsukimi",name:"Tsukimi",jp:"つきみ",k:"兎",kana:"うさぎ · usagi",sname:"Lapin de la lune",mean:"Le lapin de la lune prépare des mochi pour toi.",st:["dangoLune","susukiLune"]},
+ {m:10,id:"halloween",name:"Halloween",jp:"ハロウィン",k:"瓜",kana:"かぼちゃ · kabocha",sname:"Nuit des citrouilles",mean:"Une nuit de frissons tout mignons.",st:["citrouille","chatSorciere"]},
+ {m:11,id:"momiji",name:"Momiji-gari",jp:"もみじがり",k:"楓",kana:"かえで · kaede",sname:"Érables d'automne",mean:"Tu as cueilli les couleurs de l'automne.",st:["momijiFeuille","kaki"]},
+ {m:12,id:"fuyu",name:"Fuyu no matsuri",jp:"ふゆのまつり",k:"雪",kana:"ゆき · yuki",sname:"Premier flocon",mean:"L'hiver est doux quand on écrit au chaud.",st:["yukidaruma","gateauFraise"]}
+];
+function curEvent(d){const m=(d||new Date()).getMonth()+1;return EVENTS.find(e=>e.m===m)}
+function eventDaysLeft(){const d=new Date(),end=new Date(d.getFullYear(),d.getMonth()+1,0,23,59);return Math.max(1,Math.ceil((end-d)/864e5))}
+const evById=id=>EVENTS.find(e=>e.id===id);
+const SEALS=[{id:"sakura",name:"Sakura",c:"#e86f93",c2:"#ffb6c9"},{id:"fuji",name:"Fuji",c:"#3f86d8",c2:"#a9cdea"},{id:"kin",name:"Or",c:"#d49a0e",c2:"#ffe08a"}];
 const STICKERS=[
   /* départ */
   {id:"sakura",name:"Sakura",r:"c",src:"start",b:SAKURA("#ffc2d1","#f59ab3","#ff8fab")},
@@ -1021,11 +1072,36 @@ const STICKERS=[
   {id:"phenix",name:"Hō-ō le phénix",r:"l",src:"excl",by:"hoo",b:`<path d="M58 62q22 8 34 32" stroke="#ffb347" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M54 66q10 18 12 30" stroke="#ffd66b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M62 56q22-2 34 12" stroke="#ff6b7a" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M30 52Q10 30 20 18Q34 30 40 46Z" fill="#ffb347" stroke="#f08a3c" stroke-width="2"/><circle cx="46" cy="54" r="20" fill="#ff8a80" stroke="#f0675c" stroke-width="2.5"/><circle cx="44" cy="30" r="12" fill="#ff8a80" stroke="#f0675c" stroke-width="2.5"/><path d="M38 20q-4-12 4-18M44 18q2-12 12-14M48 20q8-8 16-4" stroke="#ffd66b" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M32 30l-8 3 8 3z" fill="#ffd34d"/><circle cx="40" cy="28" r="2.4" fill="#4b3a47"/><ellipse cx="46" cy="34" rx="3" ry="2" fill="#ffd0e0"/><circle cx="46" cy="54" r="10" fill="url(#gHolo)" opacity=".7"/>`+spark(84,18)+spark(14,72,.7)},
   {id:"fujiOr",name:"Fuji au soleil levant",r:"l",src:"excl",by:"shu",b:`<circle cx="50" cy="50" r="42" fill="url(#gHolo)"/><circle cx="50" cy="54" r="24" fill="#ff8a80" opacity=".85"/><polygon points="6,90 38,40 62,40 94,90" fill="#5f88c0" stroke="#4a6fa5" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 40h24l9 15-7-3-7 6-7-6-7 6-7-6-7 3z" fill="#fff"/><path d="M6 90H94" stroke="#4a6fa5" stroke-width="3"/>`+spark(18,20)+spark(84,16,.8)},
   {id:"kirin",name:"Kirin céleste",r:"l",src:"excl",by:"kirin",b:`<path d="M50 24L46 2L56 20Z" fill="url(#gHolo)" stroke="#e0a21b" stroke-width="1.5"/><path d="M18 40q-12 6-6 20q-10 6-2 18M82 40q12 6 6 20q10 6 2 18" stroke="#ff9a6b" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="54" rx="32" ry="30" fill="url(#gGold)" stroke="#d4a017" stroke-width="2.5"/><ellipse cx="22" cy="40" rx="10" ry="5" fill="url(#gGold)" stroke="#d4a017" stroke-width="1.5" transform="rotate(-30 22 40)"/><ellipse cx="78" cy="40" rx="10" ry="5" fill="url(#gGold)" stroke="#d4a017" stroke-width="1.5" transform="rotate(30 78 40)"/><ellipse cx="50" cy="70" rx="16" ry="10" fill="#fff3d0"/><circle cx="45" cy="68" r="1.8" fill="#b9861a"/><circle cx="55" cy="68" r="1.8" fill="#b9861a"/>`+eyes2(52,"#4b3a47",11)+cheeks(62,20)+spark(12,14)+spark(88,88,.8)},
-  {id:"baku",name:"Baku mange-rêves",r:"l",src:"excl",by:"koyomi",b:`<path d="M10 84a12 12 0 0 1 14-14a16 16 0 0 1 28-4a12 12 0 0 1 20 10h10a8 8 0 0 1 0 16H18a8 8 0 0 1-8-8z" fill="#fff" stroke="#e3dcf0" stroke-width="2"/><ellipse cx="34" cy="34" rx="7" ry="10" fill="#c9b5ff" stroke="#a88df0" stroke-width="2"/><ellipse cx="66" cy="34" rx="7" ry="10" fill="#c9b5ff" stroke="#a88df0" stroke-width="2"/><circle cx="50" cy="52" r="26" fill="#c9b5ff" stroke="#a88df0" stroke-width="2.5"/><path d="M50 64q-2 14-12 18q-6 2-6-4" stroke="#c9b5ff" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M38 50q4 3 8 0M54 50q4 3 8 0" stroke="#4b3a47" stroke-width="2.2" fill="none" stroke-linecap="round"/>`+cheeks(58,16)+`<text x="74" y="26" font-size="12" fill="#a88df0" font-family="'Kiwi Maru',sans-serif">z</text><text x="82" y="16" font-size="9" fill="#a88df0" font-family="'Kiwi Maru',sans-serif">z</text>`+spark(14,24,.8)+spark(88,50,.6)}
+  {id:"baku",name:"Baku mange-rêves",r:"l",src:"excl",by:"koyomi",b:`<path d="M10 84a12 12 0 0 1 14-14a16 16 0 0 1 28-4a12 12 0 0 1 20 10h10a8 8 0 0 1 0 16H18a8 8 0 0 1-8-8z" fill="#fff" stroke="#e3dcf0" stroke-width="2"/><ellipse cx="34" cy="34" rx="7" ry="10" fill="#c9b5ff" stroke="#a88df0" stroke-width="2"/><ellipse cx="66" cy="34" rx="7" ry="10" fill="#c9b5ff" stroke="#a88df0" stroke-width="2"/><circle cx="50" cy="52" r="26" fill="#c9b5ff" stroke="#a88df0" stroke-width="2.5"/><path d="M50 64q-2 14-12 18q-6 2-6-4" stroke="#c9b5ff" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M38 50q4 3 8 0M54 50q4 3 8 0" stroke="#4b3a47" stroke-width="2.2" fill="none" stroke-linecap="round"/>`+cheeks(58,16)+`<text x="74" y="26" font-size="12" fill="#a88df0" font-family="'Kiwi Maru',sans-serif">z</text><text x="82" y="16" font-size="9" fill="#a88df0" font-family="'Kiwi Maru',sans-serif">z</text>`+spark(14,24,.8)+spark(88,50,.6)},
+  /* édition limitée : événements de saison */
+  {id:"kadomatsu",name:"Kadomatsu",r:"r",src:"event",ev:"shogatsu",b:`<path d="M30 92V40L38 30V92Z" fill="#7cc576" stroke="#4f9c4a" stroke-width="2"/><path d="M44 92V28L54 16V92Z" fill="#8fd38a" stroke="#4f9c4a" stroke-width="2"/><path d="M60 92V44L68 36V92Z" fill="#7cc576" stroke="#4f9c4a" stroke-width="2"/><circle cx="24" cy="64" r="8" fill="#4f9c4a"/><circle cx="76" cy="64" r="8" fill="#4f9c4a"/><circle cx="30" cy="58" r="5" fill="#ff8fab"/><rect x="20" y="68" width="60" height="24" rx="5" fill="#e3b27a" stroke="#b9854d" stroke-width="2"/><path d="M20 76h60M20 84h60" stroke="#b9854d" stroke-width="1.5"/>`+kf(50,79,.5)},
+  {id:"kagamiMochi",name:"Kagami mochi",r:"t",src:"event",ev:"shogatsu",b:`<rect x="22" y="80" width="56" height="12" rx="3" fill="#e8524a"/><ellipse cx="50" cy="70" rx="34" ry="14" fill="#fff" stroke="#e6dccf" stroke-width="2.5"/><ellipse cx="50" cy="51" rx="25" ry="12" fill="#fff" stroke="#e6dccf" stroke-width="2.5"/><circle cx="50" cy="33" r="10" fill="#ffa53d" stroke="#f08a1d" stroke-width="2"/><path d="M50 23q5-7 11-5q-4 6-11 5z" fill="#6cbf6a"/>`+kf(50,68,.6)+spark(84,22)},
+  {id:"oniRouge",name:"Petit oni",r:"r",src:"event",ev:"setsubun",b:`<path d="M30 32L24 8L42 26Z M70 32L76 8L58 26Z" fill="#ffd66b" stroke="#e0b030" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="58" r="34" fill="#ff8a7a" stroke="#e8524a" stroke-width="2.5"/><path d="M20 46q6-18 30-18t30 18q-7-5-13 0q-4-7-11-3q-6-6-12 0q-7-4-11 3q-6-5-13 0z" fill="#4b3a47"/>`+kf(50,62,.95)},
+  {id:"masuMame",name:"Haricots porte-bonheur",r:"t",src:"event",ev:"setsubun",b:`${[30,42,54,66,36,48,60].map((x,i)=>`<circle cx="${x}" cy="${i<4?36:28}" r="7.5" fill="#f6d9a0" stroke="#d9b06a" stroke-width="1.5"/>`).join("")}<path d="M16 40H84L78 92H22Z" fill="#e8c08a" stroke="#b9854d" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 40H84" stroke="#b9854d" stroke-width="5" stroke-linecap="round"/>`+kf(50,66,.8)+spark(86,16)},
+  {id:"hishiMochi",name:"Hishi mochi",r:"r",src:"event",ev:"hina",b:`<path d="M14 58L50 72L86 58L86 70L50 84L14 70Z" fill="#9cd39a" stroke="#6cb46a" stroke-width="2" stroke-linejoin="round"/><path d="M14 46L50 60L86 46L86 58L50 72L14 58Z" fill="#fff" stroke="#e0d6dc" stroke-width="2" stroke-linejoin="round"/><path d="M50 20L86 34L86 46L50 60L14 46L14 34Z" fill="#ffb6c9" stroke="#e86f93" stroke-width="2" stroke-linejoin="round"/><path d="M14 34L50 48L86 34" fill="none" stroke="#e86f93" stroke-width="2"/>`+kf(50,36,.45)},
+  {id:"hinaPoupees",name:"Poupées Hina",r:"t",src:"event",ev:"hina",b:`<path d="M12 94L20 58H48L54 94Z" fill="#4f6fb0" stroke="#3a548a" stroke-width="2" stroke-linejoin="round"/><circle cx="34" cy="46" r="14" fill="#fff6ee" stroke="#e6d4c4" stroke-width="2"/><path d="M28 32h12l-2-12h-8z" fill="#3b3b45"/><path d="M46 94L54 58H82L88 94Z" fill="#ff7a6b" stroke="#e8524a" stroke-width="2" stroke-linejoin="round"/><circle cx="68" cy="46" r="14" fill="#fff6ee" stroke="#e6d4c4" stroke-width="2"/><path d="M54 44q14-22 28 0q-4-10-14-10t-14 10z" fill="#3b3b45"/><path d="M62 30l6-9 6 9" fill="#ffd66b"/>`+kf(34,48,.45)+kf(68,48,.45)+spark(50,16)},
+  {id:"bentoHanami",name:"Bento du hanami",r:"r",src:"event",ev:"hanami",b:`<rect x="10" y="28" width="80" height="60" rx="10" fill="#3b3b45"/><rect x="16" y="34" width="68" height="48" rx="6" fill="#e8524a"/><rect x="20" y="38" width="30" height="40" rx="4" fill="#fff"/><rect x="54" y="38" width="26" height="18" rx="4" fill="#ffe08a"/><rect x="54" y="60" width="26" height="18" rx="4" fill="#9cd39a"/><circle cx="35" cy="46" r="3.5" fill="#ff8fab"/>`+kf(35,60,.6)},
+  {id:"chochinSakura",name:"Lanterne sakura",r:"t",src:"event",ev:"hanami",b:`<rect x="46" y="4" width="8" height="8" fill="#3b3b45"/><rect x="30" y="12" width="40" height="7" rx="2" fill="#3b3b45"/><ellipse cx="50" cy="50" rx="30" ry="32" fill="#ffb6c9" stroke="#e86f93" stroke-width="2.5"/><path d="M22 38h56M20 50h60M22 62h56" stroke="#e86f93" stroke-width="1.5" opacity=".5"/><rect x="30" y="80" width="40" height="7" rx="2" fill="#3b3b45"/><g transform="translate(66 22) scale(.32) translate(-50 -52)">${SAKURA("#fff","#ffd0dc","#ff8fab")}</g>`+kf(50,54,.75)+spark(14,20)},
+  {id:"kabuto",name:"Kabuto en origami",r:"r",src:"event",ev:"kodomo",b:`<path d="M30 46L16 12L46 38Z M70 46L84 12L54 38Z" fill="#ffd66b" stroke="#e0b030" stroke-width="2" stroke-linejoin="round"/><path d="M14 72Q50 18 86 72Z" fill="#6fa8f0" stroke="#3f86d8" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 72h84l-10 16H18z" fill="#3f86d8" stroke="#2f6fbf" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="50" r="7" fill="#ffd66b" stroke="#e0b030" stroke-width="2"/>`+kf(50,66,.5)},
+  {id:"koinobori",name:"Koinobori",r:"t",src:"event",ev:"kodomo",b:`<path d="M14 6V96" stroke="#b9854d" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="6" r="4.5" fill="#ffd66b"/><path d="M16 16H80L92 27L80 38H16Z" fill="#6fa8f0" stroke="#3f86d8" stroke-width="2" stroke-linejoin="round"/><circle cx="27" cy="27" r="6" fill="#fff"/><circle cx="27" cy="27" r="3" fill="#3b3b45"/><path d="M42 20q6 7 0 14M56 20q6 7 0 14M70 20q6 7 0 14" stroke="#fff" stroke-width="2.2" fill="none"/><path d="M16 50H72L84 61L72 72H16Z" fill="#ff7a6b" stroke="#e8524a" stroke-width="2" stroke-linejoin="round"/><circle cx="27" cy="61" r="6" fill="#fff"/><circle cx="27" cy="61" r="3" fill="#3b3b45"/><path d="M42 54q6 7 0 14M56 54q6 7 0 14" stroke="#fff" stroke-width="2.2" fill="none"/>`+spark(84,86)},
+  {id:"teruTeru",name:"Teru teru bōzu",r:"r",src:"event",ev:"tsuyu",b:`<path d="M50 2V18" stroke="#b9b9c6" stroke-width="2"/><circle cx="50" cy="36" r="19" fill="#fff" stroke="#d6d6e6" stroke-width="2.5"/><path d="M35 50Q28 76 20 92H80Q72 76 65 50" fill="#fff" stroke="#d6d6e6" stroke-width="2.5" stroke-linejoin="round"/><path d="M36 53h28" stroke="#6fa8f0" stroke-width="4" stroke-linecap="round"/><path d="M14 30l-3 7M86 44l-3 7M20 64l-3 7" stroke="#9cc3e6" stroke-width="3" stroke-linecap="round"/>`+kf(50,38,.6)},
+  {id:"ajisai",name:"Hortensia",r:"t",src:"event",ev:"tsuyu",b:`<path d="M22 84Q8 66 30 58Q34 78 22 84Z" fill="#7cc576" stroke="#4f9c4a" stroke-width="2"/><path d="M78 84Q92 66 70 58Q66 78 78 84Z" fill="#7cc576" stroke="#4f9c4a" stroke-width="2"/>${[[50,22],[34,30],[66,30],[26,46],[50,40],[74,46],[36,60],[64,60],[50,68],[50,54]].map(([x,y],i)=>`<g transform="translate(${x} ${y})">${[0,90,180,270].map(a=>`<ellipse cx="0" cy="-5" rx="4.5" ry="6" fill="${["#a9b8f0","#c6a9f0","#9cc3e6"][i%3]}" stroke="#8a8fd8" stroke-width=".8" transform="rotate(${a})"/>`).join("")}<circle r="2" fill="#fff"/></g>`).join("")}`+kf(50,47,.5)+spark(88,16)},
+  {id:"tanzaku",name:"Vœux de Tanabata",r:"r",src:"event",ev:"tanabata",b:`<path d="M50 4V96" stroke="#6cb46a" stroke-width="5" stroke-linecap="round"/><path d="M50 28Q30 18 14 24Q30 36 50 32M50 48Q72 38 88 44Q70 56 50 52M50 70Q30 62 18 68Q32 78 50 74" fill="#9cd39a" stroke="#6cb46a" stroke-width="2"/><rect x="24" y="30" width="13" height="32" rx="2" fill="#ff8fab"/><rect x="62" y="52" width="13" height="32" rx="2" fill="#6fa8f0"/><rect x="38" y="60" width="11" height="28" rx="2" fill="#ffd66b"/>`+kf(30,44,.35)},
+  {id:"hoshiDuo",name:"Orihime et Hikoboshi",r:"t",src:"event",ev:"tanabata",b:`<path d="M2 84Q50 44 98 18" stroke="#c7ddf2" stroke-width="18" fill="none" stroke-linecap="round" opacity=".85"/><polygon points="${starPts(28,38,22,10)}" fill="#ffb6c9" stroke="#e86f93" stroke-width="2" stroke-linejoin="round"/><polygon points="${starPts(72,66,22,10)}" fill="#8fbaf2" stroke="#3f86d8" stroke-width="2" stroke-linejoin="round"/>`+kf(28,41,.42)+kf(72,69,.42)+spark(52,22)+spark(86,30,.7)},
+  {id:"kingyo",name:"Poisson rouge de la fête",r:"r",src:"event",ev:"natsu",b:`<path d="M44 16h12l-2 8q30 14 30 42a32 28 0 0 1-64 0q0-28 30-42z" fill="#e6f4ff" stroke="#9cc3e6" stroke-width="2.5" stroke-linejoin="round"/><path d="M42 18h16" stroke="#ff8fab" stroke-width="4" stroke-linecap="round"/><path d="M28 66q10-14 26-6l10-8-2 12 2 12-10-8q-16 8-26-2z" fill="#ff7a6b" stroke="#e8524a" stroke-width="2" stroke-linejoin="round"/><circle cx="35" cy="64" r="2.5" fill="#3b3b45"/><circle cx="62" cy="42" r="3" fill="#fff" stroke="#9cc3e6"/><circle cx="56" cy="34" r="2" fill="#fff" stroke="#9cc3e6"/>`},
+  {id:"hanabi",name:"Hanabi",r:"t",src:"event",ev:"natsu",b:`<circle cx="50" cy="50" r="46" fill="#2e2850"/>${[...Array(12)].map((_,i)=>{const a=i*Math.PI/6,c=["#ffb6c9","#ffd66b","#8fbaf2","#9cd39a"][i%4];return `<path d="M${(50+Math.cos(a)*12).toFixed(1)} ${(50+Math.sin(a)*12).toFixed(1)}L${(50+Math.cos(a)*34).toFixed(1)} ${(50+Math.sin(a)*34).toFixed(1)}" stroke="${c}" stroke-width="3.5" stroke-linecap="round"/><circle cx="${(50+Math.cos(a)*40).toFixed(1)}" cy="${(50+Math.sin(a)*40).toFixed(1)}" r="3.5" fill="${c}"/>`}).join("")}<circle cx="50" cy="50" r="7" fill="#fff6c2"/>`+spark(20,20,.8)+spark(82,80,.7)},
+  {id:"dangoLune",name:"Dango de la lune",r:"r",src:"event",ev:"tsukimi",b:`<path d="M24 92h52l-7-14H31z" fill="#e3b27a" stroke="#b9854d" stroke-width="2" stroke-linejoin="round"/>${[[36,70],[50,70],[64,70],[43,57],[57,57],[50,44]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="8.5" fill="#fff" stroke="#e6dccf" stroke-width="2"/>`).join("")}<circle cx="80" cy="22" r="13" fill="url(#gGold)" stroke="#f2c94c" stroke-width="1.5"/>`+kf(50,45,.35)},
+  {id:"susukiLune",name:"Lune et susuki",r:"t",src:"event",ev:"tsukimi",b:`<circle cx="56" cy="42" r="34" fill="url(#gGold)" stroke="#f2c94c" stroke-width="2"/><path d="M18 96Q24 60 12 30M28 96Q30 66 38 40M38 96Q36 72 26 54" stroke="#c9a46a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M12 30q-5 10 2 17M38 40q7 8 0 17M26 54q-7 6-2 15" stroke="#efdcb0" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="56" rx="11" ry="9" fill="#fff"/><ellipse cx="61" cy="42" rx="3.5" ry="9" fill="#fff"/><ellipse cx="69" cy="42" rx="3.5" ry="9" fill="#fff"/>`+kf(66,57,.32)+spark(20,14,.8)},
+  {id:"citrouille",name:"Citrouille kawaii",r:"r",src:"event",ev:"halloween",b:`<path d="M50 26q2-14 12-16" stroke="#6cb46a" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="33" cy="60" rx="22" ry="28" fill="#ffa53d" stroke="#f08a1d" stroke-width="2.5"/><ellipse cx="67" cy="60" rx="22" ry="28" fill="#ffa53d" stroke="#f08a1d" stroke-width="2.5"/><ellipse cx="50" cy="60" rx="20" ry="30" fill="#ffb85c" stroke="#f08a1d" stroke-width="2.5"/>`+kf(50,62,.8)},
+  {id:"chatSorciere",name:"Chat sorcier",r:"t",src:"event",ev:"halloween",b:`<path d="M22 94Q18 58 30 48L26 32L40 42Q50 38 60 42L74 32L70 48Q82 58 78 94Z" fill="#3b3b45" stroke="#2a2a33" stroke-width="2" stroke-linejoin="round"/><path d="M28 36L50 2L72 36Z" fill="#8a6bd1" stroke="#6a4fb0" stroke-width="2" stroke-linejoin="round"/><ellipse cx="50" cy="36" rx="30" ry="6" fill="#8a6bd1" stroke="#6a4fb0" stroke-width="2"/><rect x="40" y="27" width="20" height="5" fill="#ffd66b"/>`+kf(50,66,.7,"#ffd66b")+spark(84,16)},
+  {id:"momijiFeuille",name:"Feuille de momiji",r:"r",src:"event",ev:"momiji",b:`<path d="M50 70V96" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/><polygon points="${starPts(50,48,44,19,7)}" fill="#ff6b5e" stroke="#d94a3d" stroke-width="2.5" stroke-linejoin="round"/>`+kf(50,52,.65)},
+  {id:"kaki",name:"Kaki d'automne",r:"t",src:"event",ev:"momiji",b:`<circle cx="50" cy="58" r="34" fill="#ff9a3d" stroke="#ef7d1a" stroke-width="2.5"/><path d="M50 26L34 18L40 30L26 32L40 38M50 26L66 18L60 30L74 32L60 38" fill="#6cb46a" stroke="#4f9c4a" stroke-width="2" stroke-linejoin="round"/><rect x="47" y="12" width="6" height="12" rx="2" fill="#8a5a3c"/>`+kf(50,62,.85)+spark(86,84,.8)},
+  {id:"yukidaruma",name:"Yukidaruma",r:"r",src:"event",ev:"fuyu",b:`<circle cx="50" cy="68" r="26" fill="#fff" stroke="#c7ddf2" stroke-width="2.5"/><circle cx="50" cy="34" r="19" fill="#fff" stroke="#c7ddf2" stroke-width="2.5"/><path d="M33 49q17 9 34 0v7q-17 9-34 0z" fill="#e8524a"/><path d="M60 55l7 15-9 2z" fill="#e8524a"/><path d="M35 20L39 4H61L65 20Z" fill="#6fa8f0" stroke="#3f86d8" stroke-width="2" stroke-linejoin="round"/>`+kf(50,36,.55)},
+  {id:"gateauFraise",name:"Gâteau aux fraises",r:"t",src:"event",ev:"fuyu",b:`<path d="M12 56L88 40V80L12 94Z" fill="#fff6ee" stroke="#e6d4c4" stroke-width="2.5" stroke-linejoin="round"/><path d="M12 72L88 58" stroke="#ffb6c9" stroke-width="7"/><path d="M12 52Q50 30 88 36V40L12 56Z" fill="#fff" stroke="#e6d4c4" stroke-width="2" stroke-linejoin="round"/><path d="M58 30q-9-2-11 6q2 11 11 11q9 0 11-11q-2-8-11-6z" fill="#ff5e6b" stroke="#e03e4c" stroke-width="2"/><path d="M53 28q5-7 10 0" stroke="#6cb46a" stroke-width="3" fill="none"/>`+kf(40,80,.55)+spark(22,26,.8)},
 ].map(s=>({src:"gacha",...s,svg:`<svg viewBox="0 0 100 100" aria-hidden="true">${s.b}</svg>`}));
 const stickerById=id=>STICKERS.find(s=>s.id===id)||STICKERS[0];
 const GACHA_POOL=STICKERS.filter(s=>s.src==="gacha");
-const BASE_TOTAL=STICKERS.filter(s=>s.src!=="excl").length;
+const BASE_TOTAL=STICKERS.filter(s=>s.src!=="excl"&&s.src!=="event").length;
 /* ---------- more mascots ---------- */
 const kfb=(cx,cy,s,b,ec="#4b3a47")=>kf(cx,cy,s,ec).replace(/^(<circle[^>]*\/><circle[^>]*\/>)/,`<g ${b}>$1</g>`);
 Object.assign(MASCOTS,{
@@ -1124,6 +1200,7 @@ const CATS=[
   {id:"defi",name:"Défis",jp:"ちょうせん",color:"var(--fuji)"},
   {id:"todo",name:"Organisation",jp:"やること",color:"var(--rr)"},
   {id:"ami",name:"Amitié",jp:"ともだち",color:"var(--sakura-deep)"},
+  {id:"evt",name:"Événements de saison",jp:"きせつのイベント",color:"#d9708d"},
   {id:"sec",name:"Secrets",jp:"ひみつ",color:"var(--ink)"}
 ];
 const catOf=id=>CATS.find(c=>c.id===id);
@@ -1216,6 +1293,10 @@ const STAMPS=[
   {id:"tomo",cat:"ami",r:"c",kind:"col",k:"友",kana:"とも · tomo",name:"Ami·e",mean:"Quelqu'un écrit à tes côtés désormais.",cond:"Ajouter ton premier ami",p:s=>[s.friends||0,1]},
   {id:"nakama",cat:"ami",r:"r",kind:"col",k:"仲",kana:"なかま · nakama",name:"Petite bande",mean:"Trois amis pour s'encourager, c'est une vraie équipe.",cond:"Avoir 3 amis",p:s=>[s.friends||0,3]},
   {id:"kizuna",cat:"ami",r:"t",kind:"col",k:"絆",kana:"きずな · kizuna",name:"Lien précieux",mean:"Sept jours écrits ensemble : un lien qui ne se défait pas.",cond:"Écrire les 7 mêmes jours qu'un·e ami·e (sur une semaine)",p:s=>[s.duo||0,7]},
+  {id:"tayori",cat:"ecr",r:"c",kind:"col",k:"便",kana:"たより · tayori",name:"Lettre scellée",mean:"Une lettre voyage vers ton futur toi.",cond:"Sceller une lettre au futur moi",p:s=>[s.letters||0,1]},
+  {id:"toki",cat:"ecr",r:"r",kind:"col",k:"時",kana:"とき · toki",name:"Voyage dans le temps",mean:"Tu as reçu une lettre de ton passé.",cond:"Ouvrir une lettre au futur moi",p:s=>[s.opened||0,1]},
+  {id:"ayumi",cat:"ecr",r:"c",kind:"col",k:"歩",kana:"あゆみ · ayumi",name:"Petit pas",mean:"Même sans énergie, tu as gardé ta flamme.",cond:"Utiliser le mode doux un soir de fatigue",p:s=>[s.quick||0,1]},
+  ...EVENTS.map(e=>({id:"ev_"+e.id,cat:"evt",r:"t",kind:"col",k:e.k,kana:e.kana,name:e.sname,mean:e.mean,cond:"Obtenir les 2 stickers de l'événement "+e.name+" (en "+MOIS[e.m-1]+")",p:()=>[e.st.filter(id=>(coll.owned[id]||0)>0).length,2]})),
   {id:"sumi",cat:"todo",r:"c",kind:"col",k:"済",kana:"すみ · sumi",name:"Première tâche",mean:"Une chose de faite, bravo !",cond:"Terminer une tâche de ta to-do",p:s=>[s.todoDone,1]},
   {id:"kinben",cat:"todo",r:"r",kind:"col",k:"勤",kana:"きんべん · kinben",name:"Appliqué·e",mean:"Vingt-cinq tâches terminées, quelle efficacité !",cond:"Terminer 25 tâches",p:s=>[s.todoDone,25]},
   {id:"tatsujin",cat:"todo",r:"t",kind:"col",k:"達",kana:"たつじん · tatsujin",name:"Expert·e",mean:"Cent tâches : rien ne te résiste.",cond:"Terminer 100 tâches",p:s=>[s.todoDone,100]},
@@ -1580,7 +1661,7 @@ function objectives(){
   const defDone=defs.filter(o=>o.done).map(o=>o.done).sort();
   const {st,earned}=stampState();
   const ext={...st,owned:baseOwnedCount(),pulls:coll.pulls||0,luck:coll.luck||0,defis:defDone.length,
-    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0};
+    petalsTotal:(coll.dupTotal||0)+writingPetals()+todoPetals(),shopCount:(coll.shop||[]).length,todoDone:todoCounted(),letters:lettersAll().length,opened:lettersAll().filter(l=>l.opened).length,quick:Object.values(entries).filter(e=>e&&e.quick&&e.text&&e.text.trim()).length,friends:(typeof social!=="undefined"&&social.friends)||0,duo:(typeof social!=="undefined"&&social.duoBest)||0};
   const mk=sp=>{
     const prog=sp.p(ext);let done=earned[sp.id]||null;
     if(sp.kind==="dc"&&prog[0]>=prog[1])done=defDone[prog[1]-1];
@@ -1730,7 +1811,9 @@ function pull(){
   const tot=pool.reduce((a,r)=>a+RAR[r].w,0);let x=Math.random()*tot,r=pool[pool.length-1];
   for(const k of pool){if(x<RAR[k].w){r=k;break}x-=RAR[k].w}
   if(r!=="c")coll.pity=0;
-  const cands=GACHA_POOL.filter(s=>s.r===r),s=cands[Math.floor(Math.random()*cands.length)];
+  const evc=curEvent();let s;
+  if(evc&&Math.random()<0.25){const pool=evc.st.map(stickerById),miss=pool.filter(x=>!((coll.owned[x.id]||0)>0)),from=miss.length&&Math.random()<0.75?miss:pool;s=from[Math.floor(Math.random()*from.length)];r=s.r;coll.pity=0}
+  else{const cands=GACHA_POOL.filter(x=>x.r===r);s=cands[Math.floor(Math.random()*cands.length)]}
   const had=(coll.owned[s.id]||0)>0;coll.owned={...coll.owned,[s.id]:(coll.owned[s.id]||0)+1};
   let pet=0;if(had){pet=RAR[r].petals;coll.petals=(coll.petals||0)+pet;coll.dupTotal=(coll.dupTotal||0)+pet}
   if(r==="l")coll.luck=(coll.luck||0)+1;
@@ -1746,6 +1829,11 @@ function renderGachaCard(objs){
   box.querySelector(".gmachine").onclick=()=>openGacha();
   box.querySelector(".gpull").onclick=()=>openGacha(true);
   box.querySelector(".galbum").onclick=()=>openAlbum();
+  const ev=curEvent();if(ev){const got=ev.st.filter(id=>(coll.owned[id]||0)>0).length,b=document.createElement("button");b.type="button";b.className="evban";
+    b.innerHTML=`<span class="evst">${ev.st.map(id=>`<span class="stk ${(coll.owned[id]||0)>0?"":"sil"}">${stickerById(id).svg}</span>`).join("")}</span><span><b></b><small></small></span>`;
+    b.querySelector("b").textContent="Événement "+ev.name+" · "+ev.jp;
+    b.querySelector("small").textContent=got>=2?"Collection complète ✓ Tampon « "+ev.sname+" » gagné":"2 stickers en édition limitée ("+got+"/2) · encore "+plural(eventDaysLeft(),"jour");
+    b.onclick=()=>openGacha();box.append(b)}
 }
 function openGacha(spin){openModal("Gachapon","ガチャガチャ",()=>{renderGacha();if(spin)doPull()})}
 let pulling=false;
@@ -1769,6 +1857,7 @@ function renderGacha(res){
   info.innerHTML=`<p class="note" style="margin:0 0 8px"><b>Chances de tirage</b></p><div class="rates">${RORDER.map(r=>`<span class="rb rb-${r}">${RAR[r].stars} ${RAR[r].name} · ${RAR[r].w} %</span>`).join("")}</div>
     <p class="note" style="margin:10px 0 0"></p>`;
   info.querySelector("p:last-child").textContent=`Garantie : au moins un Rare dans les ${plural(Math.max(1,pityLeft),"prochain")} tirage${pityLeft>1?"s":""}. Capsules : 1 par page de 50 mots ou plus, et 1 à 3 par tampon selon sa rareté. Pétales : 1 par page de 100 mots, et 1, 3, 8 ou 25 par doublon. Ils servent aussi à la boutique d'accessoires.`;
+  {const ev=curEvent();if(ev){const n=document.createElement("p");n.className="evnote";n.textContent="✿ Événement "+ev.name+" ("+ev.jp+") : 1 chance sur 4 de tirer l'un des 2 stickers en édition limitée, jusqu'à la fin "+(/^[aeiou]/.test(MOIS[ev.m-1])?"d'":"de ")+MOIS[ev.m-1]+".";info.prepend(n)}}
   body.append(info);
   if(res)showResult(res,true);
 }
@@ -1797,7 +1886,7 @@ function doPull(){
 function showResult(res){
   const g=$("gres");if(!res.isNew)setTimeout(()=>Sfx.play("petals"),650);
   g.innerHTML=`${rarBadge(res.r)}<p class="gname"></p><p class="note" style="margin:0"></p><div class="gbtns"><button class="ghost" id="useIt">Coller sur ma page</button></div>`;
-  g.querySelector(".gname").textContent=res.s.name;
+  g.querySelector(".gname").textContent=res.s.name+(res.s.src==="event"?" · édition limitée ✿":"");
   g.querySelector(".note").textContent=res.isNew?"Nouveau dans ton album ! あたらしい ✿":"Doublon : +"+res.pet+" pétale"+(res.pet>1?"s":"")+" (tu en as "+petalBal()+")";
   $("useIt").onclick=()=>{closeModal(true);showView("deco");addSticker(res.s.id)};
   $("swapBtn").disabled=petalBal()<20;
@@ -1828,7 +1917,7 @@ function renderAlbum(){
     c.innerHTML=`<span class="stk ${on?"":"sil"}">${s.svg}</span><span class="nm"></span>${rarBadge(s.r)}<span class="sub"></span>`;
     c.querySelector(".nm").textContent=secret?"???":s.name;
     const by=s.by?STAMPS.find(x=>x.id===s.by):null;
-    c.querySelector(".sub").textContent=on?(n>1?"×"+n:s.src==="start"?"offert":s.src==="excl"?"exclusif":"✓"):s.src==="excl"?"Exclusif : tampon « "+(by?by.name:"?")+" »":"Dans le gachapon";
+    c.querySelector(".sub").textContent=s.src==="event"?(on?(n>1?"×"+n+" · ":"")+"Édition limitée":"Événement "+(evById(s.ev)||{}).name+" ("+MOIS[((evById(s.ev)||{}).m||1)-1]+")"):on?(n>1?"×"+n:s.src==="start"?"offert":s.src==="excl"?"exclusif":"✓"):s.src==="excl"?"Exclusif : tampon « "+(by?by.name:"?")+" »":"Dans le gachapon";
     grid.append(c);
   });
   body.append(grid);
@@ -1970,7 +2059,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);renderLetters();douxVis();renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2631,6 +2720,7 @@ function updateBadges(){
   try{
     const n=capsInfo(objectives()).avail,b=$("badgeRecomp");b.hidden=!n;b.textContent=n>99?"99+":n;
     const tp=Object.keys(entries).filter(written).length;$("totalLbl").textContent=tp>1?"pages écrites":"page écrite";
+    {const lr=lettersAll().filter(l=>!l.opened&&l.open<=todayKey()).length,bj=$("badgeJournal");if(bj){bj.hidden=!lr;bj.textContent=lr}}
     const o=(todo.items||[]).filter(t=>!t.done).length,c=$("badgeTodo");c.hidden=!o;c.textContent=o>99?"99+":o;
   }catch(e){}
 }
@@ -2756,6 +2846,8 @@ async function planNotifications(){
     const day=new Date();day.setDate(day.getDate()+d);const k=keyOf(day),md=k.slice(5);
     const at=(h,m)=>{const t=new Date(day);t.setHours(h,m,0,0);return t};
     const add=(when,body,extra)=>{if(when>now)list.push({id:3000+d,title:M+" ✿",body,channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at:when,allowWhileIdle:true},extra:extra||{view:"ecrire"},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"})};
+    {const lt=lettersAll().find(l=>!l.opened&&l.open===k);if(lt){add(at(10,0),"Une lettre de ton passé t'attend ✉ Tu l'avais écrite le "+frDate(lt.created,{day:"numeric",month:"long",year:"numeric"})+".",{view:"lettre",id:lt.id});continue}}
+    if(N.gacha&&d>0&&md.endsWith("-01")){const e=curEvent(day);if(e){add(at(12,0),"Nouvel événement au gachapon : "+e.name+" ✿ 2 stickers en édition limitée tout le mois !",{view:"recomp"});continue}}
     const vars={M,S:s,Q:PROMPTS[hash(k)%PROMPTS.length]};
     if(N.fetes){const f=Object.keys(FETE).find(id=>FETE[id](md)&&(id!=="hanami"||md==="04-01")&&(id!=="tsukimi"||md==="09-15"));
       if(f){add(at(10,0),`C'est ${FETE_NAMES[f]} aujourd'hui ! Une page ce jour-là t'offre un tampon spécial ✿`,{view:"ecrire"});continue}}
@@ -2817,7 +2909,8 @@ function renderReminderTab(body){
 if(isNative&&PL_().LocalNotifications){
   PL_().LocalNotifications.addListener("localNotificationActionPerformed",({notification})=>{
     const x=(notification&&notification.extra)||{};
-    if(x.key&&hasContent(entries[x.key])){showView("journal");openReader(x.key)}
+    if(x.view==="lettre"){showView("journal");setTimeout(()=>openLetter(x.id),350)}
+    else if(x.key&&hasContent(entries[x.key])){showView("journal");openReader(x.key)}
     else showView(x.view||"ecrire");
   });
 }
@@ -3135,6 +3228,105 @@ schedulePlan(1500);
 updateBadges();
 fbInit();
 
+/* ================= lettres au futur moi (タイムカプセル) ================= */
+function lettersAll(){return Array.isArray(coll.letters)?coll.letters:[]}
+function addMonths(n){const d=new Date();const day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);d.setDate(Math.min(day,new Date(d.getFullYear(),d.getMonth()+1,0).getDate()));return keyOf(d)}
+function daysUntil(k){return Math.round((dateOf(k)-dateOf(todayKey()))/864e5)}
+function agoTxt(k){const d=-daysUntil(k);if(d<45)return "il y a "+plural(d,"jour");const m=Math.round(d/30.4);return m>=12&&m<18?"il y a un an":m>=18?"il y a "+Math.round(m/12)+" ans":"il y a "+m+" mois"}
+function envSvg(seal,state){const S=SEALS.find(s=>s.id===seal)||SEALS[0];
+  return `<svg viewBox="0 0 120 100" aria-hidden="true" class="env ${state||""}"><g class="paper"><rect x="22" y="${state==="open"?-18:10}" width="76" height="56" rx="5" fill="#fffdf8" stroke="#eadfd6" stroke-width="2"/><path d="M34 ${state==="open"?-4:24}h44M34 ${state==="open"?6:34}h52M34 ${state==="open"?16:44}h36" stroke="#f3c3cf" stroke-width="3.5" stroke-linecap="round"/></g><rect x="8" y="34" width="104" height="62" rx="9" fill="#ffe8ee" stroke="#e9b9c7" stroke-width="2.5"/><path d="M10 92L46 64M110 92L74 64" stroke="#f1cbd6" stroke-width="2.5" stroke-linecap="round"/><path class="flap" d="M8 ${state==="open"?34:40}L60 ${state==="open"?6:72}L112 ${state==="open"?34:40}" fill="${state==="open"?"#ffdbe4":"#ffe8ee"}" stroke="#e9b9c7" stroke-width="2.5" stroke-linejoin="round"/>${state==="open"?"":`<g class="seal"><circle cx="60" cy="70" r="14" fill="${S.c}"/><circle cx="60" cy="70" r="10" fill="none" stroke="${S.c2}" stroke-width="1.5" opacity=".8"/><g transform="translate(60 70) scale(.22) translate(-50 -52)">${SAKURA("#fff","#fff","#fff")}</g></g>`}</svg>`}
+function renderLetters(){
+  const box=$("lettersCard");if(!box)return;const L=lettersAll(),t=todayKey();
+  box.innerHTML='<h2>Lettres au futur moi <span class="jp">タイムカプセル</span></h2>';
+  const ready=L.filter(l=>!l.opened&&l.open<=t),sealed=L.filter(l=>!l.opened&&l.open>t).sort((a,b)=>a.open<b.open?-1:1),opened=L.filter(l=>l.opened).sort((a,b)=>(b.openedAt||0)-(a.openedAt||0));
+  if(!L.length){const p=document.createElement("p");p.className="note";p.style.margin="0 0 4px";p.textContent="Écris à la personne que tu seras dans quelques mois. Ta lettre restera scellée jusqu'au jour J ✉";box.append(p)}
+  const row=(l,kind)=>{const b=document.createElement("button");b.className="letter "+kind;b.type="button";
+    b.innerHTML=envSvg(l.seal,kind==="read"?"open":"")+'<span><b></b><small></small></span>';
+    const big=b.querySelector("b"),sm=b.querySelector("small");
+    if(kind==="ready"){big.textContent="Une lettre de ton passé t'attend !";sm.textContent="Écrite le "+frDate(l.created,{day:"numeric",month:"long",year:"numeric"})+" · touche pour l'ouvrir";b.onclick=()=>openLetter(l.id)}
+    else if(kind==="sealed"){const d=daysUntil(l.open);big.textContent="Scellée jusqu'au "+frDate(l.open,{day:"numeric",month:"long",year:"numeric"});sm.textContent=d===1?"Elle s'ouvre demain !":"Encore "+plural(d,"jour")+" de patience";b.onclick=()=>{Sfx.play("key");say("Chut… cette lettre est scellée jusqu'au "+frDate(l.open,{day:"numeric",month:"long"})+". Patience ✿")}}
+    else{big.textContent="Lettre du "+frDate(l.created,{day:"numeric",month:"long",year:"numeric"});sm.textContent="Ouverte · touche pour la relire";b.onclick=()=>readLetter(l.id)}
+    box.append(b)};
+  ready.forEach(l=>row(l,"ready"));sealed.forEach(l=>row(l,"sealed"));opened.slice(0,4).forEach(l=>row(l,"read"));
+  const w=document.createElement("button");w.className="openbook";w.type="button";w.textContent="✉ Écrire une lettre au futur moi";w.onclick=writeLetter;box.append(w);
+}
+function writeLetter(){openModal("Lettre au futur moi","みらいのわたしへ",()=>{
+  const body=$("modalBody");body.innerHTML="";let delay=6,seal="sakura";
+  const p=document.createElement("p");p.className="note";p.style.marginTop="0";p.textContent="Qu'aimerais-tu dire à la personne que tu seras ? Ce que tu vis, tes rêves, tes peurs, ce que tu espères pour elle… Tu ne pourras pas la relire avant le jour J.";body.append(p);
+  const st=document.createElement("div");st.className="starters";
+  ["Chère future moi, ","En ce moment, je ","J'espère que tu ","N'oublie jamais que "].forEach(s=>{const b=document.createElement("button");b.className="starter";b.type="button";b.textContent=s.trim()+"…";b.onclick=()=>{ta.value+=(ta.value&&!/\s$/.test(ta.value)?" ":"")+s;ta.focus();upd()};st.append(b)});body.append(st);
+  const ta=document.createElement("textarea");ta.className="lettreta";ta.placeholder="Chère future moi…";ta.setAttribute("aria-label","Ma lettre");body.append(ta);
+  const lab=(t)=>{const x=document.createElement("p");x.className="label";x.style.margin="14px 0 6px";x.textContent=t;body.append(x)};
+  lab("Elle s'ouvrira dans…");
+  const seg=document.createElement("div");seg.className="seg";seg.setAttribute("role","group");
+  [[3,"3 mois"],[6,"6 mois"],[12,"1 an"]].forEach(([v,l])=>{const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",String(v===delay));b.onclick=()=>{delay=v;seg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));when.textContent="Ouverture le "+frDate(addMonths(delay),{day:"numeric",month:"long",year:"numeric"})};seg.append(b)});body.append(seg);
+  const when=document.createElement("p");when.className="note";when.style.margin="6px 0 0";when.textContent="Ouverture le "+frDate(addMonths(delay),{day:"numeric",month:"long",year:"numeric"});body.append(when);
+  lab("Le sceau");
+  const sg=document.createElement("div");sg.className="seals";
+  SEALS.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="sealbtn";b.setAttribute("aria-pressed",String(s.id===seal));b.setAttribute("aria-label","Sceau "+s.name);b.innerHTML=`<i style="background:${s.c}"></i><span>${s.name}</span>`;b.onclick=()=>{seal=s.id;sg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))};sg.append(b)});body.append(sg);
+  const go=document.createElement("button");go.className="openbook";go.type="button";body.append(go);
+  const upd=()=>{const n=countWords(ta.value);go.disabled=n<5;go.textContent=n<5?"Écris au moins quelques mots ✿":"Sceller ma lettre ✉"};ta.oninput=upd;upd();
+  go.onclick=()=>{const text=ta.value.trim();if(countWords(text)<5)return;
+    const l={id:Date.now().toString(36),created:todayKey(),open:addMonths(delay),text,seal};
+    coll.letters=[...lettersAll(),l];saveColl();
+    body.innerHTML=`<div class="sealing">${envSvg(seal,"")}<p class="gname">Lettre scellée ✿</p><p class="note"></p><button class="openbook" type="button" style="width:auto">Fermer</button></div>`;
+    body.querySelector(".note").textContent="Elle t'attendra jusqu'au "+frDate(l.open,{day:"numeric",month:"long",year:"numeric"})+". Ta mascotte la garde bien au chaud.";
+    body.querySelector(".sealing .env").classList.add("stamping");setTimeout(()=>{Sfx.play("stamp","r");typeof buzz==="function"&&buzz("MEDIUM");petals(18)},380);
+    body.querySelector("button").onclick=()=>closeModal();
+    say("Ta lettre est bien scellée. Rendez-vous dans "+(delay===12?"un an":delay+" mois")+" ✉");
+    renderLetters();checkNew();renderSide();if(typeof schedulePlan==="function"&&typeof isNative!=="undefined"&&isNative)schedulePlan(500);
+  };
+  setTimeout(()=>ta.focus(),50);
+})}
+function letterPaper(l,body){
+  const d=document.createElement("div");d.className="lpaper";
+  d.innerHTML='<p class="lhead"></p><div class="ltext"></div><p class="lfoot"></p>';
+  d.querySelector(".lhead").textContent="Le "+frDate(l.created,{weekday:"long",day:"numeric",month:"long",year:"numeric"})+", tu t'écrivais :";
+  d.querySelector(".ltext").textContent=l.text;
+  d.querySelector(".lfoot").textContent="— toi, "+agoTxt(l.created)+" · あの日のわたしから";
+  body.append(d);
+}
+function openLetter(id){const l=lettersAll().find(x=>x.id===id);if(!l)return;if(l.opened){readLetter(id);return}
+  openModal("Une lettre de ton passé","むかしのわたしから",()=>{
+    const body=$("modalBody");body.innerHTML=`<div class="opening">${envSvg(l.seal,"")}<p class="gname">Elle a voyagé ${agoTxt(l.created).replace("il y a ","")} pour arriver jusqu'à toi.</p><button class="openbook" type="button" style="width:auto">Briser le sceau ✿</button></div>`;
+    body.querySelector("button").onclick=()=>{
+      const env=body.querySelector(".env");env.classList.add("breaking");Sfx.play("unlock");
+      setTimeout(()=>{body.querySelector(".opening").innerHTML=envSvg(l.seal,"open");body.querySelector(".env").classList.add("rise");Sfx.play("reveal","t");petals(36)},650);
+      setTimeout(()=>{l.opened=true;l.openedAt=Date.now();coll.letters=lettersAll().map(x=>x.id===l.id?l:x);saveColl();
+        const op=body.querySelector(".opening");op.classList.add("done");letterPaper(l,body);renderLetters();checkNew();renderSide();say("Quel joli message de ton passé… ♡")},1500);
+    };
+  })}
+function readLetter(id){const l=lettersAll().find(x=>x.id===id);if(!l)return;openModal("Lettre au futur moi","みらいのわたしへ",()=>{const body=$("modalBody");body.innerHTML="";letterPaper(l,body)})}
+
+/* ================= mode doux : pas d'énergie ce soir ================= */
+function douxVis(){const b=$("douxBtn");if(!b)return;b.hidden=!(current===todayKey()&&countWords(entry(current).text||"")<20)}
+function openDoux(){openModal("Mode doux","やさしいモード",()=>{
+  const body=$("modalBody");body.innerHTML="";let mode="trois",mood=entry(todayKey()).mood||null;
+  const p=document.createElement("p");p.className="note";p.style.marginTop="0";p.textContent="Pas d'énergie ce soir ? Juste quelques mots, et ta flamme est sauvée ✿ Pas besoin de bien écrire.";body.append(p);
+  const ml=document.createElement("p");ml.className="label";ml.style.margin="6px 0";ml.textContent="Ton humeur · きもち";body.append(ml);
+  const mb=document.createElement("div");mb.className="moods";body.append(mb);
+  const drawMoods=()=>{mb.innerHTML="";MOODS.forEach(m=>{const b=document.createElement("button");b.className="mood";b.type="button";b.setAttribute("aria-pressed",String(mood===m.id));b.innerHTML=face(m)+`<span>${m.label}</span>`;b.onclick=()=>{mood=mood===m.id?null:m.id;Sfx.play("mood",MOODS.indexOf(m));drawMoods()};mb.append(b)})};drawMoods();
+  const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="14px";body.append(seg);
+  const area=document.createElement("div");area.className="douxarea";body.append(area);
+  const go=document.createElement("button");go.className="openbook";go.type="button";go.textContent="C'est noté ✿";body.append(go);
+  const draw=()=>{seg.innerHTML="";[["trois","Trois petits bonheurs"],["phrase","Une seule phrase"]].forEach(([v,l])=>{const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",String(v===mode));b.onclick=()=>{mode=v;draw()};seg.append(b)});
+    area.innerHTML="";
+    if(mode==="trois")["Un petit bonheur…","Un autre…","Et un dernier…"].forEach((ph,i)=>{const i_=document.createElement("input");i_.className="douxin";i_.maxLength=140;i_.placeholder=ph;i_.setAttribute("aria-label","Petit bonheur "+(i+1));area.append(i_)});
+    else{const i_=document.createElement("input");i_.className="douxin";i_.maxLength=220;i_.placeholder="Ma journée en une phrase…";i_.setAttribute("aria-label","Ma journée en une phrase");area.append(i_)}
+    const f=area.querySelector("input");setTimeout(()=>f&&f.focus(),50)};draw();
+  go.onclick=()=>{
+    const vals=[...area.querySelectorAll("input")].map(x=>x.value.trim()).filter(Boolean);
+    if(!vals.length){say("Juste un mot suffit, promis ✿");area.querySelector("input").focus();return}
+    const add=mode==="trois"?"Trois petits bonheurs :\n"+vals.map(v=>"✿ "+v).join("\n"):vals[0];
+    const k=todayKey(),old=(entry(k).text||"").trim(),text=old?old+"\n\n"+add:add;
+    touch(k,{text,words:countWords(text),prompt:promptFor(k),quick:true,...(mood?{mood}:{})});
+    closeModal(true);if(current!==k)openDay(k);else renderEditor();
+    Sfx.play("goal");petals(22);hop();say("Bravo, tu as pris soin de toi ce soir. Ta flamme est sauvée ♡");renderSide();checkNew();
+  };
+})}
+
+$("douxBtn").onclick=openDoux;$("text").addEventListener("input",douxVis);renderLetters();douxVis();
+{const r=lettersAll().filter(l=>!l.opened&&l.open<=todayKey());if(r.length)setTimeout(()=>say("Une lettre de ton passé t'attend dans ton journal ✉"),1500)}
 </script>
 </body>
 </html>
