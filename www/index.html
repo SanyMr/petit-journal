@@ -730,6 +730,7 @@ input,textarea,select{font-size:16px}
 .jd-new{font-style:normal;font-size:12px;font-weight:700;color:var(--sakura-deep)}.jd-go{font-size:26px;color:var(--sakura-deep)}
 #jd{position:fixed;inset:0;z-index:190;background:#fffafc;color:#4b3a47;display:flex;flex-direction:column;font-family:'Zen Maru Gothic',sans-serif;overflow:hidden}
 #jd[hidden]{display:none}
+#jd.jd-lock{z-index:2000}
 .jd-scene{position:relative;flex:none;height:min(calc(100vw * 1.436),66vh);overflow:hidden;touch-action:none}
 .jd-scene>svg{width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none}
 .jd-top{position:absolute;left:12px;right:12px;top:calc(12px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;gap:8px;pointer-events:none}.jd-top>*{pointer-events:auto}
@@ -4178,7 +4179,7 @@ function jdScene(o){
   return s}
 /* ---------- carte sur la page Écrire ---------- */
 function renderJdCard(){
-  if(!JD_READY)return;const box=$("jdCard");if(!box)return;
+  if(!JD_READY)return;if(pomoLocked()&&(!$("jd")||$("jd").hidden||!JD.po)){setTimeout(()=>{if(!$("jd")||$("jd").hidden)openGarden();else if(!JD.po)jdPomo()},0)}const box=$("jdCard");if(!box)return;
   if(current!==todayKey()){box.hidden=true;return}
   const S=jdCheckVisitors(),st=jdStage(S.pages),g=jdG(),nx=JD_ST[st+1],po=pomoSync();
   box.hidden=false;
@@ -4193,8 +4194,8 @@ function openGarden(skipPomo){
   ov.hidden=false;document.body.style.overflow="hidden";const S=jdCheckVisitors();jdCheckPlaces(S);jdVisitPlace(jdCurPlace());
   JD.ambOn=!!jdG().amb;if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);
   jdRender();if(pomoGet()&&skipPomo!==true)jdPomo();jdLoadGifts()}
-function closeGarden(){const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden()}
-function jdBack(){const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
+function closeGarden(){if(JD.po&&pomoLocked())return;const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden()}
+function jdBack(){if(JD.po&&pomoLocked()){jdToast("🔒 Concentration en cours : arrive au bout ou appuie sur Arrêter ✿");return}const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
 function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2800)}
 function jdEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 var JD_SHORT={jardin:"Mon jardin",bambous:"Bambous",torii:"Mille torii",the:"Maison de thé",onsen:"Onsen",rizieres:"Rizières",ile:"Île secrète"};
@@ -4400,16 +4401,24 @@ function pomoSync(){const p=pomoGet();if(!p||p.fin||p.left!=null)return p;
     pomoSet(p);p.justFin=true}return p}
 function jdPomoLbl(){const p=pomoGet();if(!p)return "⏳ Concentration";if(p.fin)return "✿ Session finie";const m=Math.ceil(pomoLeft(p)/60000);return "⏳ "+m+" min"}
 function jdFmt(ms){const s=Math.ceil(ms/1000);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
-async function pomoNotify(p){if(typeof isNative==="undefined"||!isNative)return;const LN=PL_().LocalNotifications;if(!LN)return;
+function pomoLocked(){const p=pomoSync();return !!(p&&p.ph==="focus"&&!p.fin)}
+async function pomoLive(p){if(typeof isNative==="undefined"||!isNative)return;const W=PL_().NikkiWidget;if(!W||!W.pomoShow)return;
+  try{if(!p||p.fin){await W.pomoHide();return}
+    const g=pomoDayG(),n=g.pomoToday||0,hh=t=>new Date(t).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}),left=Math.ceil(pomoLeft(p)/60000),paused=p.left!=null;
+    const foc=p.ph==="focus",title=paused?(foc?"⏸ Concentration en pause":"⏸ Pause en suspens"):foc?"⏳ Concentration · session "+((p.cyc||0)+1):(p.dur>=15?"☕ Grande pause":"☕ Petite pause");
+    const text=paused?left+" min restantes"+(p.label?" · "+p.label:""):foc?(p.label?"✎ "+p.label:"Une seule chose à la fois ✿"):"Respire, étire-toi, bois un peu d'eau ✿";
+    const sub=(paused?"Touche pour reprendre":(foc?"Fin prévue à ":"Reprise à ")+hh(p.end))+" · "+(n?"🍡".repeat(Math.min(n,6))+" "+(g.pomoMinT||0)+" min aujourd'hui":"première session du jour");
+    await W.pomoShow({end:p.end,paused,title,text,sub})}catch(e){}}
+async function pomoNotify(p){pomoLive(p);if(typeof isNative==="undefined"||!isNative)return;const LN=PL_().LocalNotifications;if(!LN)return;
   try{await LN.cancel({notifications:[{id:5100}]})}catch(e){}
   if(!p||p.fin||p.left!=null)return;
   try{let pr=await LN.checkPermissions();if(pr.display!=="granted")pr=await LN.requestPermissions();if(pr.display!=="granted")return;
     await LN.createChannel({id:"jd_pomo",name:"Minuteur du jardin",description:"Fin des sessions de concentration et des pauses",importance:4,vibration:true,visibility:1,sound:"nikki_furin.wav"});
     await LN.schedule({notifications:[{id:5100,title:p.ph==="focus"?"Session terminée ✿":"La pause est finie ✿",body:p.ph==="focus"?"Bravo ! Viens cueillir ton pétale, ton jardin t'attend.":"On reprend ? Ton jardin veille sur toi.",channelId:"jd_pomo",sound:"nikki_furin.wav",schedule:{at:new Date(p.end),allowWhileIdle:true},extra:{view:"ecrire",garden:1},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"}]})}catch(e){}}
 function jdPomo(){jdLayer("jd-po","");JD.po={tm:null};JD.poSnd=JD.poSnd||["eau"];jdAmbStart(JD.poSnd);jdPomoDraw();JD.po.tm=setInterval(jdPomoTick,500)}
-function jdPomoLeave(){if(JD.po){clearInterval(JD.po.tm);JD.po=null;jdAmbStop()}}
+function jdPomoLeave(){if($("jd"))$("jd").classList.remove("jd-lock");if(JD.po){clearInterval(JD.po.tm);JD.po=null;jdAmbStop()}}
 function jdPomoTick(){const p=pomoSync();if(!p||!JD.po)return;
-  if(p.justFin){Sfx.play("goal");if(typeof buzz==="function")buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
+  if(p.justFin){pomoLive(null);Sfx.play("goal");if(typeof buzz==="function")buzz("MEDIUM");petals(p.ph==="focus"?20:8);jdPomoDraw();if(p.ph==="focus")jdToast(p.pet?"Session terminée ✿ +1 pétale":"Session terminée ✿ (4 pétales déjà gagnés aujourd'hui)");renderSide();return}
   if(!p.fin){const t=$("jdPoT"),r=$("jdPoR");if(t)t.textContent=jdFmt(pomoLeft(p));if(r)r.setAttribute("stroke-dashoffset",(552.9*(1-pomoLeft(p)/(p.dur*60000))).toFixed(1))}}
 function jdPomoDraw(){
   const L=document.querySelector("#jd .jd-layer");if(!L||!JD.po)return;const p=pomoSync(),g=pomoDayG(),n=g.pomoToday||0,dur=JD.poDur||25;
@@ -4424,13 +4433,14 @@ function jdPomoDraw(){
     ${open.length?`<div class="jd-pzs jd-tasks"><span>Sur quoi ?</span>${open.map(t=>`<button type="button" data-tk="${t.id}" aria-pressed="${JD.poTask===t.id}"></button>`).join("")}</div>`:""}
     ${snd}<button type="button" class="jd-btn jd-pink" data-a="start">▶ Commencer</button>${tally}`}
   else if(!p.fin){const tot=p.dur*60000,lb=p.ph==="focus"?"Concentration":p.dur>=15?"Grande pause":"Petite pause";mid=ring(pomoLeft(p),tot,lb+(p.left!=null?" · en pause":""),p.ph==="focus"?"#f5a9bc":"#9fd4ee");
-    bot=`<p class="jd-potask"></p>${snd}<div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="pp">${p.left!=null?"▶ Reprendre":"⏸ Pause"}</button><button type="button" class="jd-btn jd-btndk" data-a="stop">■ Arrêter</button></div><small class="jd-potal">${typeof isNative!=="undefined"&&isNative?"Tu peux fermer l'appli : une notification te préviendra à la fin.":"Le minuteur continue même si tu fermes le jardin."}</small>`}
+    bot=`<p class="jd-potask"></p>${snd}<div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="pp">${p.left!=null?"▶ Reprendre":"⏸ Pause"}</button><button type="button" class="jd-btn jd-btndk" data-a="stop">■ Arrêter</button></div><small class="jd-potal">${p.ph==="focus"?"🔒 L'appli reste sur ta concentration jusqu'à la fin. Tu peux aussi l'arrêter.":"Le minuteur continue même si tu quittes la pause."}${typeof isNative!=="undefined"&&isNative?" Le temps restant s'affiche dans tes notifications.":""}</small>`}
   else if(p.ph==="focus"){const lng=p.cyc%4===0,tk=p.tk&&(todo.items||[]).find(t=>t.id===p.tk&&!t.done);
     mid=`<div class="jd-poc"><div class="jd-pofin"><b>✿</b><span>Session terminée !</span></div></div>`;
     bot=`<p>${p.dur} minutes de concentration${p.pet?" · +1 pétale 🌸":""}</p>${tk?'<button type="button" class="jd-btn jd-btndk" data-a="tick"></button>':""}<div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="brk">☕ Pause ${lng?15:5} min</button><button type="button" class="jd-btn jd-pink" data-a="again">▶ Encore une</button></div><button type="button" class="jd-link" data-a="end">Terminer pour aujourd'hui</button>${tally}`}
   else{mid=`<div class="jd-poc"><div class="jd-pofin"><b>☕</b><span>La pause est finie</span></div></div>`;
     bot=`<p>On reprend en douceur ?</p><div class="jd-btns"><button type="button" class="jd-btn jd-btndk" data-a="end">Terminer</button><button type="button" class="jd-btn jd-pink" data-a="again">▶ Nouvelle session</button></div>${tally}`}
-  L.innerHTML=`<div class="jd-pzshade jd-poshade"></div><div class="jd-pztop"><button type="button" class="jd-pill jd-dark" data-a="x" aria-label="Revenir au jardin">‹ Jardin</button><span class="jd-pill jd-dark">集中</span></div>${mid}<div class="jd-pzb">${bot}</div>`;
+  const lk=pomoLocked();$("jd").classList.toggle("jd-lock",lk);
+  L.innerHTML=`<div class="jd-pzshade jd-poshade"></div><div class="jd-pztop">${lk?'<span class="jd-pill jd-dark">🔒 Concentration en cours</span>':'<button type="button" class="jd-pill jd-dark" data-a="x" aria-label="Revenir au jardin">‹ Jardin</button>'}<span class="jd-pill jd-dark">集中</span></div>${mid}<div class="jd-pzb">${bot}</div>`;
   L.querySelectorAll("[data-tk]").forEach(b=>{const t=open.find(x=>x.id===b.dataset.tk);b.textContent=(t.text.length>24?t.text.slice(0,23)+"…":t.text)});
   const ta=L.querySelector(".jd-potask");if(ta)ta.textContent=p&&p.label?"✎ "+p.label:"Une seule chose à la fois ✿";
   const tb=L.querySelector('[data-a="tick"]');if(tb){const t=todo.items.find(x=>x.id===p.tk);tb.textContent="✓ J'ai fini « "+(t.text.length>26?t.text.slice(0,25)+"…":t.text)+" »"}
@@ -4439,7 +4449,7 @@ function jdPomoDraw(){
     if(b.dataset.d){JD.poDur=+b.dataset.d;Sfx.play("tick");jdPomoDraw();return}
     if(b.dataset.tk){JD.poTask=JD.poTask===b.dataset.tk?null:b.dataset.tk;Sfx.play("tick");jdPomoDraw();return}
     const a=b.dataset.a;
-    if(a==="x"){jdCloseLayer();return}
+    if(a==="x"){if(pomoLocked())return;jdCloseLayer();return}
     if(a==="start"||a==="again"){const d=a==="start"?(JD.poDur||25):((q&&q.ph==="focus"?q.dur:q&&q.fd)||JD.poDur||25),t=(todo.items||[]).find(x=>x.id===(a==="start"?JD.poTask:q&&q.tk));
       const np={ph:"focus",dur:d,fd:d,end:now+d*60000,left:null,cyc:(q&&q.cyc)||0,tk:t?t.id:null,label:t?t.text:""};pomoSet(np);pomoNotify(np);Sfx.play("chime");jdPomoDraw();return}
     if(a==="brk"&&q){const d=q.cyc%4===0?15:5,np={ph:"break",dur:d,fd:q.dur,end:now+d*60000,left:null,cyc:q.cyc,tk:q.tk,label:q.label};pomoSet(np);pomoNotify(np);Sfx.play("chime");jdPomoDraw();return}
