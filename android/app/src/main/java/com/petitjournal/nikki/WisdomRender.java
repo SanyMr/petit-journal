@@ -205,10 +205,8 @@ final class WisdomRender {
     private static int count(String s) { return s.codePointCount(0, s.length()); }
 
     // ---------------------------------------------------------------- the widget
-    interface Painter { void paint(WisdomRender r, int tc, int sc, int ac); }
-
-    /** Background of the theme, contents drawn by p, rounded anti-aliased corners. */
-    static Bitmap frame(Context c, String theme, float wDp, float hDp, float density, Painter p) {
+    /** Renders the widget at wDp × hDp (layout fmt: S, M or L). */
+    static Bitmap render(Context c, WisdomData.Pick pk, String theme, String fmt, float wDp, float hDp, float density) {
         fonts(c);
         float k = Math.min(density, 1000f / Math.max(wDp, hDp));
         int pw = Math.max(1, Math.round(wDp * k)), ph = Math.max(1, Math.round(hDp * k));
@@ -231,7 +229,10 @@ final class WisdomRender {
             g.setColor(Color.parseColor("#d8ad4a"));
             canvas.drawRoundRect(new RectF(5, 5, wDp - 5, hDp - 5), 17, 17, g);
         }
-        p.paint(R_, tc, sc, ac);
+        if (pk != null && pk.p != null) R_.draw(c, pk, fmt, tc, sc, ac);
+        else R_.text(wDp / 2, hDp / 2, "Ouvre le journal une fois ✿", zen, 13, tc, true);
+
+        // rounded, anti-aliased corners
         Bitmap out = Bitmap.createBitmap(pw, ph, Bitmap.Config.ARGB_8888);
         Canvas oc = new Canvas(out);
         Paint sp = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -240,14 +241,6 @@ final class WisdomRender {
         oc.drawRoundRect(new RectF(0, 0, pw, ph), rad, rad, sp);
         raw.recycle();
         return out;
-    }
-
-    /** Renders the widget at wDp × hDp (layout fmt: S, M or L). */
-    static Bitmap render(Context c, WisdomData.Pick pk, String theme, String fmt, float wDp, float hDp, float density) {
-        return frame(c, theme, wDp, hDp, density, (R_, tc, sc, ac) -> {
-            if (pk != null && pk.p != null) R_.draw(c, pk, fmt, tc, sc, ac);
-            else R_.text(wDp / 2, hDp / 2, "Ouvre le journal une fois ✿", zen, 13, tc, true);
-        });
     }
 
     private void draw(Context c, WisdomData.Pick pk, String fmt, int tc, int sc, int ac) {

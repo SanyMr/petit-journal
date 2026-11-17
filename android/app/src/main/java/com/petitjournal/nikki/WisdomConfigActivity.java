@@ -31,15 +31,7 @@ public class WisdomConfigActivity extends Activity {
     private static final String[] FMT = {"A", "S", "M", "L"};
     private static final String[] FMT_LBL = {"Auto", "Petit 2×2", "Moyen 4×2", "Grand 4×4"};
     private int wid = AppWidgetManager.INVALID_APPWIDGET_ID;
-    private String theme = "sumi", fmt = "A", kind = "wisdom";
-    private static final String[][] KIND_TXT = {
-        {"wisdom", "一期一会", "La sagesse du jour", "Chaque jour, un proverbe japonais choisi selon tes humeurs. Choisis son style."},
-    };
-
-    private String[] txt() {
-        for (String[] t : KIND_TXT) if (t[0].equals(kind)) return t;
-        return KIND_TXT[0];
-    }
+    private String theme = "sumi", fmt = "A";
     private ImageView preview;
     private final View[] themeViews = new View[5], fmtViews = new View[4];
     private Typeface kiwi, zen, zenb;
@@ -53,7 +45,6 @@ public class WisdomConfigActivity extends Activity {
         setResult(RESULT_CANCELED);
         Bundle ex = getIntent().getExtras();
         if (ex != null) wid = ex.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        if (ex != null && ex.getString("kind") != null) kind = ex.getString("kind");
         String[] st = WisdomWidget.style(this, wid);
         theme = st[0];
         fmt = st[1];
@@ -81,11 +72,11 @@ public class WisdomConfigActivity extends Activity {
         col.setPadding(dp(22), dp(28), dp(22), dp(22));
         sv.addView(col);
 
-        TextView kan = label(txt()[1], 15, ACC, zenb);
+        TextView kan = label("一期一会", 15, ACC, zenb);
         col.addView(kan);
-        TextView title = label(txt()[2], 24, INK, kiwi);
+        TextView title = label("La sagesse du jour", 24, INK, kiwi);
         col.addView(title);
-        TextView sub = label(txt()[3], 14, MUT, zen);
+        TextView sub = label("Chaque jour, un proverbe japonais choisi selon tes humeurs. Choisis son style.", 14, MUT, zen);
         sub.setPadding(0, dp(4), 0, dp(14));
         col.addView(sub);
 
