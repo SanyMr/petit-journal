@@ -3374,20 +3374,29 @@ async function addFriend(code){
 }
 var amisFlash="";
 async function acceptFriend(uid){
-  const me=fbUser.uid,now=Date.now();
+  const me=fbUser.uid,now=Date.now();fbErr="";
   try{
     await FS().writeBatch({operations:[
       {type:"set",reference:"friends/"+me+"/list/"+uid,data:{at:now}},
       {type:"set",reference:"friends/"+uid+"/list/"+me,data:{at:now}},
-      {type:"delete",reference:"requests/"+me+"/from/"+uid}]});
+      {type:"delete",data:{},reference:"requests/"+me+"/from/"+uid}]});
     amisFlash="Nouvel·le ami·e ♡";Sfx.play("sparkle");buzz("MEDIUM");
-  }catch(e){fbErr=amisErr(e)}
+  }catch(e){
+    // secours : les mêmes écritures une par une (la demande est supprimée en dernier)
+    try{
+      await fsSet("friends/"+me+"/list/"+uid,{at:now});
+      await fsSet("friends/"+uid+"/list/"+me,{at:now});
+      await fsDel("requests/"+me+"/from/"+uid).catch(()=>{});
+      amisFlash="Nouvel·le ami·e ♡";Sfx.play("sparkle");buzz("MEDIUM");
+    }catch(e2){fbErr=amisErr(e2)}
+  }
+  if(!fbErr)amis.requests=amis.requests.filter(r=>r.id!==uid);
   renderAmis();
 }
 async function refuseFriend(uid){try{await fsDel("requests/"+fbUser.uid+"/from/"+uid)}catch(e){fbErr=amisErr(e)}renderAmis()}
 async function removeFriend(uid){
   const me=fbUser.uid;
-  try{await FS().writeBatch({operations:[{type:"delete",reference:"friends/"+me+"/list/"+uid},{type:"delete",reference:"friends/"+uid+"/list/"+me}]})}catch(e){fbErr=amisErr(e)}
+  try{await FS().writeBatch({operations:[{type:"delete",data:{},reference:"friends/"+me+"/list/"+uid},{type:"delete",data:{},reference:"friends/"+uid+"/list/"+me}]})}catch(e){fbErr=amisErr(e)}
   renderAmis();
 }
 async function sendNudge(uid,k){
@@ -3413,14 +3422,14 @@ async function amisDeleteAccount(){
   try{
     const ops=[];
     const fr=await fsList("friends/"+me+"/list").catch(()=>[]);
-    fr.forEach(f=>{ops.push({type:"delete",reference:"friends/"+me+"/list/"+f.id},{type:"delete",reference:"friends/"+f.id+"/list/"+me})});
-    (await fsList("requests/"+me+"/from").catch(()=>[])).forEach(r=>ops.push({type:"delete",reference:"requests/"+me+"/from/"+r.id}));
-    ops.push({type:"delete",reference:"gardens/"+me});(await fsList("gvisits/"+me+"/from").catch(()=>[])).forEach(x=>ops.push({type:"delete",reference:"gvisits/"+me+"/from/"+x.id}));fr.forEach(f=>ops.push({type:"delete",reference:"gvisits/"+f.id+"/from/"+me}));
-    (social.sent||[]).forEach(u=>ops.push({type:"delete",reference:"requests/"+u+"/from/"+me}));
-    for(const f of fr){const pp=[me,f.id].sort().join("_");const qs=await fsList("duos/"+pp+"/q").catch(()=>[]);qs.forEach(q=>{ops.push({type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+me},{type:"delete",reference:"duos/"+pp+"/q/"+q.id+"/ans/"+f.id},{type:"delete",reference:"duos/"+pp+"/q/"+q.id})})}
-    (await fsList("nudges/"+me+"/msgs").catch(()=>[])).forEach(n=>ops.push({type:"delete",reference:"nudges/"+me+"/msgs/"+n.id}));
-    if(social.code)ops.push({type:"delete",reference:"codes/"+social.code});
-    ops.push({type:"delete",reference:"profiles/"+me});
+    fr.forEach(f=>{ops.push({type:"delete",data:{},reference:"friends/"+me+"/list/"+f.id},{type:"delete",data:{},reference:"friends/"+f.id+"/list/"+me})});
+    (await fsList("requests/"+me+"/from").catch(()=>[])).forEach(r=>ops.push({type:"delete",data:{},reference:"requests/"+me+"/from/"+r.id}));
+    ops.push({type:"delete",data:{},reference:"gardens/"+me});(await fsList("gvisits/"+me+"/from").catch(()=>[])).forEach(x=>ops.push({type:"delete",data:{},reference:"gvisits/"+me+"/from/"+x.id}));fr.forEach(f=>ops.push({type:"delete",data:{},reference:"gvisits/"+f.id+"/from/"+me}));
+    (social.sent||[]).forEach(u=>ops.push({type:"delete",data:{},reference:"requests/"+u+"/from/"+me}));
+    for(const f of fr){const pp=[me,f.id].sort().join("_");const qs=await fsList("duos/"+pp+"/q").catch(()=>[]);qs.forEach(q=>{ops.push({type:"delete",data:{},reference:"duos/"+pp+"/q/"+q.id+"/ans/"+me},{type:"delete",data:{},reference:"duos/"+pp+"/q/"+q.id+"/ans/"+f.id},{type:"delete",data:{},reference:"duos/"+pp+"/q/"+q.id})})}
+    (await fsList("nudges/"+me+"/msgs").catch(()=>[])).forEach(n=>ops.push({type:"delete",data:{},reference:"nudges/"+me+"/msgs/"+n.id}));
+    if(social.code)ops.push({type:"delete",data:{},reference:"codes/"+social.code});
+    ops.push({type:"delete",data:{},reference:"profiles/"+me});
     for(let i=0;i<ops.length;i+=400)await FS().writeBatch({operations:ops.slice(i,i+400)});
     await stopAmisListeners();
     try{await FA().deleteUser()}catch(e){try{await FA().signOut()}catch(_){}}
@@ -3615,7 +3624,7 @@ async function cleanupDuos(){
   const lim=new Date();lim.setDate(lim.getDate()-30);const L=keyOf(lim);
   for(const f of amis.friends){
     const p=pairId(f.uid);
-    try{const qs=await fsList("duos/"+p+"/q");for(const q of qs){if(q.id<L){const ops=[p.split("_")[0],p.split("_")[1]].map(u=>({type:"delete",reference:"duos/"+p+"/q/"+q.id+"/ans/"+u}));ops.push({type:"delete",reference:"duos/"+p+"/q/"+q.id});await FS().writeBatch({operations:ops}).catch(()=>{})}}}catch(e){}
+    try{const qs=await fsList("duos/"+p+"/q");for(const q of qs){if(q.id<L){const ops=[p.split("_")[0],p.split("_")[1]].map(u=>({type:"delete",data:{},reference:"duos/"+p+"/q/"+q.id+"/ans/"+u}));ops.push({type:"delete",data:{},reference:"duos/"+p+"/q/"+q.id});await FS().writeBatch({operations:ops}).catch(()=>{})}}}catch(e){}
   }
 }
 function duoBox(fr){
