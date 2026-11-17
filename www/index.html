@@ -906,6 +906,23 @@ input,textarea,select{font-size:16px}
 .sh-flip.go .sh-shade{opacity:1}
 .sh-rdf{display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 12px calc(12px + env(safe-area-inset-bottom));font-size:13px;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.sh-spine{transition:none}}
+/* sauvegarde Drive */
+.sh-drv{display:flex;align-items:center;gap:8px;margin:0 16px 4px;width:calc(100% - 32px);border:0;border-radius:14px;padding:9px 12px;background:#eef3fb;color:#3a5a8c;font:inherit;font-size:13px;font-weight:700;text-align:left;cursor:pointer}
+.sh-drv>span:not(.sh-go){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh-drv svg,.sh-cloud svg,.sh-dic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;flex:none}
+.sh-drv.sh-d-ok{background:#eef8ef;color:#3f7a52}.sh-drv.sh-d-wait,.sh-drv.sh-d-busy{background:#fff7e3;color:#a8761c}.sh-drv.sh-d-err{background:#fdecec;color:#b23b3b}
+.sh-cloud{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid #cfe8d3;background:#eef8ef;color:#3f7a52;display:grid;place-items:center;padding:0;cursor:pointer}
+.sh-cloud.sh-d-wait,.sh-cloud.sh-d-busy{border-color:#f3dfae;background:#fff7e3;color:#a8761c}.sh-cloud.sh-d-err{border-color:#f3c4c4;background:#fdecec;color:#b23b3b}
+.sh-cloud.sh-d-busy svg,.sh-drv.sh-d-busy svg,.sh-dic.sh-d-busy svg{animation:shPulse 1s ease-in-out infinite alternate}
+@keyframes shPulse{from{opacity:.35}to{opacity:1}}
+.sh-dbox{margin:8px 16px;background:#fff;border-radius:20px;padding:18px 16px;display:grid;gap:10px;text-align:center}
+.sh-dbox p{margin:0;font-size:14px;line-height:1.5;color:#4b3a47}.sh-dbox .sh-dsm{font-size:12.5px;color:#7a6672}.sh-dbox small{color:#7a6672;font-size:12.5px}
+.sh-dic{justify-self:center;width:56px;height:56px;border-radius:50%;background:#eef3fb;color:#3a5a8c;display:grid;place-items:center}.sh-dic svg{width:30px;height:30px}
+.sh-dic.sh-d-ok{background:#eef8ef;color:#3f7a52}.sh-dic.sh-d-wait,.sh-dic.sh-d-busy{background:#fff7e3;color:#a8761c}.sh-dic.sh-d-err{background:#fdecec;color:#b23b3b}
+.sh-dst{font-family:var(--display);font-weight:500;font-size:16px}
+.sh-derr{color:#b23b3b!important;font-weight:700}
+.sh-dlink{display:grid;place-items:center;text-decoration:none;box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){.sh-cloud.sh-d-busy svg,.sh-drv.sh-d-busy svg,.sh-dic.sh-d-busy svg{animation:none}}
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -5220,7 +5237,7 @@ var SH_SPINE=["#2f4a8a","#d9708d","#5f8f6a","#e07a4f","#2a1a1a","#c9a274","#7b5f
 var SH_FS=[15,17,20];
 function shStore(){return typeof store!=="undefined"?store:localStorage}
 function shSt(){let s;try{s=JSON.parse(shStore().getItem(SH_K)||"{}")||{}}catch(e){s={}}s.books=s.books||[];s.reads=s.reads||[];return s}
-function shSave(s){try{shStore().setItem(SH_K,JSON.stringify(s))}catch(e){}}
+function shSave(s){try{shStore().setItem(SH_K,JSON.stringify(s))}catch(e){}if(typeof shdQueue==="function")shdQueue()}
 function shChGet(id){try{return shStore().getItem("nikki.shch."+id)||""}catch(e){return""}}
 function shChSet(id,h){try{shStore().setItem("nikki.shch."+id,h)}catch(e){}}
 function shChDel(id){try{shStore().removeItem("nikki.shch."+id)}catch(e){}}
@@ -5282,17 +5299,17 @@ function openShelf(view){
     ov.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&b.tagName!=="FORM"&&ov.contains(b)&&!b.closest("[contenteditable]"))shAct(b.dataset.a,b.dataset.id,b)});
     ov.addEventListener("input",e=>shInput(e));ov.addEventListener("submit",e=>{e.preventDefault();shAct(e.target.dataset.a,e.target.dataset.id,e.target)});
     document.addEventListener("keydown",e=>{if(!$("sh")||$("sh").hidden)return;if(SH_V&&SH_V.view==="read"){if(e.key==="ArrowRight"){shTurn(1);e.preventDefault()}else if(e.key==="ArrowLeft"){shTurn(-1);e.preventDefault()}}if(e.key==="Escape"){e.stopPropagation();shBack()}},true);
-    document.addEventListener("visibilitychange",()=>{if(document.hidden)shFlush()});window.addEventListener("pagehide",shFlush);
+    document.addEventListener("visibilitychange",()=>{if(document.hidden){shFlush();if(shdOn()&&shdSt().pending)shdSync()}});window.addEventListener("online",()=>{if(shdOn()&&shdSt().pending)shdQueue(1000)});window.addEventListener("pagehide",shFlush);
     window.addEventListener("resize",()=>{if(SH_V&&SH_V.view==="read"){clearTimeout(SH_RD&&SH_RD.rt);if(SH_RD)SH_RD.rt=setTimeout(()=>shReadLayout(true),250)}})}
   if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
-  ov.hidden=false;document.body.style.overflow="hidden";SH_STACK=[];SH_V=view||{view:"shelf",tab:"books"};shRender()}
+  ov.hidden=false;document.body.style.overflow="hidden";SH_STACK=[];if(shdOn()&&shdSt().pending)shdQueue(1500);SH_V=view||{view:"shelf",tab:"books"};shRender()}
 function shGo(v){shFlush();SH_STACK.push(SH_V);SH_V=v;shRender();const i=document.querySelector("#sh .sh-in");if(i)i.scrollTop=0}
 function shBack(){shFlush();if(SH_V&&SH_V.ask){SH_V={...SH_V,ask:null};shRender();return}if(SH_STACK.length){SH_V=SH_STACK.pop();shRender();return}closeShelf()}
 function closeShelf(){shFlush();const ov=$("sh");if(ov)ov.hidden=true;document.body.style.overflow="";SH_V=null;SH_RD=null;renderShCard()}
 function shToast(t){let d=document.querySelector("#sh .sh-toast");if(!d){d=document.createElement("div");d.className="sh-toast";d.setAttribute("role","status");$("sh").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
 function shHead(title,k,right){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${SH_STACK.length?"Retour":"Fermer"}">${SH_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${title}</b>${k?`<span lang="ja">${k}</span>`:""}<span class="sh-hr">${right||""}</span></div>`}
 function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",V.view==="read");
-  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);
+  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);
   if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="noask">Annuler</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
 /* ---------- l'étagère ---------- */
 function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)-(b.created||0)),reads=s.reads;
@@ -5306,7 +5323,7 @@ function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)
     books.map(b=>`<button type="button" class="sh-li" data-a="book" data-id="${b.id}">${shCover(b,38,54)}<span><b>${shEsc(b.title||"Sans titre")}</b><small>${(b.chapters||[]).length} chapitre${(b.chapters||[]).length>1?"s":""} · ${shFmt(shTotal(b))} mots</small></span><span class="sh-go">›</span></button>`).join("")}
   else list=`<div class="sh-year"><span lang="ja">${shKanjiNum(nDone)}</span><b>${nDone} livre${nDone>1?"s":""} lu${nDone>1?"s":""} en ${yr}</b><small>${reads.reduce((a,r)=>a+(r.quotes||[]).length,0)} citations gardées</small></div>`+
     reads.slice().sort((a,b)=>({cur:0,todo:1,done:2}[a.status]-{cur:0,todo:1,done:2}[b.status])||(b.updated||0)-(a.updated||0)).map(r=>{const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):(r.status==="done"?100:0);return`<button type="button" class="sh-li" data-a="rbook" data-id="${r.id}">${shCover(r,34,48)}<span><b>${shEsc(r.title)}</b><i class="sh-bar"><i style="width:${r.status==="done"?100:p}%"></i></i></span><small class="sh-st">${r.status==="done"?"Lu ✿":r.status==="todo"?"À lire":r.page?"p. "+r.page:"En cours"}</small></button>`}).join("")+`<button type="button" class="sh-addl" data-a="radd"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Ajouter un livre que je lis</button>`;
-  return shHead("Mon étagère","本棚")+`<div class="sh-lab"><b>Mes livres</b><small>${books.length} livre${books.length>1?"s":""} · ${shFmt(words)} mots</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
+  return shHead("Mon étagère","本棚")+shdRow()+`<div class="sh-lab"><b>Mes livres</b><small>${books.length} livre${books.length>1?"s":""} · ${shFmt(words)} mots</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
   <div class="sh-lab"><b>Mes lectures</b><small>${nDone} lu${nDone>1?"s":""} en ${yr}</small></div><div class="sh-shelf"><div class="sh-row1">${r2}</div><i class="sh-plank"></i></div>
   <div class="sh-tabs" role="tablist"><button type="button" role="tab" aria-selected="${tabB}" data-a="tabbooks">Mes livres</button><button type="button" role="tab" aria-selected="${!tabB}" data-a="tabreads">Mes lectures</button></div><div class="sh-list">${list}</div>`}
 /* ---------- un livre ---------- */
@@ -5329,12 +5346,12 @@ function shViewCover(s,V){const d=V.draft;
   <button class="sh-btn sh-pink">${V.id?"Enregistrer":"Créer mon livre"}</button></form>`}
 /* ---------- écrire ---------- */
 function shViewWrite(s,V){const b=s.books.find(x=>(x.chapters||[]).some(c=>c.id===V.id));if(!b)return shHead("Chapitre introuvable","");const i=b.chapters.findIndex(c=>c.id===V.id),c=b.chapters[i];V.book=b.id;
-  return`<div class="sh-wr">${shHead(shEsc(b.title||"Sans titre"),"",`<span class="sh-stat" id="shStat"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Enregistré</span>`)}
+  return`<div class="sh-wr">${shHead(shEsc(b.title||"Sans titre"),"",`<span class="sh-stat" id="shStat"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Enregistré</span><button type="button" class="sh-cloud" id="shCloud" data-a="drive" hidden>${SHD_ICON}</button>`)}
   <div class="sh-chrow"><button type="button" class="sh-ic" data-a="prevch" aria-label="Chapitre précédent"${i?"":" disabled"}><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><input class="sh-chtitle" id="shChT" maxlength="60" value="${shEsc(c.title||"")}" placeholder="Chapitre ${i+1}" aria-label="Titre du chapitre"><button type="button" class="sh-ic" data-a="nextch" aria-label="Chapitre suivant"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
   <div class="sh-tools" role="toolbar" aria-label="Mise en forme">${[["h3","Titre","Titre"],["bold","<b>G</b>","Gras"],["italic","<i>I</i>","Italique"],["quote",'<svg viewBox="0 0 24 24"><path d="M7 10h4v6H5v-4l2-4M15 10h4v6h-6v-4l2-4"/></svg>',"Citation"],["undo",'<svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>',"Annuler"],["redo",'<svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H10a6 6 0 0 0 0 12h3"/></svg>',"Rétablir"]].map(([a,l,n])=>`<button type="button" class="sh-tool" data-a="fmt" data-id="${a}" aria-label="${n}">${l}</button>`).join("")}</div>
   <div class="sh-paper"><div class="sh-ed" id="shEd" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texte du chapitre" spellcheck="true"></div></div>
   <div class="sh-foot"><span id="shWc"></span><span id="shGoal"></span></div></div>`}
-function shWriteInit(V){const ed=$("shEd");if(!ed)return;ed.innerHTML=shChGet(V.id)||"<p><br></p>";SH_V.dirty=false;shWc();
+function shWriteInit(V){shdUi();const ed=$("shEd");if(!ed)return;ed.innerHTML=shChGet(V.id)||"<p><br></p>";SH_V.dirty=false;shWc();
   ed.addEventListener("paste",e=>{e.preventDefault();const t=(e.clipboardData||window.clipboardData).getData("text/plain")||"";document.execCommand("insertText",false,t)});
   ed.addEventListener("blur",shFlush);
   setTimeout(()=>{try{if(!(SH_V&&SH_V.view==="write"))return;ed.focus();const r=document.createRange();r.selectNodeContents(ed);r.collapse(false);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}catch(e){}},120)}
@@ -5396,6 +5413,13 @@ function shViewRAdd(s,V){return shHead("Ajouter une lecture","読書")+`<form cl
 /* ---------- actions ---------- */
 function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="back")return shBack();
+  if(a==="drive")return shGo({view:"drive"});
+  if(a==="dconnect"||a==="dreauth")return shdConnect(a==="dreauth");
+  if(a==="dnow"){const d=shdSt();d.err="";shdPut(d);return shdQueue(0)}
+  if(a==="drestore")return shdRestoreAsk();
+  if(a==="drestoreok")return shdRestoreDo();
+  if(a==="askdoff"){SH_V={...V,ask:{msg:"Arrêter la sauvegarde ? Les fichiers déjà envoyés restent sur ton Drive.",ok:"doff",okl:"Arrêter"}};return shRender()}
+  if(a==="doff"){shdPut({});SHD_TOK=null;SH_V={...V,ask:null};shToast("Sauvegarde Drive arrêtée");return shRender()}
   if(a==="noask"){SH_V={...V,ask:null};return shRender()}
   if(a==="tabbooks"||a==="tabreads"){if(V.view!=="shelf")return;SH_V={...V,tab:a==="tabreads"?"reads":"books"};return shRender()}
   if(a==="book")return shGo({view:"book",id});
@@ -5431,6 +5455,68 @@ function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="askdelread"){SH_V={...V,ask:{msg:"Retirer ce livre et ses citations de tes lectures ?",ok:"delread",okl:"Retirer",id}};return shRender()}
   if(a==="delread"){s.reads=s.reads.filter(x=>x.id!==id);shSave(s);SH_V={...V,ask:null};return shBack()}
 }
+/* ---------- sauvegarde Google Drive (appli Android) ---------- */
+var SHD_K="nikki.shdrive",SHD_T=null,SHD_BUSY=false,SHD_AGAIN=false,SHD_TOK=null,SHD_API="https://www.googleapis.com/drive/v3/",SHD_UP="https://www.googleapis.com/upload/drive/v3/";
+function shdPlug(){if(window.__shdMock)return window.__shdMock;if(typeof isNative==="undefined"||!isNative||typeof PL_!=="function")return null;return PL_().NikkiDrive||null}
+function shdSt(){try{return JSON.parse(shStore().getItem(SHD_K)||"{}")||{}}catch(e){return{}}}
+function shdPut(d){try{shStore().setItem(SHD_K,JSON.stringify(d))}catch(e){}}
+function shdOn(){return!!(shdPlug()&&shdSt().email)}
+function shdQueue(ms){if(!shdOn())return;const d=shdSt();if(!d.pending){d.pending=1;shdPut(d)}clearTimeout(SHD_T);SHD_T=setTimeout(shdSync,ms==null?4000:ms);shdUi()}
+async function shdToken(inter){if(SHD_TOK&&Date.now()<SHD_TOK.exp)return SHD_TOK.t;const d=shdSt();const r=await shdPlug().token({email:d.email,interactive:!!inter});SHD_TOK={t:r.token,exp:Date.now()+40*60e3};return r.token}
+async function shdFetch(method,url,body,ctype,again){const t=await shdToken(false),h={Authorization:"Bearer "+t};if(ctype)h["Content-Type"]=ctype;
+  let r;try{r=await fetch(url,{method,headers:h,body})}catch(e){throw new Error("network")}
+  if(r.status===401&&!again){try{await shdPlug().clear({token:t})}catch(e){}SHD_TOK=null;return shdFetch(method,url,body,ctype,true)}
+  if(r.status===403||r.status===429){const x=await r.text().catch(()=>"");throw new Error(/rateLimit|userRateLimit|429/.test(x+r.status)?"busy":/accessNotConfigured|has not been used|disabled/i.test(x)?"api_off":"forbidden")}
+  return r}
+function shdMulti(meta,content,mime){const b="nikki"+Math.random().toString(36).slice(2);return{ct:"multipart/related; boundary="+b,body:`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${b}\r\nContent-Type: ${mime}; charset=UTF-8\r\n\r\n${content}\r\n--${b}--`}}
+async function shdFind(key){const q=encodeURIComponent(`appProperties has { key='nikki' and value='${key}' } and trashed=false`);const r=await shdFetch("GET",SHD_API+"files?q="+q+"&fields=files(id,modifiedTime)&orderBy=modifiedTime desc&pageSize=5");if(!r.ok)throw new Error("http"+r.status);const j=await r.json();return(j.files&&j.files[0])||null}
+async function shdDir(d,key,name,parent){const f=d.dirs&&d.dirs[key];if(f){const r=await shdFetch("GET",SHD_API+"files/"+f+"?fields=id,trashed");if(r.ok){const j=await r.json();if(!j.trashed)return f}}
+  let x=await shdFind(key);let id=x&&x.id;if(!id){const meta={name,mimeType:"application/vnd.google-apps.folder",appProperties:{nikki:key}};if(parent)meta.parents=[parent];const r=await shdFetch("POST",SHD_API+"files?fields=id",JSON.stringify(meta),"application/json; charset=UTF-8");if(!r.ok)throw new Error("http"+r.status);id=(await r.json()).id}
+  d.dirs={...(d.dirs||{}),[key]:id};return id}
+async function shdUpload(id,meta,content,mime,parent){
+  if(id){const m=shdMulti(meta,content,mime);const r=await shdFetch("PATCH",SHD_UP+"files/"+id+"?uploadType=multipart&fields=id",m.body,m.ct);if(r.ok)return id;if(r.status!==404)throw new Error("http"+r.status)}
+  const m=shdMulti({...meta,parents:[parent]},content,mime);const r=await shdFetch("POST",SHD_UP+"files?uploadType=multipart&fields=id",m.body,m.ct);if(!r.ok)throw new Error("http"+r.status);return(await r.json()).id}
+function shdDocHtml(b){return`<html><head><meta charset="utf-8"></head><body><h1 style="text-align:center">${shEsc(b.title||"Sans titre")}</h1>${b.author?`<p style="text-align:center"><i>${shEsc(b.author)}</i></p>`:""}`+(b.chapters||[]).map((c,i)=>`<h2>Chapitre ${i+1}${c.title?" · "+shEsc(c.title):""}</h2>${shChGet(c.id)}`).join("")+"</body></html>"}
+function shdName(b){return String(b.title||"Sans titre").replace(/[\\/:*?"<>|]/g," ").trim().slice(0,80)||"Sans titre"}
+async function shdSync(){if(!shdOn())return;if(SHD_BUSY){SHD_AGAIN=true;return}clearTimeout(SHD_T);SHD_BUSY=true;shdUi();let d=shdSt();
+  try{if(typeof navigator!=="undefined"&&navigator.onLine===false)throw new Error("network");
+    const s=shSt(),root=await shdDir(d,"root","Mon petit journal",null),dir=await shdDir(d,"books","Mes livres",root);d.docs=d.docs||{};d.h=d.h||{};
+    for(const b of s.books){const html=shdDocHtml(b),h=shH(html)+":"+html.length+":"+shdName(b);if(d.docs[b.id]&&d.h[b.id]===h)continue;
+      d.docs[b.id]=await shdUpload(d.docs[b.id],{name:shdName(b),mimeType:"application/vnd.google-apps.document"},html,"text/html",dir);d.h[b.id]=h;shdPut({...shdSt(),docs:d.docs,h:d.h,dirs:d.dirs})}
+    for(const id of Object.keys(d.docs))if(!shBook(s,id)){try{await shdFetch("PATCH",SHD_API+"files/"+d.docs[id],JSON.stringify({trashed:true}),"application/json; charset=UTF-8")}catch(e){}delete d.docs[id];delete d.h[id]}
+    const ch={};s.books.forEach(b=>(b.chapters||[]).forEach(c=>ch[c.id]=shChGet(c.id)));
+    d.json=await shdUpload(d.json,{name:"sauvegarde-etagere.json",mimeType:"application/json",appProperties:{nikki:"shelfjson"}},JSON.stringify({v:1,at:Date.now(),shelf:s,ch}),"application/json",dir);
+    d={...shdSt(),dirs:d.dirs,docs:d.docs,h:d.h,json:d.json,last:Date.now(),err:"",pending:SHD_AGAIN?1:0};shdPut(d)}
+  catch(e){const m=String(e&&e.message||e);d={...shdSt(),dirs:d.dirs||shdSt().dirs,docs:d.docs||shdSt().docs,h:d.h||shdSt().h,err:/network|offline|Failed to fetch/i.test(m)?"offline":/need_consent|no_account|auth/.test(m)?"auth":/api_off/.test(m)?"api":"fail",pending:1};shdPut(d);SHD_TOK=d.err==="auth"?null:SHD_TOK}
+  SHD_BUSY=false;if(SHD_AGAIN){SHD_AGAIN=false;shdQueue(1500)}shdUi()}
+function shdTime(t){const x=new Date(t),n=new Date();return x.toDateString()===n.toDateString()?"à "+x.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}):"le "+shDate(t)}
+function shdState(){const d=shdSt();if(!shdPlug())return null;if(!d.email)return{k:"off",t:"Sauvegarder mes livres sur Google Drive"};if(SHD_BUSY)return{k:"busy",t:"Envoi sur Drive…"};
+  if(d.err==="offline")return{k:"wait",t:"Hors ligne · j'enverrai dès que possible"};if(d.err==="auth")return{k:"err",t:"Reconnecte ton compte Google"};if(d.err)return{k:"err",t:"La sauvegarde Drive n'a pas marché"};if(d.pending)return{k:"wait",t:"Sauvegarde Drive en attente"};return{k:"ok",t:d.last?"Sauvegardé sur Drive "+shdTime(d.last):"Drive connecté"}}
+var SHD_ICON='<svg viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.2 4.5 4.5 0 0 0 7 18z"/></svg>';
+function shdRow(){const st=shdState();if(!st)return"";return`<button type="button" class="sh-drv sh-d-${st.k}" data-a="drive" id="shDrv">${SHD_ICON}<span>${shEsc(st.t)}</span><span class="sh-go">›</span></button>`}
+function shdUi(){const st=shdState(),r=$("shDrv");if(r&&st){r.className="sh-drv sh-d-"+st.k;r.querySelector("span").textContent=st.t}
+  const c=$("shCloud");if(c&&st){c.className="sh-cloud sh-d-"+st.k;c.hidden=st.k==="off";c.setAttribute("aria-label",st.t);c.title=st.t}
+  if(SH_V&&SH_V.view==="drive"&&!SH_V.ask){const P=document.querySelector("#sh .sh-in");if(P)shRender()}}
+function shViewDrive(s,V){const d=shdSt(),st=shdState()||{k:"off",t:""};
+  if(!d.email)return shHead("Google Drive","")+`<div class="sh-dbox"><div class="sh-dic">${SHD_ICON}</div><p>Chaque fois que tu écris, tes livres sont copiés dans <b>ton propre</b> Google Drive, dans un dossier « Mon petit journal ». Si tu changes de téléphone, tu les retrouves.</p><p class="sh-dsm">L'appli ne voit que les fichiers qu'elle crée elle-même, jamais le reste de ton Drive.</p>${V.err?`<p class="sh-derr" role="alert">${shEsc(V.err)}</p>`:""}<button type="button" class="sh-btn sh-pink" data-a="dconnect"${V.busy?" disabled":""}>${V.busy?"Connexion…":"Choisir mon compte Google"}</button></div>`;
+  return shHead("Google Drive","")+`<div class="sh-dbox"><div class="sh-dic sh-d-${st.k}">${SHD_ICON}</div><b class="sh-dst">${shEsc(st.t)}</b><small>${shEsc(d.email)}</small>
+  <p class="sh-dsm">Tes livres sont dans « Mon petit journal › Mes livres » : un document lisible par livre, et un fichier de sauvegarde pour tout restaurer.</p>
+  ${st.k==="err"&&d.err==="auth"?`<button type="button" class="sh-btn sh-pink" data-a="dreauth">Reconnecter mon compte</button>`:""}
+  <button type="button" class="sh-btn${st.k==="err"&&d.err==="auth"?"":" sh-pink"}" data-a="dnow"${SHD_BUSY?" disabled":""}>Sauvegarder maintenant</button>
+  <button type="button" class="sh-btn" data-a="drestore"${SHD_BUSY?" disabled":""}>Restaurer depuis Drive</button>
+  ${d.dirs&&d.dirs.books?`<a class="sh-btn sh-dlink" href="https://drive.google.com/drive/folders/${encodeURIComponent(d.dirs.books)}" target="_blank" rel="noopener">Ouvrir le dossier dans Drive</a>`:""}
+  <button type="button" class="sh-link" data-a="askdoff">Arrêter la sauvegarde sur Drive</button></div>`}
+async function shdConnect(reauth){const V=SH_V;if(!V)return;V.busy=true;V.err="";shRender();
+  try{const r=await shdPlug().connect();SHD_TOK={t:r.token,exp:Date.now()+40*60e3};const d=shdSt();if(d.email&&d.email!==r.email){d.dirs=null;d.docs={};d.h={};d.json=null}d.email=r.email;d.err="";shdPut(d);V.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}shToast("Drive connecté ✿");shRender();shdQueue(300)}
+  catch(e){const m=String(e&&e.message||e);V.busy=false;V.err=/cancel/.test(m)?"":/network/.test(m)?"Pas de connexion internet pour l'instant ☁":"La connexion à Google n'a pas marché. Réessaie dans un instant.";shRender()}}
+async function shdRestoreAsk(){const V=SH_V;shToast("Je cherche ta sauvegarde…");
+  try{const d=shdSt();let id=d.json;if(!id){const f=await shdFind("shelfjson");id=f&&f.id}if(!id)return shToast("Aucune sauvegarde trouvée sur ce Drive");
+    const r=await shdFetch("GET",SHD_API+"files/"+id+"?alt=media");if(!r.ok)throw new Error("http"+r.status);const j=await r.json();if(!j||!j.shelf)throw new Error("bad");
+    SHD_RESTORE=j;const n=(j.shelf.books||[]).length,m=(j.shelf.reads||[]).length;SH_V={...SH_V,ask:{msg:`Remplacer ton étagère par la sauvegarde du ${shDate(j.at)} (${n} livre${n>1?"s":""}, ${m} lecture${m>1?"s":""}) ?`,ok:"drestoreok",okl:"Restaurer"}};shRender()}
+  catch(e){shToast(/network/.test(String(e&&e.message))?"Pas de connexion internet ☁":"Impossible de lire la sauvegarde")}}
+var SHD_RESTORE=null;
+function shdRestoreDo(){const j=SHD_RESTORE;SHD_RESTORE=null;if(!j)return;const old=shSt();old.books.forEach(b=>(b.chapters||[]).forEach(c=>shChDel(c.id)));
+  Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[]});SH_V={...SH_V,ask:null};shToast("Étagère restaurée ✿");shRender()}
 try{renderShCard()}catch(e){}
 /* ===== fin étagère ===== */
 

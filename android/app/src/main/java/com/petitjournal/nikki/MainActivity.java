@@ -7,6 +7,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(WidgetPlugin.class);
+        registerPlugin(DrivePlugin.class);
         super.onCreate(savedInstanceState);
         try { MailWorker.schedule(this); } catch (Exception ignored) { }
     }
