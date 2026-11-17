@@ -957,7 +957,7 @@ const EVENTS=[
 function curEvent(d){const m=(d||new Date()).getMonth()+1;return EVENTS.find(e=>e.m===m)}
 function eventDaysLeft(){const d=new Date(),end=new Date(d.getFullYear(),d.getMonth()+1,0,23,59);return Math.max(1,Math.ceil((end-d)/864e5))}
 const evById=id=>EVENTS.find(e=>e.id===id);
-const SEALS=[{id:"sakura",name:"Sakura",c:"#e86f93",c2:"#ffb6c9"},{id:"fuji",name:"Fuji",c:"#3f86d8",c2:"#a9cdea"},{id:"kin",name:"Or",c:"#d49a0e",c2:"#ffe08a"}];
+const SEALS=[{id:"sakura",name:"Sakura",c:"#e86f93",c2:"#ffb6c9"},{id:"fuji",name:"Fuji",c:"#3f86d8",c2:"#a9cdea"},{id:"kin",name:"Or",c:"#d49a0e",c2:"#ffe08a",cost:5}];
 const STICKERS=[
   /* départ */
   {id:"sakura",name:"Sakura",r:"c",src:"start",b:SAKURA("#ffc2d1","#f59ab3","#ff8fab")},
@@ -3263,10 +3263,12 @@ function writeLetter(){openModal("Lettre au futur moi","みらいのわたしへ
   const when=document.createElement("p");when.className="note";when.style.margin="6px 0 0";when.textContent="Ouverture le "+frDate(addMonths(delay),{day:"numeric",month:"long",year:"numeric"});body.append(when);
   lab("Le sceau");
   const sg=document.createElement("div");sg.className="seals";
-  SEALS.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="sealbtn";b.setAttribute("aria-pressed",String(s.id===seal));b.setAttribute("aria-label","Sceau "+s.name);b.innerHTML=`<i style="background:${s.c}"></i><span>${s.name}</span>`;b.onclick=()=>{seal=s.id;sg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))};sg.append(b)});body.append(sg);
+  SEALS.forEach(s=>{const b=document.createElement("button");b.type="button";b.className="sealbtn";b.setAttribute("aria-pressed",String(s.id===seal));b.setAttribute("aria-label","Sceau "+s.name);const poor=s.cost&&petalBal()<s.cost;b.disabled=!!poor;b.innerHTML=`<i style="background:${s.c}"></i><span>${s.name}${s.cost?" · "+s.cost+" pétales":""}</span>`;if(poor)b.title="Il te faut "+s.cost+" pétales";b.onclick=()=>{seal=s.id;sg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));upd()};sg.append(b)});body.append(sg);
+  {const n=document.createElement("p");n.className="note";n.style.margin="6px 0 0";n.textContent="Tu as "+petalBal()+" pétales. Le sceau doré coûte 5 pétales, les autres sont offerts ✿";body.append(n)}
   const go=document.createElement("button");go.className="openbook";go.type="button";body.append(go);
-  const upd=()=>{const n=countWords(ta.value);go.disabled=n<5;go.textContent=n<5?"Écris au moins quelques mots ✿":"Sceller ma lettre ✉"};ta.oninput=upd;upd();
+  const upd=()=>{const n=countWords(ta.value),S=SEALS.find(x=>x.id===seal)||{};go.disabled=n<5;go.textContent=n<5?"Écris au moins quelques mots ✿":"Sceller ma lettre ✉"+(S.cost?" (−"+S.cost+" pétales)":"")};ta.oninput=upd;upd();
   go.onclick=()=>{const text=ta.value.trim();if(countWords(text)<5)return;
+    const S=SEALS.find(x=>x.id===seal)||{};if(S.cost){if(petalBal()<S.cost){say("Il te manque des pétales pour le sceau doré ✿");return}coll.pspent=(coll.pspent||0)+S.cost;Sfx.play("coin")}
     const l={id:Date.now().toString(36),created:todayKey(),open:addMonths(delay),text,seal};
     coll.letters=[...lettersAll(),l];saveColl();
     body.innerHTML=`<div class="sealing">${envSvg(seal,"")}<p class="gname">Lettre scellée ✿</p><p class="note"></p><button class="openbook" type="button" style="width:auto">Fermer</button></div>`;
