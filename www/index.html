@@ -783,6 +783,129 @@ input,textarea,select{font-size:16px}
 .wis-it small{font-size:11px;color:#a99f95}
 .wis-empty,.wis-more{grid-column:1/-1;margin:4px 0;text-align:center;font-size:13.5px;color:#7a6672}
 @media (prefers-reduced-motion:reduce){#wis,.wis-panel,.wis-steam path{animation:none}}
+/* ===== mon étagère ===== */
+#shCard{margin:0}
+.sh-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 10px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
+.sh-cmini{flex:none;width:92px;height:74px;border-radius:16px;background:#fbf3ea;display:flex;align-items:flex-end;justify-content:center;gap:3px;padding:0 8px 10px;box-sizing:border-box;position:relative}
+.sh-cmini::after{content:"";position:absolute;left:8px;right:8px;bottom:6px;height:5px;border-radius:2px;background:#b07a4f}
+.sh-cmini i{width:13px;border-radius:2px}
+.sh-cbody{flex:1;display:grid;gap:2px;min-width:0}.sh-cbody b{font-family:var(--display);font-weight:500;font-size:17px}.sh-cbody b small{font-size:12px;color:var(--muted)}.sh-cbody>small{font-size:12.5px;color:var(--muted);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sh{position:fixed;inset:0;z-index:1500;background:#fdf6f0;color:#4b3a47;font-family:var(--body)}
+#sh .sh-in{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;max-width:520px;margin:0 auto;padding:0 0 calc(28px + env(safe-area-inset-bottom));box-sizing:border-box;-webkit-overflow-scrolling:touch}
+#sh.sh-reading .sh-in{max-width:none;overflow:hidden;padding:0}
+@media (min-width:640px){#sh{background:rgba(58,40,58,.5)}#sh .sh-in{background:#fdf6f0;left:50%;width:min(520px,96vw);transform:translateX(-50%);margin:0}#sh.sh-reading .sh-in{width:min(1180px,98vw)}}
+.sh-head{display:flex;align-items:center;gap:8px;padding:calc(14px + env(safe-area-inset-top)) 14px 8px;position:sticky;top:0;background:#fdf6f0;z-index:3}
+.sh-head b{font-family:var(--display);font-weight:500;font-size:20px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh-head>span[lang]{font-family:"Yuji Wis","Yuji Syuku",serif;font-size:15px;color:#a08a98}
+.sh-hr{margin-left:auto;display:flex;gap:6px;align-items:center}
+.sh-ic{flex:none;min-width:40px;height:40px;border-radius:50%;border:0;background:#f1e6dc;color:#4b3a47;display:grid;place-items:center;cursor:pointer;font:inherit;font-weight:700;font-size:14px;padding:0}
+.sh-ic svg,.sh-addl svg,.sh-spine svg,.sh-stat svg,.sh-tool svg,.sh-lic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.sh-ic:disabled{opacity:.35}
+.sh-lab{display:flex;justify-content:space-between;align-items:baseline;padding:8px 18px 0}.sh-lab b{font-size:14.5px}.sh-lab small{font-size:12px;color:#7a6672}
+.sh-shelf{padding:0 14px;position:relative}
+.sh-row1{display:flex;align-items:flex-end;gap:3px;min-height:140px;padding:0 10px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.sh-plank{display:block;height:12px;border-radius:3px;background:linear-gradient(#b07a4f 70%,#8a5a3c 70%);box-shadow:0 6px 8px -4px rgba(0,0,0,.18)}
+.sh-spine{flex:none;border:0;border-radius:3px 3px 2px 2px;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;box-shadow:inset -3px 0 0 rgba(0,0,0,.12),inset 2px 0 0 rgba(255,255,255,.18);font:inherit;transform-origin:50% 100%;transition:transform .15s}
+.sh-spine:hover{transform:translateY(-4px)}
+.sh-spine>i{display:block;width:100%;height:7px;background:rgba(255,255,255,.25);margin-top:10px}.sh-spine>i:last-child{margin:auto 0 10px}
+.sh-spine span{writing-mode:vertical-rl;font-family:var(--display);font-size:11px;line-height:1;max-height:calc(100% - 52px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.sh-tilt{transform:rotate(9deg);margin-left:8px}.sh-tilt:hover{transform:rotate(9deg) translateY(-4px)}
+.sh-new{height:108px;width:32px;background:none;border:2px dashed #d9708d;color:#d9708d;justify-content:center;box-shadow:none}
+.sh-stack{flex:none;margin-left:auto;border:0;background:none;display:flex;flex-direction:column-reverse;align-items:center;gap:1px;cursor:pointer;font:inherit;padding:0 4px}
+.sh-stack i{display:block;height:11px;border-radius:2px;box-shadow:inset 6px 0 0 rgba(255,255,255,.25)}.sh-stack small{font-size:10.5px;font-weight:700;color:#a08a98;margin-bottom:4px}
+.sh-tabs{display:flex;gap:6px;padding:14px 16px 8px}.sh-tabs button{flex:1;min-height:40px;border-radius:999px;border:2px solid #f1dce4;background:#fff;font:inherit;font-weight:700;font-size:14px;color:#7a6672;cursor:pointer}
+.sh-tabs button[aria-selected="true"]{background:#4b3a47;border-color:#4b3a47;color:#fff}
+.sh-list{display:grid;gap:8px;padding:0 16px}
+.sh-li,.sh-cont{display:flex;align-items:center;gap:10px;background:#fff;border:0;border-radius:16px;padding:8px 12px 8px 8px;text-align:left;font:inherit;color:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(181,80,109,.06)}
+.sh-li>span,.sh-cont>span{flex:1;display:grid;gap:3px;min-width:0}.sh-li b,.sh-cont b{font-size:14px}.sh-li small,.sh-cont small{font-size:12px;color:#7a6672}
+.sh-cont b{font-family:var(--display);font-weight:500;font-size:15.5px}
+.sh-go{font-size:22px;color:#d9708d;flex:none!important}
+.sh-cv{display:block;flex:none;border-radius:3px 6px 6px 3px;box-shadow:0 4px 10px rgba(60,30,40,.18)}
+.sh-st{flex:none;font-size:11.5px;color:#7a6672}
+.sh-bar{display:block;height:6px;border-radius:9px;background:#f1e4ea;overflow:hidden}.sh-bar>i{display:block;height:100%;background:linear-gradient(90deg,#c99a2e,#ffe08a);border-radius:9px}
+.sh-bar.big{height:8px;margin:10px 16px 0}
+.sh-year{background:#fff;border-radius:18px;padding:12px;display:grid;gap:2px;text-align:center}.sh-year span{font-family:"Yuji Wis","Yuji Syuku",serif;font-size:28px;color:#b5506d}.sh-year b{font-family:var(--display);font-weight:500;font-size:17px}.sh-year small{font-size:12px;color:#7a6672}
+.sh-addl{display:flex;align-items:center;justify-content:center;gap:6px;border:2px dashed #e6c6d3;background:none;border-radius:14px;padding:11px;font:inherit;font-weight:700;font-size:13.5px;color:#b5506d;cursor:pointer}
+.sh-empty{background:#fff;border-radius:18px;padding:16px;display:grid;gap:12px;text-align:center}.sh-empty p{margin:0;font-size:14px;line-height:1.5;color:#7a6672}
+.sh-btn{flex:1;min-height:46px;border:2px solid #f1dce4;border-radius:999px;background:#fff;color:#4b3a47;font:inherit;font-weight:700;font-size:15px;padding:0 14px;cursor:pointer}
+.sh-btn:disabled{opacity:.45}.sh-pink{background:#d9708d;border-color:#d9708d;color:#fff}
+.sh-row{display:flex;gap:8px;align-items:center}.sh-wrap{flex-wrap:wrap}
+.sh-in>.sh-row{padding:6px 18px}
+.sh-bcov{display:flex;justify-content:center;padding:4px 0 6px}.sh-bcov .sh-cv{box-shadow:0 14px 26px rgba(60,30,40,.25)}
+.sh-btitle{text-align:center;padding:8px 18px 6px}.sh-btitle h2{margin:0;font-family:var(--display);font-weight:500;font-size:20px}.sh-btitle small{font-size:12.5px;color:#7a6672}
+.sh-chs{display:grid;gap:6px;padding:10px 18px}
+.sh-ch{display:flex;gap:6px;align-items:center}
+.sh-chb{flex:1;display:flex;align-items:center;gap:8px;background:#fff;border:0;border-radius:12px;padding:10px 12px;font:inherit;font-size:13.5px;color:inherit;text-align:left;cursor:pointer;min-width:0}
+.sh-chb b{color:#b5506d}.sh-chb span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sh-chb small{color:#7a6672;font-size:12px}
+.sh-mv{min-width:36px;height:36px;background:#fff}
+.sh-goal{margin:4px 18px;background:#fff;border-radius:16px;padding:12px;display:grid;gap:8px}.sh-goal b{font-size:13.5px}.sh-goal small{font-size:12.5px;color:#7a6672}
+.sh-chip{border:2px solid #f1dce4;background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;color:#4b3a47;cursor:pointer}
+.sh-chip.on,.sh-rad:has(input:checked){border-color:#d9708d;background:#fde8ee;color:#b5506d}
+.sh-rad input{position:absolute;opacity:0;pointer-events:none}.sh-rad{position:relative}
+.sh-link{display:block;margin:14px auto 0;background:none;border:0;color:#7a6672;font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:8px}
+.sh-tpls{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:8px 16px}
+.sh-tpl{border:0;background:none;padding:2px;border-radius:7px;cursor:pointer}.sh-tpl.on{box-shadow:0 0 0 3px #d9708d}
+.sh-form{display:grid;gap:12px;padding:8px 16px}
+.sh-form label,.sh-form legend{display:grid;gap:5px;font-size:13px;font-weight:700;color:#6e5a68}
+.sh-form fieldset{border:0;margin:0;padding:0;display:grid;gap:6px}
+.sh-form input,.sh-form textarea,.sh-prog input{font:inherit;font-weight:400;font-size:15px;border:2px solid #f1dce4;border-radius:12px;padding:10px 12px;background:#fff;color:#4b3a47;width:100%;box-sizing:border-box}
+.sh-kj{width:38px;height:38px;border-radius:10px;border:2px solid #f1dce4;background:#fff;font-family:"Yuji Wis","Yuji Syuku",serif;font-size:18px;color:#4b3a47;cursor:pointer;padding:0}
+.sh-kj.on{border-color:#d9708d;background:#fde8ee}
+.sh-sw{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px #e6d9df;cursor:pointer;padding:0}.sh-sw.on{box-shadow:0 0 0 3px #d9708d}
+.sh-wr{display:flex;flex-direction:column;height:100%;min-height:100%}
+#sh .sh-in:has(.sh-wr){overflow:hidden;padding-bottom:0}
+.sh-stat{display:inline-flex;align-items:center;gap:5px;background:#eef8ef;color:#3f7a52;border:1.5px solid #cfe8d3;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.sh-stat svg{width:14px;height:14px}.sh-stat.busy{background:#fff7e3;color:#a8761c;border-color:#f3dfae}
+.sh-chrow{display:flex;align-items:center;gap:6px;padding:0 12px 8px}
+.sh-chtitle{flex:1;min-width:0;font-family:var(--display);font-size:16px;border:0;border-bottom:2px dashed #ecd8e0;background:none;color:#4b3a47;padding:6px 2px}
+.sh-chtitle:focus{outline:none;border-bottom-color:#d9708d}
+.sh-tools{display:flex;gap:6px;padding:0 12px 8px;overflow-x:auto}
+.sh-tool{min-width:40px;height:36px;padding:0 8px;border-radius:10px;border:1.5px solid #f1dce4;background:#fff;font:inherit;font-weight:700;font-size:13.5px;color:#4b3a47;cursor:pointer;display:grid;place-items:center}
+.sh-tool i{font-family:serif}.sh-tool svg{width:18px;height:18px}
+.sh-paper{flex:1;min-height:0;margin:0 10px;background:#fffaf2;border-radius:16px;box-shadow:inset 0 0 0 1.5px #f1e4ea;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.sh-ed{min-height:100%;box-sizing:border-box;padding:12px 16px 40px;font-family:var(--display);font-size:16px;line-height:28px;color:#3b2a35;outline:none;background:repeating-linear-gradient(#fffaf2 0 27px,#f1e4ea 27px 28px);background-position:0 12px;white-space:pre-wrap;word-wrap:break-word}
+.sh-ed p{margin:0}.sh-ed h3{margin:0;font-size:19px;line-height:28px;font-weight:500;color:#b5506d}.sh-ed blockquote{margin:0;padding-left:14px;border-left:3px solid #f7b9cb;font-style:italic;color:#6e5a68}
+.sh-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px calc(12px + env(safe-area-inset-bottom));font-size:12.5px;color:#7a6672}.sh-foot span{display:flex;align-items:center;gap:6px}
+.sh-rtop{display:flex;gap:14px;padding:0 16px}.sh-rtop>div{display:grid;gap:7px;align-content:start;min-width:0}.sh-rtop h2{margin:0;font-family:var(--display);font-weight:500;font-size:18px;line-height:1.25}.sh-rtop small{font-size:12.5px;color:#7a6672}
+.sh-fl{display:flex;gap:2px}.sh-fl button{border:0;background:none;padding:2px;cursor:pointer;width:30px;height:30px}.sh-fl svg{width:100%;height:100%}
+.sh-prog{display:flex;align-items:flex-end;gap:8px;padding:14px 16px 0;font-size:13px;color:#6e5a68}.sh-prog label{display:grid;gap:4px;font-weight:700;flex:1}.sh-prog>input{flex:1}.sh-prog>span{padding-bottom:12px}.sh-prog .sh-btn{flex:none;min-height:44px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.sh-dates{display:block;padding:6px 16px 0;font-size:12px;color:#7a6672}
+.sh-h{margin:16px 16px 6px;font-size:14.5px}
+.sh-q{position:relative;margin:0 16px 8px;background:#fffaf2;border-radius:14px;padding:10px 40px 10px 12px;border-left:4px solid #f7b9cb}.sh-q p{margin:0 0 3px;font-family:var(--display);font-size:14px;line-height:1.5}.sh-q small{font-size:11.5px;color:#7a6672}
+.sh-qx{position:absolute;top:6px;right:6px;min-width:32px;height:32px;background:#fff}
+.sh-qf{grid-template-columns:1fr 80px;align-items:end}.sh-form textarea{height:76px;min-height:0;resize:vertical;line-height:1.45}.sh-qf>label:first-child{grid-column:1/-1}.sh-qf .sh-btn{min-height:46px}
+.sh-in>.sh-li{margin:12px 16px 0}.sh-lic{color:#d9708d;flex:none}
+.sh-ask{position:fixed;inset:0;z-index:20;background:rgba(43,35,66,.45);display:grid;place-items:center;padding:20px}.sh-ask>div{background:#fffafc;border-radius:22px;padding:20px;width:min(320px,100%);display:grid;gap:14px}.sh-ask p{margin:0;font-family:var(--display);font-size:16.5px;line-height:1.45;text-align:center}
+.sh-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#4b3a47;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:30;white-space:nowrap}
+.sh-toast.on{animation:shToast 2.6s ease forwards}
+@keyframes shToast{0%{opacity:0}12%,80%{opacity:1}100%{opacity:0}}
+/* lecture */
+.sh-rd{position:absolute;inset:0;display:flex;flex-direction:column;background:#efe6da;--paper:#fbf5ea;--ink:#3b2a35;--edge:#efe3cf}
+.sh-rd.dark{background:#16141c;--paper:#26232e;--ink:#e9e1d6;--edge:#1d1b24}
+.sh-rdh{display:flex;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top)) 12px 6px}.sh-rdh b{flex:1;min-width:0;font-family:var(--display);font-weight:500;font-size:16px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sh-rd.dark .sh-ic{background:#2f2b38;color:#e9e1d6}
+.sh-stage{flex:1;min-height:0;display:grid;place-items:center;perspective:2000px;user-select:none;-webkit-user-select:none;cursor:pointer;touch-action:pan-y;overflow:hidden}
+.sh-book{position:relative;transform-style:preserve-3d}
+.sh-win{position:absolute;top:0;overflow:hidden;background:var(--paper);box-shadow:0 10px 30px rgba(40,25,20,.18)}
+.sh-book>.sh-win.sh-R{left:0;background:linear-gradient(90deg,var(--edge),var(--paper) 6%,var(--paper))}
+.sh-book.spread>.sh-win.sh-L{left:0;background:linear-gradient(270deg,var(--edge),var(--paper) 6%,var(--paper))}
+.sh-book.spread>.sh-win.sh-R{left:50%}
+.sh-flow{position:absolute;column-fill:auto;font-family:var(--display);font-size:var(--fs,17px);line-height:1.62;color:var(--ink);word-wrap:break-word;hyphens:auto}
+.sh-flow p{margin:0 0 .55em;text-indent:1.2em}.sh-flow p:first-of-type{text-indent:0}.sh-flow h3{font-size:1.1em;font-weight:500;margin:.8em 0 .4em;color:#b5506d}.sh-flow blockquote{margin:.6em 0;padding-left:1em;border-left:3px solid #f7b9cb;font-style:italic}
+.sh-flow section{break-before:column}.sh-flow section:first-child{break-before:auto}
+.sh-pch h2{text-align:center;font-weight:500;font-size:1.3em;margin:2.2em 0 1.4em;line-height:1.3}.sh-pch h2 small{display:block;font-size:.55em;letter-spacing:.12em;text-transform:uppercase;color:#a08a98;margin-bottom:.6em}
+.sh-pcov{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:8%}.sh-pcov h1{font-weight:500;font-size:1.35em;margin:1em 0 .2em}.sh-pcov p{margin:0;color:#a08a98;text-indent:0}
+.sh-pend{text-align:center;padding-top:40%;font-family:"Yuji Wis","Yuji Syuku",serif;font-size:2em;color:#b5506d}
+.sh-num{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:11px;color:#a08a98}
+.sh-flip{position:absolute;top:0;transform-origin:0 50%;transform-style:preserve-3d;z-index:5}
+.sh-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.sh-face>.sh-win{left:0}
+.sh-back{transform:rotateY(180deg)}.sh-back>.sh-win{background:linear-gradient(270deg,var(--edge),var(--paper) 6%,var(--paper))}
+.sh-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(60,40,30,.3),rgba(60,40,30,0) 45%);opacity:0;transition:opacity .62s}
+.sh-flip.go .sh-shade{opacity:1}
+.sh-rdf{display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 12px calc(12px + env(safe-area-inset-bottom));font-size:13px;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.sh-spine{transition:none}}
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -2401,7 +2524,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();if(typeof renderShCard==="function")renderShCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -3683,6 +3806,7 @@ function routeUrl(url){
   else if(v==="pomo"){const d=+((url.match(/pomo\/(\d+)/)||[])[1])||25;showView("ecrire");setTimeout(()=>{if(typeof wgStartPomo==="function")wgStartPomo(d)},300)}
   else if(v==="jour"){const k=(url.match(/jour\/(\d{4}-\d{2}-\d{2})/)||[])[1];if(k){if(written(k)){showView("journal");setTimeout(()=>openReader(k),200)}else openDay(k)}}
   else if(v==="ami"){amisInvite(url)}
+  else if(v==="etagere"){showView("ecrire");setTimeout(()=>{if(typeof openShelf==="function")openShelf()},300)}
   else if(v==="sagesse"){showView("ecrire");setTimeout(()=>{if(typeof openWisdom==="function")openWisdom()},300)}
   else{openDay(todayKey());showView("ecrire")}
 }
@@ -3697,6 +3821,7 @@ if(isNative){
   if(A){
     A.addListener("backButton",()=>{
       if(!$("lock").hidden){A.minimizeApp();return}
+      if($("sh")&&!$("sh").hidden){shBack();return}
       if($("wis")&&!$("wis").hidden){wisBack();return}
       if($("jd")&&!$("jd").hidden){jdBack();return}
       if(!$("reader").hidden){closeReader();return}
@@ -5087,6 +5212,227 @@ function wisAct(a,id){
 }
 try{renderWisCard()}catch(e){}
 /* ===== fin sagesse ===== */
+/* ================= mon étagère 本棚 ================= */
+var SH_K="nikki.shelf",SH_V=null,SH_STACK=[],SH_SAVE_T=null,SH_RD=null;
+var SH_TPL=[["seigaiha","Vagues seigaiha","#2f4a8a"],["sakura","Pétales de sakura","#f7b9cb"],["asanoha","Feuilles de chanvre","#5f8f6a"],["urushi","Laque et or","#2a1a1a"],["momiji","Érables d'automne","#e07a4f"],["tsuki","Nuit et lune","#1f2a55"],["kraft","Papier kraft","#c9a274"],["asagao","Liserons d'été","#9cc9ea"]];
+var SH_KANJI=["春","夢","心","旅","愛","空","花","月","星","海"];
+var SH_SPINE=["#2f4a8a","#d9708d","#5f8f6a","#e07a4f","#2a1a1a","#c9a274","#7b5fc9","#9cc9ea"];
+var SH_FS=[15,17,20];
+function shStore(){return typeof store!=="undefined"?store:localStorage}
+function shSt(){let s;try{s=JSON.parse(shStore().getItem(SH_K)||"{}")||{}}catch(e){s={}}s.books=s.books||[];s.reads=s.reads||[];return s}
+function shSave(s){try{shStore().setItem(SH_K,JSON.stringify(s))}catch(e){}}
+function shChGet(id){try{return shStore().getItem("nikki.shch."+id)||""}catch(e){return""}}
+function shChSet(id,h){try{shStore().setItem("nikki.shch."+id,h)}catch(e){}}
+function shChDel(id){try{shStore().removeItem("nikki.shch."+id)}catch(e){}}
+function shId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function shEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function shH(t){let h=0;for(const c of String(t))h=(h*31+c.charCodeAt(0))>>>0;return h}
+function shWords(html){const d=document.createElement("div");d.innerHTML=html;return((d.textContent||"").trim().match(/[^\s]+/g)||[]).length}
+function shFmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
+function shKanjiNum(n){const D="〇一二三四五六七八九";if(n<=10)return n===10?"十":D[n];if(n<20)return"十"+D[n-10];if(n<100)return D[Math.floor(n/10)]+"十"+(n%10?D[n%10]:"");return String(n)}
+function shDate(t){return new Date(t).toLocaleDateString("fr-FR",{day:"numeric",month:"long"})}
+function shBook(s,id){return s.books.find(b=>b.id===id)}
+function shRead(s,id){return s.reads.find(b=>b.id===id)}
+function shTotal(b){return(b.chapters||[]).reduce((a,c)=>a+(c.words||0),0)}
+/* ---------- couvertures ---------- */
+function shRnd(seed){let x=seed||1;return(a,b)=>{x=(x*1103515245+12345)%2147483648;return a+(x/2147483648)*(b-a)}}
+function shPetal(x,y,s,r,c,o){return`<path transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${r.toFixed(0)}) scale(${s.toFixed(2)})" d="M0 0C6-6 10 2 0 12C-10 2-6-6 0 0Z" fill="${c}" opacity="${o}"/>`}
+function shLeaf(x,y,s,r,c){let p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?4.2:10;p.push((Math.cos(a)*rr).toFixed(1)+","+(Math.sin(a)*rr).toFixed(1))}return`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${r.toFixed(0)}) scale(${s.toFixed(2)})"><polygon points="${p.join(" ")}" fill="${c}"/></g>`}
+function shPattern(t,W,H,u){let o="";const R=shRnd(t.length*7+W);
+  if(t==="seigaiha"){const r0=11,rows=Math.floor(H/(r0/2))+3;for(let r=0;r<rows;r++){const y=r*r0/2-r0;let x=-r0*2+(r%2)*r0;while(x<W+r0*2){[r0,r0*.7,r0*.4].forEach(rr=>o+=`<circle cx="${x}" cy="${y}" r="${rr}" fill="#2f4a8a" stroke="#4a66a8" stroke-width=".9"/>`);x+=r0*2}}}
+  else if(t==="sakura"){o+=`<path d="M${W} ${H*.08}Q${W*.6} ${H*.2} ${W*.35} ${H*.12}" stroke="#7a4e36" stroke-width="3" fill="none"/>`;for(let i=0;i<16;i++)o+=shPetal(R(0,W),R(0,H),R(.5,1),R(0,360),["#f59bb6","#ffc2d4","#f7a8c4"][i%3],[.6,.85,1][i%3])}
+  else if(t==="asanoha")o+=`<defs><pattern id="${u}a" width="20" height="34.64" patternUnits="userSpaceOnUse"><path d="M0 0L20 34.64M20 0L0 34.64M0 17.32H20M10 0V34.64M0 0L10 17.32L20 0M0 34.64L10 17.32L20 34.64" stroke="#7fae86" stroke-width=".8" fill="none"/></pattern></defs><rect width="${W}" height="${H}" fill="url(#${u}a)"/>`;
+  else if(t==="urushi"){o+=`<rect x="5" y="5" width="${W-10}" height="${H-10}" rx="3" fill="none" stroke="#d8ad4a" stroke-width="1.2"/>`;[[W*.18,H*.86,1],[W*.3,H*.92,.6],[W*.82,H*.12,.8]].forEach(([x,y,s])=>{o+=`<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${s})">`+[0,1,2,3,4].map(k=>`<ellipse cy="-6" rx="3.6" ry="6" fill="#d8ad4a" transform="rotate(${k*72})"/>`).join("")+'<circle r="2" fill="#8a5a1c"/></g>'})}
+  else if(t==="momiji"){o+=`<defs><linearGradient id="${u}m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8cf96"/><stop offset="1" stop-color="#e07a4f"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#${u}m)"/>`;for(let i=0;i<9;i++)o+=shLeaf(R(0,W),R(0,H),R(.8,1.5),R(0,360),["#c9402f","#e8553f","#a8321f"][i%3])}
+  else if(t==="tsuki"){o+=`<circle cx="${(W*.7).toFixed(0)}" cy="${(H*.2).toFixed(0)}" r="${(W*.13).toFixed(0)}" fill="#fff6cf"/><circle cx="${(W*.7).toFixed(0)}" cy="${(H*.2).toFixed(0)}" r="${(W*.24).toFixed(0)}" fill="#fff6cf" opacity=".12"/><path d="M0 ${(H*.82).toFixed(0)}L${(W*.3).toFixed(0)} ${(H*.62).toFixed(0)}L${(W*.5).toFixed(0)} ${(H*.76).toFixed(0)}L${(W*.75).toFixed(0)} ${(H*.58).toFixed(0)}L${W} ${(H*.75).toFixed(0)}V${H}H0Z" fill="#141c3d"/>`;for(let i=0;i<16;i++)o+=`<circle cx="${R(0,W).toFixed(0)}" cy="${R(0,H*.55).toFixed(0)}" r=".9" fill="#fff" opacity=".8"/>`}
+  else if(t==="kraft"){for(let y=4;y<H;y+=7)o+=`<path d="M0 ${y}H${W}" stroke="#b8925f" stroke-width=".6" opacity=".5"/>`;o+=`<path d="M${(W*.78).toFixed(0)} 0V${H}" stroke="#efe1c4" stroke-width="2.4"/>`}
+  else if(t==="asagao"){o+=`<path d="M${W*.1} ${H}C${W*.3} ${H*.7} ${W*.05} ${H*.5} ${W*.25} ${H*.3}S${W*.6} ${H*.15} ${W*.9} ${H*.05}" stroke="#6aa857" stroke-width="2" fill="none"/>`;[[.25,.3,"#6f8fe0"],[.9,.06,"#b07fd6"],[.12,.75,"#6f8fe0"],[.75,.9,"#d57fb0"]].forEach(([x,y,c])=>o+=`<g transform="translate(${(W*x).toFixed(0)} ${(H*y).toFixed(0)}) scale(1.1)"><circle r="9" fill="${c}"/><path d="M0-9V9M-9 0H9M-6-6L6 6M6-6L-6 6" stroke="#fff" stroke-opacity=".5"/><circle r="2.6" fill="#fff"/></g>`)}
+  return o}
+function shWrap(t,n){const w=String(t||"").split(/\s+/).filter(Boolean),L=[];let c="";w.forEach(x=>{if(c&&(c+" "+x).length>n){L.push(c);c=x}else c=(c+" "+x).trim()});if(c)L.push(c);return L}
+var SH_UID=0;
+function shCover(b,W,H){const t=b.tpl||"sakura",T=SH_TPL.find(x=>x[0]===t)||SH_TPL[1],u="shc"+(++SH_UID),bg=t==="kraft"?"#c9a274":t==="momiji"?"#f3b47b":t==="sakura"?"#fbe3ea":t==="asagao"?"#dff0fb":t==="asanoha"?"#5f8f6a":t==="urushi"?"#1e1414":t==="tsuki"?"#1f2a55":"#2f4a8a";
+  const small=W<80,L=small?[]:shWrap(b.title||"Sans titre",13).slice(0,3),lh=13.5,bh=small?H*.2:26+Math.max(1,L.length)*lh;
+  let lab=`<rect x="${(W*.14).toFixed(0)}" y="${(H*.24).toFixed(0)}" width="${(W*.72).toFixed(0)}" height="${bh.toFixed(0)}" rx="3" fill="#fffaf2" opacity=".96"/>`+(small?"":`<rect x="${(W*.14+3).toFixed(0)}" y="${(H*.24+3).toFixed(0)}" width="${(W*.72-6).toFixed(0)}" height="${(bh-6).toFixed(0)}" rx="2" fill="none" stroke="#c9b08c" stroke-width=".7"/>`);
+  lab+=L.map((x,i)=>`<text x="${W/2}" y="${(H*.24+19+i*lh).toFixed(1)}" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="11.5" fill="#3b2a35">${shEsc(x)}</text>`).join("");
+  if(!small&&b.author)lab+=`<text x="${W/2}" y="${(H*.24+bh-6).toFixed(1)}" text-anchor="middle" font-family="Zen Maru Gothic,sans-serif" font-size="7.5" fill="#8a7683">${shEsc(b.author.slice(0,30))}</text>`;
+  const se=b.kanji&&!small?`<rect x="${W-24}" y="${H-24}" width="15" height="15" rx="2" fill="#c8322b"/><text x="${W-16.5}" y="${H-12.5}" text-anchor="middle" font-family="Yuji Syuku,Yuji Wis,serif" font-size="11" fill="#fff">${shEsc(b.kanji)}</text>`:"";
+  return`<svg class="sh-cv" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true"><defs><clipPath id="${u}c"><rect width="${W}" height="${H}" rx="4"/></clipPath></defs><g clip-path="url(#${u}c)"><rect width="${W}" height="${H}" fill="${bg}"/>${shPattern(t,W,H,u)}<rect width="7" height="${H}" fill="#000" opacity=".18"/><path d="M7 0V${H}" stroke="#fff" stroke-opacity=".25"/></g>${lab}${se}</svg>`}
+function shSpineCol(b){if(b.spine)return b.spine;const T=SH_TPL.find(x=>x[0]===b.tpl);return T?T[2]:"#d9708d"}
+function shSpineBtn(b,kind,extra){const h=96+shH(b.id)%34,w=20+shH(b.id+"w")%8,c=shSpineCol(b),light=/^#(f|e|d|c9|9c)/i.test(c),tc=light?"#3b2a35":"#fff";
+  return`<button type="button" class="sh-spine ${extra||""}" data-a="${kind}" data-id="${b.id}" style="height:${h}px;width:${w}px;background:${c};color:${tc}" aria-label="${shEsc(b.title||"Sans titre")}"><i></i><span>${shEsc((b.title||"Sans titre").slice(0,40))}</span><i></i></button>`}
+/* ---------- chapitres : nettoyage du texte ---------- */
+function shClean(html){const t=document.createElement("template");t.innerHTML=html||"";const out=document.createElement("div");
+  const walk=(src,dst)=>{src.childNodes.forEach(n=>{if(n.nodeType===3){dst.appendChild(document.createTextNode(n.textContent));return}if(n.nodeType!==1)return;const tg=n.tagName;let el=null;
+    if(tg==="B"||tg==="STRONG")el=document.createElement("b");else if(tg==="I"||tg==="EM")el=document.createElement("i");else if(tg==="BR")el=document.createElement("br");else if(/^H[1-6]$/.test(tg))el=document.createElement("h3");else if(tg==="BLOCKQUOTE")el=document.createElement("blockquote");else if(tg==="P"||tg==="DIV"||tg==="LI")el=document.createElement("p");
+    if(el){dst.appendChild(el);if(tg!=="BR")walk(n,el)}else walk(n,dst)})};
+  walk(t.content,out);return out.innerHTML.replace(/<p><\/p>/g,"<p><br></p>")}
+/* ---------- carte sur la page Écrire ---------- */
+function renderShCard(){
+  if(typeof SH_TPL==="undefined"||!SH_TPL||typeof keyOf!=="function")return;
+  let box=$("shCard");if(!box){const a=$("wisCard")||$("jdCard");if(!a)return;box=document.createElement("div");box.id="shCard";a.after(box)}
+  if(typeof current!=="undefined"&&current!==todayKey()){box.hidden=true;return}
+  const s=shSt(),last=s.books.slice().sort((a,b)=>(b.updated||0)-(a.updated||0))[0];box.hidden=false;
+  const sp=s.books.slice(0,4).concat(s.reads.slice(0,Math.max(0,4-s.books.length))).slice(0,4);
+  const mini=(sp.length?sp:[{id:"a",tpl:"sakura"},{id:"b",tpl:"seigaiha"},{id:"c",tpl:"momiji"}]).map(b=>`<i style="height:${30+shH(b.id)%14}px;background:${shSpineCol(b)}"></i>`).join("");
+  box.innerHTML=`<button type="button" class="sh-card" aria-label="Mon étagère"><span class="sh-cmini">${mini}</span><span class="sh-cbody"><b>Mon étagère <small lang="ja">本棚</small></b><small>${last?"Continuer « "+shEsc(last.title||"Sans titre")+" »":"Écris ton propre livre, garde tes lectures"}</small></span><span class="jd-go">›</span></button>`;
+  box.querySelector("button").onclick=()=>openShelf()}
+/* ---------- fenêtre et navigation ---------- */
+function openShelf(view){
+  let ov=$("sh");if(!ov){ov=document.createElement("div");ov.id="sh";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","Mon étagère");ov.innerHTML='<div class="sh-in"></div>';document.body.append(ov);
+    ov.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&b.tagName!=="FORM"&&ov.contains(b)&&!b.closest("[contenteditable]"))shAct(b.dataset.a,b.dataset.id,b)});
+    ov.addEventListener("input",e=>shInput(e));ov.addEventListener("submit",e=>{e.preventDefault();shAct(e.target.dataset.a,e.target.dataset.id,e.target)});
+    document.addEventListener("keydown",e=>{if(!$("sh")||$("sh").hidden)return;if(SH_V&&SH_V.view==="read"){if(e.key==="ArrowRight"){shTurn(1);e.preventDefault()}else if(e.key==="ArrowLeft"){shTurn(-1);e.preventDefault()}}if(e.key==="Escape"){e.stopPropagation();shBack()}},true);
+    document.addEventListener("visibilitychange",()=>{if(document.hidden)shFlush()});window.addEventListener("pagehide",shFlush);
+    window.addEventListener("resize",()=>{if(SH_V&&SH_V.view==="read"){clearTimeout(SH_RD&&SH_RD.rt);if(SH_RD)SH_RD.rt=setTimeout(()=>shReadLayout(true),250)}})}
+  if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
+  ov.hidden=false;document.body.style.overflow="hidden";SH_STACK=[];SH_V=view||{view:"shelf",tab:"books"};shRender()}
+function shGo(v){shFlush();SH_STACK.push(SH_V);SH_V=v;shRender();const i=document.querySelector("#sh .sh-in");if(i)i.scrollTop=0}
+function shBack(){shFlush();if(SH_V&&SH_V.ask){SH_V={...SH_V,ask:null};shRender();return}if(SH_STACK.length){SH_V=SH_STACK.pop();shRender();return}closeShelf()}
+function closeShelf(){shFlush();const ov=$("sh");if(ov)ov.hidden=true;document.body.style.overflow="";SH_V=null;SH_RD=null;renderShCard()}
+function shToast(t){let d=document.querySelector("#sh .sh-toast");if(!d){d=document.createElement("div");d.className="sh-toast";d.setAttribute("role","status");$("sh").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
+function shHead(title,k,right){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${SH_STACK.length?"Retour":"Fermer"}">${SH_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${title}</b>${k?`<span lang="ja">${k}</span>`:""}<span class="sh-hr">${right||""}</span></div>`}
+function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",V.view==="read");
+  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);
+  if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="noask">Annuler</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
+/* ---------- l'étagère ---------- */
+function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)-(b.created||0)),reads=s.reads;
+  const r1=books.map(b=>shSpineBtn(b,"book")).join("")+`<button type="button" class="sh-spine sh-new" data-a="newbook" aria-label="Commencer un nouveau livre"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>`;
+  const cur=reads.filter(r=>r.status==="cur"),done=reads.filter(r=>r.status==="done"),todo=reads.filter(r=>r.status==="todo");
+  const r2=done.slice(-10).map(b=>shSpineBtn(b,"rbook")).join("")+cur.map(b=>shSpineBtn(b,"rbook","sh-tilt")).join("")+(todo.length?`<button type="button" class="sh-stack" data-a="tabreads" aria-label="${todo.length} livre${todo.length>1?"s":""} à lire">${todo.slice(0,4).map((b,i)=>`<i style="background:${shSpineCol(b)};width:${70-i*4}px"></i>`).join("")}<small>À lire · ${todo.length}</small></button>`:"")+(reads.length?"":`<button type="button" class="sh-spine sh-new" data-a="radd" aria-label="Ajouter une lecture"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>`);
+  const words=books.reduce((a,b)=>a+shTotal(b),0),yr=new Date().getFullYear(),nDone=done.filter(r=>r.end&&new Date(r.end).getFullYear()===yr).length;
+  const tabB=V.tab!=="reads";let list;
+  if(tabB){const last=books.slice().sort((a,b)=>(b.updated||0)-(a.updated||0))[0];
+    list=(last?`<button type="button" class="sh-cont" data-a="continue" data-id="${last.id}">${shCover(last,46,66)}<span><b>Continuer à écrire</b><small>${shEsc(last.title||"Sans titre")} · ${shFmt(shTotal(last))} mots</small></span><span class="sh-go">›</span></button>`:`<div class="sh-empty"><p>Ton premier livre t'attend. Une histoire, des poèmes, un carnet de voyage, les souvenirs de ta famille…</p><button type="button" class="sh-btn sh-pink" data-a="newbook">Commencer un livre</button></div>`)+
+    books.map(b=>`<button type="button" class="sh-li" data-a="book" data-id="${b.id}">${shCover(b,38,54)}<span><b>${shEsc(b.title||"Sans titre")}</b><small>${(b.chapters||[]).length} chapitre${(b.chapters||[]).length>1?"s":""} · ${shFmt(shTotal(b))} mots</small></span><span class="sh-go">›</span></button>`).join("")}
+  else list=`<div class="sh-year"><span lang="ja">${shKanjiNum(nDone)}</span><b>${nDone} livre${nDone>1?"s":""} lu${nDone>1?"s":""} en ${yr}</b><small>${reads.reduce((a,r)=>a+(r.quotes||[]).length,0)} citations gardées</small></div>`+
+    reads.slice().sort((a,b)=>({cur:0,todo:1,done:2}[a.status]-{cur:0,todo:1,done:2}[b.status])||(b.updated||0)-(a.updated||0)).map(r=>{const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):(r.status==="done"?100:0);return`<button type="button" class="sh-li" data-a="rbook" data-id="${r.id}">${shCover(r,34,48)}<span><b>${shEsc(r.title)}</b><i class="sh-bar"><i style="width:${r.status==="done"?100:p}%"></i></i></span><small class="sh-st">${r.status==="done"?"Lu ✿":r.status==="todo"?"À lire":r.page?"p. "+r.page:"En cours"}</small></button>`}).join("")+`<button type="button" class="sh-addl" data-a="radd"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Ajouter un livre que je lis</button>`;
+  return shHead("Mon étagère","本棚")+`<div class="sh-lab"><b>Mes livres</b><small>${books.length} livre${books.length>1?"s":""} · ${shFmt(words)} mots</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
+  <div class="sh-lab"><b>Mes lectures</b><small>${nDone} lu${nDone>1?"s":""} en ${yr}</small></div><div class="sh-shelf"><div class="sh-row1">${r2}</div><i class="sh-plank"></i></div>
+  <div class="sh-tabs" role="tablist"><button type="button" role="tab" aria-selected="${tabB}" data-a="tabbooks">Mes livres</button><button type="button" role="tab" aria-selected="${!tabB}" data-a="tabreads">Mes lectures</button></div><div class="sh-list">${list}</div>`}
+/* ---------- un livre ---------- */
+function shViewBook(s,V){const b=shBook(s,V.id);if(!b)return shHead("Livre introuvable","");const ch=b.chapters||[],tot=shTotal(b);
+  const goal=b.goal||0,today=Math.max(0,tot-((b.day&&b.day.d===todayKey())?b.day.base:tot));
+  return shHead("","",`<button type="button" class="sh-ic" data-a="editcover" data-id="${b.id}" aria-label="Modifier la couverture"><svg viewBox="0 0 24 24"><path d="M5 19l1-4 10-10 3 3-10 10z"/></svg></button>`)+`<div class="sh-bcov">${shCover(b,150,212)}</div>
+  <div class="sh-btitle"><h2>${shEsc(b.title||"Sans titre")}</h2><small>${ch.length} chapitre${ch.length>1?"s":""} · ${shFmt(tot)} mots · commencé le ${shDate(b.created)}</small></div>
+  <div class="sh-row"><button type="button" class="sh-btn sh-pink" data-a="continue" data-id="${b.id}">Écrire</button><button type="button" class="sh-btn" data-a="read" data-id="${b.id}"${tot?"":" disabled"}>Lire</button></div>
+  <div class="sh-chs">${ch.map((c,i)=>`<div class="sh-ch"><button type="button" class="sh-chb" data-a="write" data-id="${c.id}"><b>${i+1}</b><span>${shEsc(c.title||"Chapitre "+(i+1))}</span><small>${shFmt(c.words||0)}</small></button><button type="button" class="sh-ic sh-mv" data-a="chup" data-id="${c.id}" aria-label="Monter le chapitre ${i+1}"${i?"":" disabled"}><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button></div>`).join("")}
+  <button type="button" class="sh-addl" data-a="newch" data-id="${b.id}"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Nouveau chapitre</button></div>
+  <div class="sh-goal"><b>Mon objectif</b><div class="sh-row sh-wrap">${[0,250,500,1000].map(g=>`<button type="button" class="sh-chip${goal===g?" on":""}" data-a="goal" data-id="${g}" aria-pressed="${goal===g}">${g?shFmt(g)+" mots / jour":"Aucun"}</button>`).join("")}</div>${goal?`<small>${shFmt(today)} / ${shFmt(goal)} mots aujourd'hui${today>=goal?" ✿ objectif atteint":""}</small>`:""}</div>
+  <button type="button" class="sh-link" data-a="askdelbook" data-id="${b.id}">Supprimer ce livre</button>`}
+/* ---------- la couverture ---------- */
+function shViewCover(s,V){const d=V.draft;
+  return shHead(V.id?"Ma couverture":"Nouveau livre","表紙")+`<div class="sh-bcov" id="shPrev">${shCover(d,140,198)}</div>
+  <div class="sh-tpls" role="radiogroup" aria-label="Modèle de couverture">${SH_TPL.map(([id,n])=>`<button type="button" role="radio" class="sh-tpl${d.tpl===id?" on":""}" data-a="tpl" data-id="${id}" aria-checked="${d.tpl===id}" aria-label="${n}">${shCover({tpl:id,id},40,56)}</button>`).join("")}</div>
+  <form class="sh-form" data-a="savecover"><label>Titre<input name="title" data-f="title" maxlength="60" required value="${shEsc(d.title)}" placeholder="Le titre de ton livre"></label><label>Auteur·rice<input name="author" data-f="author" maxlength="40" value="${shEsc(d.author)}" placeholder="Ton nom ou un pseudo"></label>
+  <fieldset><legend>Sceau en kanji</legend><div class="sh-row sh-wrap">${[""].concat(SH_KANJI).map(k=>`<button type="button" class="sh-kj${(d.kanji||"")===k?" on":""}" data-a="kanji" data-id="${k}" aria-pressed="${(d.kanji||"")===k}" aria-label="${k||"Sans sceau"}">${k||"–"}</button>`).join("")}</div></fieldset>
+  <fieldset><legend>Couleur de la tranche</legend><div class="sh-row sh-wrap">${[""].concat(SH_SPINE).map(c=>`<button type="button" class="sh-sw${(d.spine||"")===c?" on":""}" data-a="spine" data-id="${c}" aria-pressed="${(d.spine||"")===c}" aria-label="${c?"Couleur "+c:"Assortie au modèle"}" style="background:${c||"linear-gradient(135deg,#fff,#f1dce4)"}"></button>`).join("")}</div></fieldset>
+  <button class="sh-btn sh-pink">${V.id?"Enregistrer":"Créer mon livre"}</button></form>`}
+/* ---------- écrire ---------- */
+function shViewWrite(s,V){const b=s.books.find(x=>(x.chapters||[]).some(c=>c.id===V.id));if(!b)return shHead("Chapitre introuvable","");const i=b.chapters.findIndex(c=>c.id===V.id),c=b.chapters[i];V.book=b.id;
+  return`<div class="sh-wr">${shHead(shEsc(b.title||"Sans titre"),"",`<span class="sh-stat" id="shStat"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Enregistré</span>`)}
+  <div class="sh-chrow"><button type="button" class="sh-ic" data-a="prevch" aria-label="Chapitre précédent"${i?"":" disabled"}><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><input class="sh-chtitle" id="shChT" maxlength="60" value="${shEsc(c.title||"")}" placeholder="Chapitre ${i+1}" aria-label="Titre du chapitre"><button type="button" class="sh-ic" data-a="nextch" aria-label="Chapitre suivant"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  <div class="sh-tools" role="toolbar" aria-label="Mise en forme">${[["h3","Titre","Titre"],["bold","<b>G</b>","Gras"],["italic","<i>I</i>","Italique"],["quote",'<svg viewBox="0 0 24 24"><path d="M7 10h4v6H5v-4l2-4M15 10h4v6h-6v-4l2-4"/></svg>',"Citation"],["undo",'<svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg>',"Annuler"],["redo",'<svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H10a6 6 0 0 0 0 12h3"/></svg>',"Rétablir"]].map(([a,l,n])=>`<button type="button" class="sh-tool" data-a="fmt" data-id="${a}" aria-label="${n}">${l}</button>`).join("")}</div>
+  <div class="sh-paper"><div class="sh-ed" id="shEd" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texte du chapitre" spellcheck="true"></div></div>
+  <div class="sh-foot"><span id="shWc"></span><span id="shGoal"></span></div></div>`}
+function shWriteInit(V){const ed=$("shEd");if(!ed)return;ed.innerHTML=shChGet(V.id)||"<p><br></p>";SH_V.dirty=false;shWc();
+  ed.addEventListener("paste",e=>{e.preventDefault();const t=(e.clipboardData||window.clipboardData).getData("text/plain")||"";document.execCommand("insertText",false,t)});
+  ed.addEventListener("blur",shFlush);
+  setTimeout(()=>{try{if(!(SH_V&&SH_V.view==="write"))return;ed.focus();const r=document.createRange();r.selectNodeContents(ed);r.collapse(false);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}catch(e){}},120)}
+function shInput(e){const V=SH_V;if(!V)return;
+  if(e.target.id==="shEd"||e.target.id==="shChT"){V.dirty=true;shStat("…","Enregistrement");clearTimeout(SH_SAVE_T);SH_SAVE_T=setTimeout(shFlush,700);if(e.target.id==="shEd")shWc();return}
+  if(V.view==="cover"&&e.target.dataset.f){V.draft[e.target.dataset.f]=e.target.value;const p=$("shPrev");if(p)p.innerHTML=shCover(V.draft,140,198)}}
+function shStat(state,txt){const st=$("shStat");if(!st)return;st.className="sh-stat"+(state==="…"?" busy":"");st.innerHTML=(state==="…"?'<svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="8"/></svg>':'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>')+txt}
+function shWc(){const ed=$("shEd"),V=SH_V;if(!ed||!V)return;const n=((ed.textContent||"").trim().match(/[^\s]+/g)||[]).length,w=$("shWc");if(w)w.textContent=shFmt(n)+" mot"+(n>1?"s":"");
+  const s=shSt(),b=shBook(s,V.book);if(!b)return;const g=$("shGoal");if(!g)return;if(!b.goal){g.textContent="";return}
+  const other=(b.chapters||[]).filter(c=>c.id!==V.id).reduce((a,c)=>a+(c.words||0),0),tot=other+n,base=b.day&&b.day.d===todayKey()?b.day.base:tot,today=Math.max(0,tot-base);
+  g.innerHTML=`<svg viewBox="0 0 36 36" width="20" height="20" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="#f1e4ea" stroke-width="5"/><circle cx="18" cy="18" r="14" fill="none" stroke="#d9a23a" stroke-width="5" stroke-dasharray="${Math.min(88,88*today/b.goal).toFixed(1)} 88" transform="rotate(-90 18 18)"/></svg>${today>=b.goal?"Objectif du jour atteint ✿":shFmt(today)+" / "+shFmt(b.goal)+" aujourd'hui"}`}
+function shFlush(){const V=SH_V;clearTimeout(SH_SAVE_T);if(!V||V.view!=="write"||!V.dirty)return;const ed=$("shEd");if(!ed)return;
+  const html=shClean(ed.innerHTML),words=shWords(html),s=shSt(),b=shBook(s,V.book);if(!b)return;const c=b.chapters.find(x=>x.id===V.id);if(!c)return;
+  const tot0=shTotal(b);if(!b.day||b.day.d!==todayKey())b.day={d:todayKey(),base:tot0};
+  shChSet(c.id,html);c.words=words;const t=$("shChT");if(t)c.title=t.value.trim().slice(0,60);c.updated=b.updated=Date.now();
+  b.days=b.days||[];if(!b.days.includes(todayKey()))b.days=b.days.concat([todayKey()]).slice(-400);
+  shSave(s);V.dirty=false;shStat("ok","Enregistré")}
+function shNewChapter(s,b){const c={id:shId(),title:"",words:0,updated:Date.now()};b.chapters=(b.chapters||[]).concat([c]);b.updated=Date.now();shSave(s);return c}
+/* ---------- lire : pagination en colonnes et pages qui tournent ---------- */
+function shBookHtml(b){return`<section class="sh-pcov">${shCover(b,170,240)}<h1>${shEsc(b.title||"Sans titre")}</h1>${b.author?`<p>${shEsc(b.author)}</p>`:""}</section>`+(b.chapters||[]).map((c,i)=>`<section class="sh-pch"><h2><small>Chapitre ${i+1}</small>${shEsc(c.title||"")}</h2>${shChGet(c.id)}</section>`).join("")+'<section class="sh-pend"><span lang="ja">終</span></section>'}
+function shViewRead(s,V){const b=shBook(s,V.id);if(!b)return shHead("Livre introuvable","");const R=b.rpos||{};const fs=R.fs||1,dark=!!R.dark;
+  return`<div class="sh-rd${dark?" dark":""}" id="shRd" style="--fs:${SH_FS[fs]}px"><div class="sh-rdh"><button type="button" class="sh-ic" data-a="back" aria-label="Retour"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${shEsc(b.title||"Sans titre")}</b><button type="button" class="sh-ic" data-a="fs" aria-label="Taille du texte">Aa</button><button type="button" class="sh-ic" data-a="dark" aria-label="${dark?"Papier crème":"Mode nuit"}"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg></button></div>
+  <div class="sh-stage" id="shStage"><div class="sh-book" id="shBk"></div></div><div class="sh-rdf"><button type="button" class="sh-ic" data-a="pgprev" aria-label="Page précédente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="shPg"></span><button type="button" class="sh-ic" data-a="pgnext" aria-label="Page suivante"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div></div>`}
+var R_T=0;
+function shReadInit(V){const s=shSt(),b=shBook(s,V.id);if(!b)return;SH_RD={id:b.id,html:shBookHtml(b),k:0,n:1,busy:false};shReadLayout(false);
+  const st=$("shStage");let x0=null,y0=null,t0=0;
+  st.addEventListener("touchstart",e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now()},{passive:true});
+  st.addEventListener("touchend",e=>{R_T=Date.now();if(x0==null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){shTurn(dx<0?1:-1)}else if(Date.now()-t0<300&&Math.abs(dx)<8){const r=st.getBoundingClientRect();shTurn(t.clientX-r.left>r.width/2?1:-1)}},{passive:true});
+  st.addEventListener("click",e=>{if(Date.now()-R_T<700)return;const r=st.getBoundingClientRect();shTurn(e.clientX-r.left>r.width/2?1:-1)})}
+function shReadLayout(keep){const R=SH_RD,st=$("shStage"),bk=$("shBk");if(!R||!st||!bk)return;const s=shSt(),b=shBook(s,R.id);const pos=b&&b.rpos||{};
+  const W=st.clientWidth-24,H=st.clientHeight-16,spread=W>=700,pw=Math.floor(Math.min(spread?W/2:W,spread?520:560)),ph=Math.floor(Math.min(H,pw*1.5));
+  R.spread=spread;R.pw=pw;R.ph=ph;bk.style.width=(spread?pw*2:pw)+"px";bk.style.height=ph+"px";bk.classList.toggle("spread",spread);
+  const pad=Math.round(Math.max(18,pw*.08)),flow=`<div class="sh-flow" style="left:${pad}px;top:${pad}px;width:${pw-2*pad}px;height:${ph-2*pad-14}px;column-width:${pw-2*pad}px;column-gap:${2*pad}px">${R.html}</div>`;
+  const win=(cls)=>`<div class="sh-win ${cls}" style="width:${pw}px;height:${ph}px">${flow}<span class="sh-num"></span></div>`;
+  bk.innerHTML=(spread?win("sh-L"):"")+win("sh-R")+`<div class="sh-flip" style="width:${pw}px;height:${ph}px;left:${spread?pw:0}px" hidden><div class="sh-face sh-front">${win("sh-F")}</div><div class="sh-face sh-back">${win("sh-B")}</div><i class="sh-shade"></i></div>`;
+  R.prevN=R.n;const f=bk.querySelector(".sh-R .sh-flow");R.n=Math.max(1,Math.round(f.scrollWidth/pw));if(spread&&R.n%2)R.n++;
+  let k=keep?Math.round(R.k/Math.max(1,R.prevN||R.n)*R.n):(pos.n?Math.round((pos.k||0)/Math.max(1,pos.n)*R.n):0);k=Math.max(0,Math.min(R.n-1,k));if(spread)k-=k%2;R.k=k;shShow()}
+function shPage(cls,k){const w=document.querySelector("#shBk ."+cls);if(!w)return;const R=SH_RD,f=w.querySelector(".sh-flow"),ok=k>=0&&k<R.n;f.style.transform=`translateX(${-k*R.pw}px)`;f.style.visibility=ok?"":"hidden";const n=w.querySelector(".sh-num");if(n)n.textContent=ok&&k>0?k:""}
+function shShow(){const R=SH_RD;if(!R)return;if(R.spread){shPage("sh-L",R.k);shPage("sh-R",R.k+1)}else shPage("sh-R",R.k);const p=$("shPg");if(p)p.textContent=R.spread?`${R.k+1}–${Math.min(R.n,R.k+2)} / ${R.n}`:`${R.k+1} / ${R.n}`;
+  const s=shSt(),b=shBook(s,R.id);if(b){const rd=$("shRd");b.rpos={...(b.rpos||{}),k:R.k,n:R.n,fs:b.rpos&&b.rpos.fs!=null?b.rpos.fs:1,dark:rd&&rd.classList.contains("dark")};shSave(s)}}
+function shTurn(dir){const R=SH_RD;if(!R||R.busy)return;const step=R.spread?2:1,nk=R.k+dir*step;if(nk<0||nk>=R.n){return}
+  const fl=document.querySelector("#shBk .sh-flip");if(!fl||matchMedia("(prefers-reduced-motion: reduce)").matches){R.k=nk;shShow();return}
+  R.busy=true;if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
+  const anim=(from,to,done)=>{fl.hidden=false;fl.style.transition="none";fl.style.transform=`rotateY(${from}deg)`;fl.classList.add("go");void fl.offsetWidth;fl.style.transition="transform .62s cubic-bezier(.45,.05,.25,1)";fl.style.transform=`rotateY(${to}deg)`;let fin=false;const end=()=>{if(fin)return;fin=true;fl.hidden=true;fl.classList.remove("go");done();R.busy=false};fl.addEventListener("transitionend",end,{once:true});setTimeout(end,900)};
+  if(R.spread){if(dir>0){shPage("sh-F",R.k+1);shPage("sh-B",R.k+2);shPage("sh-R",R.k+3);anim(0,-180,()=>{R.k=nk;shShow()})}else{shPage("sh-F",R.k-1);shPage("sh-B",R.k);shPage("sh-L",R.k-2);anim(-180,0,()=>{R.k=nk;shShow()})}}
+  else{if(dir>0){shPage("sh-F",R.k);shPage("sh-B",-1);shPage("sh-R",R.k+1);anim(0,-180,()=>{R.k=nk;shShow()})}else{shPage("sh-F",R.k-1);shPage("sh-B",-1);anim(-180,0,()=>{R.k=nk;shShow()})}}}
+/* ---------- mes lectures ---------- */
+function shFlowers(n,id){return`<div class="sh-fl" role="radiogroup" aria-label="Ma note">${[1,2,3,4,5].map(i=>`<button type="button" role="radio" aria-checked="${n===i}" aria-label="${i} fleur${i>1?"s":""}" data-a="rate" data-id="${i}"><svg viewBox="-10 -10 20 20"><g fill="${i<=n?"#f59bb6":"#eadde3"}">${[0,1,2,3,4].map(k=>`<ellipse cy="-5" rx="3.4" ry="5" transform="rotate(${k*72})"/>`).join("")}</g><circle r="2" fill="${i<=n?"#ffd66b":"#fff"}"/></svg></button>`).join("")}</div>`}
+function shViewRBook(s,V){const r=shRead(s,V.id);if(!r)return shHead("Livre introuvable","");const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):0;
+  return shHead("","")+`<div class="sh-rtop">${shCover(r,92,130)}<div><h2>${shEsc(r.title)}</h2>${r.author?`<small>${shEsc(r.author)}</small>`:""}<div class="sh-row sh-wrap">${[["todo","À lire"],["cur","En cours"],["done","Lu"]].map(([k,l])=>`<button type="button" class="sh-chip${r.status===k?" on":""}" data-a="rstatus" data-id="${k}" aria-pressed="${r.status===k}">${l}</button>`).join("")}</div>${shFlowers(r.rating||0)}</div></div>
+  <form class="sh-prog" data-a="rpage"><label>Page<input name="page" type="number" min="0" inputmode="numeric" value="${r.page||0}"></label><span>sur</span><label class="sr">Nombre de pages</label><input name="pages" type="number" min="0" inputmode="numeric" value="${r.pages||""}" placeholder="?" aria-label="Nombre de pages"><button class="sh-btn">OK</button></form>
+  <i class="sh-bar big"><i style="width:${r.status==="done"?100:p}%"></i></i><small class="sh-dates">${r.start?"Commencé le "+shDate(r.start):""}${r.end?" · terminé le "+shDate(r.end):""}</small>
+  <h3 class="sh-h">Mes citations</h3>${(r.quotes||[]).map((q,i)=>`<div class="sh-q"><p>« ${shEsc(q.t)} »</p><small>${q.p?"page "+shEsc(q.p):""}</small><button type="button" class="sh-ic sh-qx" data-a="delq" data-id="${i}" aria-label="Retirer cette citation"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`).join("")}
+  <form class="sh-form sh-qf" data-a="addq"><label>Une citation<textarea name="t" rows="2" maxlength="500" required placeholder="Recopie une phrase qui t'a touché·e"></textarea></label><label class="sh-qp">Page<input name="p" maxlength="6" inputmode="numeric"></label><button class="sh-btn">Ajouter la citation</button></form>
+  <button type="button" class="sh-li" data-a="rjournal"><svg viewBox="0 0 24 24" class="sh-lic"><path d="M5 19l1-4 10-10 3 3-10 10z"/></svg><span><b>Écrire une page de journal sur ce livre</b></span><span class="sh-go">›</span></button>
+  <button type="button" class="sh-link" data-a="askdelread" data-id="${r.id}">Retirer ce livre de mes lectures</button>`}
+function shViewRAdd(s,V){return shHead("Ajouter une lecture","読書")+`<form class="sh-form" data-a="raddok"><label>Titre<input name="title" maxlength="80" required placeholder="Le titre du livre"></label><label>Auteur·rice<input name="author" maxlength="60"></label><label>Nombre de pages<input name="pages" type="number" min="0" inputmode="numeric"></label>
+  <fieldset><legend>Où en es-tu ?</legend><div class="sh-row sh-wrap">${[["todo","À lire"],["cur","En cours"],["done","Lu"]].map(([k,l],i)=>`<label class="sh-chip sh-rad"><input type="radio" name="status" value="${k}"${i===1?" checked":""}>${l}</label>`).join("")}</div></fieldset><button class="sh-btn sh-pink">Ranger sur mon étagère</button></form>`}
+/* ---------- actions ---------- */
+function shAct(a,id,el){const s=shSt(),V=SH_V||{};
+  if(a==="back")return shBack();
+  if(a==="noask"){SH_V={...V,ask:null};return shRender()}
+  if(a==="tabbooks"||a==="tabreads"){if(V.view!=="shelf")return;SH_V={...V,tab:a==="tabreads"?"reads":"books"};return shRender()}
+  if(a==="book")return shGo({view:"book",id});
+  if(a==="rbook")return shGo({view:"rbook",id});
+  if(a==="radd")return shGo({view:"radd"});
+  if(a==="newbook")return shGo({view:"cover",id:null,draft:{tpl:SH_TPL[shH(String(Date.now()))%SH_TPL.length][0],title:"",author:"",kanji:"",spine:""}});
+  if(a==="editcover"){const b=shBook(s,id);if(b)shGo({view:"cover",id,draft:{tpl:b.tpl,title:b.title,author:b.author||"",kanji:b.kanji||"",spine:b.spine||""}});return}
+  if(a==="tpl"||a==="kanji"||a==="spine"){V.draft[a]=id;const p=$("shPrev");if(p)p.innerHTML=shCover(V.draft,140,198);const grp=el.parentElement;grp.querySelectorAll("button").forEach(x=>{const on=x===el;x.classList.toggle("on",on);x.setAttribute(x.getAttribute("role")==="radio"?"aria-checked":"aria-pressed",on)});return}
+  if(a==="savecover"){const E=el.elements,d=V.draft;d.title=(E.title.value||"").trim().slice(0,60)||"Sans titre";d.author=(E.author.value||"").trim().slice(0,40);
+    if(V.id){const b=shBook(s,V.id);if(b){Object.assign(b,{tpl:d.tpl,title:d.title,author:d.author,kanji:d.kanji,spine:d.spine,updated:Date.now()});shSave(s)}shToast("Couverture enregistrée ✿");return shBack()}
+    const b={id:shId(),tpl:d.tpl,title:d.title,author:d.author,kanji:d.kanji,spine:d.spine,created:Date.now(),updated:Date.now(),chapters:[],goal:0};s.books.push(b);const c=shNewChapter(s,b);
+    if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}SH_STACK=[{view:"shelf",tab:"books"},{view:"book",id:b.id}];SH_V={view:"write",id:c.id};return shRender()}
+  if(a==="continue"){const b=shBook(s,id);if(!b)return;let c=(b.chapters||[]).slice().sort((x,y)=>(y.updated||0)-(x.updated||0))[0];if(!c)c=shNewChapter(s,b);if(V.view!=="book"){SH_STACK.push(V);SH_V={view:"book",id:b.id}}return shGo({view:"write",id:c.id})}
+  if(a==="write")return shGo({view:"write",id});
+  if(a==="newch"){const b=shBook(s,id);if(!b)return;const c=shNewChapter(s,b);return shGo({view:"write",id:c.id})}
+  if(a==="chup"){const b=s.books.find(x=>(x.chapters||[]).some(c=>c.id===id));if(!b)return;const i=b.chapters.findIndex(c=>c.id===id);if(i>0){const t=b.chapters[i-1];b.chapters[i-1]=b.chapters[i];b.chapters[i]=t;shSave(s)}return shRender()}
+  if(a==="goal"){const b=shBook(s,V.id);if(b){b.goal=+id||0;shSave(s)}return shRender()}
+  if(a==="prevch"||a==="nextch"){shFlush();const s2=shSt(),b=shBook(s2,V.book);if(!b)return;const i=b.chapters.findIndex(c=>c.id===V.id);let c=b.chapters[i+(a==="nextch"?1:-1)];if(!c&&a==="nextch"){const ed=$("shEd");if(ed&&!(ed.textContent||"").trim())return shToast("Écris un peu avant de passer au chapitre suivant ✿");c=shNewChapter(s2,b)}if(!c)return;SH_V={view:"write",id:c.id};return shRender()}
+  if(a==="fmt"){const ed=$("shEd");if(!ed)return;ed.focus();if(id==="h3"){const cur=document.queryCommandValue("formatBlock").toLowerCase();document.execCommand("formatBlock",false,cur==="h3"?"p":"h3")}else if(id==="quote"){const cur=document.queryCommandValue("formatBlock").toLowerCase();document.execCommand("formatBlock",false,cur==="blockquote"?"p":"blockquote")}else document.execCommand(id,false,null);V.dirty=true;clearTimeout(SH_SAVE_T);SH_SAVE_T=setTimeout(shFlush,700);shWc();return}
+  if(a==="read")return shGo({view:"read",id});
+  if(a==="fs"||a==="dark"){const b=shBook(s,SH_RD&&SH_RD.id);if(!b)return;b.rpos=b.rpos||{};if(a==="fs")b.rpos.fs=((b.rpos.fs!=null?b.rpos.fs:1)+1)%SH_FS.length;else b.rpos.dark=!b.rpos.dark;shSave(s);const rd=$("shRd");if(rd){rd.style.setProperty("--fs",SH_FS[b.rpos.fs!=null?b.rpos.fs:1]+"px");rd.classList.toggle("dark",!!b.rpos.dark)}if(a==="fs")shReadLayout(true);return}
+  if(a==="pgprev"||a==="pgnext")return shTurn(a==="pgnext"?1:-1);
+  if(a==="askdelbook"){SH_V={...V,ask:{msg:"Supprimer ce livre et tous ses chapitres ? C'est définitif.",ok:"delbook",okl:"Supprimer",id}};return shRender()}
+  if(a==="delbook"){const b=shBook(s,id);if(b){(b.chapters||[]).forEach(c=>shChDel(c.id));s.books=s.books.filter(x=>x.id!==id);shSave(s)}SH_V={...V,ask:null};shToast("Livre supprimé");return shBack()}
+  if(a==="raddok"){const E=el.elements,t=(E.title.value||"").trim();if(!t)return;const st=(el.querySelector("input[name=status]:checked")||{}).value||"cur";const r={id:shId(),title:t.slice(0,80),author:(E.author.value||"").trim().slice(0,60),pages:+E.pages.value||0,page:st==="done"?(+E.pages.value||0):0,status:st,tpl:SH_TPL[shH(t)%SH_TPL.length][0],kanji:"",rating:0,quotes:[],start:st!=="todo"?Date.now():null,end:st==="done"?Date.now():null,created:Date.now(),updated:Date.now()};s.reads.push(r);shSave(s);shToast("Rangé sur ton étagère ✿");SH_STACK=[{view:"shelf",tab:"reads"}];SH_V={view:"rbook",id:r.id};return shRender()}
+  const r=shRead(s,V.id);
+  if(a==="rstatus"&&r){r.status=id;if(id!=="todo"&&!r.start)r.start=Date.now();if(id==="done"){r.end=Date.now();if(r.pages)r.page=r.pages;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}}else r.end=null;r.updated=Date.now();shSave(s);return shRender()}
+  if(a==="rate"&&r){r.rating=r.rating===+id?0:+id;shSave(s);return shRender()}
+  if(a==="rpage"&&r){const E=el.elements;r.pages=Math.max(0,+E.pages.value||0);r.page=Math.max(0,+E.page.value||0);if(r.pages)r.page=Math.min(r.page,r.pages);if(r.status==="todo"&&r.page)r.status="cur";if(!r.start&&r.page)r.start=Date.now();if(r.pages&&r.page>=r.pages&&r.status!=="done"){r.status="done";r.end=Date.now();shToast("Livre terminé ✿")}r.updated=Date.now();shSave(s);return shRender()}
+  if(a==="addq"&&r){const E=el.elements,t=(E.t.value||"").trim();if(!t)return;r.quotes=(r.quotes||[]).concat([{t:t.slice(0,500),p:(E.p.value||"").trim().slice(0,6),at:Date.now()}]);r.updated=Date.now();shSave(s);shToast("Citation gardée ✿");return shRender()}
+  if(a==="delq"&&r){r.quotes.splice(+id,1);shSave(s);return shRender()}
+  if(a==="rjournal"&&r){const q="Qu'est-ce que « "+r.title+" » t'a fait ressentir ?",t=todayKey();if(typeof entries!=="undefined"){if(typeof hasContent==="function"&&hasContent(entries[t]))touch(t,{prompt:q});else entries[t]={...entry(t),prompt:q}}closeShelf();if(typeof openDay==="function")openDay(t);setTimeout(()=>{const ta=$("text");if(ta)ta.focus()},350);return}
+  if(a==="askdelread"){SH_V={...V,ask:{msg:"Retirer ce livre et ses citations de tes lectures ?",ok:"delread",okl:"Retirer",id}};return shRender()}
+  if(a==="delread"){s.reads=s.reads.filter(x=>x.id!==id);shSave(s);SH_V={...V,ask:null};return shBack()}
+}
+try{renderShCard()}catch(e){}
+/* ===== fin étagère ===== */
 
 </script>
 </body>
