@@ -705,7 +705,8 @@ input,textarea,select{font-size:16px}
 #bdAsk,#bdCard{background:linear-gradient(120deg,color-mix(in srgb,#ffe08a 35%,var(--card)),color-mix(in srgb,var(--sakura) 28%,var(--card)));border-radius:18px;padding:12px 14px;display:grid;gap:8px}
 #bdAsk[hidden],#bdCard[hidden]{display:none}#bdCard{padding:6px 12px}
 .bd-ask-t{margin:0}.bd-ask-t b{display:block;font-size:15px}.bd-ask-t small{display:block;font-size:12px;color:var(--muted)}
-.bdpick{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.bdpick select{border:2px solid var(--line);border-radius:999px;padding:8px 12px;font:inherit;background:var(--paper);color:var(--ink);min-height:42px}.bdpick .openbook{width:auto;margin:0}
+.bdpick{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.bd-conf{width:100%;margin:0 0 4px;font-weight:700}.bd-msg2{width:100%;margin:4px 0 0;color:var(--shu)}.bd-g .ghost:disabled{opacity:.6}
+.bdpick select{border:2px solid var(--line);border-radius:999px;padding:8px 12px;font:inherit;background:var(--paper);color:var(--ink);min-height:42px}.bdpick .openbook{width:auto;margin:0}
 #bd{position:fixed;inset:0;z-index:210;overflow:auto;background:radial-gradient(circle at 50% 30%,#fff6d6,#fde3ea 70%);color:#4b3a47;font-family:'Zen Maru Gothic',sans-serif}#bd[hidden]{display:none}
 .bd-in{max-width:440px;margin:0 auto;padding:56px 20px 40px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .bd-t{font-size:30px;margin:6px 0 0}.bd-masc{width:150px;height:150px;margin:6px 0 -14px;animation:ybob 2.4s ease-in-out infinite;position:relative;z-index:1}
@@ -731,6 +732,7 @@ input,textarea,select{font-size:16px}
     <h1 class="atitle">Mon petit journal<small>にっき · rien qu'à toi</small></h1>
   </div>
   <div class="abtns">
+    <button class="chip chipmini" id="bdChip" type="button" hidden aria-label="Ma surprise d\'anniversaire" style="font-size:20px">🎂</button>
     <button class="chip chipmini flamebtn" id="flameBtn" aria-label="Ma flamme"></button>
     <button class="iconbtn round" id="setBtn" aria-label="Réglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg></button>
     <button class="iconbtn round" id="lockBtn" hidden aria-label="Verrouiller le journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
@@ -3747,6 +3749,20 @@ function bdayMD(){return prefs.bday||null}
 function isBday(k){const b=bdayMD();if(!b)return false;const md=k.slice(5);if(md===b)return true;const y=+k.slice(0,4),leap=(y%4===0&&y%100!==0)||y%400===0;return b==="02-29"&&!leap&&md==="02-28"}
 function nextBdayKey(){const b=bdayMD();if(!b)return null;const t=new Date();let y=t.getFullYear()+1;const [m,d]=b.split("-").map(Number);const dd=new Date(y,m-1,d);if(dd.getMonth()!==m-1)dd.setDate(0);return keyOf(dd)}
 function bdayYear(){return String(new Date().getFullYear())}
+function bdayInGrace(){return prefs.bdayFirst&&Date.now()-prefs.bdayFirst<7*864e5}
+function bdayCanChange(){
+  if(!bdayMD()&&!prefs.bdayFirst)return {ok:true};
+  if(bdayInGrace())return {ok:true};
+  const Y=bdayYear(),n=(prefs.bdayChg||{})[Y]||0;
+  return n>=1?{ok:false,why:"Tu as déjà modifié ta date d'anniversaire cette année ✿ Tu pourras la changer à nouveau à partir du 1er janvier."}:{ok:true};
+}
+function bdaySave(md){
+  const Y=bdayYear(),first=!prefs.bdayFirst,grace=bdayInGrace();
+  if(first)prefs.bdayFirst=Date.now();
+  else if(!grace){prefs.bdayChg={...(prefs.bdayChg||{}),[Y]:((prefs.bdayChg||{})[Y]||0)+1}}
+  if(grace&&coll.bday&&coll.bday[Y]&&coll.bday[Y].gifts&&coll.bday[Y].md!==md){coll.bday[Y]={reset:true,prev:coll.bday[Y].md};saveColl()}
+  prefs.bday=md;savePrefs();if(typeof renderSide==="function")renderSide();
+}
 function bdPrompt(){return "Qu'est-ce que tu te souhaites pour cette nouvelle année de vie ? ✿"}
 function bdayLabel(){const b=bdayMD();if(!b)return "";const [m,d]=b.split("-").map(Number);return d+(d===1?"er":"")+" "+MOIS[m-1]}
 function bdayPicker(onSave,small){
@@ -3754,9 +3770,17 @@ function bdayPicker(onSave,small){
   const sd=document.createElement("select");sd.setAttribute("aria-label","Jour");sd.innerHTML='<option value="">Jour</option>'+Array.from({length:31},(_,i)=>`<option ${i+1===bd?"selected":""}>${i+1}</option>`).join("");
   const sm=document.createElement("select");sm.setAttribute("aria-label","Mois");sm.innerHTML='<option value="">Mois</option>'+MOIS.map((m,i)=>`<option value="${i+1}" ${i+1===bm?"selected":""}>${m}</option>`).join("");
   const ok=document.createElement("button");ok.type="button";ok.className="openbook";ok.textContent="Enregistrer";
+  const msg=document.createElement("p");msg.className="note bd-msg2";msg.hidden=true;
   ok.onclick=()=>{const d=+sd.value,m=+sm.value;if(!d||!m){say("Choisis le jour et le mois ✿");return}const max=new Date(2024,m,0).getDate();if(d>max){say("Ce jour n'existe pas dans ce mois ✿");return}
-    prefs.bday=String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");savePrefs();Sfx.play("sparkle");onSave&&onSave()};
-  w.append(sd,sm,ok);return w;
+    const md=String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");if(md===bdayMD()){onSave&&onSave();return}
+    const chk=bdayCanChange();if(!chk.ok){msg.hidden=false;msg.textContent=chk.why;Sfx.play("wrong");return}
+    w.innerHTML="";const q=document.createElement("p");q.className="bd-conf";q.textContent="Ton anniversaire est le "+d+(d===1?"er":"")+" "+MOIS[m-1]+", c'est bien ça ? 🎂";
+    const yes=document.createElement("button");yes.type="button";yes.className="openbook";yes.textContent="Oui ✿";
+    const no=document.createElement("button");no.type="button";no.className="ghost";no.textContent="Corriger";
+    yes.onclick=()=>{bdaySave(md);Sfx.play("sparkle");onSave&&onSave()};
+    no.onclick=()=>{const n=bdayPicker(onSave,small);w.replaceWith(n)};
+    w.append(q,yes,no)};
+  w.append(sd,sm,ok,msg);return w;
 }
 function renderBdayAsk(){
   const box=$("bdAsk");if(!box)return;
@@ -3772,15 +3796,17 @@ function renderBdayTab(body){
   const p=document.createElement("p");p.className="note";p.textContent=bdayMD()?"Ton anniversaire : le "+bdayLabel()+" 🎂 Ce jour-là, ta mascotte te prépare une surprise.":"Indique ton jour d'anniversaire (jour et mois seulement) : une surprise t'attendra ce jour-là ✿";
   s.append(p,bdayPicker(()=>renderSettings("Anniversaire enregistré ✿")));
   if(bdayMD()){const c=document.createElement("button");c.type="button";c.className="linkbtn";c.textContent="Effacer ma date d'anniversaire";c.onclick=()=>{delete prefs.bday;savePrefs();renderSettings()};s.append(c)}
+  {const r=document.createElement("p");r.className="note";r.style.marginTop="10px";r.textContent=bdayInGrace()?"Tu peux encore corriger ta date librement pendant quelques jours ✿":"Pour éviter les tricheries, la date ne peut être modifiée qu'une fois par an.";s.append(r)}
   body.append(s);
 }
 function renderBdayCard(){
+  {const c=$("bdChip");if(c){c.hidden=!isBday(todayKey());c.onclick=openBday}}
   const box=$("bdCard");if(!box)return;const t=todayKey(),on=isBday(t)&&current===t;box.hidden=!on;box.innerHTML="";if(!on)return;
   const b=document.createElement("button");b.type="button";b.className="yrc-main";b.innerHTML='<span class="yrc-ic">🎂</span><span><b>お誕生日おめでとう ! Joyeux anniversaire ✿</b><small>Touche pour revoir ta surprise</small></span>';b.onclick=openBday;box.append(b);
 }
 function bdayGrant(){
   const Y=bdayYear();coll.bday=coll.bday||{};if(coll.bday[Y]&&coll.bday[Y].gifts)return false;
-  coll.bday[Y]={gifts:true,at:Date.now()};coll.giftCaps=(coll.giftCaps||0)+1;coll.bdayLuck=(coll.bdayLuck||0)+1;coll.petals=(coll.petals||0)+10;
+  coll.bday[Y]={gifts:true,seen:true,at:Date.now(),md:bdayMD()};coll.giftCaps=(coll.giftCaps||0)+1;coll.bdayLuck=(coll.bdayLuck||0)+1;coll.petals=(coll.petals||0)+10;
   coll.owned={...coll.owned,["anniv"+Y]:(coll.owned["anniv"+Y]||0)+1,banniereFete:Math.max(1,coll.owned.banniereFete||0)};
   saveColl();invalidate();return true;
 }
@@ -3803,12 +3829,14 @@ function openBday(){
 }
 function bdayGifts(ov){
   const g=ov.querySelector(".bd-gifts");g.hidden=false;const Y=bdayYear();g.innerHTML="";
-  const item=(ic,t,s,btn,fn)=>{const d=document.createElement("div");d.className="bd-g";d.innerHTML=`<span class="bd-gi">${ic}</span><span><b></b><small></small></span>`;d.querySelector("b").textContent=t;d.querySelector("small").textContent=s;if(btn){const b=document.createElement("button");b.type="button";b.className="ghost";b.textContent=btn;b.onclick=fn;d.append(b)}g.append(d)};
-  item(`<span class="stk">${stickerById("anniv"+Y).svg}</span>`,"Gâteau d'anniversaire "+Y,"Sticker exclusif ✦✦✦ à collectionner chaque année","Coller sur ma page",()=>{closeBday();openDay(todayKey());if(typeof showView==="function"&&$("v-deco"))showView("deco");addSticker("anniv"+Y)});
+  const item=(ic,t,s,btn,fn)=>{const d=document.createElement("div");d.className="bd-g";d.innerHTML=`<span class="bd-gi">${ic}</span><span><b></b><small></small></span>`;d.querySelector("b").textContent=t;d.querySelector("small").textContent=s;if(btn){const b=document.createElement("button");b.type="button";b.className="ghost";b.textContent=btn;b.onclick=()=>fn(b);d.append(b)}g.append(d)};
+  const stick=(id,b,msg)=>{if(current!==todayKey())openDay(todayKey());addSticker(id);b.textContent="Collé ✓";b.disabled=true;say(msg)};
+  {const n=document.createElement("p");n.className="note";n.style.cssText="margin:0;text-align:center";n.textContent="Tous tes cadeaux sont déjà dans ta collection ✓";g.append(n)}
+  item(`<span class="stk">${stickerById("anniv"+Y).svg}</span>`,"Gâteau d'anniversaire "+Y,"Sticker exclusif ✦✦✦ à collectionner chaque année","Coller sur ma page",b=>stick("anniv"+Y,b,"Ton gâteau est sur ta page du jour ✿"));
   item("🎁","Capsule d'anniversaire","Un sticker rare ou mieux, garanti","Ouvrir",()=>{closeBday();openGacha(true)});
-  item(`<svg viewBox="0 0 100 100" style="width:44px;height:44px">${mascotInner(curMascot(),["chapeauFete"],false)}</svg>`,"Chapeau de fête","Un accessoire pour ta mascotte","Le porter",()=>{prefs.eq={...(prefs.eq||{}),head:"chapeauFete"};savePrefs();renderMascot();hop();Sfx.play("sparkle");say("Je suis trop mignon·ne avec mon chapeau ! ✿")});
+  item(`<svg viewBox="0 0 100 100" style="width:44px;height:44px">${mascotInner(curMascot(),["chapeauFete"],false)}</svg>`,"Chapeau de fête","Un accessoire pour ta mascotte","Le porter",b=>{b.textContent="Porté ✓";b.disabled=true;prefs.eq={...(prefs.eq||{}),head:"chapeauFete"};savePrefs();renderMascot();hop();Sfx.play("sparkle");say("Je suis trop mignon·ne avec mon chapeau ! ✿")});
   item(`<svg viewBox="0 0 100 100" width="40" height="40">${SAKURA("#ffc2d1","#f59ab3","#ff8fab")}</svg>`,"+10 pétales","Pour la boutique ou tes sceaux de lettres",null);
-  item(`<span class="stk">${stickerById("banniereFete").svg}</span>`,"Guirlande おめでとう","Pour décorer ta page d'anniversaire","Décorer ma page",()=>{closeBday();openDay(todayKey());if(typeof showView==="function"&&$("v-deco"))showView("deco");addSticker("banniereFete")});
+  item(`<span class="stk">${stickerById("banniereFete").svg}</span>`,"Guirlande おめでとう","Pour décorer ta page d'anniversaire","Décorer ma page",b=>stick("banniereFete",b,"Ta page est décorée pour la fête ✿"));
   const ready=lettersAll().filter(l=>!l.opened&&l.open<=todayKey());
   const row=document.createElement("div");row.className="bd-row";
   if(ready.length){const b=document.createElement("button");b.type="button";b.className="openbook";b.textContent="✉ Une lettre de ton passé t'attend";b.onclick=()=>{closeBday();openLetter(ready[0].id)};row.append(b)}
