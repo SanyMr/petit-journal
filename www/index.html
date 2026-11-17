@@ -875,6 +875,8 @@ input,textarea,select{font-size:16px}
 #jd.jd-editing .jd-toast{bottom:auto;top:calc(64px + env(safe-area-inset-top,0px))}
 .jd-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
 @media (max-width:380px){.jd-title small{display:none}.jd-top{gap:6px}.jd-ic{padding:8px 9px;min-width:38px}}
+
+.jd-toolsbox{display:contents}
 </style>
 </head>
 <body>
@@ -4196,8 +4198,8 @@ function jdScene(o){
   if(o.use&&!o.mini){if(o.use.letters||o.use.wish)items.push([372,`<g transform="translate(40 372) scale(.9)">${jdEma(o.use.letters,o.use.gold,o.use.wish||0)}</g>`]);if(o.use.cairn)items.push([474,`<g transform="translate(240 476)">${jdCairn(o.use.cairn)}</g>`])}
   (o.vis||[]).forEach(v=>{const[x,y,sc]=v.pos;items.push([y,`<g data-v="${v.id}" transform="translate(${x} ${y}) scale(${sc})" class="jd-vis">${v.id===jdG().newVis?'<circle cy="-26" r="44" fill="url(#jdglow)" class="jd-pulse"/>':""}<ellipse cy="4" rx="26" ry="5" fill="#000" opacity=".15"/>${jdAnimal(v.id,false)}</g>`])});
   (o.objs||[]).forEach((ob,i)=>{const T=jdObj(ob.t);if(!T)return;items.push([ob.y+(i*.001),`<g data-o="${i}"><g transform="${jdTf(ob)}">${T.f(ob,{night,winter})}</g></g>`])});
-  items.sort((a,b)=>a[0]-b[0]).forEach(it=>s+=it[1]);
-  if(!o.mini)s+=o.flv?jdFlowersV(o.flv,winter):jdFlowers(winter);
+  s+=jdItemsWrap(items,u);
+  if(!o.mini)s+=`<g id="${u}flw">`+(o.flv?jdFlowersV(o.flv,winter):jdFlowers(winter))+"</g>";
   if(o.use&&!night&&!o.mini)s+=jdButterflies(Math.min(6,o.use.todo),R);
   for(let i=0;i<22;i++){const x=R.i(0,390),y=R.i(540,560);s+=`<path d="M${x} ${y}q2-10 -2-16M${x+3} ${y}q1-8 5-12" stroke="${winter?"#fff":night?"#3f5a52":"#7fbf68"}" stroke-width="2" fill="none" stroke-linecap="round"/>`}
   if(!winter)s+=`<g class="jd-sway jd-s4" opacity=".95"><path d="M-10 20 C30 30 70 26 112 40 M40 30 C30 50 20 60 6 72" stroke="#6b4430" stroke-width="5" fill="none" stroke-linecap="round"/>${[[30,40,16],[56,30,13],[82,48,12],[10,66,14],[64,64,10],[104,34,9]].map(([x,y,r],k)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#${u}bl${k%3})"/>`).join("")}</g>`;
@@ -4225,7 +4227,7 @@ function openGarden(skipPomo){
   JD.ambOn=!!jdG().amb;if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);
   jdRender();if(pomoGet()&&skipPomo!==true)jdPomo();jdLoadGifts()}
 function closeGarden(){if(JD.po&&pomoLocked())return;const ov=$("jd");if(ov)ov.hidden=true;document.body.style.overflow="";JD.visit=null;jdStopPause();jdPomoLeave();jdAmbStop();const L=document.querySelector("#jd .jd-layer");if(L){L.hidden=true;L.innerHTML=""}if(ov)ov.classList.remove("jd-hl");renderJdCard();jdPushGarden()}
-function jdBack(){if(JD.po&&pomoLocked()){jdToast("🔒 Concentration en cours : arrive au bout ou appuie sur Arrêter ✿");return}const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRender();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
+function jdBack(){if(JD.po&&pomoLocked()){jdToast("🔒 Concentration en cours : arrive au bout ou appuie sur Arrêter ✿");return}const L=document.querySelector("#jd .jd-layer");if(L&&!L.hidden){jdCloseLayer();return}if(JD.edit){jdEditCancel();return}if(JD.pop){JD.pop=null;jdRefreshFlowers();return}if(JD.visit){jdLeaveVisit();return}closeGarden()}
 function jdToast(t){const el=document.querySelector("#jd .jd-toast");if(!el)return;el.textContent=t;el.hidden=false;clearTimeout(JD.toastT);JD.toastT=setTimeout(()=>el.hidden=true,2800)}
 function jdEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 var JD_SHORT={jardin:"Mon jardin",bambous:"Bambous",torii:"Mille torii",the:"Maison de thé",onsen:"Onsen",rizieres:"Rizières",ile:"Île secrète"};
@@ -4248,7 +4250,7 @@ function jdRender(){
   top.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
     if(a==="close")closeGarden();else if(a==="leave")jdLeaveVisit();else if(a==="cancel")jdEditCancel();else if(a==="done")jdEditDone();else if(a==="map")jdMap();else if(a==="photo")jdPhoto();
     else if(a==="amb"){JD.ambOn=!JD.ambOn;jdG().amb=JD.ambOn;saveColl();if(JD.ambOn)jdAmbStart(jdPl(jdCurPlace()).snd);else jdAmbStop();Sfx.play("tick");jdRender()}
-    else if(a==="undo"&&JD.undo.length){JD.work=JD.undo.pop();JD.sel=-1;Sfx.play("tick");jdRender()}};
+    else if(a==="undo"&&JD.undo.length){JD.work=JD.undo.pop();JD.sel=-1;Sfx.play("tick");jdEditRefresh()}};
   jdPopRender()}
 function jdUsePanel(u){const R=[["🌸","Fleurs",u.month,"pages ce mois-ci"],["🏮","Lanternes allumées",u.sk>10?"10+":u.sk,"jours d'affilée (ta flamme)"],["🐟","Koï dans l'étang",u.koi,u.words.toLocaleString("fr-FR")+" mots écrits"],["🦋","Papillons",Math.min(6,u.todo),"tâches faites aujourd'hui"],["🪵","Ema",u.letters,"lettres au futur"],["🕊","Grues en papier",u.cranes,u.own+" stickers collectionnés"],["🪨","Pierres empilées",u.cairn,u.stamps+" tampons gagnés"],["🏮","Andon",u.pomo>=5?"✓":u.pomo+"/5","sessions de concentration"]];
   return `<details class="jd-use"><summary><b>Ce que ton jardin raconte</b><small>Chaque chose que tu fais dans l'appli y laisse une trace</small></summary><div class="jd-ugrid">${R.map(([i,n,v,l])=>`<div><span aria-hidden="true">${i}</span><b>${v}</b><small><em>${n}</em> · ${l}</small></div>`).join("")}</div></details>`}
@@ -4276,7 +4278,7 @@ function jdViewSheet(sh,S,st){
     if(a==="edit")jdEditStart();else if(a==="pause")jdPause();else if(a==="pomo")jdPomo();else if(a==="carnet")jdCarnet();else if(a==="map")jdMap();
     else if(a==="gonew"){const p=g.newPl;g.newPl=null;saveColl();jdGoPlace(p)}
     else if(a==="greet"){g.greet[g.newVis]=1;const v=JD_VIS.find(x=>x.id===g.newVis);coll.petals=(coll.petals||0)+3;g.newVis=null;saveColl();Sfx.play("petals");petals(16);jdToast((v?v.n:"Le visiteur")+" te remercie ✿ +3 pétales");jdRender();renderSide()}
-    else if(a==="prev"||a==="next"){const dd=new Date(+JD.month.slice(0,4),+JD.month.slice(5,7)-1+(a==="prev"?-1:1),1);JD.month=keyOf(dd).slice(0,7);JD.pop=null;Sfx.play("page");jdRender()}}}
+    else if(a==="prev"||a==="next"){const dd=new Date(+JD.month.slice(0,4),+JD.month.slice(5,7)-1+(a==="prev"?-1:1),1);JD.month=keyOf(dd).slice(0,7);JD.pop=null;Sfx.play("page");const S2=jdStats();jdViewSheet(sh,S2,jdStage(S2.pages));jdRefreshFlowers()}}}
 function jdPlaceSheet(sh,S,pl){const P=jdPl(pl),g=jdG(),vs=JD_VIS.filter(v=>v.pl===pl),nv=g.newVis&&!g.greet[g.newVis]&&vs.find(v=>v.id===g.newVis),days=((g.pdays||{})[pl]||[]).length,n=jdObjsOf(pl).length;
   const SN={eau:"💧 eau",shishi:"🎋 shishi-odoshi",vent:"🍃 vent",bambou:"🎍 bambous qui craquent",suzu:"🔔 clochettes du sanctuaire",furin:"🎐 carillons",bulles:"♨️ eau qui bouillonne",grenouilles:"🐸 grenouilles",carillon:"✨ carillon céleste"};
   sh.innerHTML=`<div class="jd-grip"></div>
@@ -4311,19 +4313,19 @@ function jdPopRender(){
 function jdBindScene(){
   const svg=$("jdSvg");
   svg.addEventListener("pointerdown",e=>{
-    if(JD.edit){const og=e.target.closest("[data-o]");if(og){const i=+og.dataset.o;e.preventDefault();if(JD.sel!==i){JD.sel=i;jdRender()}const ob=JD.work[i],p=jdPt(e);JD.drag={i,dx:ob.x-p.x,dy:ob.y-p.y,moved:false,snap:JSON.stringify(JD.work)};try{svg.setPointerCapture(e.pointerId)}catch(_){}}
-      else if(JD.sel>=0){JD.sel=-1;jdRender()}return}
+    if(JD.edit){const og=e.target.closest("[data-o]");if(og){const i=+og.dataset.o;e.preventDefault();if(JD.sel!==i){JD.sel=i;jdEditRefresh()}const ob=JD.work[i],p=jdPt(e);JD.drag={i,dx:ob.x-p.x,dy:ob.y-p.y,moved:false,snap:JSON.stringify(JD.work)};try{svg.setPointerCapture(e.pointerId)}catch(_){}}
+      else if(JD.sel>=0){JD.sel=-1;jdEditRefresh()}return}
     if(JD.visit)return;
     if(e.target.closest("[data-ema]")){const u=jdUse();Sfx.play("chime");jdToast("🪵 "+plural(u.letters,"lettre")+" au futur"+((JD.wishes||[]).length?" · 🎐 "+plural(JD.wishes.length,"vœu")+" d'amis":""));return}
-    const fl=e.target.closest("[data-k]");if(fl){JD.pop=JD.pop===fl.dataset.k?null:fl.dataset.k;Sfx.play("sticker");jdRender();return}
+    const fl=e.target.closest("[data-k]");if(fl){JD.pop=JD.pop===fl.dataset.k?null:fl.dataset.k;Sfx.play("sticker");jdRefreshFlowers();return}
     const vi=e.target.closest("[data-v]");if(vi){const v=JD_VIS.find(x=>x.id===vi.dataset.v);Sfx.play("sparkle");jdToast(v.n+" "+v.k+" se promène dans ton jardin");return}
     if(e.target.closest("[data-m]")){Sfx.play("mood",0);jdToast(jdTime()==="nuit"?"Chut… ta mascotte dort ✿ おやすみ":"Ta mascotte est heureuse que tu sois là ♡");return}
-    if(JD.pop){JD.pop=null;jdRender()}});
+    if(JD.pop){JD.pop=null;jdRefreshFlowers()}});
   svg.addEventListener("pointermove",e=>{const d=JD.drag;if(!d)return;const p=jdPt(e),ob=JD.work[d.i];
     if(!d.moved){JD.undo.push(JSON.parse(d.snap));if(JD.undo.length>40)JD.undo.shift();d.moved=true}
     const BX=JD.bandX||[8,382],BY=JD.band||[332,505];ob.x=Math.max(BX[0],Math.min(BX[1],p.x+d.dx));ob.y=Math.max(BY[0],Math.min(BY[1],p.y+d.dy));
     const g=svg.querySelector(`[data-o="${d.i}"] > g`);if(g)g.setAttribute("transform",jdTf(ob));jdDrawSel()});
-  const up=()=>{const d=JD.drag;JD.drag=null;if(d&&d.moved){Sfx.play("sticker");jdRender()}};
+  const up=()=>{const d=JD.drag;JD.drag=null;if(d&&d.moved){Sfx.play("sticker");jdEditRefresh()}};
   svg.addEventListener("pointerup",up);svg.addEventListener("pointercancel",up);
   window.addEventListener("resize",()=>{if($("jd")&&!$("jd").hidden)jdPopRender()})}
 function jdPt(e){const svg=$("jdSvg"),p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
@@ -4334,20 +4336,33 @@ function jdEditDone(){jdSetObjs(jdCurPlace(),JD.work);setTimeout(jdPushGarden,50
 function jdPushUndo(){JD.undo.push(JSON.parse(JSON.stringify(JD.work)));if(JD.undo.length>40)JD.undo.shift()}
 function jdDrawSel(){const box=$("jdSel");if(!box)return;box.innerHTML="";if(JD.sel<0)return;const g=document.querySelector(`#jdSvg [data-o="${JD.sel}"]`);if(!g)return;let b;try{b=g.getBBox()}catch(e){return}
   const x=b.x-5,y=b.y-5,w=b.width+10,h=b.height+10;box.innerHTML=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="none" stroke="#d9708d" stroke-width="2" stroke-dasharray="6 5"/>`+[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(([a,c])=>`<circle cx="${a}" cy="${c}" r="5" fill="#fff" stroke="#d9708d" stroke-width="2.5"/>`).join("")}
+function jdItemsWrap(items,u){return `<g id="${u}items">`+items.sort((a,b)=>a[0]-b[0]).map(it=>`<g data-y="${jdF(it[0])}"${/^<g data-o=/.test(it[1])?' data-ow="1"':""}>${it[1]}</g>`).join("")+"</g>"}
+function jdTiles(S){return JD_OBJ.filter(o=>JD.cat==="tout"||o.cat===JD.cat).map(o=>{const ok=o.q(S),cnt=JD.work.filter(w=>w.t===o.id).length;
+    return `<button type="button" class="jd-tile${ok?"":" jd-lk"}" data-add="${o.id}"><svg viewBox="-56 -100 112 104" width="60" height="54" aria-hidden="true"><g transform="scale(${o.th})"${ok?"":' style="filter:grayscale(1)" opacity=".45"'}>${o.f({},{night:false,winter:false})}</g></svg><b>${o.n}</b><small>${ok?(cnt?"×"+cnt+" posé"+(cnt>1?"s":""):"Disponible"):"🔒 "+o.ql}</small></button>`}).join("")}
+function jdToolsHtml(){const ob=JD.sel>=0?JD.work[JD.sel]:null,T=ob&&jdObj(ob.t);return ob&&T?`<div class="jd-tools"><b>${T.n}</b><div>${[["flip","flip","Retourner"],["minus","minus","Plus petit"],["plus","plus","Plus grand"],["back","down","Derrière"],["dup","copy","Copier"],["del","trash","Retirer"]].map(([a,i,t])=>`<button type="button" data-t="${a}">${jdI(i)}<small>${t}</small></button>`).join("")}</div></div>`:""}
+function jdUpdObjs(){const svg=$("jdSvg"),box=svg&&svg.querySelector("#jditems");if(!box){jdRender();return}
+  box.querySelectorAll(":scope>[data-ow]").forEach(n=>n.remove());const pl=jdCurPlace(),night=jdTime()==="nuit",winter=jdSeason()==="hiver";
+  JD.work.forEach((ob,i)=>{const T=jdObj(ob.t);if(!T)return;const y=ob.y+i*.001,g=document.createElementNS("http://www.w3.org/2000/svg","g");g.setAttribute("data-y",jdF(y));g.setAttribute("data-ow","1");
+    g.innerHTML=`<g data-o="${i}"><g transform="${jdTf(ob)}">${T.f(ob,{night,winter})}</g></g>`;const ref=[...box.children].find(c=>+c.getAttribute("data-y")>y);box.insertBefore(g,ref||null)})}
+function jdEditRefresh(){if(!JD.edit){jdRender();return}jdUpdObjs();const ub=document.querySelector('#jd .jd-top [data-a="undo"]');if(ub)ub.disabled=!JD.undo.length;
+  const sh=document.querySelector("#jd .jd-sheet"),tb=sh&&sh.querySelector(".jd-toolsbox");if(!tb){jdRender();return}tb.innerHTML=jdToolsHtml();
+  const n=sh.querySelector(".jd-ncount");if(n)n.textContent=JD.work.length+" / "+JD_MAX+" posés";
+  sh.querySelectorAll("[data-add]").forEach(b=>{if(b.classList.contains("jd-lk"))return;const c=JD.work.filter(w=>w.t===b.dataset.add).length,sm=b.querySelector("small");if(sm)sm.textContent=c?"×"+c+" posé"+(c>1?"s":""):"Disponible"});jdDrawSel()}
+function jdRefreshFlowers(){const f=$("jdSvg")&&$("jdSvg").querySelector("#jdflw");if(!f||JD.visit){jdRender();return}f.innerHTML=jdFlowers(jdSeason()==="hiver");jdPopRender()}
 function jdEditSheet(sh,S,st){
   const n=JD.work.length,ob=JD.sel>=0?JD.work[JD.sel]:null,T=ob&&jdObj(ob.t);
-  const tiles=JD_OBJ.filter(o=>JD.cat==="tout"||o.cat===JD.cat).map(o=>{const ok=o.q(S),cnt=JD.work.filter(w=>w.t===o.id).length;
-    return `<button type="button" class="jd-tile${ok?"":" jd-lk"}" data-add="${o.id}"><svg viewBox="-56 -100 112 104" width="60" height="54" aria-hidden="true"><g transform="scale(${o.th})"${ok?"":' style="filter:grayscale(1)" opacity=".45"'}>${o.f({},{night:false,winter:false})}</g></svg><b>${o.n}</b><small>${ok?(cnt?"×"+cnt+" posé"+(cnt>1?"s":""):"Disponible"):"🔒 "+o.ql}</small></button>`}).join("");
+  const tiles=jdTiles(S);
+
   sh.innerHTML=`<div class="jd-grip"></div>
-  ${ob?`<div class="jd-tools"><b>${T.n}</b><div>${[["flip","flip","Retourner"],["minus","minus","Plus petit"],["plus","plus","Plus grand"],["back","down","Derrière"],["dup","copy","Copier"],["del","trash","Retirer"]].map(([a,i,t])=>`<button type="button" data-t="${a}">${jdI(i)}<small>${t}</small></button>`).join("")}</div></div>`:""}
-  <div class="jd-h"><h2>Mes objets</h2><small>${n} / ${JD_MAX} posés</small></div>
+  <div class="jd-toolsbox">${jdToolsHtml()}</div>
+  <div class="jd-h"><h2>Mes objets</h2><small class="jd-ncount">${n} / ${JD_MAX} posés</small></div>
   ${jdCurPlace()!=="jardin"?"":st>=2?'<button type="button" class="jd-btn jd-sand-btn" data-t="sand">'+jdI("rake")+' Ratisser le sable du jardin zen</button>':'<p class="jd-note">Le jardin de sable apparaîtra à 20 pages : tu pourras y dessiner.</p>'}
   <div class="jd-tabs">${JD_CATS.map(([id,l])=>`<button type="button" data-c="${id}" aria-pressed="${JD.cat===id}">${l}</button>`).join("")}</div>
   <div class="jd-grid">${tiles}</div>`;
-  sh.onclick=e=>{const c=e.target.closest("[data-c]");if(c){JD.cat=c.dataset.c;Sfx.play("tick");jdRender();return}
+  sh.onclick=e=>{const c=e.target.closest("[data-c]");if(c){JD.cat=c.dataset.c;Sfx.play("tick");sh.querySelectorAll("[data-c]").forEach(b=>b.setAttribute("aria-pressed",b===c));sh.querySelector(".jd-grid").innerHTML=jdTiles(jdStats());return}
     const ad=e.target.closest("[data-add]");if(ad){const o=jdObj(ad.dataset.add);if(!o.q(jdStats())){Sfx.play("wrong");jdToast("🔒 "+o.n+" : se débloque avec "+o.ql);return}
       if(JD.work.length>=JD_MAX){jdToast("Ton jardin est plein (60 objets) ✿");return}
-      jdPushUndo();const R=jdR(Date.now()&0xffff);const BX=JD.bandX||[8,382],BY=JD.band||[332,505];let best=null,bd=-1;for(let k=0;k<24;k++){const x=R.u(BX[0]+20,BX[1]-20),y=R.u(BY[0]+(BY[1]-BY[0])*.3,BY[0]+(BY[1]-BY[0])*.85);const d=Math.min(999,...JD.work.map(w=>Math.hypot(w.x-x,(w.y-y)*2.2)));if(d>bd){bd=d;best=[x,y]}}JD.work.push({t:o.id,x:Math.round(best[0]),y:Math.round(best[1]),s:1,f:0});JD.sel=JD.work.length-1;Sfx.play("sticker");jdRender();return}
+      jdPushUndo();const R=jdR(Date.now()&0xffff);const BX=JD.bandX||[8,382],BY=JD.band||[332,505];let best=null,bd=-1;for(let k=0;k<24;k++){const x=R.u(BX[0]+20,BX[1]-20),y=R.u(BY[0]+(BY[1]-BY[0])*.3,BY[0]+(BY[1]-BY[0])*.85);const d=Math.min(999,...JD.work.map(w=>Math.hypot(w.x-x,(w.y-y)*2.2)));if(d>bd){bd=d;best=[x,y]}}JD.work.push({t:o.id,x:Math.round(best[0]),y:Math.round(best[1]),s:1,f:0});JD.sel=JD.work.length-1;Sfx.play("sticker");jdEditRefresh();return}
     const t=e.target.closest("[data-t]");if(!t)return;const a=t.dataset.t;
     if(a==="sand"){jdSand();return}
     const ob=JD.work[JD.sel];if(!ob)return;jdPushUndo();
@@ -4355,7 +4370,7 @@ function jdEditSheet(sh,S,st){
     else if(a==="dup"){if(JD.work.length>=JD_MAX){JD.undo.pop();jdToast("Ton jardin est plein (60 objets) ✿");return}JD.work.push({...ob,x:Math.min(382,ob.x+24)});JD.sel=JD.work.length-1}
     else if(a==="back"){ob.y=Math.max(332,ob.y-12)}
     else if(a==="del"){JD.work.splice(JD.sel,1);JD.sel=-1}
-    Sfx.play(a==="del"?"uncheck":"tick");jdRender()}}
+    Sfx.play(a==="del"?"uncheck":"tick");jdEditRefresh()}}
 /* ---------- couches : carnet, pause, sable ---------- */
 function jdLayer(cls,html){const L=document.querySelector("#jd .jd-layer");$("jd").classList.add("jd-hl");L.className="jd-layer "+cls;L.innerHTML=html;L.hidden=false;return L}
 function jdCloseLayer(){const L=document.querySelector("#jd .jd-layer");if(!L)return;if(L.classList.contains("jd-pz"))jdStopPause();if(L.classList.contains("jd-po"))jdPomoLeave();L.hidden=true;L.innerHTML="";$("jd").classList.remove("jd-hl");if(JD.ambOn&&!JD.amb&&!JD.visit)jdAmbStart(jdPl(jdCurPlace()).snd);jdRender()}
@@ -4636,7 +4651,7 @@ function jdPlaceScene(o){
   if(o.masc!==false){const[mx,my,ms]=r.masc;items.push([my+34,jdMascot(mx,my,ms,night,o.mascId,o.mascAcc)])}
   (o.vis||[]).forEach(v=>{const[x,y,sc]=v.pos;items.push([y,`<g data-v="${v.id}" transform="translate(${x} ${y}) scale(${sc})" class="jd-vis">${v.id===jdG().newVis?'<circle cy="-26" r="44" fill="url(#jdglow)" class="jd-pulse"/>':""}<ellipse cy="4" rx="26" ry="5" fill="#000" opacity=".15"/>${jdAnimal(v.id,false)}</g>`])});
   (o.objs||[]).forEach((ob,i)=>{const T=jdObj(ob.t);if(!T)return;items.push([ob.y+(i*.001),`<g data-o="${i}"><g transform="${jdTf(ob)}">${T.f(ob,{night,winter:c.winter})}</g></g>`])});
-  items.sort((a,b)=>a[0]-b[0]).forEach(it=>s+=it[1]);s+=r.fg;
+  s+=jdItemsWrap(items,u);s+=r.fg;
   if(!o.mini&&!o.edit){s+=jdParticles(r.part,R,u,o.photo);if(night)for(let i=0;i<12;i++)s+=`<circle cx="${R.i(20,370)}" cy="${R.i(300,500)}" r="${i%2?1.4:2.4}" fill="#fff6a8" class="jd-ff jd-d${R.i(1,4)}"${i%2?"":` filter="url(#${u}blur)"`}/>`}
   if(o.edit)s+=jdEditBands();
   return s+`<rect width="390" height="560" fill="url(#${u}vig)" pointer-events="none"/>`}
