@@ -73,6 +73,36 @@ service cloud.firestore {
       allow delete: if signedIn() && inPair(pair);
     }
 
+    // Défi à deux : une habitude partagée (nom + jours tamponnés seulement, jamais le journal)
+    function otherIn(pair) { return pair.split('_')[0] == me() ? pair.split('_')[1] : pair.split('_')[0]; }
+    match /defis/{pair}/c/{cid} {
+      allow read, delete: if signedIn() && inPair(pair);
+      allow create: if signedIn() && inPair(pair) && isFriend(otherIn(pair), me())
+        && request.resource.data.keys().hasOnly(['by','to','name','icon','color','type','goal','len','status','start','at'])
+        && request.resource.data.by == me() && request.resource.data.to == otherIn(pair)
+        && request.resource.data.status == 'invite' && request.resource.data.name is string
+        && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 40
+        && request.resource.data.len in [7, 14, 30];
+      allow update: if signedIn() && inPair(pair)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','start','stopBy'])
+        && ((resource.data.status == 'invite' && resource.data.to == me() && request.resource.data.status in ['on','no'])
+          || (resource.data.status == 'on' && request.resource.data.status == 'stop' && request.resource.data.stopBy == me()));
+    }
+    match /defis/{pair}/c/{cid}/s/{uid} {
+      allow read: if signedIn() && inPair(pair);
+      allow create, update: if signedIn() && inPair(pair) && me() == uid
+        && request.resource.data.keys().hasOnly(['days','at']) && request.resource.data.days is list && request.resource.data.days.size() <= 31;
+      allow delete: if signedIn() && inPair(pair);
+    }
+    match /defis/{pair}/c/{cid}/m/{id} {
+      allow read, delete: if signedIn() && inPair(pair);
+      allow create: if signedIn() && inPair(pair) && isFriend(otherIn(pair), me())
+        && request.resource.data.keys().hasOnly(['from','day','k','text','at'])
+        && request.resource.data.from == me() && id == me() + '_' + request.resource.data.day
+        && request.resource.data.k is number && request.resource.data.k >= 0 && request.resource.data.k < 12
+        && (!('text' in request.resource.data) || (request.resource.data.text is string && request.resource.data.text.size() <= 80));
+    }
+
     // Jardin partagé : visible uniquement par les amis (aucun texte du journal, aucune humeur)
     match /gardens/{uid} {
       allow read: if signedIn() && (me() == uid || isFriend(uid, me()));

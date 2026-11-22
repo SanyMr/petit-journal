@@ -1166,6 +1166,56 @@ input,textarea,select{font-size:16px}
 .dk-ghost{position:fixed;z-index:1500;width:84px;height:84px;margin:-42px 0 0 -42px;pointer-events:none;filter:drop-shadow(0 8px 12px rgba(0,0,0,.25));transform:scale(1.1)}.dk-ghost svg{width:100%;height:100%}
 @media (prefers-reduced-motion:reduce){.dk-tray,.dk-trash{transition:none}.dk-pop{animation:none}}
 /* ===== fin css coin déco ===== */
+/* ===== défi à deux ===== */
+#dfSec{padding-bottom:6px}
+.df-note{margin:0 18px 8px;font-size:13.5px;color:#8a7684;line-height:1.45}
+.df-card{margin:0 14px 10px;background:#fff;border-radius:20px;padding:12px 12px 10px;box-shadow:0 4px 14px rgba(181,80,109,.07);display:grid;gap:9px}
+.df-inv{border:2px dashed #f0b9ca}
+.df-top{display:flex;align-items:center;gap:10px}
+.df-ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center}
+.df-tx{flex:1;display:grid;gap:1px;min-width:0}
+.df-tx b{font-size:15px;line-height:1.25}
+.df-tx small{font-size:12.5px;color:#8a7684;line-height:1.35}
+.df-more{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:#f7eef2;color:#8a7684;display:grid;place-items:center;cursor:pointer}
+.df-more svg{width:18px;height:18px;fill:currentColor}
+.df-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.df-acts .sh-btn{flex:1 1 auto;min-height:40px;font-size:13.5px}
+.df-grid{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:8px;row-gap:3px}
+.df-who{font-size:11.5px;font-weight:700;color:#8a7684;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.df-cells{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:3px}
+.df-cells i{display:block;aspect-ratio:1;border-radius:6px;background:#f1e8ec;max-height:22px}
+.df-cells i.f{background:#faf5f7;outline:1px dashed #eadde3;outline-offset:-1px}
+.df-cells i.t{box-shadow:0 0 0 2px #fff,0 0 0 3.5px #4b3a47}
+.df-cells i.on{background-image:radial-gradient(circle at 50% 45%,rgba(255,255,255,.55) 0 22%,transparent 24%)}
+.df-mid i{background:none;aspect-ratio:auto;height:12px;display:grid;place-items:center}
+.df-mid svg{width:12px;height:12px}
+.df-sum{margin:0;font-size:13px;color:#6b5866;line-height:1.4}
+.df-sum b{font-size:15px;color:#d9708d}
+.df-msg{margin:0;display:flex;gap:7px;align-items:flex-start;background:#fdf1f5;border-radius:14px;padding:8px 10px;font-size:13.5px;line-height:1.4}
+.df-msg svg{flex:none;width:16px;height:16px;margin-top:1px;fill:#f7c3d3;stroke:#d9708d;stroke-width:1.6;stroke-linejoin:round}
+.df-warn{margin:0;font-size:12.5px;color:#a2574f}
+.df-lnk{border:0;background:none;color:#d9708d;font:inherit;font-weight:700;text-decoration:underline;padding:0;cursor:pointer}
+.df-sent{font-size:13px;font-weight:700;color:#6fb07f;padding:9px 4px}
+.df-end{background:linear-gradient(135deg,#fff3f7,#fff9ea);border-radius:16px;padding:10px 12px;display:grid;gap:8px}
+.df-end p{margin:0;font-size:13.5px;line-height:1.45}
+.df-new{margin:2px 14px 6px;width:calc(100% - 28px);min-height:48px;border:2px dashed #f0b9ca;border-radius:18px;background:#fff;color:#d9708d;font:inherit;font-weight:700;font-size:14.5px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.df-new svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.df-ask{z-index:30}
+.df-ask>div{width:min(360px,100%);max-height:86vh;overflow-y:auto;gap:10px}
+.df-ask .df-q{font-size:15px;text-align:left;margin:4px 0 0}
+.df-chips{display:flex;flex-wrap:wrap;gap:6px}
+.df-chip{min-height:38px;border:2px solid #f1dce4;border-radius:999px;background:#fff;color:#4b3a47;font:inherit;font-size:13.5px;font-weight:700;padding:0 12px;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.df-chip span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center}
+.df-chip.on{border-color:#d9708d;background:#fdeef3;color:#b2486a}
+.df-ask .df-hint{font-family:inherit;font-size:12.5px;color:#8a7684;text-align:left}
+.df-ask .df-err{font-family:inherit;font-size:13px;color:#b23b3b}
+.df-lab{display:grid;gap:5px;font-size:13px;font-weight:700;color:#6b5866}
+.df-lab input{min-height:44px;border:2px solid #f1dce4;border-radius:14px;padding:0 12px;font:inherit;font-size:16px;color:#4b3a47;background:#fff}
+.df-lab input:focus{outline:none;border-color:#d9708d}
+.df-ask .sh-row{padding:4px 0 0}
+.df-ask .sh-btn[disabled]{opacity:.45}
+.hb-toast{white-space:normal;text-align:center;border-radius:20px;width:max-content;max-width:min(92vw,420px);line-height:1.35}
+/* ===== fin css défi à deux ===== */
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -2519,7 +2569,7 @@ function nextToast(){
     go=()=>{settingsTab="masc";openSettings()};say(M.name+" veut écrire avec toi ! ✿")}
   else if(it.accMany){icon=`<svg viewBox="0 0 100 100" class="press" style="overflow:visible">${mascotInner(prefs.mascot,["noeud"],false)}</svg>`;t1="Ta garde-robe s'agrandit";t2=it.accMany+" nouveaux accessoires";t3="Touche ici pour les essayer";
     go=()=>{settingsTab="acc";openSettings()};say("Plein de nouveaux accessoires ! On essaie ? ✿")}
-  else if(it.acc){rar=it.acc.r;icon=`<svg viewBox="0 0 100 100" class="press" style="overflow:visible">${mascotInner(curMascot(),[it.acc.id],false)}</svg>`;t1="Nouvel accessoire · "+RAR[it.acc.r].stars+" "+RAR[it.acc.r].name;t2=it.acc.name;t3="Touche ici pour l'essayer";
+  else if(it.acc&&!Array.isArray(it.acc)&&it.acc.id&&RAR[it.acc.r]){rar=it.acc.r;icon=`<svg viewBox="0 0 100 100" class="press" style="overflow:visible">${mascotInner(curMascot(),[it.acc.id],false)}</svg>`;t1="Nouvel accessoire · "+RAR[it.acc.r].stars+" "+RAR[it.acc.r].name;t2=it.acc.name;t3="Touche ici pour l'essayer";
     go=()=>{settingsTab="acc";openSettings()};say("Oh, un nouvel accessoire ! Je peux l'essayer ? ✿")}
   else if(it.duoQ){icon=`<svg viewBox="-6 -6 112 112" class="press" style="overflow:visible">${mascotInner(MASCOTS[it.mascot]?it.mascot:"onigiri",it.acc||[],false)}</svg>`;t1=it.t1;t2=it.t2;t3="Touche ici pour répondre";
     go=()=>showView("amis");say(it.t1)}
@@ -6615,6 +6665,163 @@ function dkPaintPaper(ctx,W,H,p,k){const cs=getComputedStyle(document.documentEl
   ctx.fillStyle=tok("--paper")||"#fffafc";ctx.fillRect(0,0,W,H);ctx.globalAlpha=.09;ctx.fillStyle=tok("--sakura")||"#f5a9bc";ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
   const step=24*k;ctx.strokeStyle=tok("--line")||"#f4dbe3";ctx.lineWidth=Math.max(1,k);for(let x=0;x<=W;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}for(let y=0;y<=H;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}}
 /* ===== fin coin déco ===== */
+/* ================= défi à deux ふたり ================= */
+/* Une habitude partagée avec une amie : chacune voit les tampons de l'autre et peut l'encourager.
+   Seuls le nom de l'habitude et les jours tamponnés sont partagés (jamais le journal ni les humeurs). */
+var DF={list:[],t:0,busy:false,ask:null,push:0,poll:0};
+var DF_K="nikki.defis",DF_MAXON=3,DF_LENS=[7,14,30];
+var DF_ENC=["Tu peux le faire ✿","Bravo pour aujourd'hui !","On lâche rien ✧","Fière de toi ♡","Demain on recommence ensemble","Petit pas, grand cœur ✿"];
+function dfOn(){return typeof fbUser!=="undefined"&&!!fbUser&&typeof fsList==="function"&&typeof amis!=="undefined"}
+function dfLoc(){let o;try{o=JSON.parse(hbStore().getItem(DF_K)||"{}")||{}}catch(e){o={}}o.links=o.links||{};o.seen=o.seen||[];o.hide=o.hide||{};o.won=o.won||[];o.sent=o.sent||{};return o}
+function dfSaveLoc(o){o.seen=o.seen.slice(-300);try{hbStore().setItem(DF_K,JSON.stringify(o))}catch(e){}}
+function dfPair(uid){return [fbUser.uid,uid].sort().join("_")}
+function dfBase(it){return "defis/"+it.pair+"/c/"+it.cid}
+function dfEnd(c){return hbAdd(c.start,c.len-1)}
+function dfDays(c){const a=[];if(!c.start)return a;for(let i=0;i<c.len;i++)a.push(hbAdd(c.start,i));return a}
+function dfState(it){const c=it.c;if(c.status==="invite")return c.by===fbUser.uid?"wait":"inv";if(c.status==="no")return"no";if(c.status==="stop")return"stop";if(c.status==="on"&&c.start)return hbToday()>dfEnd(c)?"end":"on";return"?"}
+function dfStats(it){const ds=dfDays(it.c),m=new Set(it.mine||[]),h=new Set(it.hers||[]),t=hbToday();let both=0,run=0,best=0;
+  ds.forEach(k=>{if(k>t)return;if(m.has(k)&&h.has(k)){both++;run++;best=Math.max(best,run)}else if(k<t)run=0});
+  const i=ds.indexOf(t);return{both,best,mine:ds.filter(k=>m.has(k)).length,hers:ds.filter(k=>h.has(k)).length,day:i>=0?i+1:(ds.length&&t>ds[ds.length-1]?ds.length:1)}}
+function dfWon(it,S){return S.both>=Math.ceil(it.c.len*.6)}
+function dfHabit(it){const id=dfLoc().links[it.cid];return id?hbSt().list.find(h=>h.id===id)||null:null}
+function dfMine(it){const h=dfHabit(it);if(!h)return[];const s=hbSt(),t=hbToday();return dfDays(it.c).filter(k=>k<=t&&hbDone(s,h,k))}
+function dfName(it){return(it.fr&&it.fr.name)||"Ton amie"}
+
+/* chargement : un petit dossier par paire d'amies */
+async function dfLoad(force){if(!dfOn()||DF.busy)return;if(!force&&Date.now()-DF.t<20000)return;DF.busy=true;DF.t=Date.now();const me=fbUser.uid,out=[];
+  try{await Promise.all((amis.friends||[]).map(async fr=>{const pair=dfPair(fr.uid),cs=await fsList("defis/"+pair+"/c").catch(()=>[]);
+      await Promise.all(cs.map(async c=>{const it={pair,cid:c.id,fr,c,mine:[],hers:[],msgs:[]};
+        if(c.status==="on"){const b=dfBase(it),[a,h,ms]=await Promise.all([fsGet(b+"/s/"+me).catch(()=>null),fsGet(b+"/s/"+fr.uid).catch(()=>null),fsList(b+"/m").catch(()=>[])]);
+          it.mine=(a&&a.days)||[];it.hers=(h&&h.days)||[];it.msgs=ms.sort((x,y)=>(y.at||0)-(x.at||0))}
+        out.push(it)}))}));
+    out.sort((a,b)=>(b.c.at||0)-(a.c.at||0));DF.list=out;dfNotify();await dfPush()}catch(e){}
+  DF.busy=false;dfRefresh()}
+async function dfPush(){if(!dfOn())return;const me=fbUser.uid,t=hbToday();
+  for(const it of DF.list){const st=dfState(it);if(st!=="on"&&!(st==="end"&&t<=hbAdd(dfEnd(it.c),1)))continue;if(!dfHabit(it))continue;const d=dfMine(it);
+    if(JSON.stringify(d)===JSON.stringify(it.mine||[]))continue;try{await fsSet(dfBase(it)+"/s/"+me,{days:d,at:Date.now()});it.mine=d}catch(e){}}}
+function dfPushSoon(){if(!dfOn())return;clearTimeout(DF.push);DF.push=setTimeout(()=>{dfPush().then(dfRefresh)},900)}
+function dfNotify(){const L=dfLoc(),me=fbUser.uid,msgs=[];let ch=false,reward=false;
+  const once=(k,m)=>{if(L.seen.includes(k))return;L.seen.push(k);ch=true;if(m)msgs.push(m)};
+  DF.list.forEach(it=>{const st=dfState(it),nm=dfName(it),k=it.cid+":";
+    if(st==="inv")once(k+"inv","✉ "+nm+" t'invite à un défi à deux : "+it.c.name);
+    if(st==="no"&&it.c.by===me)once(k+"no",nm+" ne peut pas faire ce défi pour l'instant ✿");
+    if((st==="on"||st==="end")&&it.c.by===me)once(k+"on",nm+" a accepté ton défi « "+it.c.name+" » ✿");
+    (it.msgs||[]).filter(m=>m.from!==me).forEach(m=>once(k+"m"+m.id,nm+" t'encourage : "+(m.text||DF_ENC[m.k]||"✿")));
+    if(st==="stop"&&it.c.stopBy!==me)once(k+"stop",nm+" a arrêté le défi « "+it.c.name+" »");
+    if(st==="end"&&!L.seen.includes(k+"end")){const S=dfStats(it);once(k+"end","Défi terminé avec "+nm+" : "+S.both+" jour"+(S.both>1?"s":"")+" ensemble ✿");
+      if(dfWon(it,S)&&!L.won.includes(it.cid)){if(!L.won.length)reward=true;L.won.push(it.cid)}}});
+  if(ch)dfSaveLoc(L);
+  msgs.slice(-3).forEach((m,i)=>setTimeout(()=>hbToast(m),i*3200));
+  if(reward)setTimeout(()=>{hbToast("Nouveau dans ton jardin : le banc des amies ✿");try{Sfx.play("unlock")}catch(e){}},msgs.length*3200+300)}
+
+/* affichage dans « Mes habitudes » */
+function dfRefresh(){const sec=document.querySelector("#hb #dfSec");if(sec&&!DF.ask)sec.outerHTML=dfSection(hbSt())}
+function dfRender(){if(typeof hbRender==="function")hbRender()}
+function dfSection(s){
+  if(!dfOn()){if(typeof fbUser!=="undefined"&&typeof isNative!=="undefined"&&isNative&&typeof FA==="function")return'<div id="dfSec"><h3 class="hb-h">Défis à deux <span lang="ja">ふたり</span></h3><p class="df-note">Connecte-toi dans l\'onglet Amis pour faire une habitude avec une amie ✿</p></div>';return'<div id="dfSec"></div>'}
+  const L=dfLoc(),items=DF.list.filter(it=>!L.hide[it.cid]&&dfState(it)!=="?"&&!(dfState(it)==="no"&&it.c.by!==fbUser.uid));
+  const live=DF.list.filter(it=>["on","wait","inv"].includes(dfState(it))).length;
+  let h='<div id="dfSec"><h3 class="hb-h">Défis à deux <span lang="ja">ふたり</span></h3>'+items.map(it=>dfCard(it,s,L)).join("");
+  if(!(amis.friends||[]).length)h+='<p class="df-note">Ajoute une amie dans l\'onglet Amis pour faire une habitude ensemble ✿</p>';
+  else if(!s.list.length)h+='<p class="df-note">Crée d\'abord une habitude, puis invite une amie à la faire avec toi ✿</p>';
+  else if(live<DF_MAXON)h+='<button type="button" class="df-new" data-a="dfnew"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="9" r="3.2"/><circle cx="15.5" cy="9" r="3.2"/><path d="M3 19c.6-3 2.8-4.6 5.5-4.6S13.4 16 14 19M10 19c.6-3 2.8-4.6 5.5-4.6S20.4 16 21 19"/></svg>Faire une habitude à deux</button>';
+  else h+='<p class="df-note">'+DF_MAXON+' défis à la fois au maximum, pour rester doux ✿</p>';
+  return h+'</div>'}
+function dfCard(it,s,L){const st=dfState(it),c=it.c,nm=hbEsc(dfName(it)),col=c.color||"#d9708d",t=hbToday();
+  const ic=`<span class="df-ic" style="background:${col}">${hbIcon(c.icon,"#fff",17)}</span>`,title=`<b>${hbEsc(c.name)}</b>`;
+  const simple=(sub,btns,cls)=>`<div class="df-card ${cls||""}"><div class="df-top">${ic}<div class="df-tx">${title}<small>${sub}</small></div></div><div class="df-acts">${btns}</div></div>`;
+  if(st==="inv")return simple(`${nm} t'invite à le faire avec elle · ${c.len} jours`,`<button type="button" class="sh-btn" data-a="dfno" data-id="${it.cid}">Pas cette fois</button><button type="button" class="sh-btn sh-pink" data-a="dfyes" data-id="${it.cid}">Accepter</button>`,"df-inv");
+  if(st==="wait")return simple(`Invitation envoyée à ${nm} · en attente…`,`<button type="button" class="sh-btn" data-a="dfcancel" data-id="${it.cid}">Annuler l'invitation</button>`,"df-wait");
+  if(st==="no")return simple(`${nm} ne peut pas cette fois ✿`,`<button type="button" class="sh-btn" data-a="dfhide" data-id="${it.cid}">D'accord</button>`);
+  if(st==="stop")return simple(`Défi arrêté${c.stopBy===fbUser.uid?"":" par "+nm}`,`<button type="button" class="sh-btn" data-a="dfhide" data-id="${it.cid}">D'accord</button>`);
+  const S=dfStats(it),ds=dfDays(c),m=new Set(it.mine||[]),hs=new Set(it.hers||[]),n=ds.length>15?Math.ceil(ds.length/2):ds.length;
+  const cells=set=>ds.map(k=>`<i class="${set.has(k)?"on":""}${k===t?" t":""}${k>t?" f":""}"${set.has(k)?` style="background:${col}"`:""}></i>`).join("");
+  const mid=ds.map(k=>`<i>${m.has(k)&&hs.has(k)?'<svg viewBox="-6 -6 12 12" aria-hidden="true">'+[0,72,144,216,288].map(a=>`<ellipse cy="-2.6" rx="1.9" ry="2.7" fill="#f7a8c4" transform="rotate(${a})"/>`).join("")+'<circle r="1.4" fill="#ffd66b"/></svg>':""}</i>`).join("");
+  const last=(it.msgs||[]).find(x=>x.from!==fbUser.uid&&x.day>=hbAdd(t,-2));
+  const sentToday=L.sent[it.cid]===t||(it.msgs||[]).some(x=>x.from===fbUser.uid&&x.day===t);
+  const hab=dfHabit(it);
+  let foot;
+  if(st==="end"){const won=dfWon(it,S);foot=`<div class="df-end"><p><b>${won?"Bravo à vous deux !":"Défi terminé ✿"}</b> ${S.both} jour${S.both>1?"s":""} ensemble sur ${c.len}${S.best>=2?" · meilleure série à deux : "+S.best:""}.${won?" Le banc des amies t'attend dans ton jardin.":" Chaque jour compte, on recommence quand tu veux."}</p><div class="df-acts"><button type="button" class="sh-btn" data-a="dfhide" data-id="${it.cid}">Fermer</button><button type="button" class="sh-btn sh-pink" data-a="dfagain" data-id="${it.cid}">Relancer</button></div></div>`}
+  else foot=`<div class="df-acts">${sentToday?'<span class="df-sent">Encouragement envoyé ✿</span>':`<button type="button" class="sh-btn sh-pink" data-a="dfenc" data-id="${it.cid}">Encourager ${nm}</button>`}</div>`;
+  return`<div class="df-card df-on${st==="end"?" df-fin":""}"><div class="df-top">${ic}<div class="df-tx">${title}<small>avec ${nm} · ${st==="end"?"terminé":"jour "+S.day+" / "+c.len}</small></div>${st==="on"?`<button type="button" class="df-more" data-a="dfstopask" data-id="${it.cid}" aria-label="Arrêter ce défi"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg></button>`:""}</div>
+  <div class="df-grid" style="--n:${n}"><span class="df-who">Toi</span><div class="df-cells">${cells(m)}</div><span></span><div class="df-cells df-mid">${mid}</div><span class="df-who">${nm}</span><div class="df-cells">${cells(hs)}</div></div>
+  <p class="df-sum"><b>${S.both}</b> jour${S.both>1?"s":""} ensemble${S.best>=2?" · série à deux : "+S.best:""}${st==="on"&&ds.includes(t)?(m.has(t)&&hs.has(t)?" · aujourd'hui c'est fait pour vous deux ✿":m.has(t)?" · toi c'est fait aujourd'hui":hs.has(t)?" · "+nm+" a déjà tamponné aujourd'hui":""):""}</p>
+  ${!hab&&st==="on"?`<p class="df-warn">Cette habitude n'est plus dans ta liste. <button type="button" class="df-lnk" data-a="dflink" data-id="${it.cid}">Choisir l'habitude liée</button></p>`:""}
+  ${last?`<p class="df-msg"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H10l-4 4v-4H5z"/></svg><span><b>${nm}</b> ${hbEsc(last.text||DF_ENC[last.k]||"✿")}</span></p>`:""}
+  ${foot}</div>`}
+
+/* fenêtres : lancer un défi, encourager, choisir l'habitude liée */
+function dfSheet(s){const A=DF.ask;if(!A)return"";const err=A.err?`<p class="df-err">${hbEsc(A.err)}</p>`:"";
+  if(A.k==="new"){const fr=amis.friends||[];return`<div class="sh-ask df-ask" role="dialog" aria-modal="true" aria-label="Faire une habitude à deux"><div>
+    <p class="df-q">Quelle habitude ?</p><div class="df-chips">${s.list.map(h=>`<button type="button" class="df-chip${A.h===h.id?" on":""}" data-a="dfpick" data-id="h:${h.id}"><span style="background:${h.color}">${hbIcon(h.icon,"#fff",13)}</span>${hbEsc(h.name)}</button>`).join("")}</div>
+    <p class="df-q">Avec qui ?</p><div class="df-chips">${fr.map(f=>`<button type="button" class="df-chip${A.f===f.uid?" on":""}" data-a="dfpick" data-id="f:${f.uid}">${hbEsc(f.name)}</button>`).join("")}</div>
+    <p class="df-q">Pendant combien de jours ?</p><div class="df-chips">${DF_LENS.map(n=>`<button type="button" class="df-chip${A.len===n?" on":""}" data-a="dfpick" data-id="l:${n}">${n} jours</button>`).join("")}</div>
+    <p class="df-hint">Ton amie verra seulement le nom de l'habitude et les jours tamponnés.</p>${err}
+    <div class="sh-row"><button type="button" class="sh-btn" data-a="dfclose">Annuler</button><button type="button" class="sh-btn sh-pink" data-a="dfsend"${A.h&&A.f&&!A.busy?"":" disabled"}>Envoyer l'invitation</button></div></div></div>`}
+  if(A.k==="enc"){const it=DF.list.find(x=>x.cid===A.cid);return`<div class="sh-ask df-ask" role="dialog" aria-modal="true" aria-label="Encourager"><div>
+    <p class="df-q">Un petit mot pour ${hbEsc(it?dfName(it):"ton amie")}</p><div class="df-chips">${DF_ENC.map((x,i)=>`<button type="button" class="df-chip${A.sel===i?" on":""}" data-a="dfpick" data-id="e:${i}">${hbEsc(x)}</button>`).join("")}</div>
+    <label class="df-lab">Ou écris le tien<input id="dfTxt" maxlength="80" placeholder="80 caractères maximum" value="${hbEsc(A.txt||"")}" autocomplete="off"></label>${err}
+    <div class="sh-row"><button type="button" class="sh-btn" data-a="dfclose">Annuler</button><button type="button" class="sh-btn sh-pink" data-a="dfencgo"${A.busy?" disabled":""}>Envoyer</button></div></div></div>`}
+  if(A.k==="link"){const it=DF.list.find(x=>x.cid===A.cid);return`<div class="sh-ask df-ask" role="dialog" aria-modal="true" aria-label="Choisir l'habitude liée"><div>
+    <p class="df-q">${A.acc?"Tu as déjà "+HB_MAX+" habitudes. Laquelle correspond à « "+hbEsc(it?it.c.name:"")+" » ?":"Quelle habitude compte pour ce défi ?"}</p><div class="df-chips">${s.list.map(h=>`<button type="button" class="df-chip" data-a="dflinkgo" data-id="${h.id}"><span style="background:${h.color}">${hbIcon(h.icon,"#fff",13)}</span>${hbEsc(h.name)}</button>`).join("")}</div>${err}
+    <div class="sh-row"><button type="button" class="sh-btn" data-a="dfclose">Annuler</button></div></div></div>`}
+  return""}
+
+async function dfAct(a,id,el){const s=hbSt(),it=DF.list.find(x=>x.cid===id),L=dfLoc();
+  try{
+  if(a==="dfclose"){DF.ask=null;return dfRender()}
+  if(a==="dfnew"){DF.ask={k:"new",h:s.list[0]&&s.list[0].id,f:(amis.friends[0]||{}).uid,len:14};return dfRender()}
+  if(a==="dfpick"){const[t,v]=[id.slice(0,1),id.slice(2)];const A=DF.ask;if(!A)return;if(A.k==="enc"){const i=$("dfTxt");if(i)A.txt=i.value}
+    if(t==="h")A.h=v;else if(t==="f")A.f=v;else if(t==="l")A.len=+v;else if(t==="e")A.sel=+v;A.err="";return dfRender()}
+  if(a==="dfsend")return dfCreate();
+  if(a==="dfagain"&&it){const h=dfHabit(it);DF.ask={k:"new",h:h?h.id:(s.list[0]||{}).id,f:it.fr.uid,len:it.c.len};L.hide[it.cid]=1;dfSaveLoc(L);return dfRender()}
+  if(a==="dfyes"&&it)return dfAccept(it);
+  if(a==="dflinkgo"){const A=DF.ask,x=A&&DF.list.find(y=>y.cid===A.cid);if(!x)return;if(A.acc)return dfAccept(x,id);L.links[x.cid]=id;dfSaveLoc(L);DF.ask=null;dfRender();return dfPushSoon()}
+  if(a==="dflink"&&it){DF.ask={k:"link",cid:it.cid};return dfRender()}
+  if(a==="dfno"&&it){await fsSet(dfBase(it),{status:"no"},true);it.c.status="no";L.hide[it.cid]=1;dfSaveLoc(L);hbToast("Pas de souci, "+dfName(it)+" sera prévenue tout doucement ✿");return dfRender()}
+  if(a==="dfcancel"&&it){await fsDel(dfBase(it));DF.list=DF.list.filter(x=>x!==it);delete L.links[it.cid];dfSaveLoc(L);hbToast("Invitation annulée");return dfRender()}
+  if(a==="dfhide"&&it){L.hide[it.cid]=1;dfSaveLoc(L);if(dfState(it)==="no"&&it.c.by===fbUser.uid)fsDel(dfBase(it)).catch(()=>{});return dfRender()}
+  if(a==="dfstopask"&&it){HB_V={...HB_V,ask:{msg:"Arrêter le défi « "+it.c.name+" » avec "+dfName(it)+" ? Vos tampons restent sur vos cartes.",ok:"dfstop",okl:"Arrêter",id:it.cid}};return hbRender()}
+  if(a==="dfstop"&&it){HB_V={...HB_V,ask:null};await fsSet(dfBase(it),{status:"stop",stopBy:fbUser.uid},true);it.c.status="stop";it.c.stopBy=fbUser.uid;hbToast("Défi arrêté ✿");return dfRender()}
+  if(a==="dfenc"&&it){DF.ask={k:"enc",cid:it.cid,sel:0,txt:""};return dfRender()}
+  if(a==="dfencgo")return dfEncSend();
+  }catch(e){hbToast(typeof amisErr==="function"?(amisErr(e)||"Oups, réessaie dans un instant."):"Oups, réessaie dans un instant.");if(HB_V&&HB_V.ask){HB_V={...HB_V,ask:null};hbRender()}}}
+async function dfCreate(){const A=DF.ask,s=hbSt(),h=s.list.find(x=>x.id===A.h),fr=(amis.friends||[]).find(f=>f.uid===A.f);if(!h||!fr||A.busy)return;
+  if(DF.list.some(it=>it.fr.uid===fr.uid&&["on","wait","inv"].includes(dfState(it))&&it.c.name.toLowerCase()===h.name.toLowerCase())){A.err="Vous faites déjà ce défi ensemble ✿";return dfRender()}
+  A.busy=true;dfRender();const cid="d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),pair=dfPair(fr.uid);
+  const c={by:fbUser.uid,to:fr.uid,name:h.name.slice(0,40),icon:h.icon||"plante",color:h.color||"#d9708d",type:h.type==="count"?"count":"bool",goal:hbGoalOf(h),len:A.len,status:"invite",start:"",at:Date.now()};
+  try{await fsSet("defis/"+pair+"/c/"+cid,c);const L=dfLoc();L.links[cid]=h.id;dfSaveLoc(L);DF.list.unshift({pair,cid,fr,c,mine:[],hers:[],msgs:[]});DF.ask=null;hbToast("Invitation envoyée à "+fr.name+" ✉");try{Sfx.play("share")}catch(e){}}
+  catch(e){A.busy=false;A.err=(typeof amisErr==="function"&&amisErr(e))||"Oups, réessaie dans un instant."}
+  dfRender()}
+async function dfAccept(it,linkId){const s=hbSt();let h=linkId?s.list.find(x=>x.id===linkId):s.list.find(x=>x.name.trim().toLowerCase()===it.c.name.trim().toLowerCase());
+  if(!h){if(s.list.length>=HB_MAX){DF.ask={k:"link",cid:it.cid,acc:true};return dfRender()}
+    h={id:hbId(),name:it.c.name,icon:it.c.icon||"plante",type:it.c.type==="count"?"count":"bool",goal:it.c.type==="count"?Math.max(1,it.c.goal||1):1,color:it.c.color||HB_COLORS[0],days:[0,1,2,3,4,5,6],remind:"",created:hbToday()};s.list.push(h);hbSave(s)}
+  const start=hbToday();await fsSet(dfBase(it),{status:"on",start},true);it.c.status="on";it.c.start=start;
+  const L=dfLoc();L.links[it.cid]=h.id;L.seen.push(it.cid+":on");dfSaveLoc(L);DF.ask=null;
+  hbToast("C'est parti avec "+dfName(it)+" pour "+it.c.len+" jours ✿");try{Sfx.play("sparkle")}catch(e){}dfRender();dfPushSoon()}
+async function dfEncSend(){const A=DF.ask,it=A&&DF.list.find(x=>x.cid===A.cid);if(!it||A.busy)return;const i=$("dfTxt"),txt=((i&&i.value)||"").trim().slice(0,80),me=fbUser.uid,day=hbToday();
+  const data={from:me,day,k:A.sel||0,at:Date.now()};if(txt)data.text=txt;A.busy=true;A.txt=txt;
+  try{await fsSet(dfBase(it)+"/m/"+me+"_"+day,data);it.msgs.unshift({id:me+"_"+day,...data});const L=dfLoc();L.sent[it.cid]=day;dfSaveLoc(L);DF.ask=null;hbToast("Encouragement envoyé à "+dfName(it)+" ✿");try{Sfx.play("share")}catch(e){}}
+  catch(e){A.busy=false;A.err=/permission/i.test(String(e&&e.message))?"Tu lui as déjà envoyé un encouragement aujourd'hui ✿":((typeof amisErr==="function"&&amisErr(e))||"Oups, réessaie dans un instant.")}
+  dfRender()}
+async function dfWipe(){if(!dfOn())return;const me=fbUser.uid;
+  for(const fr of amis.friends||[]){const pair=dfPair(fr.uid),cs=await fsList("defis/"+pair+"/c").catch(()=>[]);
+    for(const c of cs){const b="defis/"+pair+"/c/"+c.id;const ms=await fsList(b+"/m").catch(()=>[]);for(const m of ms)await fsDel(b+"/m/"+m.id).catch(()=>{});
+      await fsDel(b+"/s/"+me).catch(()=>{});await fsDel(b+"/s/"+fr.uid).catch(()=>{});await fsDel(b).catch(()=>{})}}}
+
+/* branchements sur les habitudes et les amis */
+(function(){
+  if(typeof hbViewToday==="function"){const o=hbViewToday;hbViewToday=function(s,V){return o(s,V)+dfSection(s)+dfSheet(s)}}
+  if(typeof hbAct==="function"){const o=hbAct;hbAct=function(a,id,el){if(a&&a.slice(0,2)==="df")return dfAct(a,id,el);return o(a,id,el)}}
+  if(typeof hbAfterChange==="function"){const o=hbAfterChange;hbAfterChange=function(s){o(s);dfPushSoon()}}
+  if(typeof openHabits==="function"){const o=openHabits;openHabits=function(){DF.ask=null;const r=o.apply(this,arguments);dfLoad(true);clearInterval(DF.poll);DF.poll=setInterval(()=>{const ov=$("hb");if(!ov||ov.hidden){clearInterval(DF.poll);return}dfLoad()},45000);return r}}
+  if(typeof loadFriends==="function"){const o=loadFriends;loadFriends=async function(){const r=await o.apply(this,arguments);dfLoad(true);return r}}
+  if(typeof amisDeleteAccount==="function"){const o=amisDeleteAccount;amisDeleteAccount=async function(){if(typeof confirmDel!=="undefined"&&confirmDel&&dfOn()){try{await dfWipe()}catch(e){}}return o.apply(this,arguments)}}
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)dfLoad()});
+  if(typeof JD_OBJ!=="undefined"&&Array.isArray(JD_OBJ)&&!JD_OBJ.some(o=>o.id==="df_banc"))JD_OBJ.push({id:"df_banc",n:"Le banc des amies",cat:"deco",b:1.5,th:1.6,q:()=>dfLoc().won.length>0,ql:"Réussir un défi à deux",
+    f:()=>'<ellipse cx="0" cy="-1" rx="22" ry="3.5" fill="#000" opacity=".12"/><rect x="-18" y="-15" width="3" height="14" rx="1" fill="#8a5a3c"/><rect x="15" y="-15" width="3" height="14" rx="1" fill="#8a5a3c"/><rect x="-18" y="-31" width="3" height="16" fill="#8a5a3c"/><rect x="15" y="-31" width="3" height="16" fill="#8a5a3c"/><rect x="-22" y="-31" width="44" height="4" rx="2" fill="#c98a5a"/><rect x="-22" y="-25" width="44" height="3" rx="1.5" fill="#b9784a"/><rect x="-22" y="-18" width="44" height="5" rx="2" fill="#c98a5a"/><ellipse cx="-8" cy="-19" rx="7.5" ry="3.2" fill="#f7a8c4"/><ellipse cx="8" cy="-19" rx="7.5" ry="3.2" fill="#9cc9ea"/><path d="M0-36c-2-3-7-2-6 2 1 3 6 6 6 6s5-3 6-6c1-4-4-5-6-2z" fill="#ff8fab"/>'});
+})();
+/* ===== fin défi à deux ===== */
 
 </script>
 </body>
