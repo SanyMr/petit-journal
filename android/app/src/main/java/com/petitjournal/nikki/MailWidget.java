@@ -59,24 +59,24 @@ public class MailWidget extends AppWidgetProvider {
         v.setTextViewText(R.id.w_badge, count > 9 ? "9+" : String.valueOf(count));
         JSONObject last = mail.optJSONObject("last");
         if (!signed) {
-            v.setTextViewText(R.id.w_title, "Écris avec tes amis");
-            v.setTextViewText(R.id.w_from, "Connecte-toi dans l'onglet Amis ✿");
+            v.setTextViewText(R.id.w_title, Tr.s(c, R.string.w_mail_write));
+            v.setTextViewText(R.id.w_from, Tr.s(c, R.string.w_mail_signin));
             v.setViewVisibility(R.id.w_from_m, View.GONE);
         } else if (count > 0 && last != null) {
-            v.setTextViewText(R.id.w_title, count == 1 ? "1 petit mot pour toi" : count + " petits mots pour toi");
-            v.setTextViewText(R.id.w_from, last.optString("name", "") + " : " + last.optString("text", ""));
+            v.setTextViewText(R.id.w_title, Tr.p(c, R.plurals.w_mail_notes, count, count));
+            v.setTextViewText(R.id.w_from, Tr.s(c, R.string.w_mail_from, last.optString("name", ""), last.has("k") ? MailWorker.nudgeText(c, last.optLong("k")) : last.optString("text", "")));
             v.setImageViewResource(R.id.w_from_m, mascot(c, last.optString("mascot", "onigiri")));
             v.setViewVisibility(R.id.w_from_m, View.VISIBLE);
         } else if (mail.optInt("duoCount", 0) > 0 && mail.optJSONObject("duo") != null) {
             JSONObject dq = mail.optJSONObject("duo");
             v.setImageViewResource(R.id.w_env, R.drawable.w_env_letter);
-            v.setTextViewText(R.id.w_title, dq.optString("name", "") + " te pose une question");
-            v.setTextViewText(R.id.w_from, "Réponds, vos réponses se dévoileront ensemble ✿");
+            v.setTextViewText(R.id.w_title, Tr.s(c, R.string.w_mail_duo, dq.optString("name", "")));
+            v.setTextViewText(R.id.w_from, Tr.s(c, R.string.w_mail_duo_sub));
             v.setImageViewResource(R.id.w_from_m, mascot(c, dq.optString("mascot", "onigiri")));
             v.setViewVisibility(R.id.w_from_m, View.VISIBLE);
         } else {
-            v.setTextViewText(R.id.w_title, "Pas de lettre pour l'instant");
-            v.setTextViewText(R.id.w_from, "Et si tu envoyais un petit mot ? ✿");
+            v.setTextViewText(R.id.w_title, Tr.s(c, R.string.w_mail_none));
+            v.setTextViewText(R.id.w_from, Tr.s(c, R.string.w_mail_send));
             v.setViewVisibility(R.id.w_from_m, View.GONE);
         }
         JSONArray band = mail.optJSONArray("band");
@@ -93,12 +93,14 @@ public class MailWidget extends AppWidgetProvider {
         }
         int friends = mail.optInt("friends", n);
         if (!signed || friends == 0) {
-            v.setTextViewText(R.id.w_band_lbl, signed ? "Ma bande · ajoute des amis avec ton code ✿" : "");
+            v.setTextViewText(R.id.w_band_lbl, signed ? Tr.s(c, R.string.w_mail_band_add) : "");
             v.setViewVisibility(R.id.w_band_lbl, signed ? View.VISIBLE : View.GONE);
         } else {
             v.setViewVisibility(R.id.w_band_lbl, View.VISIBLE);
-            v.setTextViewText(R.id.w_band_lbl, "Ma bande · " + wrote + "/" + Math.min(friends, n) + (wrote > 1 ? " ont écrit" : " a écrit") + " aujourd'hui");
+            v.setTextViewText(R.id.w_band_lbl, Tr.p(c, R.plurals.w_mail_band, wrote, wrote, Math.min(friends, n)));
         }
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_mail_head));
+        v.setContentDescription(R.id.w_env, Tr.s(c, R.string.widget_mail_env));
         WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "amis", 40));
         m.updateAppWidget(id, v);

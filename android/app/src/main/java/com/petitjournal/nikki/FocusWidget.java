@@ -20,6 +20,7 @@ public class FocusWidget extends AppWidgetProvider {
 
     static void render(Context c, AppWidgetManager m, int id) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_focus);
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_focus_head));
         JSONObject p;
         try { p = new JSONObject(c.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).getString("pomo", "{}")); } catch (Exception e) { p = new JSONObject(); }
         long end = p.optLong("end", 0), now = System.currentTimeMillis();
@@ -33,7 +34,7 @@ public class FocusWidget extends AppWidgetProvider {
             if (paused) {
                 v.setViewVisibility(R.id.w_chrono, View.GONE);
                 v.setViewVisibility(R.id.w_big, View.VISIBLE);
-                v.setTextViewText(R.id.w_big, "⏸ En pause · " + Math.max(1, p.optLong("left", 0) / 60000) + " min");
+                v.setTextViewText(R.id.w_big, Tr.s(c, R.string.w_focus_paused, (int) Math.max(1, p.optLong("left", 0) / 60000)));
             } else {
                 v.setViewVisibility(R.id.w_chrono, View.VISIBLE);
                 v.setViewVisibility(R.id.w_big, View.GONE);
@@ -41,15 +42,15 @@ public class FocusWidget extends AppWidgetProvider {
                 if (Build.VERSION.SDK_INT >= 24) v.setChronometerCountDown(R.id.w_chrono, true);
             }
             String label = p.optString("label", "");
-            v.setTextViewText(R.id.w_line, focus ? (label.isEmpty() ? "Concentration · une chose à la fois ✿" : "✎ " + label) : "☕ Pause · respire un peu ✿");
+            v.setTextViewText(R.id.w_line, focus ? (label.isEmpty() ? Tr.s(c, R.string.w_focus_one) : "✎ " + label) : Tr.s(c, R.string.w_focus_break));
             v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "jardin", 51));
         } else {
             v.setViewVisibility(R.id.w_chrono, View.GONE);
             v.setViewVisibility(R.id.w_big, View.VISIBLE);
             v.setViewVisibility(R.id.w_btns, View.VISIBLE);
             boolean done = p.optBoolean("done", false) && now - p.optLong("at", 0) < 3600000;
-            v.setTextViewText(R.id.w_big, done ? "Session terminée ✿" : "Une session au calme ✿");
-            v.setTextViewText(R.id.w_line, n > 0 ? dango + "  " + n + " session" + (n > 1 ? "s" : "") + " aujourd'hui" : "Le jardin veille pendant que tu travailles");
+            v.setTextViewText(R.id.w_big, Tr.s(c, done ? R.string.w_focus_done : R.string.w_focus_calm));
+            v.setTextViewText(R.id.w_line, n > 0 ? Tr.p(c, R.plurals.w_focus_sessions, n, dango.toString(), n) : Tr.s(c, R.string.w_focus_watch));
             v.setOnClickPendingIntent(R.id.w_b15, WidgetData.open(c, "pomo/15", 52));
             v.setOnClickPendingIntent(R.id.w_b25, WidgetData.open(c, "pomo/25", 53));
             v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "jardin", 51));

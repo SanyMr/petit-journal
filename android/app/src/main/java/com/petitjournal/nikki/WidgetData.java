@@ -65,13 +65,13 @@ final class WidgetData {
         return PendingIntent.getActivity(c, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
-    static String greeting() {
+    static String greeting(Context c) {
         int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (h < 5) return "Douce nuit ✿";
-        if (h < 12) return "Bonjour ✿";
-        if (h < 18) return "Bel après-midi ✿";
-        if (h < 22) return "Bonne soirée ✿";
-        return "Douce nuit ✿";
+        if (h < 5) return Tr.s(c, R.string.w_greet_night);
+        if (h < 12) return Tr.s(c, R.string.w_greet_morning);
+        if (h < 18) return Tr.s(c, R.string.w_greet_afternoon);
+        if (h < 22) return Tr.s(c, R.string.w_greet_evening);
+        return Tr.s(c, R.string.w_greet_night);
     }
 
     /** Japanese seasons: haru (spring), natsu (summer), aki (autumn), fuyu (winter). */

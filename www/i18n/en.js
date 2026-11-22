@@ -1079,7 +1079,7 @@ I18N.add("en",{
 "renderReminderTab.regarde_ton_telephone_dans_b629":"Look at your phone in 5 seconds ✿",
 "renderReminderTab.disponible_seulement_dans_l_e3e5":"Only available in the installed app.",
 "renderReminderTab.les_notifications_sont_bloquees_daf9":"Notifications are blocked in the phone settings.",
-"NUDGES.courage_69aa":"Courage ✿",
+"NUDGES.courage_69aa":"Hang in there ✿",
 "NUDGES.ta_page_t_attend_be3a":"Your page is waiting ✎",
 "NUDGES.je_pense_a_toi_e7e3":"Thinking of you ♡",
 "NUDGES.bravo_pour_ta_flamme_c5f5":"Well done on your flame!",

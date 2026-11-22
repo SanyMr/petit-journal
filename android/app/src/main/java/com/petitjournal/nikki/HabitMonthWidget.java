@@ -46,9 +46,10 @@ public class HabitMonthWidget extends AppWidgetProvider {
         Intent nx = new Intent(c, HabitMonthWidget.class).setAction(NEXT);
         v.setOnClickPendingIntent(R.id.w_mt, PendingIntent.getBroadcast(c, 330, nx, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
         v.setOnClickPendingIntent(R.id.w_mg, WidgetData.open(c, "habitudes", 49));
+        v.setContentDescription(R.id.w_mg, Tr.s(c, R.string.w_hm_desc));
         if (l.length() == 0) {
-            v.setTextViewText(R.id.w_mt, "Mes habitudes");
-            v.setTextViewText(R.id.w_ms, "Crée-les dans le journal ✿");
+            v.setTextViewText(R.id.w_mt, Tr.s(c, R.string.w_hm_title));
+            v.setTextViewText(R.id.w_ms, Tr.s(c, R.string.w_hm_create));
             v.setImageViewBitmap(R.id.w_mg, grid(c, null, 0xFFE09A3A, new HashSet<>()));
             m.updateAppWidget(wid, v);
             return;
@@ -65,8 +66,8 @@ public class HabitMonthWidget extends AppWidgetProvider {
         int today = now.get(Calendar.DAY_OF_MONTH);
         if (HabitsData.value(c, d, id, WidgetData.today()) >= HabitsData.goal(h)) done.add(today); else done.remove(today);
         v.setTextViewText(R.id.w_mt, h.optString("name") + (l.length() > 1 ? "  ›" : ""));
-        String mn = new java.text.SimpleDateFormat("MMMM", Locale.FRENCH).format(now.getTime());
-        v.setTextViewText(R.id.w_ms, mn + " · " + done.size() + " jour" + (done.size() > 1 ? "s" : "") + " ✿");
+        String mn = new java.text.SimpleDateFormat("LLLL", Tr.locale(c)).format(now.getTime());
+        v.setTextViewText(R.id.w_ms, Tr.p(c, R.plurals.w_hm_days, done.size(), mn, done.size()));
         v.setImageViewBitmap(R.id.w_mg, grid(c, h, HabitsData.color(h), done));
         m.updateAppWidget(wid, v);
     }

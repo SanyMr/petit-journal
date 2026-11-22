@@ -57,15 +57,16 @@ public class HabitsWidget extends AppWidgetProvider {
             String name = h.optString("name", "");
             String lbl = "count".equals(h.optString("type")) && !on ? val + "/" + g : (name.contains(" ") ? name.substring(0, name.indexOf(' ')) : name);
             v.setTextViewText(LBLS[k], lbl);
-            v.setContentDescription(CELLS[k], name + (on ? " : fait" : ""));
+            v.setContentDescription(CELLS[k], on ? Tr.s(c, R.string.w_habit_done_desc, name) : name);
             v.setOnClickPendingIntent(CELLS[k], tapIntent(c, HabitsWidget.class, id, 300 + k));
         }
         for (int k = shown; k < CELLS.length; k++) v.setViewVisibility(CELLS[k], View.GONE);
         boolean none = l.length() == 0;
         v.setViewVisibility(R.id.w_empty, shown == 0 ? View.VISIBLE : View.GONE);
-        v.setTextViewText(R.id.w_empty, none ? "Crée tes habitudes dans le journal ✿" : "Rien de prévu aujourd'hui ✿");
-        String cnt = HabitsData.rest(d) ? "Repos ✿" : shown == 0 ? "" : done + " / " + shown + (done == shown ? " ✿" : "");
+        v.setTextViewText(R.id.w_empty, Tr.s(c, none ? R.string.w_habits_none : R.string.w_habits_free));
+        String cnt = HabitsData.rest(d) ? Tr.s(c, R.string.w_habits_rest) : shown == 0 ? "" : done + " / " + shown + (done == shown ? " ✿" : "");
         v.setTextViewText(R.id.w_count, cnt);
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_habits_head));
         v.setOnClickPendingIntent(R.id.w_head, WidgetData.open(c, "habitudes", 46));
         v.setOnClickPendingIntent(R.id.w_empty, WidgetData.open(c, "habitudes", 47));
         WidgetData.seasonArt(c, v);

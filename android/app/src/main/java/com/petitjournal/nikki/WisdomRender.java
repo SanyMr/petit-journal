@@ -17,7 +17,7 @@ import java.util.List;
 /** Draws the "Sagesse du jour" widget (backgrounds, matcha bowl, vertical calligraphy, seal). */
 final class WisdomRender {
     static final String[] THEMES = {"clair", "sumi", "aizome", "urushi", "charbon"};
-    static final String[] THEME_NAMES = {"Clair", "Sumi-e", "Indigo", "Laque", "Charbon"};
+    // noms des fonds : R.array.wis_themes (même ordre)
     // text, secondary, accent
     private static final String[][] COL = {
         {"#4b3a47", "#7a6672", "#a5802b"},
@@ -190,9 +190,9 @@ final class WisdomRender {
         text(x + sz / 2, y + sz * .8f, ch, yuji, sz * .74f, Color.parseColor("#fbeee0"), true);
     }
 
-    private void header(int col, boolean shortH) {
+    private void header(int col, boolean shortH, String hdr) {
         text(14, 22, "一期一会", yuji, 12.5f, col, false);
-        if (!shortH) text(14 + measure("一期一会", yuji, 12.5f) + 5, 22, "· Sagesse du jour", zenb, 10, col, false);
+        if (!shortH) text(14 + measure("一期一会", yuji, 12.5f) + 5, 22, hdr, zenb, 10, col, false);
     }
 
     private void cover(Bitmap b) {
@@ -230,7 +230,7 @@ final class WisdomRender {
             canvas.drawRoundRect(new RectF(5, 5, wDp - 5, hDp - 5), 17, 17, g);
         }
         if (pk != null && pk.p != null) R_.draw(c, pk, fmt, tc, sc, ac);
-        else R_.text(wDp / 2, hDp / 2, "Ouvre le journal une fois ✿", zen, 13, tc, true);
+        else R_.text(wDp / 2, hDp / 2, Tr.s(c, R.string.wis_open), zen, 13, tc, true);
 
         // rounded, anti-aliased corners
         Bitmap out = Bitmap.createBitmap(pw, ph, Bitmap.Config.ARGB_8888);
@@ -244,6 +244,7 @@ final class WisdomRender {
     }
 
     private void draw(Context c, WisdomData.Pick pk, String fmt, int tc, int sc, int ac) {
+        String hdr = Tr.s(c, R.string.wis_label);
         WisdomData.Proverb p = pk.p;
         String sealCh = WisdomData.SEAL[pk.cat];
         int n = count(p.k);
@@ -253,7 +254,7 @@ final class WisdomRender {
         float BA = 525f / 600f;
         Paint bp = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
         if ("S".equals(fmt)) {
-            header(sc, true);
+            header(sc, true, hdr);
             seal(W - 28, 12, 15, sealCh);
             float tb = 46;
             float[] kb = kblock(n, H - 34 - tb, 32, 5, 1e9f);
@@ -262,7 +263,7 @@ final class WisdomRender {
             Fit f = fit(p.fr, kiwi, 12.5f, 9.5f, W - 24, 2);
             para(12, H - 14 - f.s * (1 + (f.lines.size() - 1) * 1.25f), f, kiwi, tc, 1.25f, W - 24);
         } else if ("M".equals(fmt)) {
-            header(sc, false);
+            header(sc, false, hdr);
             float bw = Math.min(W * .30f, (H - 36) / BA), bh = bw * BA;
             if (bowl != null) cv.drawBitmap(bowl, null, new RectF(8, H - 8 - bh, 8 + bw, H - 8), bp);
             float[] kb = kblock(n, H - 36, 30, 6, W * .27f);
@@ -275,7 +276,7 @@ final class WisdomRender {
             Fit m = fit(p.m, zen, 10.5f, 9.5f, x1 - x0, ml);
             para(x0, y, m, zen, sc, 1.32f, 0);
         } else {
-            header(sc, false);
+            header(sc, false, hdr);
             float topH = H * .44f;
             float bw = Math.min(W * .46f, (topH - 10) / BA), bh = bw * BA;
             if (bowl != null) cv.drawBitmap(bowl, null, new RectF(10, 30 + topH - bh - 4, 10 + bw, 30 + topH - 4), bp);
@@ -294,7 +295,7 @@ final class WisdomRender {
             int ml = Math.max(1, (int) ((H - 40 - y) / (12 * 1.35f)));
             Fit m = fit(p.m, zen, 12, 10, W - 36, ml);
             para(18, y, m, zen, sc, 1.35f, 0);
-            text(18, H - 16, WisdomData.WHY[pk.cat], zenb, 10, sc, false);
+            text(18, H - 16, Tr.arr(c, R.array.wis_why)[pk.cat], zenb, 10, sc, false);
             seal(W - 34, H - 36, 18, sealCh);
         }
     }

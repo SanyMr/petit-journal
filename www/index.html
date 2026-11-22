@@ -3502,7 +3502,7 @@ function pushWidget(){
     const days={},prompts={};
     for(let i=0;i<42;i++){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),e=entries[k];if(e&&(written(k)||e.mood))days[k]={w:written(k),m:e.mood||""}}
     for(let i=0;i<8;i++){const d=new Date();d.setDate(d.getDate()+i);const k=keyOf(d);prompts[k]=promptFor(k)}
-    const data=JSON.stringify({vis:(typeof wgVis==="function"?wgVis():null),garden:{sub:(typeof wgGardenSub==="function"?wgGardenSub():"")},streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
+    const data=JSON.stringify({lang:I18N.lang,vis:(typeof wgVis==="function"?wgVis():null),garden:{sub:(typeof wgGardenSub==="function"?wgGardenSub():"")},streak:streak(),today:written(todayKey()),day:todayKey(),todo:open.slice(0,4).map(t=>({t:t.text,s:!!t.star})),todoCount:open.length,caps:capsInfo(objectives()).avail,mascot:curMascot(),days,prompts,mail:mailData(),mailSeen:(social.seenNudges||[]).slice(-60).concat(Object.keys(duos).filter(u=>duos[u]&&duos[u].q).map(u=>"q_"+pairId(u)+"_"+todayKey())),mailNotif:social.mailNotif!==false});
     if(data===widgetLast)return;widgetLast=data;W.update({data}).catch(()=>{});if(typeof wgSchedule==="function")wgSchedule();
   }catch(e){}
 }

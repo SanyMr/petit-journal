@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 /** The month as a flower bed: one flower per written page, in the colour of the mood. */
 public class MonthWidget extends AppWidgetProvider {
-    private static final String[] MONTHS = {"janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"};
+    private static final int[] WD = {R.id.w_wd0, R.id.w_wd1, R.id.w_wd2, R.id.w_wd3, R.id.w_wd4, R.id.w_wd5, R.id.w_wd6};
 
     @Override
     public void onUpdate(Context c, AppWidgetManager m, int[] ids) { for (int id : ids) render(c, m, id); }
@@ -51,8 +51,10 @@ public class MonthWidget extends AppWidgetProvider {
             v.setInt(cell, "setBackgroundResource", day == today ? R.drawable.w_ring : 0);
             if (day <= today) v.setOnClickPendingIntent(cell, WidgetData.open(c, "jour/" + key, 600 + n));
         }
-        v.setTextViewText(R.id.w_title, "Mon " + MONTHS[cal.get(Calendar.MONTH)] + " en fleurs");
+        v.setTextViewText(R.id.w_title, Tr.s(c, R.string.w_month_title, new java.text.SimpleDateFormat("LLLL", Tr.locale(c)).format(cal.getTime())));
         v.setTextViewText(R.id.w_count, count + " ✿");
+        String[] letters = Tr.arr(c, R.array.w_week_letters); // dimanche en premier
+        for (int k = 0; k < 7; k++) v.setTextViewText(WD[k], letters[(k + 1) % 7]);
         WidgetData.seasonArt(c, v);
         m.updateAppWidget(id, v);
     }

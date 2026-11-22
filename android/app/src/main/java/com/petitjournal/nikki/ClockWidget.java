@@ -19,9 +19,9 @@ public class ClockWidget extends AppWidgetProvider {
         JSONObject j = WidgetData.read(c);
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_clock);
         v.setImageViewResource(R.id.w_mascot, WidgetData.mascotRes(c, j));
-        v.setTextViewText(R.id.w_greet, WidgetData.greeting());
+        v.setTextViewText(R.id.w_greet, WidgetData.greeting(c));
         boolean today = WidgetData.writtenToday(j);
-        v.setTextViewText(R.id.w_status, today ? "✓ Page du jour écrite" : "✎ Ta page du jour t'attend");
+        v.setTextViewText(R.id.w_status, Tr.s(c, today ? R.string.w_clock_done : R.string.w_clock_todo));
         v.setTextColor(R.id.w_status, today ? c.getColor(R.color.w_muted) : c.getColor(R.color.w_accent));
         WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "ecrire", 21));

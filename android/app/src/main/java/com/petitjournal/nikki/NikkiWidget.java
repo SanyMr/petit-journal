@@ -12,7 +12,6 @@ import org.json.JSONObject;
 public class NikkiWidget extends AppWidgetProvider {
     private static final int[] DOTS = {R.id.w_d0, R.id.w_d1, R.id.w_d2, R.id.w_d3, R.id.w_d4, R.id.w_d5, R.id.w_d6};
     private static final int[] LBLS = {R.id.w_l0, R.id.w_l1, R.id.w_l2, R.id.w_l3, R.id.w_l4, R.id.w_l5, R.id.w_l6};
-    private static final String[] LETTERS = {"D", "L", "M", "M", "J", "V", "S"};
 
     @Override
     public void onUpdate(Context c, AppWidgetManager m, int[] ids) { for (int id : ids) render(c, m, id); }
@@ -38,10 +37,11 @@ public class NikkiWidget extends AppWidgetProvider {
         boolean today = WidgetData.writtenToday(j);
         v.setImageViewResource(R.id.w_flame, s > 0 ? (today ? R.drawable.w_flame_on : R.drawable.w_flame_dim) : R.drawable.w_flame_off);
         v.setTextViewText(R.id.w_streak, String.valueOf(s));
-        v.setTextViewText(R.id.w_streak_lbl, s > 1 ? "jours d'affilée" : "jour d'affilée");
+        v.setTextViewText(R.id.w_streak_lbl, Tr.p(c, R.plurals.w_streak_days, s));
         v.setImageViewResource(R.id.w_mascot, WidgetData.mascotRes(c, j));
 
         JSONObject days = j.optJSONObject("days");
+        String[] letters = Tr.arr(c, R.array.w_week_letters);
         int written = 0;
         for (int i = 0; i < 7; i++) {
             int back = 6 - i;
@@ -52,13 +52,13 @@ public class NikkiWidget extends AppWidgetProvider {
             v.setInt(DOTS[i], "setColorFilter", color);
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_YEAR, -back);
-            v.setTextViewText(LBLS[i], LETTERS[cal.get(Calendar.DAY_OF_WEEK) - 1]);
+            v.setTextViewText(LBLS[i], letters[cal.get(Calendar.DAY_OF_WEEK) - 1]);
             v.setTextColor(LBLS[i], back == 0 ? c.getColor(R.color.w_accent) : c.getColor(R.color.w_muted));
         }
         String msg;
-        if (today) msg = written >= 5 ? "Superbe semaine ✿ " + written + " pages sur 7" : "Page du jour écrite ✓ À demain !";
-        else if (s > 0) msg = "Ta flamme t'attend ce soir ✿";
-        else msg = "Une page aujourd'hui pour allumer ta flamme ✿";
+        if (today) msg = written >= 5 ? Tr.s(c, R.string.w_week_great, written) : Tr.s(c, R.string.w_week_done);
+        else if (s > 0) msg = Tr.s(c, R.string.w_week_wait);
+        else msg = Tr.s(c, R.string.w_week_start);
         v.setTextViewText(R.id.w_msg, msg);
         WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "flamme", 11));

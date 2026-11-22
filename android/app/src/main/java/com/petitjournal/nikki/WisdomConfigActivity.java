@@ -29,7 +29,6 @@ public class WisdomConfigActivity extends Activity {
     private static final int INK = Color.parseColor("#4b3a47"), MUT = Color.parseColor("#7a6672"),
         ACC = Color.parseColor("#b5506d"), BG = Color.parseColor("#fbf6ef");
     private static final String[] FMT = {"A", "S", "M", "L"};
-    private static final String[] FMT_LBL = {"Auto", "Petit 2×2", "Moyen 4×2", "Grand 4×4"};
     private int wid = AppWidgetManager.INVALID_APPWIDGET_ID;
     private String theme = "sumi", fmt = "A";
     private ImageView preview;
@@ -74,9 +73,9 @@ public class WisdomConfigActivity extends Activity {
 
         TextView kan = label("一期一会", 15, ACC, zenb);
         col.addView(kan);
-        TextView title = label("La sagesse du jour", 24, INK, kiwi);
+        TextView title = label(Tr.s(this, R.string.wis_cfg_title), 24, INK, kiwi);
         col.addView(title);
-        TextView sub = label("Chaque jour, un proverbe japonais choisi selon tes humeurs. Choisis son style.", 14, MUT, zen);
+        TextView sub = label(Tr.s(this, R.string.wis_cfg_sub), 14, MUT, zen);
         sub.setPadding(0, dp(4), 0, dp(14));
         col.addView(sub);
 
@@ -90,7 +89,8 @@ public class WisdomConfigActivity extends Activity {
         box.addView(preview, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(200)));
         col.addView(box);
 
-        col.addView(section("Fond"));
+        col.addView(section(Tr.s(this, R.string.wis_cfg_bg)));
+        String[] themeNames = Tr.arr(this, R.array.wis_themes);
         LinearLayout themes = new LinearLayout(this);
         themes.setOrientation(LinearLayout.HORIZONTAL);
         for (int i = 0; i < 5; i++) {
@@ -102,23 +102,24 @@ public class WisdomConfigActivity extends Activity {
             iv.setImageBitmap(thumb(t));
             iv.setPadding(dp(3), dp(3), dp(3), dp(3));
             chip.addView(iv, new LinearLayout.LayoutParams(dp(56), dp(56)));
-            TextView tl = label(WisdomRender.THEME_NAMES[i], 12, INK, zen);
+            TextView tl = label(themeNames[i], 12, INK, zen);
             tl.setGravity(Gravity.CENTER);
             tl.setPadding(0, dp(4), 0, 0);
             chip.addView(tl);
             chip.setOnClickListener(v -> { theme = t; refresh(); });
-            chip.setContentDescription("Fond " + WisdomRender.THEME_NAMES[i]);
+            chip.setContentDescription(Tr.s(this, R.string.wis_cfg_bg_desc, themeNames[i]));
             themeViews[i] = iv;
             themes.addView(chip, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         }
         col.addView(themes);
 
-        col.addView(section("Format"));
+        col.addView(section(Tr.s(this, R.string.wis_cfg_format)));
+        String[] fmtLbl = Tr.arr(this, R.array.wis_formats);
         LinearLayout fmts = new LinearLayout(this);
         fmts.setOrientation(LinearLayout.HORIZONTAL);
         for (int i = 0; i < 4; i++) {
             final String f = FMT[i];
-            TextView b2 = label(FMT_LBL[i], 13, INK, zenb);
+            TextView b2 = label(fmtLbl[i], 13, INK, zenb);
             b2.setGravity(Gravity.CENTER);
             b2.setPadding(dp(4), dp(12), dp(4), dp(12));
             b2.setOnClickListener(v -> { fmt = f; refresh(); });
@@ -128,13 +129,13 @@ public class WisdomConfigActivity extends Activity {
             fmts.addView(b2, lp);
         }
         col.addView(fmts);
-        TextView hint = label("Auto : le widget choisit sa mise en page selon la place que tu lui donnes. Agrandis-le sur l'écran d'accueil pour voir la scène complète.", 12.5f, MUT, zen);
+        TextView hint = label(Tr.s(this, R.string.wis_cfg_hint), 12.5f, MUT, zen);
         hint.setPadding(0, dp(10), 0, dp(18));
         col.addView(hint);
 
         View spacer = new View(this);
         col.addView(spacer, new LinearLayout.LayoutParams(1, 0, 1));
-        TextView ok = label(wid == AppWidgetManager.INVALID_APPWIDGET_ID ? "Enregistrer" : "Poser le widget", 16, Color.WHITE, zenb);
+        TextView ok = label(Tr.s(this, wid == AppWidgetManager.INVALID_APPWIDGET_ID ? R.string.wis_cfg_save : R.string.wis_cfg_place), 16, Color.WHITE, zenb);
         ok.setGravity(Gravity.CENTER);
         ok.setPadding(0, dp(15), 0, dp(15));
         ok.setBackground(round(ACC, 30, 0, 0));

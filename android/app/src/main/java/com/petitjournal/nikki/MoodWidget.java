@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class MoodWidget extends AppWidgetProvider {
     static final String ACTION = "com.petitjournal.nikki.MOOD";
     static final String[] IDS = {"super", "bien", "bof", "triste", "fatigue"};
-    static final String[] LBL = {"Super", "Bien", "Bof", "Triste", "Fatigué·e"};
+    static final int[] LBLS = {R.id.w_ml0, R.id.w_ml1, R.id.w_ml2, R.id.w_ml3, R.id.w_ml4};
     private static final int[] CELLS = {R.id.w_m0, R.id.w_m1, R.id.w_m2, R.id.w_m3, R.id.w_m4};
 
     @Override
@@ -57,11 +57,15 @@ public class MoodWidget extends AppWidgetProvider {
     static void render(Context c, AppWidgetManager m, int id) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_mood);
         String cur = todayMood(c);
-        String msg = "Un toucher suffit ✿";
+        String[] lbl = Tr.arr(c, R.array.w_moods);
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_mood_head));
+        String msg = Tr.s(c, R.string.w_mood_tap);
         for (int k = 0; k < IDS.length; k++) {
             boolean on = IDS[k].equals(cur);
             v.setInt(CELLS[k], "setBackgroundResource", on ? R.drawable.w_sel : 0);
-            if (on) msg = "Noté : " + LBL[k] + " ✿ ta fleur du jour t'attend";
+            v.setTextViewText(LBLS[k], lbl[k]);
+            v.setContentDescription(CELLS[k], lbl[k]);
+            if (on) msg = Tr.s(c, R.string.w_mood_noted, lbl[k]);
             Intent i = new Intent(c, MoodWidget.class).setAction(ACTION).putExtra("mood", IDS[k]);
             v.setOnClickPendingIntent(CELLS[k], PendingIntent.getBroadcast(c, 200 + k, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
         }

@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Textes des widgets et notifications. Français = langue source et repli ;
+ chaque langue a son dossier values-<code>. Contrôlé par tools/i18n_check.py. -->
+<resources>
+    <string name="widget_mascot">Your mascot</string>
+    <string name="widget_flame">Your flame</string>
+    <string name="wd_week">Your flame and the moods of your week</string>
+    <string name="wd_clock">The time, the date in Japanese and today\'s page</string>
+    <string name="wd_prompt">A new question every day to inspire you</string>
+    <string name="wd_todo">Your next tasks</string>
+    <string name="wd_mail">Little notes from your friends and who wrote today</string>
+    <string name="widget_mail_env">Envelope</string>
+    <string name="wd_garden">Your Japanese garden, at the current time and season</string>
+    <string name="wd_mood">Log your mood with a single tap</string>
+    <string name="wd_focus">Start a focus session in the garden</string>
+    <string name="wd_month">One flower per page, in the colour of your mood</string>
+    <string name="wd_visitor">The rare visitor strolling through your garden</string>
+    <string name="wd_friends">Your friends\' flames and their little gifts</string>
+    <string name="wd_wisdom">A Japanese proverb every day, chosen from your moods (5 backgrounds, 3 sizes)</string>
+    <string name="wd_season">The 24 Japanese seasons and the phase of the moon</string>
+    <string name="wd_habits">Today\'s habits: one tap adds the stamp</string>
+    <string name="wd_habit_count">Count your glasses of water, your pages… with a tap</string>
+    <string name="wd_habit_month">A habit\'s stamps for the month</string>
+    <string name="w_greet_night">Sweet dreams ✿</string>
+    <string name="w_greet_morning">Good morning ✿</string>
+    <string name="w_greet_afternoon">Good afternoon ✿</string>
+    <string name="w_greet_evening">Good evening ✿</string>
+    <string name="w_clock_done">✓ Today\'s page is written</string>
+    <string name="w_clock_todo">✎ Today\'s page is waiting for you</string>
+    <string name="w_week_great">Great week ✿ %1$d pages out of 7</string>
+    <string name="w_week_done">Today\'s page written ✓ See you tomorrow!</string>
+    <string name="w_week_wait">Your flame is waiting for you tonight ✿</string>
+    <string name="w_week_start">One page today to light your flame ✿</string>
+    <string name="w_prompt_head">Question of the day · きょうのしつもん</string>
+    <string name="w_prompt_default">What made you smile today?</string>
+    <string name="w_prompt_done">Answered ✓ See you tomorrow</string>
+    <string name="w_prompt_write">Write ✎</string>
+    <string name="w_todo_head">My to-do · やること</string>
+    <string name="w_todo_empty">Nothing to do, enjoy ✿</string>
+    <string name="w_focus_head">Focus · 集中</string>
+    <string name="w_focus_title">Focus</string>
+    <string name="w_focus_paused">⏸ Paused · %1$d min</string>
+    <string name="w_focus_one">Focus · one thing at a time ✿</string>
+    <string name="w_focus_break">☕ Break · take a breath ✿</string>
+    <string name="w_focus_done">Session complete ✿</string>
+    <string name="w_focus_calm">A calm session ✿</string>
+    <string name="w_focus_watch">The garden keeps watch while you work</string>
+    <string name="w_friends_head">My friends · ともだち</string>
+    <string name="w_friends_signin">Sign in from the Friends tab to see your friends here ✿</string>
+    <string name="w_friends_invite">Invite a friend with your QR code ✿</string>
+    <string name="w_friends_wrote">✓ wrote</string>
+    <string name="w_friends_wish">🎐 %1$s hung a wish in your garden</string>
+    <string name="w_friends_petal">🌸 %1$s left you a petal</string>
+    <string name="w_friend_default">A friend</string>
+    <string name="w_friend_someone">A friend</string>
+    <string name="w_visitor_open">Open your garden: rare visitors are waiting for you there ✿</string>
+    <string name="w_visitor_next">Next visitor · 謎</string>
+    <string name="w_visitor_today">Today\'s visitor · 訪</string>
+    <string name="w_visitor_desc">Today\'s visitor</string>
+    <string name="w_season_head">Japanese season · %1$s</string>
+    <string name="w_mail_head">Mailbox · おてがみ</string>
+    <string name="w_mail_write">Write with your friends</string>
+    <string name="w_mail_signin">Sign in from the Friends tab ✿</string>
+    <string name="w_mail_from">%1$s: %2$s</string>
+    <string name="w_mail_duo">%1$s has a question for you</string>
+    <string name="w_mail_duo_sub">Answer, and your answers will be revealed together ✿</string>
+    <string name="w_mail_none">No letters for now</string>
+    <string name="w_mail_send">Why not send a little note? ✿</string>
+    <string name="w_mail_band_add">My crew · add friends with your code ✿</string>
+    <string name="w_mood_head">How are you feeling? · きもち</string>
+    <string name="w_mood_tap">One tap is enough ✿</string>
+    <string name="w_mood_noted">Noted: %1$s ✿ today\'s flower is waiting for you</string>
+    <string name="w_month_title">My %1$s in bloom</string>
+    <string name="w_habits_head">My habits · 習慣</string>
+    <string name="w_habit_done_desc">%1$s: done</string>
+    <string name="w_habits_none">Create your habits in the journal ✿</string>
+    <string name="w_habits_free">Nothing planned today ✿</string>
+    <string name="w_habits_rest">Rest day ✿</string>
+    <string name="w_hc_create">Create a habit</string>
+    <string name="w_hc_done">Done ✿</string>
+    <string name="w_hc_todo">To do</string>
+    <string name="w_hc_plus">tap +1</string>
+    <string name="w_hc_stamp">tap to stamp</string>
+    <string name="w_hm_title">My habits</string>
+    <string name="w_hm_create">Create them in the journal ✿</string>
+    <string name="w_hm_desc">This month\'s stamps</string>
+    <string name="w_garden_head">My garden · にわ</string>
+    <string name="w_garden_desc">Your Japanese garden</string>
+    <string name="w_garden_empty">Open your garden once in the app to see it bloom here ✿</string>
+    <string name="n_duo_title">%1$s has a question for you ✿</string>
+    <string name="n_duo_text">Answer them: your answers will be revealed together.</string>
+    <string name="n_one_title">A little note from %1$s ✉</string>
+    <string name="n_box">Your mailbox is waiting for you ✿</string>
+    <string name="n_and_q">And a question is waiting for you!</string>
+    <string name="n_ch_mail">Notes from friends</string>
+    <string name="n_ch_mail_desc">When a friend sends you a little note (at most once a day)</string>
+    <string name="n_ch_pomo">Focus in progress</string>
+    <string name="n_ch_pomo_desc">The garden\'s focus timer, live</string>
+    <string name="wis_label">· Today\'s wisdom</string>
+    <string name="wis_open">Open the journal once ✿</string>
+    <string name="wis_desc">Today\'s wisdom, a Japanese proverb</string>
+    <string name="wis_cfg_title">Today\'s wisdom</string>
+    <string name="wis_cfg_sub">Every day, a Japanese proverb chosen from your moods. Pick its style.</string>
+    <string name="wis_cfg_bg">Background</string>
+    <string name="wis_cfg_bg_desc">%1$s background</string>
+    <string name="wis_cfg_format">Size</string>
+    <string name="wis_cfg_hint">Auto: the widget picks its layout from the space you give it. Make it bigger on the home screen to see the whole scene.</string>
+    <string name="wis_cfg_save">Save</string>
+    <string name="wis_cfg_place">Add the widget</string>
+    <plurals name="w_streak_days">
+        <item quantity="one">day in a row</item>
+        <item quantity="other">days in a row</item>
+    </plurals>
+    <plurals name="w_todo_more">
+        <item quantity="one">+ %d more</item>
+        <item quantity="other">+ %d more</item>
+    </plurals>
+    <plurals name="w_focus_sessions">
+        <item quantity="one">%1$s  %2$d session today</item>
+        <item quantity="other">%1$s  %2$d sessions today</item>
+    </plurals>
+    <plurals name="w_season_next">
+        <item quantity="one">Next season: %1$s · in %2$d day</item>
+        <item quantity="other">Next season: %1$s · in %2$d days</item>
+    </plurals>
+    <plurals name="w_mail_notes">
+        <item quantity="one">%d little note for you</item>
+        <item quantity="other">%d little notes for you</item>
+    </plurals>
+    <plurals name="w_mail_band">
+        <item quantity="one">My crew · %1$d/%2$d wrote today</item>
+        <item quantity="other">My crew · %1$d/%2$d wrote today</item>
+    </plurals>
+    <plurals name="w_hm_days">
+        <item quantity="one">%1$s · %2$d day ✿</item>
+        <item quantity="other">%1$s · %2$d days ✿</item>
+    </plurals>
+    <plurals name="n_many_title">
+        <item quantity="one">%1$s and %2$d other friend wrote to you ✉</item>
+        <item quantity="other">%1$s and %2$d other friends wrote to you ✉</item>
+    </plurals>
+    <string-array name="w_week_letters">
+        <item>S</item>
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+    </string-array>
+    <string-array name="w_moods">
+        <item>Great</item>
+        <item>Good</item>
+        <item>Meh</item>
+        <item>Sad</item>
+        <item>Tired</item>
+    </string-array>
+    <string-array name="w_moon">
+        <item>New moon</item>
+        <item>Waxing crescent</item>
+        <item>First quarter</item>
+        <item>Waxing gibbous</item>
+        <item>Full moon</item>
+        <item>Waning gibbous</item>
+        <item>Last quarter</item>
+        <item>Waning crescent</item>
+    </string-array>
+    <string-array name="w_sekki">
+        <item>Minor cold</item>
+        <item>Major cold</item>
+        <item>Start of spring</item>
+        <item>Rain water</item>
+        <item>Awakening of insects</item>
+        <item>Spring equinox</item>
+        <item>Pure brightness</item>
+        <item>Grain rain</item>
+        <item>Start of summer</item>
+        <item>Lesser fullness</item>
+        <item>Grain in ear</item>
+        <item>Summer solstice</item>
+        <item>Minor heat</item>
+        <item>Major heat</item>
+        <item>Start of autumn</item>
+        <item>End of heat</item>
+        <item>White dew</item>
+        <item>Autumn equinox</item>
+        <item>Cold dew</item>
+        <item>Frost\'s descent</item>
+        <item>Start of winter</item>
+        <item>Minor snow</item>
+        <item>Major snow</item>
+        <item>Winter solstice</item>
+    </string-array>
+    <string-array name="w_sekki_line">
+        <item>The cold settles in gently.</item>
+        <item>The heart of winter; the days are already getting longer.</item>
+        <item>The first plum blossoms open.</item>
+        <item>The snow melts and turns to rain.</item>
+        <item>Little creatures come out of the ground.</item>
+        <item>Day and night share the sky.</item>
+        <item>Everything is fresh and bright, the cherry trees bloom.</item>
+        <item>A gentle rain feeds the rice fields.</item>
+        <item>The frogs start to sing.</item>
+        <item>Plants grow with all their might.</item>
+        <item>It\'s time to plant out the rice.</item>
+        <item>The longest day of the year.</item>
+        <item>The cicadas wake up, Tanabata sparkles.</item>
+        <item>The hottest days, the season of furin.</item>
+        <item>The wind gently turns.</item>
+        <item>The heat finally eases.</item>
+        <item>Dew beads on the grass.</item>
+        <item>Day and night are balanced once more.</item>
+        <item>The wild geese arrive.</item>
+        <item>First frosts, the maples turn red.</item>
+        <item>Camellias open in the cold.</item>
+        <item>The first snowflakes dance.</item>
+        <item>The mountains turn white.</item>
+        <item>The longest night: a yuzu bath.</item>
+    </string-array>
+    <string-array name="w_nudges">
+        <item>Hang in there ✿</item>
+        <item>Your page is waiting ✎</item>
+        <item>Thinking of you ♡</item>
+        <item>Well done on your flame!</item>
+        <item>Have a lovely day ☀</item>
+        <item>Rest well ☾</item>
+        <item>Shall we write together tonight?</item>
+        <item>You\'ve got this ✧</item>
+        <item>Big hug ʕ•ᴥ•ʔ</item>
+        <item>Thank you for being here ♡</item>
+    </string-array>
+    <string-array name="wis_why">
+        <item>Chosen for you after a few sad days.</item>
+        <item>Chosen for you after a few tired days.</item>
+        <item>Chosen for you: your last days were bright.</item>
+        <item>Chosen to give you a little boost.</item>
+        <item>The wisdom of the day.</item>
+    </string-array>
+    <string-array name="wis_themes">
+        <item>Light</item>
+        <item>Sumi-e</item>
+        <item>Indigo</item>
+        <item>Lacquer</item>
+        <item>Charcoal</item>
+    </string-array>
+    <string-array name="wis_formats">
+        <item>Auto</item>
+        <item>Small 2×2</item>
+        <item>Medium 4×2</item>
+        <item>Large 4×4</item>
+    </string-array>
+</resources>

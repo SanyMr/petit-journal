@@ -36,9 +36,11 @@ public class TodoWidget extends AppWidgetProvider {
             }
         }
         v.setTextViewText(R.id.w_count, total > 0 ? String.valueOf(total) : "");
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_todo_head));
+        v.setTextViewText(R.id.w_empty, Tr.s(c, R.string.w_todo_empty));
         v.setViewVisibility(R.id.w_empty, shown == 0 ? View.VISIBLE : View.GONE);
         int more = total - shown;
-        v.setTextViewText(R.id.w_more, more > 0 ? "+ " + more + (more > 1 ? " autres" : " autre") : "");
+        v.setTextViewText(R.id.w_more, more > 0 ? Tr.p(c, R.plurals.w_todo_more, more, more) : "");
         v.setViewVisibility(R.id.w_more, more > 0 ? View.VISIBLE : View.GONE);
         WidgetData.seasonArt(c, v);
         v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "todo", 41));

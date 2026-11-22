@@ -36,7 +36,7 @@ public class HabitCountWidget extends AppWidgetProvider {
         if (h == null) {
             v.setImageViewResource(R.id.w_ci, R.drawable.w_sel);
             v.setTextViewText(R.id.w_cv, "✿");
-            v.setTextViewText(R.id.w_cl, "Crée une habitude");
+            v.setTextViewText(R.id.w_cl, Tr.s(c, R.string.w_hc_create));
             v.setOnClickPendingIntent(R.id.w_root, WidgetData.open(c, "habitudes", 48));
         } else {
             String id = h.optString("id");
@@ -44,9 +44,9 @@ public class HabitCountWidget extends AppWidgetProvider {
             boolean on = val >= g, count = "count".equals(h.optString("type"));
             Bitmap b = HabitsData.img(c, id, on);
             if (b != null) v.setImageViewBitmap(R.id.w_ci, b);
-            v.setTextViewText(R.id.w_cv, count ? val + " / " + g : (on ? "Fait ✿" : "À faire"));
+            v.setTextViewText(R.id.w_cv, count ? val + " / " + g : Tr.s(c, on ? R.string.w_hc_done : R.string.w_hc_todo));
             v.setTextColor(R.id.w_cv, HabitsData.color(h));
-            v.setTextViewText(R.id.w_cl, on ? h.optString("name") + " ✿" : count ? "touche +1" : "touche pour tamponner");
+            v.setTextViewText(R.id.w_cl, on ? h.optString("name") + " ✿" : Tr.s(c, count ? R.string.w_hc_plus : R.string.w_hc_stamp));
             v.setOnClickPendingIntent(R.id.w_root, HabitsWidget.tapIntent(c, HabitCountWidget.class, id, 320));
         }
         m.updateAppWidget(wid, v);

@@ -34,13 +34,14 @@ public class FriendsWidget extends AppWidgetProvider {
 
     static void render(Context c, AppWidgetManager m, int id) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_friends);
+        v.setTextViewText(R.id.w_hd, Tr.s(c, R.string.w_friends_head));
         JSONObject mail;
         try { mail = new JSONObject(c.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).getString("mail", "{}")); } catch (Exception e) { mail = new JSONObject(); }
         JSONArray band = mail.optJSONArray("band");
         int n = band == null ? 0 : band.length();
         String empty = "";
-        if (!mail.optBoolean("signedIn", false)) empty = "Connecte-toi dans l'onglet Amis pour voir tes amies ici ✿";
-        else if (n == 0) empty = "Invite une amie avec ton QR code ✿";
+        if (!mail.optBoolean("signedIn", false)) empty = Tr.s(c, R.string.w_friends_signin);
+        else if (n == 0) empty = Tr.s(c, R.string.w_friends_invite);
         v.setTextViewText(R.id.w_empty, empty);
         v.setViewVisibility(R.id.w_empty, empty.isEmpty() ? View.GONE : View.VISIBLE);
         for (int k = 0; k < 4; k++) {
@@ -52,11 +53,11 @@ public class FriendsWidget extends AppWidgetProvider {
             int s = b.optInt("s", 0);
             v.setImageViewResource(FLA[k], s > 0 ? (b.optBoolean("w") ? R.drawable.w_flame_on : R.drawable.w_flame_dim) : R.drawable.w_flame_off);
             v.setTextViewText(STR[k], String.valueOf(s));
-            v.setTextViewText(TOD[k], b.optBoolean("w") ? "✓ a écrit" : "");
+            v.setTextViewText(TOD[k], b.optBoolean("w") ? Tr.s(c, R.string.w_friends_wrote) : "");
         }
         JSONObject g = mail.optJSONObject("gift");
         String gift = "";
-        if (g != null) gift = g.optBoolean("wish") ? "🎐 " + g.optString("name") + " a accroché un vœu dans ton jardin" : "🌸 " + g.optString("name") + " t'a laissé un pétale";
+        if (g != null) gift = Tr.s(c, g.optBoolean("wish") ? R.string.w_friends_wish : R.string.w_friends_petal, g.optString("name"));
         v.setTextViewText(R.id.w_gift, gift);
         v.setViewVisibility(R.id.w_gift, gift.isEmpty() ? View.GONE : View.VISIBLE);
         WidgetData.seasonArt(c, v);

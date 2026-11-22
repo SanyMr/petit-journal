@@ -27,7 +27,9 @@ public class WidgetPlugin extends Plugin {
     public void update(PluginCall call) {
         String data = call.getString("data", "{}");
         Context ctx = getContext();
-        ctx.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).edit().putString("data", data).apply();
+        String lang = "";
+        try { lang = new org.json.JSONObject(data).optString("lang", ""); } catch (Exception ignored) { }
+        ctx.getSharedPreferences(WidgetData.PREFS, Context.MODE_PRIVATE).edit().putString("data", data).putString("lang", lang).apply();
         WidgetData.refreshAll(ctx);
         call.resolve();
     }
@@ -41,15 +43,15 @@ public class WidgetPlugin extends Plugin {
         Double endD = call.getDouble("end", 0.0);
         long end = endD == null ? 0L : endD.longValue();
         boolean paused = Boolean.TRUE.equals(call.getBoolean("paused", false));
-        String title = call.getString("title", "Concentration");
+        String title = call.getString("title", Tr.s(ctx, R.string.w_focus_title));
         String text = call.getString("text", "");
         String sub = call.getString("sub", "");
         long now = System.currentTimeMillis();
 
         Notification.Builder b;
         if (Build.VERSION.SDK_INT >= 26) {
-            NotificationChannel ch = new NotificationChannel(POMO_CH, "Concentration en cours", NotificationManager.IMPORTANCE_LOW);
-            ch.setDescription("Le minuteur de concentration du jardin, en direct");
+            NotificationChannel ch = new NotificationChannel(POMO_CH, Tr.s(ctx, R.string.n_ch_pomo), NotificationManager.IMPORTANCE_LOW);
+            ch.setDescription(Tr.s(ctx, R.string.n_ch_pomo_desc));
             ch.setShowBadge(false);
             ch.setSound(null, null);
             ch.enableVibration(false);

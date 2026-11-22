@@ -30,6 +30,9 @@ public class GardenWidget extends AppWidgetProvider {
 
     static void render(Context c, AppWidgetManager m, int id) {
         RemoteViews v = new RemoteViews(c.getPackageName(), R.layout.widget_garden);
+        v.setTextViewText(R.id.w_title, Tr.s(c, R.string.w_garden_head));
+        v.setTextViewText(R.id.w_empty, Tr.s(c, R.string.w_garden_empty));
+        v.setContentDescription(R.id.w_img, Tr.s(c, R.string.w_garden_desc));
         File f = new File(c.getFilesDir(), "garden_" + timeOfDay() + ".jpg");
         Bitmap b = null;
         if (f.exists()) {

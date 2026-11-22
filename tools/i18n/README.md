@@ -26,3 +26,18 @@ classes, noms de base de données) sont ignorés. En français, l'affichage rest
 ## Contrôle automatique (avant chaque compilation)
 `tools/i18n_check.py` bloque si une clé utilisée manque en français, si une traduction n'a pas les mêmes `{valeurs}`,
 si une clé traduite n'existe pas en français, ou si une langue marquée prête est incomplète.
+
+## Widgets et notifications Android
+
+- Les textes natifs vivent dans `android/app/src/main/res/values/strings.xml` (français, repli) et
+  `values-<code>/strings.xml` (une langue par dossier, mêmes noms ; `plurals` pour les nombres,
+  `string-array` pour les listes comme les saisons ou les petits mots).
+- Les widgets suivent la langue choisie dans l'appli : le journal l'envoie avec les données des
+  widgets (`lang`), `Tr.java` charge les textes de cette langue (`Tr.s`, `Tr.p`, `Tr.arr`).
+- Proverbes de la sagesse du jour : `tools/i18n_android.py` écrit `assets/wisdom/proverbs_<code>.json`
+  depuis le pack `wisdom` de `www/i18n/<code>.content.js` (lancé aussi par la compilation).
+- `tools/i18n_check.py` contrôle aussi ces fichiers : textes inconnus, `%1$s` différents, listes de
+  mauvaise longueur, langue prête sans ses textes Android, proverbes pas à jour.
+
+Ajouter une langue : `www/i18n/<code>.js`, `<code>.content.js`, `res/values-<code>/strings.xml`,
+une ligne dans `LANGS` (i18n.js), puis `ready:true` quand tout est traduit.

@@ -16,13 +16,7 @@ import org.json.JSONObject;
 final class WisdomData {
     static final String CATS = "RPJES";
     static final String[] SEAL = {"希", "憩", "喜", "進", "縁"};
-    static final String[] WHY = {
-        "Choisi pour toi après quelques jours tristes.",
-        "Choisi pour toi après quelques jours fatigués.",
-        "Choisi pour toi : tes derniers jours étaient lumineux.",
-        "Choisi pour te donner un peu d'élan.",
-        "La sagesse du jour."
-    };
+    // phrases « choisi pour toi… » : R.array.wis_why (même ordre que CATS)
 
     static final class Proverb {
         String id, k, r, fr, m, q, c;
@@ -34,19 +28,33 @@ final class WisdomData {
     }
 
     private static List<Proverb> all;
+    private static String allLang;
 
+    static String readAsset(Context c, String path) throws java.io.IOException {
+        try (InputStream in = c.getAssets().open(path)) {
+            java.io.ByteArrayOutputStream o = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[16384];
+            int r;
+            while ((r = in.read(buf)) > 0) o.write(buf, 0, r);
+            return o.toString("UTF-8");
+        }
+    }
+
+    /**
+     * Les proverbes ; pour une autre langue que le français, wisdom/proverbs_<code>.json
+     * ({id: [traduction, explication, question]}, généré depuis www/i18n/<code>.content.js)
+     * remplace les textes français. Kanji et lecture restent les mêmes.
+     */
     static synchronized List<Proverb> all(Context c) {
-        if (all != null) return all;
+        String lang = Tr.lang(c);
+        if (all != null && lang.equals(allLang)) return all;
         List<Proverb> out = new ArrayList<>();
-        try (InputStream in = c.getAssets().open("wisdom/proverbs.json")) {
-            byte[] buf = new byte[in.available()];
-            int n = 0;
-            while (n < buf.length) {
-                int r = in.read(buf, n, buf.length - n);
-                if (r < 0) break;
-                n += r;
-            }
-            JSONArray a = new JSONArray(new String(buf, 0, n, "UTF-8"));
+        JSONObject tr = null;
+        if (!"fr".equals(lang)) {
+            try { tr = new JSONObject(readAsset(c, "wisdom/proverbs_" + lang + ".json")); } catch (Exception ignored) { }
+        }
+        try {
+            JSONArray a = new JSONArray(readAsset(c, "wisdom/proverbs.json"));
             for (int i = 0; i < a.length(); i++) {
                 JSONObject o = a.getJSONObject(i);
                 Proverb p = new Proverb();
@@ -57,10 +65,17 @@ final class WisdomData {
                 p.m = o.optString("m");
                 p.q = o.optString("q");
                 p.c = o.optString("c");
+                JSONArray t = tr == null ? null : tr.optJSONArray(p.id);
+                if (t != null && t.length() == 3) {
+                    p.fr = t.optString(0, p.fr);
+                    p.m = t.optString(1, p.m);
+                    p.q = t.optString(2, p.q);
+                }
                 out.add(p);
             }
         } catch (Exception ignored) { }
         all = out;
+        allLang = lang;
         return out;
     }
 

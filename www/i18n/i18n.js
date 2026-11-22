@@ -8,7 +8,7 @@
 (function(){
   var LANGS={
     fr:{name:"Français",locale:"fr-FR",ready:true},
-    en:{name:"English",locale:"en-GB",ready:false,content:true}
+    en:{name:"English",locale:"en-GB",ready:true,content:true}
   };
   var K="nikki.lang",D={},pref="auto",lang="fr";
   try{pref=localStorage.getItem(K)||"auto"}catch(e){}

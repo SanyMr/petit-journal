@@ -45,8 +45,7 @@ import org.json.JSONObject;
  * Uses only the free Firebase plan: the phone asks, no server code.
  */
 public class MailWorker extends Worker {
-    static final String[] NUDGES = {"Courage ✿", "Ta page t'attend ✎", "Je pense à toi ♡", "Bravo pour ta flamme !", "Belle journée ☀",
-        "Repose-toi bien ☾", "On écrit ensemble ce soir ?", "Tu gères ✧", "Gros câlin ʕ•ᴥ•ʔ", "Merci d'être là ♡"};
+    // petits mots : R.array.w_nudges (mêmes index que NUDGES dans le journal)
     static final String CHANNEL = "lettres_furin";
     private static final int NOTIF_ID = 4242;
 
@@ -64,7 +63,10 @@ public class MailWorker extends Worker {
             new OneTimeWorkRequest.Builder(MailWorker.class).setConstraints(net).build());
     }
 
-    static String nudgeText(long k) { return k >= 0 && k < NUDGES.length ? NUDGES[(int) k] : "✿"; }
+    static String nudgeText(Context c, long k) {
+        String[] a = Tr.arr(c, R.array.w_nudges);
+        return k >= 0 && k < a.length ? a[(int) k] : "✿";
+    }
 
     @NonNull
     @Override
@@ -105,7 +107,7 @@ public class MailWorker extends Worker {
                     DocumentSnapshot q = Tasks.await(db.document("duos/" + pair + "/q/" + today).get(), 20, TimeUnit.SECONDS);
                     if (q.exists()) {
                         List<?> done = q.get("done") instanceof List ? (List<?>) q.get("done") : new ArrayList<>();
-                        if (!done.contains(uid)) questions.add(new String[]{"q_" + pair + "_" + today, str(e.getValue().get("name"), "Un·e ami·e"), str(e.getValue().get("mascot"), "onigiri")});
+                        if (!done.contains(uid)) questions.add(new String[]{"q_" + pair + "_" + today, str(e.getValue().get("name"), Tr.s(c, R.string.w_friend_someone)), str(e.getValue().get("mascot"), "onigiri")});
                     }
                 } catch (Exception ignored) { }
             }
@@ -129,7 +131,7 @@ public class MailWorker extends Worker {
                 if (best != null && System.currentTimeMillis() - num(best.get("at")) < 7L * 86400000L) {
                     DocumentSnapshot p = prof.get(best.getId());
                     JSONObject gift = new JSONObject();
-                    gift.put("name", p != null ? str(p.get("name"), "Une amie") : "Une amie");
+                    gift.put("name", p != null ? str(p.get("name"), Tr.s(c, R.string.w_friend_default)) : Tr.s(c, R.string.w_friend_default));
                     gift.put("wish", best.get("wish") != null);
                     mail.put("gift", gift);
                 }
@@ -149,9 +151,10 @@ public class MailWorker extends Worker {
                 DocumentSnapshot n = notes.get(0);
                 DocumentSnapshot p = prof.get(str(n.get("from"), ""));
                 JSONObject last = new JSONObject();
-                last.put("name", p != null ? str(p.get("name"), "Un·e ami·e") : "Un·e ami·e");
+                last.put("name", p != null ? str(p.get("name"), Tr.s(c, R.string.w_friend_someone)) : Tr.s(c, R.string.w_friend_someone));
                 last.put("mascot", p != null ? str(p.get("mascot"), "onigiri") : "onigiri");
-                last.put("text", nudgeText(num(n.get("k"))));
+                last.put("text", nudgeText(c, num(n.get("k"))));
+                last.put("k", num(n.get("k")));
                 mail.put("last", last);
             }
             sp.edit().putString("mail", mail.toString()).apply();
@@ -185,15 +188,15 @@ public class MailWorker extends Worker {
 
         String title, text;
         if (fresh.isEmpty()) {
-            title = freshQ.get(0)[1] + " te pose une question ✿";
-            text = "Réponds-lui : vos réponses se dévoileront ensemble.";
+            title = Tr.s(c, R.string.n_duo_title, freshQ.get(0)[1]);
+            text = Tr.s(c, R.string.n_duo_text);
         } else {
             DocumentSnapshot n = fresh.get(0);
             DocumentSnapshot p = prof.get(str(n.get("from"), ""));
-            String name = p != null ? str(p.get("name"), "Un·e ami·e") : "Un·e ami·e";
-            title = fresh.size() == 1 ? "Un petit mot de " + name + " ✉" : name + " et " + (fresh.size() - 1) + (fresh.size() == 2 ? " autre ami·e" : " autres amis") + " t'ont écrit ✉";
-            text = fresh.size() == 1 ? nudgeText(num(n.get("k"))) : "Ta boîte aux lettres t'attend ✿";
-            if (!freshQ.isEmpty()) text += " Et une question t'attend !";
+            String name = p != null ? str(p.get("name"), Tr.s(c, R.string.w_friend_someone)) : Tr.s(c, R.string.w_friend_someone);
+            title = fresh.size() == 1 ? Tr.s(c, R.string.n_one_title, name) : Tr.p(c, R.plurals.n_many_title, fresh.size() - 1, name, fresh.size() - 1);
+            text = fresh.size() == 1 ? nudgeText(c, num(n.get("k"))) : Tr.s(c, R.string.n_box);
+            if (!freshQ.isEmpty()) text += " " + Tr.s(c, R.string.n_and_q);
         }
         ensureChannel(c);
         NotificationCompat.Builder b = new NotificationCompat.Builder(c, CHANNEL)
@@ -213,9 +216,16 @@ public class MailWorker extends Worker {
     static void ensureChannel(Context c) {
         if (Build.VERSION.SDK_INT < 26) return;
         NotificationManager nm = c.getSystemService(NotificationManager.class);
-        if (nm == null || nm.getNotificationChannel(CHANNEL) != null) return;
-        NotificationChannel ch = new NotificationChannel(CHANNEL, "Petits mots des amis", NotificationManager.IMPORTANCE_DEFAULT);
-        ch.setDescription("Quand un·e ami·e t'envoie un petit mot (au maximum une fois par jour)");
+        if (nm == null) return;
+        NotificationChannel old = nm.getNotificationChannel(CHANNEL);
+        if (old != null) { // déjà créé : seuls le nom et la description suivent la langue
+            old.setName(Tr.s(c, R.string.n_ch_mail));
+            old.setDescription(Tr.s(c, R.string.n_ch_mail_desc));
+            nm.createNotificationChannel(old);
+            return;
+        }
+        NotificationChannel ch = new NotificationChannel(CHANNEL, Tr.s(c, R.string.n_ch_mail), NotificationManager.IMPORTANCE_DEFAULT);
+        ch.setDescription(Tr.s(c, R.string.n_ch_mail_desc));
         ch.enableVibration(false);
         ch.setSound(Uri.parse("android.resource://" + c.getPackageName() + "/" + R.raw.nikki_furin),
             new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build());
