@@ -4545,7 +4545,7 @@ function wgSchedule(d){clearTimeout(wgTimer);wgTimer=setTimeout(wgGarden,d||4000
 async function wgGarden(){
   if(typeof isNative==="undefined"||!isNative||wgBusy||typeof JD_READY==="undefined"||!JD_READY)return;const W=PL_().NikkiWidget;if(!W||!W.gardenImgs)return;
   const S=jdStats(),st=jdStage(S.pages),g=jdG(),season=jdSeason(),use=jdUse(),pres=jdPresent().map(v=>v.id);
-  const sig=JSON.stringify({v:2,st,season,objs:g.objs,sand:g.sand,pres,u:[use.koi,Math.min(10,use.sk),Math.min(6,use.todo),use.letters,use.cranes,use.cairn,use.month],m:todayKey().slice(0,7),mascot:curMascot(),acc:wornAcc()});
+  const sig=JSON.stringify({v:3,st,season,objs:g.objs,sand:g.sand,pres,fl:jdMonthKeys().map(k=>k.slice(8)+(entries[k].mood||"")).join(),u:[use.koi,Math.min(10,use.sk),Math.min(6,use.todo),use.letters,use.cranes,use.cairn,use.month],m:todayKey().slice(0,7),mascot:curMascot(),acc:wornAcc()});
   let last="";try{last=(typeof store!=="undefined"?store:localStorage).getItem("nikki.wgsig")||""}catch(e){}
   if(sig===last)return;wgBusy=true;
   try{const imgs={};
