@@ -36,7 +36,11 @@ def main():
     if WEB: files["web"] = WEB
     srcs = {k: install(open(p, encoding="utf-8").read(), k) for k, p in files.items()}
     fr = load_dict(FR); errors = []
+    done_f = os.path.join(ROOT, "tools", "i18n", "applied.txt")
+    done = set(open(done_f).read().split()) if os.path.exists(done_f) else set(); newly = []
     for path in sorted(glob.glob(os.path.join(ROOT, "tools", "i18n", "m*.py"))):
+        if os.path.basename(path)[:-3] in done: continue
+        newly.append(os.path.basename(path)[:-3])
         spec = importlib.util.spec_from_file_location(os.path.basename(path)[:-3], path); mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
         for k, v in mod.KEYS.items():
             if k in fr and fr[k] != v: errors.append("%s : la clé %s existe déjà avec un autre texte" % (mod.__name__, k))
@@ -58,6 +62,7 @@ def main():
         print("\n".join(errors)); sys.exit(1)
     for k, p in files.items(): open(p, "w", encoding="utf-8").write(srcs[k])
     save_dict(FR, "fr", fr)
+    if newly: open(done_f, "a").write("".join(m + "\n" for m in newly))
     print("ok :", len(fr), "clés en français")
 
 if __name__ == "__main__": main()

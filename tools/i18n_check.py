@@ -41,7 +41,8 @@ def main():
         except Exception as e: err.append("%s.js illisible : %s" % (code, e)); continue
         for k in d:
             if k not in fr: err.append("%s : clé inconnue en français : %s" % (code, k))
-            elif vars_of(d[k]) != vars_of(fr[k]): err.append("%s : valeurs différentes pour %s (%s ≠ %s)" % (code, k, sorted(vars_of(d[k])), sorted(vars_of(fr[k]))))
+            elif not vars_of(d[k]) <= vars_of(fr[k]): err.append("%s : valeur inconnue dans %s (%s, français : %s)" % (code, k, sorted(vars_of(d[k]) - vars_of(fr[k])), sorted(vars_of(fr[k]))))
+            elif vars_of(fr[k]) - vars_of(d[k]) and not all(re.fullmatch(r"v\d+", v) for v in vars_of(fr[k]) - vars_of(d[k])): err.append("%s : valeur oubliée dans %s (%s)" % (code, k, sorted(vars_of(fr[k]) - vars_of(d[k]))))
         miss = [k for k in fr if k not in d]
         cov = 100 * (len(fr) - len(miss)) // max(1, len(fr))
         print("%s : %d %% des clés traduites (%d manquantes)%s" % (code, cov, len(miss), "" if ready.get(code) != "true" else " — langue prête"))

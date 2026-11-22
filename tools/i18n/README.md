@@ -12,6 +12,11 @@
 2. Ajouter la langue dans `LANGS` de `www/i18n/i18n.js` avec `ready:false`.
 3. `python3 tools/i18n_check.py` donne la couverture. Passer `ready:true` quand tout est traduit et relu.
 
+## Extraction automatique
+`python3 tools/i18n_extract.py www/index.html <nikki.html>` repère les textes français restants (chaînes, gabarits, HTML)
+et les remplace par des clés (espace de noms = fonction englobante). Les identifiants (mots seuls en minuscules,
+classes, noms de base de données) sont ignorés. En français, l'affichage reste identique au caractère près.
+
 ## Migrer un module
 1. Écrire `tools/i18n/mNN_<module>.py` : `KEYS` (clé → texte français) et `REPL` (ancien code → nouveau code, `both`/`app`/`web`).
 2. `python3 tools/i18n_migrate.py <chemin de nikki.html>` applique la migration aux deux versions (relançable sans risque).
