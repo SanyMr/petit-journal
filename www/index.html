@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<script src="i18n/i18n.js"></script><script src="i18n/fr.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#fdeff3">
 <meta name="color-scheme" content="light dark">
@@ -1388,28 +1389,28 @@ input,textarea,select{font-size:16px}
 <header class="appbar">
   <div class="brand">
     <div class="hanko" aria-hidden="true">日記</div>
-    <h1 class="atitle">Mon petit journal<small>にっき · rien qu'à toi</small></h1>
+    <h1 class="atitle"><span data-i18n="app.name">Mon petit journal</span><small data-i18n="app.tagline">にっき · rien qu'à toi</small></h1>
   </div>
   <div class="abtns">
     <button class="chip chipmini" id="bdChip" type="button" hidden aria-label="Ma surprise d\'anniversaire" style="font-size:20px">🎂</button>
-    <button class="chip chipmini flamebtn" id="flameBtn" aria-label="Ma flamme"></button>
-    <button class="iconbtn round" id="setBtn" aria-label="Réglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg></button>
-    <button class="iconbtn round" id="lockBtn" hidden aria-label="Verrouiller le journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
+    <button class="chip chipmini flamebtn" id="flameBtn" aria-label="Ma flamme" data-i18n-attr="aria-label:app.flame"></button>
+    <button class="iconbtn round" id="setBtn" aria-label="Réglages" data-i18n-attr="aria-label:app.settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg></button>
+    <button class="iconbtn round" id="lockBtn" hidden aria-label="Verrouiller le journal" data-i18n-attr="aria-label:app.lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
   </div>
 </header>
 
 <div class="views">
-  <section class="view active" id="v-ecrire" aria-label="Écrire">
+  <section class="view active" id="v-ecrire" aria-label="Écrire" data-i18n-attr="aria-label:tab.write">
     <main class="page" aria-labelledby="dateTitle">
       <div class="pagehead">
         <h2 class="date" id="dateTitle"></h2>
         <div class="pressed" id="pressed"></div>
-        <button class="back" id="backBtn" hidden>← Revenir à aujourd'hui</button>
+        <button class="back" id="backBtn" hidden data-i18n="write.back">← Revenir à aujourd'hui</button>
       </div>
 
       <div class="mascot">
         <svg viewBox="0 0 100 100" id="oni" aria-hidden="true"></svg>
-        <div class="bubble" id="bubble" role="status">Coucou ! Comment s'est passée ta journée ?</div>
+        <div class="bubble" id="bubble" role="status" data-i18n="write.say.hello">Coucou ! Comment s'est passée ta journée ?</div>
       </div>
 
       <div id="bdCard" hidden></div>
@@ -1419,20 +1420,20 @@ input,textarea,select{font-size:16px}
       <div id="jdCard" hidden></div>
 
       <div>
-        <p class="label">Comment tu te sens ? · きもち</p>
+        <p class="label" data-i18n="write.mood_q">Comment tu te sens ? · きもち</p>
         <div class="moods" id="moods"></div>
       </div>
 
       <div class="prompt">
-        <p><span class="tagl">Question du jour · きょうのしつもん</span><span id="promptText"></span></p>
-        <button class="ghost" id="newPrompt">Une autre ↻</button>
+        <p><span class="tagl" data-i18n="write.prompt_label">Question du jour · きょうのしつもん</span><span id="promptText"></span></p>
+        <button class="ghost" id="newPrompt" data-i18n="write.prompt_other">Une autre ↻</button>
       </div>
 
-      <div class="starters" id="starters" aria-label="Débuts de phrase"></div>
+      <div class="starters" id="starters" aria-label="Débuts de phrase" data-i18n-attr="aria-label:write.starters_label"></div>
 
-      <button class="linkbtn doux" id="douxBtn" type="button">☾ Pas d'énergie ce soir ? Écris en 30 secondes</button>
-      <label for="text" class="label" style="margin:0">Ma page</label>
-      <textarea id="text" placeholder="Écris ici… même trois lignes, c'est déjà très bien ✿"></textarea>
+      <button class="linkbtn doux" id="douxBtn" type="button" data-i18n="write.doux">☾ Pas d'énergie ce soir ? Écris en 30 secondes</button>
+      <label for="text" class="label" style="margin:0" data-i18n="write.page_label">Ma page</label>
+      <textarea id="text" data-i18n-attr="placeholder:write.placeholder" placeholder="Écris ici… même trois lignes, c'est déjà très bien ✿"></textarea>
       <div class="tagsline" id="tagsLine"></div>
 
       <div class="foot">
@@ -1441,14 +1442,14 @@ input,textarea,select{font-size:16px}
             <circle cx="22" cy="22" r="18" fill="none" stroke="var(--line)" stroke-width="6"/>
             <circle id="ring" cx="22" cy="22" r="18" fill="none" stroke="var(--sakura-deep)" stroke-width="6" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"/>
           </svg>
-          <div><span class="count" id="words">0</span> / 50 mots<br><span class="status" id="goalTxt">Petit objectif du jour</span></div>
+          <div><span class="count" id="words">0</span> <span data-i18n="write.goal.unit">/ 50 mots</span><br><span class="status" id="goalTxt">Petit objectif du jour</span></div>
         </div>
-        <span class="status" id="status">Enregistré sur ton téléphone</span>
+        <span class="status" id="status" data-i18n="write.saved_initial">Enregistré sur ton téléphone</span>
       </div>
     </main>
   </section>
 
-  <section class="view" id="v-deco" aria-label="Coin déco">
+  <section class="view" id="v-deco" aria-label="Coin déco" data-i18n-attr="aria-label:view.deco">
     <div class="page">
       <section class="deco" aria-labelledby="decoTitle">
         <div class="decohead">
@@ -1478,7 +1479,7 @@ input,textarea,select{font-size:16px}
     </div>
   </section>
 
-  <section class="view" id="v-recomp" aria-label="Récompenses">
+  <section class="view" id="v-recomp" aria-label="Récompenses" data-i18n-attr="aria-label:view.rewards">
       <section class="card">
         <h2>Gachapon <span class="jp">ガチャ</span></h2>
         <div id="gachaCard"></div>
@@ -1495,7 +1496,7 @@ input,textarea,select{font-size:16px}
       </section>
   </section>
 
-  <section class="view" id="v-journal" aria-label="Mon journal">
+  <section class="view" id="v-journal" aria-label="Mon journal" data-i18n-attr="aria-label:view.journal">
     <div class="jtop">
       <button class="bigbtn" id="bookBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span><b>Mon livre</b><small>Feuilleter mes pages</small></span></button>
       <button class="bigbtn" id="bilanBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12M12 20V5M19 20v-6"/></svg><span><b>Mon bilan</b><small>Humeurs et mots</small></span></button>
@@ -1517,7 +1518,7 @@ input,textarea,select{font-size:16px}
       </section>
   </section>
 
-  <section class="view" id="v-todo" aria-label="To-do">
+  <section class="view" id="v-todo" aria-label="To-do" data-i18n-attr="aria-label:tab.todo">
       <section class="card" aria-labelledby="todoTitle">
         <h2 id="todoTitle">Ma to-do <span class="jp">やること</span></h2>
         <form class="todoform" id="todoForm"><label for="todoIn" class="sr">Nouvelle tâche</label><input id="todoIn" maxlength="120" placeholder="Ajouter une tâche…" autocomplete="off"><button class="openbook" type="submit" aria-label="Ajouter la tâche">＋</button></form>
@@ -1527,7 +1528,7 @@ input,textarea,select{font-size:16px}
       </section>
   </section>
 
-  <section class="view" id="v-amis" aria-label="Amis">
+  <section class="view" id="v-amis" aria-label="Amis" data-i18n-attr="aria-label:tab.friends">
       <section class="card" aria-labelledby="amisTitle">
         <h2 id="amisTitle">Mes amis <span class="jp">ともだち</span></h2>
         <div id="amisBody"></div>
@@ -1535,13 +1536,13 @@ input,textarea,select{font-size:16px}
   </section>
 </div>
 
-<nav class="tabbar" role="tablist" aria-label="Sections">
-  <button class="tab" role="tab" data-v="ecrire" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20z"/><path d="M14 7l3 3"/></svg><span>Écrire</span></button>
-  <button class="tab" role="tab" data-v="deco" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v9l-6 7H5z"/><path d="M19 13h-6v7"/></svg><span>Déco</span></button>
-  <button class="tab" role="tab" data-v="recomp" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><circle cx="12" cy="12" r="2.2"/></svg><span>Gacha</span><i class="badge" id="badgeRecomp" hidden></i></button>
-  <button class="tab" role="tab" data-v="journal" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span>Journal</span><i class="badge" id="badgeJournal" hidden></i></button>
-  <button class="tab" role="tab" data-v="todo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg><span>To-do</span><i class="badge" id="badgeTodo" hidden></i></button>
-  <button class="tab" role="tab" data-v="amis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18.5 14.4c1.2.8 1.9 2.4 2.1 4.6"/></svg><span>Amis</span><i class="badge" id="badgeAmis" hidden></i></button>
+<nav class="tabbar" role="tablist" aria-label="Sections" data-i18n-attr="aria-label:tab.sections">
+  <button class="tab" role="tab" data-v="ecrire" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20z"/><path d="M14 7l3 3"/></svg><span data-i18n="tab.write">Écrire</span></button>
+  <button class="tab" role="tab" data-v="deco" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v9l-6 7H5z"/><path d="M19 13h-6v7"/></svg><span data-i18n="tab.deco">Déco</span></button>
+  <button class="tab" role="tab" data-v="recomp" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><circle cx="12" cy="12" r="2.2"/></svg><span data-i18n="tab.gacha">Gacha</span><i class="badge" id="badgeRecomp" hidden></i></button>
+  <button class="tab" role="tab" data-v="journal" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></svg><span data-i18n="tab.journal">Journal</span><i class="badge" id="badgeJournal" hidden></i></button>
+  <button class="tab" role="tab" data-v="todo" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg><span data-i18n="tab.todo">To-do</span><i class="badge" id="badgeTodo" hidden></i></button>
+  <button class="tab" role="tab" data-v="amis" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18.5 14.4c1.2.8 1.9 2.4 2.1 4.6"/></svg><span data-i18n="tab.friends">Amis</span><i class="badge" id="badgeAmis" hidden></i></button>
 </nav>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#f6c945"/><stop offset=".7" stop-color="#e0a21b"/><stop offset="1" stop-color="#fff0a0"/></linearGradient><linearGradient id="gHolo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb3d1"/><stop offset=".25" stop-color="#ffe9a3"/><stop offset=".5" stop-color="#b3f0d1"/><stop offset=".75" stop-color="#b3d4ff"/><stop offset="1" stop-color="#e2b3ff"/></linearGradient></defs><filter id="ink" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -1574,6 +1575,7 @@ input,textarea,select{font-size:16px}
   </div>
 </div>
 
+<script>I18N.apply()</script>
 <script type="module">
 
 /* ================= storage (IndexedDB, on the phone) ================= */
@@ -1613,35 +1615,22 @@ const plural=(n,w)=>n+" "+w+(n>1?"s":"");
 
 /* ================= content ================= */
 const MOODS=[
-  {id:"super",label:"Super",jp:"さいこう",color:"#ffb6c9",eyes:"happy",mouth:"big",score:4},
-  {id:"bien",label:"Bien",jp:"いい",color:"#ffd8a1",eyes:"dot",mouth:"smile",score:3},
-  {id:"bof",label:"Bof",jp:"ふつう",color:"#c6e3c2",eyes:"dot",mouth:"flat",score:2},
-  {id:"triste",label:"Triste",jp:"かなしい",color:"#b8d6f0",eyes:"dot",mouth:"frown",score:1},
-  {id:"fatigue",label:"Fatigué·e",jp:"つかれた",color:"#d9c9f1",eyes:"line",mouth:"o",score:1}
+  {id:"super",label:_t("mood.super"),jp:"さいこう",color:"#ffb6c9",eyes:"happy",mouth:"big",score:4},
+  {id:"bien",label:_t("mood.bien"),jp:"いい",color:"#ffd8a1",eyes:"dot",mouth:"smile",score:3},
+  {id:"bof",label:_t("mood.bof"),jp:"ふつう",color:"#c6e3c2",eyes:"dot",mouth:"flat",score:2},
+  {id:"triste",label:_t("mood.triste"),jp:"かなしい",color:"#b8d6f0",eyes:"dot",mouth:"frown",score:1},
+  {id:"fatigue",label:_t("mood.fatigue"),jp:"つかれた",color:"#d9c9f1",eyes:"line",mouth:"o",score:1}
 ];
 const moodById=id=>MOODS.find(m=>m.id===id);
 const MOOD_REPLY={
-  super:"Yay ! Raconte-moi ce qui t'a rendu·e si heureux·se ✿",
-  bien:"Une bonne journée, ça se garde précieusement ~",
-  bof:"Les journées « bof » méritent aussi leur page. Écris ce qui te passe par la tête.",
-  triste:"Je suis là. Pose les mots ici, ça allège souvent un peu le cœur.",
-  fatigue:"Pas besoin d'écrire beaucoup ce soir. Trois lignes, et au lit ! おやすみ"
+  super:_t("mood.reply.super"),
+  bien:_t("mood.reply.bien"),
+  bof:_t("mood.reply.bof"),
+  triste:_t("mood.reply.triste"),
+  fatigue:_t("mood.reply.fatigue")
 };
-const PROMPTS=[
-  "Qu'est-ce qui t'a fait sourire aujourd'hui ?","Trois petites choses pour lesquelles tu es reconnaissant·e ?",
-  "Quel moment de la journée aimerais-tu revivre ?","Qu'as-tu appris de nouveau aujourd'hui ?",
-  "Qu'est-ce qui t'a donné de l'énergie ? Et qu'est-ce qui t'en a pris ?","Décris ton repas préféré de la journée.",
-  "À qui as-tu pensé aujourd'hui, et pourquoi ?","Qu'est-ce qui te trotte dans la tête en ce moment ?",
-  "Si ta journée était une couleur, laquelle serait-elle ?","Une petite victoire d'aujourd'hui, même minuscule ?",
-  "Qu'est-ce que tu aimerais dire à toi dans un an ?","Quelle chanson irait bien avec ta journée ?",
-  "Qu'est-ce qui t'a surpris·e aujourd'hui ?","Qu'aimerais-tu faire demain pour te faire plaisir ?",
-  "Un endroit où tu aimerais être là, tout de suite ?","Qu'est-ce qui t'a rendu·e fier·e de toi récemment ?",
-  "Quelle conversation t'a marqué·e aujourd'hui ?","Qu'est-ce qui te stresse, et que pourrais-tu lâcher ?",
-  "Décris un petit détail joli que tu as remarqué.","Qu'est-ce que tu ferais d'une journée entièrement libre ?",
-  "Quel conseil donnerais-tu à ton toi d'hier ?","Qu'est-ce qui te réconforte quand ça ne va pas ?",
-  "Quel rêve as-tu en ce moment, petit ou grand ?","Écris une lettre de trois lignes à quelqu'un que tu aimes."
-];
-const STARTERS=["Aujourd'hui, j'ai souri quand…","Je suis reconnaissant·e pour…","Ce qui m'a pesé, c'est…","Demain, j'aimerais…"];
+const PROMPTS=Array.from({length:24},(_,i)=>_t("prompt."+i));
+const STARTERS=Array.from({length:4},(_,i)=>_t("write.starter."+i));
 const JP_DOW=["日","月","火","水","木","金","土"];
 
 /* ---------- drawing helpers ---------- */
@@ -2154,7 +2143,7 @@ function savePrefsLocal(){try{store.setItem(PL,JSON.stringify(prefs))}catch(e){}
 function saveSeen(){try{store.setItem(SEEN,JSON.stringify([...seen]))}catch(e){}}
 let col=null, cloud=false, chain=Promise.resolve();
 function setStatus(t){$("status").textContent=t}
-function savedLabel(){return "Enregistré sur ton téléphone ✓"}
+function savedLabel(){return _t("write.saved")}
 const hasContent=e=>e&&((e.text&&e.text.trim())||e.mood||(e.deco&&e.deco.length));
 
 async function writeRef(ref,data){
@@ -2162,7 +2151,7 @@ async function writeRef(ref,data){
   catch(err){
     const c=err&&err.code;
     if(c==="unavailable"){await new Promise(r=>setTimeout(r,800+Math.random()*800));try{data?await ref.set(data):await ref.delete()}catch(_){}}
-    else if(c==="quota_exceeded") setStatus("Ton carnet en ligne est plein : tes pages restent sur cet appareil.");
+    else if(c==="quota_exceeded") setStatus(_t("write.quota_full"));
     else if(c==="invalid_argument"||c==="revoked"||c==="not_granted"){col=null;cloud=false}
   }
 }
@@ -2199,15 +2188,15 @@ function written(k){const e=entries[k];return !!(e&&e.text&&e.text.trim().length
 function promptFor(k){const e=entry(k);return e.prompt||(typeof isBday==="function"&&isBday(k)?bdPrompt():PROMPTS[hash(k)%PROMPTS.length])}
 function renderEditor(){
   const d=dateOf(current), isToday=current===todayKey();
-  const fr=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
-  const t=$("dateTitle");t.textContent=(isToday?"Aujourd'hui, ":"")+fr;
+  const fr=_date(d,{weekday:"long",day:"numeric",month:"long"});
+  const t=$("dateTitle");t.textContent=isToday?_t("write.date_today",{date:fr}):fr;
   const jp=document.createElement("span");jp.className="jp";jp.textContent=(d.getMonth()+1)+"月"+d.getDate()+"日（"+JP_DOW[d.getDay()]+"）";t.append(jp);
   $("backBtn").hidden=isToday;
   $("text").value=entry(current).text||"";
   $("promptText").textContent=promptFor(current);
   sel=-1;
   renderMoods(); renderCount(false); renderPressed(); renderDeco(); renderTags();
-  if(!isToday) say(written(current)?"Tu relis une ancienne page. Tu peux la compléter si tu veux ~":"Cette page est restée blanche. Tu te souviens de ce jour-là ?");
+  if(!isToday) say(written(current)?_t("write.say.old_page"):_t("write.say.blank_page"));
 }
 function renderMoods(){
   const s=entry(current).mood, box=$("moods");box.innerHTML="";
@@ -2224,19 +2213,19 @@ function renderCount(react=true){
   const w=countWords($("text").value);
   $("words").textContent=w;
   $("ring").setAttribute("stroke-dashoffset",(113.1*(1-Math.min(w/GOAL,1))).toFixed(1));
-  $("goalTxt").textContent=w>=GOAL?"Objectif atteint ✿ すごい！":w>0?"Encore "+(GOAL-w)+" mots":"Petit objectif du jour";
+  $("goalTxt").textContent=w>=GOAL?_t("write.goal.done"):w>0?_t("write.goal.left",{n:GOAL-w}):_t("write.goal.idle");
   if(!react) return;
-  if(w===0) say("Coucou ! Comment s'est passée ta journée ?");
-  else if(w<15) say("C'est parti ! がんばって ✿");
-  else if(w<GOAL) say("Continue comme ça, j'adore te lire ~");
-  else say("Objectif atteint ! Tu peux continuer autant que tu veux ♡");
+  if(w===0) say(_t("write.say.hello"));
+  else if(w<15) say(_t("write.say.start"));
+  else if(w<GOAL) say(_t("write.say.keep"));
+  else say(_t("write.say.goal"));
   if(w>=GOAL&&!celebrated[current]){celebrated[current]=true;petals(28);hop();Sfx.play("goal")}
 }
 function renderTags(){
   const tags=tagsOf($("text").value), box=$("tagsLine");box.innerHTML="";
-  if(!tags.length){box.textContent="Astuce : écris #école, #amis ou #famille pour retrouver tes pages facilement.";return}
-  const l=document.createElement("span");l.textContent="Tags :";box.append(l);
-  tags.forEach(t=>{const b=document.createElement("button");b.className="tag";b.textContent=t;b.title="Voir toutes les pages "+t;
+  if(!tags.length){box.textContent=_t("write.tags.tip");return}
+  const l=document.createElement("span");l.textContent=_t("write.tags.label");box.append(l);
+  tags.forEach(t=>{const b=document.createElement("button");b.className="tag";b.textContent=t;b.title=_t("write.tags.see",{tag:t});
     b.onclick=()=>{query=t;$("search").value=t;renderList();showView("journal")};box.append(b)});
 }
 
@@ -3109,11 +3098,18 @@ function renderSoundTab(body){
   $("sVol").oninput=()=>{prefs.sound={...S,...(prefs.sound||{}),vol:+$("sVol").value/100};Sfx.setVol()};
   $("sVol").onchange=()=>{savePrefs();Sfx.play("chime")};
 }
+function renderLangTab(body){
+  const s=sec(_t("lang.title"),"ことば"),n=document.createElement("p");n.className="note";n.textContent=_t("lang.note");
+  const g=document.createElement("div");g.className="seg";g.style.flexWrap="wrap";
+  [["auto",_t("lang.auto")]].concat(Object.keys(I18N.langs).map(c=>[c,I18N.langs[c].name+(I18N.langs[c].ready?"":" · "+_t("lang.beta"))])).forEach(([c,l])=>{
+    const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",String(I18N.pref===c));b.onclick=()=>{if(I18N.pref!==c)I18N.set(c)};g.append(b)});
+  s.append(n,g);if(Object.keys(I18N.langs).some(c=>!I18N.langs[c].ready)){const nb=document.createElement("p");nb.className="note";nb.textContent=_t("lang.beta_note");s.append(nb)}
+  body.append(s)}
 function renderSettings(msg){
   const body=$("modalBody"),sc=$("modal").querySelector(".book").scrollTop;body.innerHTML="";
   const u=unlocks(),ctx=u.ctx;
   const seg=document.createElement("div");seg.className="seg";seg.style.marginTop="10px";
-  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["sons","Sons"],["rappel","Notifications"],["anniv","Anniversaire"],["save","Sauvegarde"],["code","Code secret"]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
+  [["masc","Mascottes"],["acc","Accessoires"],["theme","Thème"],["sons","Sons"],["rappel","Notifications"],["anniv","Anniversaire"],["save","Sauvegarde"],["code","Code secret"],["lang",_t("settings.tab.lang")]].forEach(([v,l])=>{const b=document.createElement("button");b.textContent=l;b.setAttribute("aria-pressed",String(settingsTab===v));b.onclick=()=>{settingsTab=v;renderSettings()};seg.append(b)});
   body.append(seg);
   requestAnimationFrame(()=>{const sel=seg.querySelector('[aria-pressed="true"]');if(sel)sel.scrollIntoView({inline:"center",block:"nearest"})});
   if(settingsTab==="masc"){
@@ -3146,6 +3142,7 @@ function renderSettings(msg){
     });
   }
   if(settingsTab==="sons")renderSoundTab(body);
+  if(settingsTab==="lang")renderLangTab(body);
   if(settingsTab==="theme"){
   const s3=sec("Thème","いろ");const o3=document.createElement("div");o3.className="opts";
   SKINS.forEach(k=>{const b=document.createElement("button");b.className="opt";b.setAttribute("aria-pressed",String((prefs.skin||"sakura")===k.id));
@@ -3475,7 +3472,7 @@ applySkin();
 renderMascot();renderEditor();renderSide();renderTodo();
 $("lockBtn").hidden=!prefs.pinHash;
 if(prefs.pinHash)showLock();
-{const h=new Date().getHours();say(h<11?"おはよう ! Une petite page pour bien commencer la journée ?":h<18?"Coucou ! Une pause pour écrire un peu ?":"こんばんは ~ Comment s'est passée ta journée ?")}
+{const h=new Date().getHours();say(h<11?_t("write.say.morning"):h<18?_t("write.say.afternoon"):_t("write.say.evening"))}
 setTimeout(checkNew,1200);
 
 

@@ -1,0 +1,62 @@
+/* Mon petit journal : système de langues 言語
+   - Les textes vivent dans i18n/<langue>.js sous forme de clés ("write.goal.left").
+   - Le français est la langue source et le repli : une clé absente d'une langue s'affiche en français.
+   - Messages : {nom} pour une valeur, {n, plural, one {# mot} other {# mots}} pour les pluriels
+     (règles de pluriel de chaque langue via Intl.PluralRules).
+   - HTML statique : data-i18n="clé" (texte) et data-i18n-attr="aria-label:clé;placeholder:clé".
+   - Ajouter une langue = ajouter i18n/<code>.js et une ligne dans I18N.langs. */
+(function(){
+  var LANGS={
+    fr:{name:"Français",locale:"fr-FR",ready:true},
+    en:{name:"English",locale:"en-GB",ready:false}
+  };
+  var K="nikki.lang",D={},pref="auto",lang="fr";
+  try{pref=localStorage.getItem(K)||"auto"}catch(e){}
+  function pick(){
+    if(pref!=="auto"&&LANGS[pref])return pref;
+    var nav=[].concat(navigator.languages||[],navigator.language||[]);
+    for(var i=0;i<nav.length;i++){var c=String(nav[i]).slice(0,2).toLowerCase();if(c==="fr")return"fr";if(LANGS[c]&&LANGS[c].ready)return c}
+    return"fr"}
+  lang=pick();
+  var PR={};
+  function plural(n){var l=LANGS[lang].locale;try{return(PR[l]||(PR[l]=new Intl.PluralRules(l))).select(n)}catch(e){return n===1?"one":"other"}}
+  // remplace {x} et {n, plural, one {...} other {...}} (un niveau d'imbrication)
+  function fmt(s,v){
+    if(!v)return s;var out="",i=0;
+    while(i<s.length){var c=s[i];
+      if(c!=="{"){out+=c;i++;continue}
+      var d=0,j=i;for(;j<s.length;j++){if(s[j]==="{")d++;else if(s[j]==="}"){d--;if(!d)break}}
+      var body=s.slice(i+1,j),m=/^\s*(\w+)\s*,\s*plural\s*,(.*)$/.exec(body);
+      if(m){var n=+v[m[1]],cat=plural(n),opts={},re=/\s*(=?\w+)\s*\{/g,r,rest=m[2];
+        while((r=re.exec(rest))){var k=r[1],st=re.lastIndex,dd=1,e=st;for(;e<rest.length&&dd;e++){if(rest[e]==="{")dd++;else if(rest[e]==="}")dd--}opts[k]=rest.slice(st,e-1);re.lastIndex=e}
+        var pick=opts["="+n]!=null?opts["="+n]:opts[cat]!=null?opts[cat]:opts.other||"";
+        out+=fmt(pick.replace(/#/g,String(n)),v)}
+      else{var key=body.trim();out+=v[key]!=null?v[key]:"{"+key+"}"}
+      i=j+1}
+    return out}
+  function t(key,v){var s=(D[lang]&&D[lang][key]);if(s==null)s=D.fr&&D.fr[key];if(s==null){if(I18N.missing)I18N.missing[key]=1;return key}return fmt(s,v)}
+  // traduit le HTML statique ; un texte déjà modifié par l'appli (différent du français d'origine) n'est pas touché
+  function apply(root){
+    root=root||document;if(root===document)document.documentElement.lang=lang;
+    if(lang==="fr")return;var fr=D.fr||{};
+    var a=root.querySelectorAll("[data-i18n]");for(var i=0;i<a.length;i++){var k=a[i].getAttribute("data-i18n");if(fr[k]==null||a[i].textContent.trim()===fr[k].trim())a[i].textContent=t(k)}
+    var b=root.querySelectorAll("[data-i18n-attr]");for(var j=0;j<b.length;j++){var parts=b[j].getAttribute("data-i18n-attr").split(";");
+      for(var p=0;p<parts.length;p++){var kv=parts[p].split(":");if(kv.length!==2)continue;var at=kv[0].trim(),kk=kv[1].trim(),cur=b[j].getAttribute(at);
+        if(fr[kk]==null||cur==null||cur===fr[kk])b[j].setAttribute(at,t(kk))}}}
+  var I18N=window.I18N={
+    langs:LANGS,missing:null,
+    get lang(){return lang},get pref(){return pref},
+    locale:function(){return LANGS[lang].locale},
+    add:function(code,dict){D[code]=Object.assign(D[code]||{},dict)},
+    has:function(key){return!!((D[lang]&&D[lang][key]!=null)||(D.fr&&D.fr[key]!=null))},
+    keys:function(code){return Object.keys(D[code]||{})},
+    set:function(code){try{localStorage.setItem(K,code)}catch(e){}location.reload()},
+    apply:apply,t:t,fmt:fmt
+  };
+  window._t=t;
+  // dates et nombres dans la langue choisie
+  window._date=function(d,o){return d.toLocaleDateString(LANGS[lang].locale,o)};
+  window._num=function(n,o){return Number(n).toLocaleString(LANGS[lang].locale,o)};
+  // charge la langue choisie avant le reste de l'appli (le français est déjà inclus)
+  if(lang!=="fr"){var src=(document.currentScript&&document.currentScript.src||"").replace(/i18n\.js(\?.*)?$/,lang+".js");if(src)document.write('<script src="'+src+'"><\/script>')}
+})();

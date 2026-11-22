@@ -24,6 +24,9 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Contrôler les langues
+        run: python3 tools/i18n_check.py
+
       - name: Installer les dépendances
         run: npm ci
 
