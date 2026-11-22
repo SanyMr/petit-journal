@@ -36,7 +36,7 @@ def main():
     for k in sorted(used - set(fr)): err.append("clé absente du français : " + k)
     for path in sorted(glob.glob(os.path.join(I18N, "*.js"))):
         code = os.path.basename(path)[:-3]
-        if code in ("i18n", "fr"): continue
+        if code in ("i18n", "fr") or path.endswith(".content.js"): continue
         try: d = load(path)
         except Exception as e: err.append("%s.js illisible : %s" % (code, e)); continue
         for k in d:
@@ -47,6 +47,20 @@ def main():
         cov = 100 * (len(fr) - len(miss)) // max(1, len(fr))
         print("%s : %d %% des clés traduites (%d manquantes)%s" % (code, cov, len(miss), "" if ready.get(code) != "true" else " — langue prête"))
         if ready.get(code) == "true" and miss: err.append("%s est marquée prête mais il manque %d clés" % (code, len(miss)))
+    # packs de contenu : mêmes identifiants (proverbes) et même nombre d'éléments (questions) que le français
+    app = open(SRC[0], encoding="utf-8").read()
+    for path in sorted(glob.glob(os.path.join(I18N, "*.content.js"))):
+        code = os.path.basename(path).split(".")[0]; txt = open(path, encoding="utf-8").read()
+        packs = dict((m.group(1), json.loads(m.group(2))) for m in re.finditer(r'I18N\.pack\("%s","(\w+)",(.*?)\);\n' % code, txt, re.S))
+        if "wisdom" in packs:
+            m = re.search(r"var WIS_P=(\[.*?\]);\n", app, re.S); ids = [e[0] for e in json.loads(m.group(1))]
+            miss = [i for i in ids if i not in packs["wisdom"]]; bad = [i for i, v in packs["wisdom"].items() if len(v) != 3]
+            if miss or bad: err.append("%s.content : proverbes manquants %s / mal formés %s" % (code, miss[:5], bad[:5]))
+            print("%s : %d proverbes" % (code, len(packs["wisdom"])))
+        if "duo" in packs:
+            m = re.search(r'const QDUO=I18N\.list\("duo",(\[.*?\])\);', app, re.S)
+            if m and len(json.loads(m.group(1))) != len(packs["duo"]): err.append("%s.content : %d questions à deux au lieu de %d" % (code, len(packs["duo"]), len(json.loads(m.group(1)))))
+            print("%s : %d questions à deux" % (code, len(packs["duo"])))
     # textes français encore écrits en dur dans le code (progression de la migration)
     s = open(SRC[0], encoding="utf-8").read()
     left = len(re.findall(r"\"[^\"\n<>{}]*\b(?:tu|ton|ta|tes|le|la|les|une|des|pour|avec)\b[^\"\n<>{}]*\"", s))

@@ -8,7 +8,7 @@
 (function(){
   var LANGS={
     fr:{name:"Français",locale:"fr-FR",ready:true},
-    en:{name:"English",locale:"en-GB",ready:false}
+    en:{name:"English",locale:"en-GB",ready:false,content:true}
   };
   var K="nikki.lang",D={},pref="auto",lang="fr";
   try{pref=localStorage.getItem(K)||"auto"}catch(e){}
@@ -43,7 +43,15 @@
     var b=root.querySelectorAll("[data-i18n-attr]");for(var j=0;j<b.length;j++){var parts=b[j].getAttribute("data-i18n-attr").split(";");
       for(var p=0;p<parts.length;p++){var kv=parts[p].split(":");if(kv.length!==2)continue;var at=kv[0].trim(),kk=kv[1].trim(),cur=b[j].getAttribute(at);
         if(fr[kk]==null||cur==null||cur===fr[kk])b[j].setAttribute(at,t(kk))}}}
+  // packs de contenu (proverbes, questions…) : chargés seulement pour la langue choisie
+  var P={};
+  function pack(name){return P[lang]&&P[lang][name]}
   var I18N=window.I18N={
+    pack:function(code,name,data){(P[code]=P[code]||{})[name]=data},
+    // liste traduite si le pack a exactement le même nombre d'éléments (les index servent d'identifiants)
+    list:function(name,arr){var p=pack(name);return Array.isArray(p)&&p.length===arr.length?p:arr},
+    // tableau d'entrées identifiées par e[idx] : fn(entrée, traduction) pour chaque entrée traduite
+    patch:function(name,arr,fn,idx){var p=pack(name);if(!p)return arr;idx=idx||0;return arr.map(function(e){var t=p[e[idx]];return t?fn(e,t):e})},
     langs:LANGS,missing:null,
     get lang(){return lang},get pref(){return pref},
     locale:function(){return LANGS[lang].locale},
@@ -58,5 +66,5 @@
   window._date=function(d,o){return d.toLocaleDateString(LANGS[lang].locale,o)};
   window._num=function(n,o){return Number(n).toLocaleString(LANGS[lang].locale,o)};
   // charge la langue choisie avant le reste de l'appli (le français est déjà inclus)
-  if(lang!=="fr"){var src=(document.currentScript&&document.currentScript.src||"").replace(/i18n\.js(\?.*)?$/,lang+".js");if(src)document.write('<script src="'+src+'"><\/script>')}
+  if(lang!=="fr"){var src=(document.currentScript&&document.currentScript.src||"").replace(/i18n\.js(\?.*)?$/,lang+".js");if(src){document.write('<script src="'+src+'"><\/script>');if(LANGS[lang].content)document.write('<script src="'+src.replace(/\.js$/,".content.js")+'"><\/script>')}}
 })();
