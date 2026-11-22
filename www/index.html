@@ -930,76 +930,59 @@ input,textarea,select{font-size:16px}
 .sh-expic{flex:none;width:46px;height:46px;border-radius:14px;background:#fde8ee;color:#b5506d;display:grid;place-items:center}.sh-expic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .sh-expok{flex:none;width:28px;height:28px;border-radius:50%;background:#eef8ef;color:#3f7a52;display:grid;place-items:center;font-weight:700}
 .sh-pad{padding:10px 20px 0;text-align:center;font-size:12.5px;color:#7a6672;margin:0}
-/* ===== mes habitudes ===== */
-#hbCard{margin:0}
-.hb-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 10px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
-.hb-cmini{flex:none;width:92px;height:74px;border-radius:16px;background:#fbf3ea;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px;padding:6px;box-sizing:border-box}
-.hb-cbody{flex:1;display:grid;gap:2px;min-width:0}.hb-cbody b{font-family:var(--display);font-weight:500;font-size:17px}.hb-cbody b small{font-size:12px;color:var(--muted)}.hb-cbody>small{font-size:12.5px;color:var(--muted);line-height:1.35}
-#hbStrip{margin:10px 0 2px}
-.hb-strip{background:var(--card,#fff);border:1.5px solid var(--line);border-radius:18px;padding:10px 12px}
-.hb-sh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}.hb-sh b{font-size:13px}
-.hb-sopen{border:0;background:none;font:inherit;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;padding:6px 2px}
-.hb-srow{display:flex;justify-content:space-around;gap:4px}
-.hb-sb{border:0;background:none;padding:2px;display:grid;justify-items:center;gap:3px;cursor:pointer;font:inherit;color:var(--muted);min-width:52px}
-.hb-sb small{font-size:10.5px;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hb-stamp.hb-in{animation:hbStamp .45s cubic-bezier(.3,1.5,.5,1)}
-@keyframes hbStamp{0%{transform:scale(1.9) rotate(-20deg);opacity:0}70%{transform:scale(.92);opacity:1}100%{transform:scale(1)}}
-#hb{position:fixed;inset:0;z-index:1500;background:#fdf6f0;color:#4b3a47;font-family:var(--body)}
-#hb .hb-in{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;max-width:520px;margin:0 auto;padding:0 0 calc(30px + env(safe-area-inset-bottom));box-sizing:border-box;-webkit-overflow-scrolling:touch}
-@media (min-width:640px){#hb{background:rgba(58,40,58,.5)}#hb .hb-in{background:#fdf6f0;left:50%;width:min(520px,96vw);transform:translateX(-50%);margin:0}}
-.hb-pill{display:inline-flex;border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:700;background:#fff;border:1.5px solid #f1dce4;white-space:nowrap}.hb-pill.ok{background:#eef8ef;border-color:#cfe8d3;color:#3f7a52}
-.hb-week{display:flex;justify-content:space-between;padding:4px 14px 6px;gap:2px}
-.hb-day{flex:1;border:0;background:none;display:grid;justify-items:center;gap:4px;padding:2px 0;font:inherit;color:#4b3a47;cursor:pointer;min-height:64px}
-.hb-day:disabled{opacity:.45;cursor:default}.hb-day small{font-size:10.5px;font-weight:700;color:#7a6672}
-.hb-day b{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:#fff}
-.hb-day.today b{box-shadow:0 0 0 2px #d9708d}.hb-day.on b{background:#4b3a47;color:#fff}
-.hb-day span{display:flex;gap:2px;min-height:5px}.hb-day span i{width:5px;height:5px;border-radius:50%}
-.hb-zz{display:block;width:12px!important;height:5px!important;border-radius:3px!important;background:#c5cbea}
-.hb-lbl{display:flex;justify-content:space-between;align-items:center;padding:4px 18px 8px}.hb-lbl b{font-size:14px}.hb-back2{margin:0;font-size:12px;padding:4px}
-.hb-list{display:grid;gap:8px;padding:0 14px}.hb-list.dim{opacity:.55}
-.hb-row{display:flex;align-items:center;gap:8px;background:#fff;border-radius:18px;padding:8px 10px 8px 8px;box-shadow:0 4px 14px rgba(181,80,109,.06)}
-.hb-rb{flex:1;min-width:0;display:flex;align-items:center;gap:10px;border:0;background:none;padding:2px;font:inherit;color:inherit;text-align:left;cursor:pointer}
-.hb-ic{flex:none;width:40px;height:40px;border-radius:13px;display:grid;place-items:center}
-.hb-nm{min-width:0;display:grid;gap:3px}.hb-nm b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hb-nm small{font-size:11.5px;color:#7a6672}
-.hb-drops{display:flex;align-items:center;gap:2px;font-size:11.5px}.hb-drops i{width:8px;height:10px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%}.hb-drops b{margin-left:5px;font-size:12px;white-space:nowrap}
-.hb-tap{flex:none;border:0;background:none;padding:2px;cursor:pointer;border-radius:50%;min-width:48px;min-height:48px;display:grid;place-items:center}
-.hb-cnt{display:flex;align-items:center;gap:6px;flex:none}
-.hb-plus{width:44px;height:44px;border-radius:50%;border:0;color:#fff;font:inherit;font-size:24px;font-weight:700;cursor:pointer;line-height:1}
-.hb-minus{width:34px;height:34px;border-radius:50%;border:2px solid #f1dce4;background:#fff;color:#7a6672;font:inherit;font-size:18px;font-weight:700;cursor:pointer;line-height:1}
-.hb-none{margin:0;padding:10px 4px;font-size:13px;color:#7a6672;text-align:center}
-.hb-rest{display:flex;align-items:center;gap:10px;margin:0 14px 10px;background:#eef0fb;border-radius:16px;padding:10px 12px}.hb-rest>div{flex:1;display:grid}.hb-rest b{font-size:13.5px;color:#3e4a8a}.hb-rest small{font-size:12px;color:#5b6290}.hb-rest .sh-btn{flex:none;min-height:38px;font-size:13px}
-.hb-oth{margin:10px 14px 0}.hb-oth summary{font-size:12.5px;font-weight:700;color:#7a6672;cursor:pointer;padding:6px 4px}.hb-oth .hb-list{padding:0}
-.hb-acts{display:flex;justify-content:space-between;padding:12px 18px 0}
-.hb-lnk{display:inline-flex;align-items:center;gap:6px;border:0;background:none;font:inherit;font-size:13px;font-weight:700;color:#b5506d;cursor:pointer;padding:8px 2px}.hb-blue{color:#5c6bc0}
-.hb-m{margin:12px 14px 0!important;width:calc(100% - 28px)}
-.hb-h{margin:18px 18px 8px;font-size:14px}
-.hb-prog{display:grid;gap:8px;padding:0 14px}
-.hb-pr{display:flex;align-items:center;gap:10px;background:#fff;border-radius:16px;padding:8px 12px 8px 8px}.hb-pr>div{flex:1;min-width:0;display:grid;gap:4px}
-.hb-prsvg{flex:none;width:48px;height:50px;border-radius:12px;background:#f2f8ee;display:grid;place-items:center}
-.hb-prt{display:flex;justify-content:space-between;gap:6px;align-items:baseline}.hb-prt b{font-size:13px}.hb-prt small,.hb-prs{font-size:11.5px;color:#7a6672}
-.hb-bar{display:block;height:7px;border-radius:9px;background:#f1e4ea;overflow:hidden}.hb-bar>i{display:block;height:100%;border-radius:9px}
-.hb-empty{margin:6px 16px;background:#fff;border-radius:20px;padding:18px 16px;text-align:center;display:grid;gap:10px}.hb-empty p{margin:0;font-size:14px;line-height:1.5}.hb-erow{display:flex;justify-content:center;gap:4px}
-.hb-sug{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px}
-.hb-sg{display:flex;align-items:center;gap:8px;background:#fff;border:0;border-radius:14px;padding:9px 10px;font:inherit;color:inherit;text-align:left;cursor:pointer;min-height:48px}
-.hb-sg span{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center}.hb-sg b{font-size:12.5px;line-height:1.25}
-.hb-tabs{display:flex;gap:10px;justify-content:center;padding:2px 0 14px}
-.hb-tab{width:40px;height:40px;border-radius:13px;border:0;display:grid;place-items:center;cursor:pointer;opacity:.5}.hb-tab.on{opacity:1;box-shadow:0 0 0 3px #fdf6f0,0 0 0 5px #4b3a47}
-.hb-mcard{margin:0 14px;background:#fffaf2;border-radius:20px;padding:10px 12px 12px;border:2px solid #f3dfc0}
-.hb-mh{display:flex;align-items:center;gap:6px;margin-bottom:8px}.hb-mh b{font-family:var(--display);font-weight:500;font-size:17px;flex:1;text-align:center}.hb-mh span{display:none}.hb-mh .sh-ic{background:#f6ead8}
-.hb-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.hb-dn{margin-bottom:4px}.hb-dn small{text-align:center;font-size:10px;font-weight:700;color:#a8865c}
-.hb-cell{height:40px;border-radius:9px;background:#fff1dc;display:grid;place-items:center;position:relative}.hb-cell small{position:absolute;top:2px;left:4px;font-size:9px;color:#a8865c}
-.hb-cell.off{background:#f8f1e6}.hb-cell.fut{background:#fbf6ef}.hb-cell.today{box-shadow:0 0 0 2px #e09a3a}.hb-cell .hb-zz{margin-top:8px}
-.hb-stats{display:flex;gap:8px;padding:12px 14px 0}.hb-stats>div{flex:1;background:#fff;border-radius:16px;padding:10px;text-align:center;display:grid}.hb-stats b{font-size:22px}.hb-stats small{font-size:11.5px;color:#7a6672}
-.hb-note{display:block;margin:10px 18px 0;font-size:12px;color:#7a6672;text-align:center}
-.hb-icons{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.hb-icb{height:44px;border-radius:13px;border:0;background:#f6eef2;display:grid;place-items:center;cursor:pointer}
-.hb-col{width:34px;height:34px;border-radius:50%;border:0;cursor:pointer}
-.hb-days{display:flex;justify-content:space-between;gap:4px}
-.hb-dd{width:40px;height:40px;border-radius:50%;border:2px solid #f1dce4;background:#fff;font:inherit;font-weight:700;font-size:13px;color:#7a6672;cursor:pointer}.hb-dd.on{color:#fff}
-.hb-time{width:auto!important;padding:7px 10px!important}
-.hb-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#4b3a47;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:1600;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
-.hb-toast.on{animation:shToast 2.8s ease forwards}
-@media (prefers-reduced-motion:reduce){.hb-stamp.hb-in{animation:none}}
+/* ===== mon bilan ===== */
+#blCard{margin:0;display:grid;gap:8px}
+.bl-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 10px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
+.bl-card.new{border-color:#f3b8c9;background:linear-gradient(135deg,var(--card,#fff),#fff1f5)}
+.bl-cmini{flex:none;width:92px;height:74px;border-radius:16px;background:#fbf3ea;display:flex;align-items:center;justify-content:center;gap:1px}
+.bl-cbody{flex:1;display:grid;gap:2px;min-width:0}.bl-cbody b{font-family:var(--display);font-weight:500;font-size:17px}.bl-cbody b small{font-size:12px;color:var(--muted)}.bl-cbody>small{font-size:12.5px;color:var(--muted);line-height:1.35}
+.bl-intent{display:flex;align-items:center;gap:10px;background:#fff7e3;border:1.5px solid #f3dfae;border-radius:18px;padding:9px 6px 9px 12px;color:#4b3a47}
+.bl-intent>span{font-family:"Yuji Wis","Yuji Syuku",serif;font-size:19px;color:#c98a2a}.bl-intent>div{flex:1;display:grid;min-width:0}.bl-intent small{font-size:11px;font-weight:700;color:#8a6414}.bl-intent b{font-family:var(--display);font-weight:500;font-size:14.5px}
+.bl-x{flex:none;width:36px;height:36px;border:0;background:none;color:#8a6414;font-size:20px;cursor:pointer;border-radius:50%}
+#bl{position:fixed;inset:0;z-index:1500;background:#fdf6f0;color:#4b3a47;font-family:var(--body)}
+#bl .bl-in{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;max-width:520px;margin:0 auto;padding:0 0 calc(30px + env(safe-area-inset-bottom));box-sizing:border-box;-webkit-overflow-scrolling:touch}
+@media (min-width:640px){#bl{background:rgba(58,40,58,.5)}#bl .bl-in{background:#fdf6f0;left:50%;width:min(520px,96vw);transform:translateX(-50%);margin:0}}
+.bl-sub{padding:0 18px 6px;margin-top:-4px;font-size:12.5px;color:#7a6672}
+.bl-body{padding:0 14px}
+.bl-box{background:#fff;border-radius:18px;padding:11px 12px;box-shadow:0 4px 14px rgba(181,80,109,.06)}
+.bl-cap{display:block;font-size:11.5px;color:#7a6672;margin-bottom:6px}
+.bl-week{display:flex;justify-content:space-between}
+.bl-d{display:grid;justify-items:center;gap:2px}.bl-d small{font-size:10.5px;font-weight:700;color:#7a6672}.bl-d i{width:5px;height:5px;border-radius:50%}.bl-d i.on{background:#d9708d}.bl-d.fut{opacity:.6}
+.bl-stats{display:flex;gap:7px;margin-top:9px}
+.bl-stat{flex:1;background:#fff;border-radius:16px;padding:9px 6px;text-align:center;display:grid;gap:2px}.bl-stat b{font-size:20px;color:#b5506d}.bl-stat small{font-size:11px;color:#7a6672;line-height:1.25}
+.bl-h{margin:16px 2px 8px;font-size:14px}.bl-h span{font-family:"Yuji Wis","Yuji Syuku",serif;font-weight:400;font-size:13px;color:#a08a98}
+.bl-hab{display:flex;align-items:center;gap:8px;padding:4px 0}.bl-hab .hb-ic{width:28px;height:28px;border-radius:9px}
+.bl-hn{flex:1;min-width:0;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bl-dots{display:flex;gap:3px}.bl-dots i{width:14px;height:14px;border-radius:50%}
+.bl-hab>b{font-size:12.5px;min-width:30px;text-align:right}
+.bl-mdots{flex:1;display:grid;grid-template-columns:repeat(16,1fr);gap:3px}.bl-mdots i{aspect-ratio:1;border-radius:50%;max-width:11px}
+.bl-foot{margin-top:8px;padding-top:8px;border-top:1.5px dashed #f1e4ea;font-size:12.5px;color:#7a6672}
+.bl-gl{display:grid;gap:8px}.bl-g{display:flex;align-items:center;gap:10px}.bl-g>div{display:grid;gap:1px}.bl-g b{font-size:13.5px}.bl-g small{font-size:12px;color:#7a6672}
+.bl-gi{flex:none;width:46px;height:46px;border-radius:13px;background:#f2f8ee;display:grid;place-items:center}.bl-gi svg{max-width:40px;max-height:42px}
+.bl-gs{background:#d9708d;color:#fff;font-family:"Yuji Wis","Yuji Syuku",serif;font-size:22px;border-radius:50%}
+.bl-mem{display:block;width:100%;text-align:left;border:0;font:inherit;color:inherit;cursor:pointer;background:#fffaf2;border-radius:18px;padding:16px 16px 12px;box-shadow:inset 0 0 0 1.5px #f1e4ea;position:relative}
+.bl-q{position:absolute;top:-4px;left:12px;font-family:var(--display);font-size:40px;color:#f7b9cb;line-height:1}
+.bl-mem p{margin:8px 0 6px;font-family:var(--display);font-size:15.5px;line-height:1.55}.bl-mem small{display:flex;align-items:center;gap:5px;font-size:12px;color:#7a6672}
+.bl-ins{display:grid;gap:7px}.bl-i{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:16px;padding:10px 12px}
+.bl-i>span{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center}.bl-i small{font-size:10.5px;font-weight:700;color:#7a6672;text-transform:uppercase;letter-spacing:.04em}.bl-i p{margin:2px 0 0;font-size:13.5px;line-height:1.45}
+.bl-ask{margin:0 0 8px;font-family:var(--display);font-size:15px}
+#blIt{height:72px;min-height:0;width:100%;box-sizing:border-box;font:inherit;font-family:var(--display);font-size:15px;border:2px solid #f1dce4;border-radius:12px;padding:9px 11px;background:#fdf6f0;color:#4b3a47;resize:vertical}
+.bl-save{width:100%;margin-top:8px}
+.bl-empty{margin:14px 4px 0;text-align:center;font-size:13.5px;line-height:1.5;color:#7a6672}
+.bl-nav{display:flex;gap:8px;margin-top:18px}.bl-nav .sh-btn{font-size:13px;min-height:42px}
+.bl-mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px 0;justify-items:center}.bl-mgrid>small{font-size:10px;font-weight:700;color:#7a6672}
+.bl-mc{display:grid;justify-items:center}.bl-mc small{font-size:9px;color:#7a6672;margin-top:-2px}
+.bl-leg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;margin-top:8px}.bl-leg span{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:#7a6672}
+.bl-word{display:grid;gap:10px;justify-items:center;text-align:center}
+.bl-wk{width:130px;height:130px;border-radius:22px;background:#fffaf2;box-shadow:inset 0 0 0 2px #f3dfc0;display:grid;place-items:center;align-content:center;gap:2px}
+.bl-wk span{font-family:"Yuji Wis","Yuji Syuku",serif;font-size:52px;color:#b5506d;line-height:1}.bl-wk b{font-family:var(--display);font-weight:500;font-size:15px}
+.bl-chips{justify-content:center}
+.bl-ready{display:grid;gap:2px;width:100%;text-align:left;border:1.5px solid #f3b8c9;background:#fff1f5;border-radius:18px;padding:12px 14px;font:inherit;color:inherit;cursor:pointer;margin-bottom:4px}.bl-ready b{font-family:var(--display);font-weight:500;font-size:16px}.bl-ready small{font-size:12.5px;color:#7a6672}
+.bl-alb{display:grid;gap:7px}
+.bl-ar{display:flex;align-items:center;gap:10px;background:#fff;border:0;border-radius:14px;padding:10px 12px;font:inherit;color:inherit;text-align:left;cursor:pointer;min-height:48px}
+.bl-af{display:flex;gap:1px;flex:none}.bl-ar b{flex:1;font-size:13.5px}.bl-ar small{font-size:12px;color:#7a6672}
+.bl-ak{flex:none;width:32px;height:32px;border-radius:10px;background:#fde8ee;color:#b5506d;display:grid;place-items:center;font-family:"Yuji Wis","Yuji Syuku",serif;font-size:18px}
+.bl-opt{display:flex;gap:10px;align-items:center;margin:18px 4px 0;font-size:13px;color:#6e5a68;line-height:1.4}.bl-opt input{width:20px;height:20px;accent-color:#d9708d;flex:none}
 /* ===== jardin ===== */
 #jdCard{margin:0}
 .jd-card{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:22px;padding:8px 12px 8px 8px;text-align:left;color:inherit;font:inherit;cursor:pointer;box-shadow:0 6px 18px rgba(181,80,109,.08)}
@@ -2618,7 +2601,7 @@ function renderSide(){
   const objs=objectives();
   renderFlame();
   $("total").textContent=Object.keys(entries).filter(written).length;
-  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();if(typeof renderShCard==="function")renderShCard();if(typeof renderHbCard==="function"){renderHbCard();renderHbStrip()}renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
+  renderDefi(objs);renderGachaCard(objs);if(typeof renderJdCard==="function")renderJdCard();if(typeof renderWisCard==="function")renderWisCard();if(typeof renderShCard==="function")renderShCard();if(typeof renderHbCard==="function"){renderHbCard();renderHbStrip()}if(typeof renderBlCard==="function")renderBlCard();renderLetters();douxVis();renderMem();renderYearCard();if(typeof renderBdayAsk==="function"){renderBdayAsk();renderBdayCard()}renderCal();renderStampsCard(objs);renderList();if(typeof updateBadges==="function")updateBadges();if(typeof schedulePlan==="function"&&isNative)schedulePlan();
 }
 function renderDefi(objs){
   const o=objs.find(x=>x.current),[c,t]=o.prog,box=$("defi");
@@ -2768,6 +2751,7 @@ function openBilan(){openModal("Mon bilan","まとめ",renderBilan)}
 function renderBilan(){
   const body=$("modalBody");body.innerHTML="";
   {const b=document.createElement("button");b.className="openbook ybil";b.type="button";b.textContent="✿ Ton année "+yrYear()+" en journal (story)";b.onclick=()=>{closeModal(true);openYear()};body.append(b)}
+  if(typeof openFuri==="function"){const b=document.createElement("button");b.className="openbook ybil";b.type="button";b.textContent="✿ Ma semaine et mes mois 振り返り";b.onclick=()=>{closeModal(true);openFuri()};body.append(b)}
   const y=bil.d.getFullYear(),m=bil.d.getMonth(),now=new Date();
   const label=bil.mode==="mois"?bil.d.toLocaleDateString("fr-FR",{month:"long",year:"numeric"}):String(y);
   const nav=document.createElement("div");nav.className="bnav";
@@ -3479,6 +3463,7 @@ if(isNative&&PL_().LocalNotifications){
     else showView(x.view||"ecrire");
     if(x.garden&&typeof openGarden==="function")setTimeout(openGarden,400);
     if(x.habits&&typeof openHabits==="function")setTimeout(()=>openHabits(),400);
+    if(x.furi&&typeof openFuri==="function")setTimeout(()=>{const w=typeof blReadyWeek==="function"&&blReadyWeek();openFuri(w?{view:"week",mon:w}:null)},400);
   });
 }
 
@@ -3902,6 +3887,7 @@ function routeUrl(url){
   else if(v==="pomo"){const d=+((url.match(/pomo\/(\d+)/)||[])[1])||25;showView("ecrire");setTimeout(()=>{if(typeof wgStartPomo==="function")wgStartPomo(d)},300)}
   else if(v==="jour"){const k=(url.match(/jour\/(\d{4}-\d{2}-\d{2})/)||[])[1];if(k){if(written(k)){showView("journal");setTimeout(()=>openReader(k),200)}else openDay(k)}}
   else if(v==="ami"){amisInvite(url)}
+  else if(v==="furikaeri"){showView("ecrire");setTimeout(()=>{if(typeof openFuri==="function")openFuri()},300)}
   else if(v==="habitudes"){showView("ecrire");setTimeout(()=>{if(typeof openHabits==="function")openHabits()},300)}
   else if(v==="etagere"){showView("ecrire");setTimeout(()=>{if(typeof openShelf==="function")openShelf()},300)}
   else if(v==="sagesse"){showView("ecrire");setTimeout(()=>{if(typeof openWisdom==="function")openWisdom()},300)}
@@ -3918,6 +3904,7 @@ if(isNative){
   if(A){
     A.addListener("backButton",()=>{
       if(!$("lock").hidden){A.minimizeApp();return}
+      if($("bl")&&!$("bl").hidden){blBack();return}
       if($("hb")&&!$("hb").hidden){hbBack();return}
       if($("sh")&&!$("sh").hidden){shBack();return}
       if($("wis")&&!$("wis").hidden){wisBack();return}
@@ -5449,7 +5436,7 @@ function shWc(){const ed=$("shEd"),V=SH_V;if(!ed||!V)return;const n=((ed.textCon
 function shFlush(){const V=SH_V;clearTimeout(SH_SAVE_T);if(!V||V.view!=="write"||!V.dirty)return;const ed=$("shEd");if(!ed)return;
   const html=shClean(ed.innerHTML),words=shWords(html),s=shSt(),b=shBook(s,V.book);if(!b)return;const c=b.chapters.find(x=>x.id===V.id);if(!c)return;
   const tot0=shTotal(b);if(!b.day||b.day.d!==todayKey())b.day={d:todayKey(),base:tot0};
-  shChSet(c.id,html);c.words=words;const t=$("shChT");if(t)c.title=t.value.trim().slice(0,60);c.updated=b.updated=Date.now();
+  shChSet(c.id,html);const dw=words-(c.words||0);if(dw>0){s.wlog=s.wlog||{};const tk=todayKey();s.wlog[tk]=s.wlog[tk]||{};s.wlog[tk][b.id]=(s.wlog[tk][b.id]||0)+dw}c.words=words;const t=$("shChT");if(t)c.title=t.value.trim().slice(0,60);c.updated=b.updated=Date.now();
   b.days=b.days||[];if(!b.days.includes(todayKey()))b.days=b.days.concat([todayKey()]).slice(-400);
   shSave(s);V.dirty=false;shStat("ok","Enregistré")}
 function shNewChapter(s,b){const c={id:shId(),title:"",words:0,updated:Date.now()};b.chapters=(b.chapters||[]).concat([c]);b.updated=Date.now();shSave(s);return c}
@@ -5625,7 +5612,7 @@ async function shdFirstCheck(){let f=null;try{f=await shdFind("full")}catch(e){c
 function shdBackupBtn(sec){if(!shdPlug())return;const st=shdState(),b=document.createElement("button");b.type="button";b.className="sh-drv sh-d-"+st.k;b.style.cssText="margin:0 0 14px;width:100%";b.innerHTML=SHD_ICON+"<span></span><span class=\"sh-go\">›</span>";b.querySelector("span").textContent=st.k==="off"?"Sauvegarde automatique sur Google Drive":st.t;b.onclick=()=>openShelf({view:"drive"});sec.append(b)}
 function shdRestoreDo(){const j=SHD_RESTORE;SHD_RESTORE=null;if(!j)return;
   if(j.full){const keep=shStore().getItem(SHD_K),St=shStore();shKeys().filter(k=>k.startsWith("nikki.")).forEach(k=>St.removeItem(k));for(const k in j.full.data)St.setItem(k,j.full.data[k]);if(keep){const d=JSON.parse(keep);d.h={};d.jh="";d.shh="";d.check=0;if(j.fid)d.full=j.fid;St.setItem(SHD_K,JSON.stringify(d))}SH_V={...SH_V,ask:null};shRender();shToast("Journal restauré, redémarrage…");setTimeout(()=>location.reload(),700);return}const old=shSt();old.books.forEach(b=>(b.chapters||[]).forEach(c=>shChDel(c.id)));
-  Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[]});SH_V={...SH_V,ask:null};shToast("Étagère restaurée ✿");shRender()}
+  Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[],wlog:j.shelf.wlog||{}});SH_V={...SH_V,ask:null};shToast("Étagère restaurée ✿");shRender()}
 /* ---------- exporter un livre : PDF (A5) et EPUB ---------- */
 var SH_LIBS={};
 function shLoadScript(src){if(SH_LIBS[src])return SH_LIBS[src];SH_LIBS[src]=new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=()=>ok();s.onerror=()=>{delete SH_LIBS[src];s.remove();ko(new Error("load"))};document.head.append(s)});return SH_LIBS[src]}
@@ -5967,6 +5954,154 @@ async function hbTakeOps(){if(!isNativeHb()||typeof PL_!=="function")return;cons
 if(isNativeHb()){try{PL_().App.addListener("appStateChange",({isActive})=>{if(isActive)hbTakeOps()})}catch(e){}setTimeout(hbTakeOps,1800)}
 try{renderHbCard();renderHbStrip();hbPlanNotifs()}catch(e){}
 /* ===== fin habitudes ===== */
+/* ================= mon bilan 振り返り ================= */
+var BL_K="nikki.bilans",BL_V=null,BL_STACK=[];
+var BL_MC={super:"#f59bb6",bien:"#f2c14e",bof:"#8fcf9a",triste:"#8fb8e8",fatigue:"#c3a0e6"};
+var BL_ML={super:"Super",bien:"Bien",bof:"Bof",triste:"Triste",fatigue:"Fatigué·e"};
+var BL_MS={super:4,bien:3,bof:2,triste:1,fatigue:1};
+var BL_WORDS=[["calme","静"],["courage","勇"],["douceur","優"],["curiosité","好"],["patience","忍"],["joie","喜"],["renouveau","新"],["lumière","光"],["gratitude","謝"],["liberté","自"]];
+var BL_MN=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+var BL_MJ=["睦月","如月","弥生","卯月","皐月","水無月","文月","葉月","長月","神無月","霜月","師走"];
+function blStore(){return typeof store!=="undefined"?store:localStorage}
+function blSt(){let s;try{s=JSON.parse(blStore().getItem(BL_K)||"{}")||{}}catch(e){s={}}s.weeks=s.weeks||{};s.months=s.months||{};if(s.notif==null)s.notif=true;return s}
+function blSave(s){try{blStore().setItem(BL_K,JSON.stringify(s))}catch(e){}}
+function blEsc(t){return String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function blKey(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function blDate(k){const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d,12)}
+function blAdd(k,n){const d=blDate(k);d.setDate(d.getDate()+n);return blKey(d)}
+function blToday(){return blKey(new Date())}
+function blMon(k){const d=blDate(k);return blAdd(k,-((d.getDay()+6)%7))}
+function blE(){return typeof entries!=="undefined"&&entries?entries:{}}
+function blWritten(k){const e=blE()[k];return!!(e&&e.text&&e.text.trim())}
+function blWords(k){const e=blE()[k];return e&&e.text?(e.text.trim().match(/[^\s]+/g)||[]).length:0}
+function blMood(k){const e=blE()[k];return e&&e.mood&&BL_MC[e.mood]?e.mood:null}
+function blFmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
+function blS(n,w,p){return n+" "+(n>1?(p||w+"s"):w)}
+function blRange(a,b){return blDate(a).getDate()+(blDate(a).getMonth()!==blDate(b).getMonth()?" "+BL_MN[blDate(a).getMonth()]:"")+" au "+blDate(b).getDate()+" "+BL_MN[blDate(b).getMonth()]}
+function blFlower(c,s,dim){return`<svg width="${s}" height="${s}" viewBox="-14 -14 28 28" aria-hidden="true">${[0,1,2,3,4].map(i=>`<ellipse cy="-6.2" rx="3.7" ry="5.6" fill="${c}"${dim?' opacity=".55"':""} transform="rotate(${i*72})"/>`).join("")}<circle r="2.6" fill="#fff6cf"/></svg>`}
+function blNone(s){return`<svg width="${s}" height="${s}" viewBox="-14 -14 28 28" aria-hidden="true"><circle r="9" fill="none" stroke="#e6d9df" stroke-width="1.6" stroke-dasharray="3 3"/></svg>`}
+function blDayFlower(k,s){const m=blMood(k),w=blWritten(k);if(m)return blFlower(BL_MC[m],s,!w);if(w)return blFlower("#e7c9d4",s);return blNone(s)}
+/* ---------- calculs ---------- */
+function blStats(a,b){const t=blToday();let pages=0,words=0,moods={},days=[];for(let k=a;k<=b&&k<=t;k=blAdd(k,1)){if(blWritten(k)){pages++;words+=blWords(k)}const m=blMood(k);if(m)moods[m]=(moods[m]||0)+1;days.push(k)}
+  let book=0,books={};try{if(typeof shSt==="function"){const s=shSt(),wl=s.wlog||{};for(const k in wl)if(k>=a&&k<=b){const v=wl[k]||{};for(const id in v){book+=v[id];books[id]=(books[id]||0)+v[id]}}}}catch(e){}
+  let reads=[];try{if(typeof shSt==="function")reads=shSt().reads.filter(r=>r.status==="done"&&r.end&&blKey(new Date(r.end))>=a&&blKey(new Date(r.end))<=b)}catch(e){}
+  return{pages,words,moods,days,book,books,reads}}
+function blHabits(a,b){const out=[];try{if(typeof hbSt!=="function")return out;const s=hbSt(),t=blToday();s.list.forEach(h=>{let n=0,p=0;for(let k=a;k<=b&&k<=t;k=blAdd(k,1)){if(hbPlanned(h,k)&&!s.rest[k]){p++;if(hbDone(s,h,k))n++}else if(hbDone(s,h,k))n++}out.push({h,n,p,st:hbStreak(s,h)})})}catch(e){}return out}
+function blRewards(a,b){const out=[];try{if(typeof hbSt==="function"){const r=hbSt().rewards;Object.keys(r).forEach(id=>{if(r[id]>=a&&r[id]<=b){const R=Object.values(HB_REW).find(x=>x[0]===id);if(R)out.push({n:R[1],why:R[3],svg:hbRewSvg(Object.keys(HB_REW).find(k=>HB_REW[k][0]===id))})}})}
+  if(typeof objectives==="function")objectives().forEach(o=>{if(o.done&&o.done>=a&&o.done<=b&&o.k)out.push({stamp:o.k,n:"Tampon « "+(o.name||o.k)+" »",why:o.cond||""})})}catch(e){}return out}
+/* un souvenir : la plus belle phrase du meilleur jour */
+function blMemory(a,b){const t=blToday();let best=null;for(let k=a;k<=b&&k<=t;k=blAdd(k,1)){if(!blWritten(k))continue;const sc=(BL_MS[blMood(k)]||2)*1000+Math.min(999,blWords(k));if(!best||sc>best.sc)best={k,sc}}
+  if(!best)return null;const txt=blE()[best.k].text.replace(/\s+/g," ").trim();const sents=txt.match(/[^.!?…]+[.!?…]*/g)||[txt];
+  let pick=sents.map(x=>x.trim()).filter(x=>x.length>=25&&x.length<=170);pick=pick.length?pick.sort((x,y)=>Math.abs(x.length-90)-Math.abs(y.length-90))[0]:txt.slice(0,160)+(txt.length>160?"…":"");
+  return{k:best.k,t:pick}}
+/* les liens remarqués : seulement quand c'est solide, toujours en positif */
+function blInsights(a,b){const out=[],t=blToday(),from=blAdd(b,-27),E=blE();
+  // habitudes × humeurs (28 jours)
+  try{if(typeof hbSt==="function"){const s=hbSt();s.list.forEach(h=>{const yes=[],no=[];for(let k=from;k<=b&&k<=t;k=blAdd(k,1)){const m=blMood(k);if(!m||!hbPlanned(h,k)||s.rest[k])continue;(hbDone(s,h,k)?yes:no).push(BL_MS[m])}
+      const avg=x=>x.reduce((p,q)=>p+q,0)/x.length;if(yes.length>=4&&no.length>=3&&avg(yes)-avg(no)>=.6)out.push({w:avg(yes)-avg(no),ic:h.icon,c:h.color,tag:"Habitudes et humeurs",t:`Les jours où « <b>${blEsc(h.name)}</b> » est tamponné, ton humeur est plus souvent « Bien » ou « Super » ✿`})})}}catch(e){}
+  // heure d'écriture
+  try{const hrs=[];for(let k=from;k<=b&&k<=t;k=blAdd(k,1)){const e=E[k];if(blWritten(k)&&e.updatedAt&&blKey(new Date(e.updatedAt))===k)hrs.push(new Date(e.updatedAt).getHours())}
+    if(hrs.length>=6){const B=[["le matin",5,12],["l'après-midi",12,18],["le soir",18,24]];for(const [n,x,y] of B){const inb=hrs.filter(h=>h>=x&&h<y).sort((p,q)=>p-q);if(inb.length/hrs.length>=.6){const med=inb[Math.floor(inb.length/2)];out.push({w:.7,ic:"pen",c:"#b5506d",tag:"Heures d'écriture",t:`Tu écris surtout <b>${n}, vers ${med} h</b>. C'est ton petit moment à toi.`});break}}}}catch(e){}
+  // jour de la semaine le plus joyeux (8 semaines)
+  try{const by={},all=[];for(let k=blAdd(b,-55);k<=b&&k<=t;k=blAdd(k,1)){const m=blMood(k);if(!m)continue;const d=blDate(k).getDay();(by[d]=by[d]||[]).push(BL_MS[m]);all.push(BL_MS[m])}
+    if(all.length>=20){const avg=x=>x.reduce((p,q)=>p+q,0)/x.length,g=avg(all);let bd=null;for(const d in by)if(by[d].length>=3&&avg(by[d])-g>=.5&&(!bd||avg(by[d])>avg(by[bd])))bd=d;
+      if(bd!=null)out.push({w:.5,ic:"soleil",c:"#e2b23c",tag:"Jours de la semaine",t:`Les <b>${["dimanches","lundis","mardis","mercredis","jeudis","vendredis","samedis"][bd]}</b> sont tes jours les plus joyeux en ce moment.`})}}catch(e){}
+  // habitude tenue un jour difficile (cette semaine)
+  try{if(typeof hbSt==="function"){const s=hbSt();for(let k=a;k<=b&&k<=t;k=blAdd(k,1)){const m=blMood(k);if(m!=="fatigue"&&m!=="triste")continue;const h=s.list.find(x=>hbDone(s,x,k));if(h){out.push({w:.9,ic:h.icon,c:h.color,tag:"Même les jours difficiles",t:`« <b>${blEsc(h.name)}</b> » a tenu même ${["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"][blDate(k).getDay()]}, un jour ${m==="fatigue"?"fatigué":"plus triste"}. Bravo ✿`});break}}}}catch(e){}
+  // progrès d'écriture
+  try{const cur=blStats(a,b),prev=blStats(blAdd(a,-7),blAdd(a,-1));if(cur.pages>prev.pages&&prev.pages>0)out.push({w:.4,ic:"plante",c:"#6fb07f",tag:"Tes progrès",t:`Tu as écrit <b>${blS(cur.pages-prev.pages,"page")} de plus</b> que la semaine d'avant.`});
+    if(cur.book>0&&typeof shSt==="function"){const sb=shSt(),id=Object.keys(cur.books).sort((x,y)=>cur.books[y]-cur.books[x])[0],bk=sb.books.find(x=>x.id===id);if(bk)out.push({w:.6,ic:"lire",c:"#7b5fc9",tag:"Ton livre",t:`<b>${blFmt(cur.book)} mots</b> ajoutés à « ${blEsc(bk.title||"Sans titre")} » ✿`})}}catch(e){}
+  return out.sort((x,y)=>y.w-x.w).slice(0,3)}
+/* ---------- prêt ? ---------- */
+function blReadyWeek(){const n=new Date(),t=blToday(),d=n.getDay();if(d===0&&n.getHours()>=18)return blMon(t);if(d===1||d===2)return blAdd(blMon(t),-7);return null}
+function blHasData(a,b){const S=blStats(a,b);return S.pages>0||Object.keys(S.moods).length>0||blHabits(a,b).some(x=>x.n>0)}
+/* ---------- carte Écrire et intention ---------- */
+function renderBlCard(){if(typeof BL_MC==="undefined"||!BL_MC||typeof $!=="function")return;
+  let box=$("blCard");if(!box){const a=$("hbCard")||$("shCard")||$("wisCard");if(!a)return;box=document.createElement("div");box.id="blCard";a.after(box)}
+  if(typeof current!=="undefined"&&current!==todayKey()){box.hidden=true;return}box.hidden=false;
+  const s=blSt(),rw=blReadyWeek(),t=blToday(),fresh=rw&&!s.weeks[rw]?.seen&&blHasData(rw,blAdd(rw,6));
+  const mon=fresh?rw:blMon(t),mini=[0,1,2,3].map(i=>blDayFlower(blAdd(mon,i),17)).join("");
+  const it=s.intent&&s.intent.until>=t&&s.intent.from<=t&&!s.intent.hidden?s.intent:null;
+  box.innerHTML=`<button type="button" class="bl-card${fresh?" new":""}" aria-label="Ma semaine, le bilan furikaeri"><span class="bl-cmini">${mini}</span><span class="bl-cbody"><b>${fresh?"Ta semaine est prête":"Ma semaine"} <small lang="ja">振り返り</small></b><small>${fresh?blRange(rw,blAdd(rw,6))+" · 2 minutes":"Tes fleurs, tes tampons, tes souvenirs"}</small></span><span class="jd-go">›</span></button>`+
+    (it?`<div class="bl-intent"><span lang="ja">志</span><div><small>Mon intention de la semaine</small><b>${blEsc(it.text)}</b></div><button type="button" class="bl-x" aria-label="Masquer l'intention">×</button></div>`:"");
+  box.querySelector(".bl-card").onclick=()=>openFuri(fresh?{view:"week",mon:rw}:null);
+  const x=box.querySelector(".bl-x");if(x)x.onclick=()=>{const s2=blSt();if(s2.intent)s2.intent.hidden=true;blSave(s2);renderBlCard()}}
+/* ---------- fenêtre ---------- */
+function openFuri(view){let ov=$("bl");if(!ov){ov=document.createElement("div");ov.id="bl";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label","Mon bilan");ov.innerHTML='<div class="bl-in"></div>';document.body.append(ov);
+    ov.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&ov.contains(b))blAct(b.dataset.a,b.dataset.id,b)});
+    document.addEventListener("keydown",e=>{if($("bl")&&!$("bl").hidden&&e.key==="Escape"){e.stopPropagation();blBack()}},true)}
+  ov.hidden=false;document.body.style.overflow="hidden";BL_STACK=[];BL_V=view||{view:"album"};if(BL_V.view==="week"){const s=blSt();s.weeks[BL_V.mon]={...(s.weeks[BL_V.mon]||{}),seen:Date.now()};blSave(s)}blRender()}
+function blGo(v){BL_STACK.push(BL_V);BL_V=v;if(v.view==="week"){const s=blSt();if(blAdd(v.mon,6)<=blToday()||blReadyWeek()===v.mon){s.weeks[v.mon]={...(s.weeks[v.mon]||{}),seen:Date.now()};blSave(s)}}blRender();const i=document.querySelector("#bl .bl-in");if(i)i.scrollTop=0}
+function blBack(){if(BL_STACK.length){BL_V=BL_STACK.pop();blRender();return}closeFuri()}
+function closeFuri(){const ov=$("bl");if(ov)ov.hidden=true;document.body.style.overflow="";BL_V=null;renderBlCard()}
+function blToast(t){const ov=$("bl");let d=ov.querySelector(":scope>.hb-toast");if(!d){d=document.createElement("div");d.className="hb-toast";d.setAttribute("role","status");ov.append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
+function blHead(t,k,sub){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${BL_STACK.length?"Retour":"Fermer"}">${BL_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${t}</b>${k?`<span lang="ja">${k}</span>`:""}</div>${sub?`<div class="bl-sub">${sub}</div>`:""}`}
+function blRender(){const P=document.querySelector("#bl .bl-in");if(!P||!BL_V)return;P.innerHTML=BL_V.view==="week"?blViewWeek(BL_V):BL_V.view==="month"?blViewMonth(BL_V):blViewAlbum(BL_V)}
+function blSec(t,k){return`<h3 class="bl-h">${t}${k?` <span lang="ja">${k}</span>`:""}</h3>`}
+function blStat(v,l,c){return`<div class="bl-stat"><b${c?` style="color:${c}"`:""}>${v}</b><small>${l}</small></div>`}
+function blHabRows(H,len){return H.map(({h,n,p,st})=>`<div class="bl-hab"><span class="hb-ic" style="background:${h.color}">${hbIcon(h.icon,"#fff",15)}</span><span class="bl-hn">${blEsc(h.name)}</span><span class="bl-dots">${Array.from({length:len},(_,j)=>`<i style="background:${j<n?h.color:"#f1e4ea"}"></i>`).join("")}</span><b style="color:${h.color}">${n}${p?"/"+p:""}</b></div>`).join("")}
+/* une semaine */
+function blViewWeek(V){const a=V.mon,b=blAdd(a,6),t=blToday(),S=blStats(a,b),H=blHabits(a,b).filter(x=>x.n>0),R=blRewards(a,b),M=blMemory(a,b),I=blInsights(a,b),s=blSt(),cur=b>t||(b===t&&blReadyWeek()!==a);
+  const days=[0,1,2,3,4,5,6].map(i=>{const k=blAdd(a,i),d=blDate(k);return`<div class="bl-d${k>t?" fut":""}"><small>${["D","L","M","M","J","V","S"][d.getDay()]}</small>${k>t?blNone(30):blDayFlower(k,30)}<small>${d.getDate()}</small><i${blWritten(k)?' class="on"':""}></i></div>`}).join("");
+  const sup=(S.moods.super||0);
+  let html=blHead(cur?"Ma semaine en cours":"Ma semaine","振り返り","Du "+blRange(a,b))+`<div class="bl-body">
+  <div class="bl-box"><small class="bl-cap">Une fleur par jour, de la couleur de ton humeur</small><div class="bl-week">${days}</div></div>
+  <div class="bl-stats">${blStat(S.pages,S.pages>1?"pages écrites":"page écrite")}${blStat(blFmt(S.words),"mots")}${sup?blStat(sup,"humeur"+(sup>1?"s":"")+" « Super »","#e0789b"):blStat(Object.values(S.moods).reduce((x,y)=>x+y,0),"humeurs notées","#e0789b")}</div>`;
+  if(H.length){const best=H.reduce((x,y)=>y.st.best>x.st.best?y:x,H[0]);html+=blSec("Mes habitudes","習慣")+`<div class="bl-box">${blHabRows(H,7)}${best.st.best>=3?`<div class="bl-foot">Plus belle série : <b style="color:${best.h.color}">${blEsc(best.h.name.toLowerCase())}, ${best.st.best} jours ✿</b></div>`:""}</div>`}
+  if(R.length||S.book||S.reads.length){html+=blSec("Ce qui a fleuri","庭")+`<div class="bl-box bl-gl">`+R.map(r=>`<div class="bl-g">${r.svg?`<span class="bl-gi">${r.svg}</span>`:`<span class="bl-gi bl-gs">${blEsc(r.stamp)}</span>`}<div><b>${blEsc(r.n)}</b>${r.why?`<small>${r.svg?"Grâce à "+blEsc(r.why):blEsc(r.why)}</small>`:""}</div></div>`).join("")+
+    (S.book?`<div class="bl-g"><span class="bl-gi">${hbIcon("pen","#7b5fc9",22)}</span><div><b>${blFmt(S.book)} mots dans tes livres</b><small>Sur ton étagère</small></div></div>`:"")+S.reads.map(r=>`<div class="bl-g"><span class="bl-gi">${hbIcon("lire","#e09a3a",22)}</span><div><b>Lecture terminée</b><small>« ${blEsc(r.title)} »</small></div></div>`).join("")+`</div>`}
+  if(M)html+=blSec("Un souvenir de ta semaine","思い出")+`<button type="button" class="bl-mem" data-a="openday" data-id="${M.k}"><span class="bl-q">«</span><p>${blEsc(M.t)}</p><small>${blMood(M.k)?blFlower(BL_MC[blMood(M.k)],15):""}${blDate(M.k).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})} · relire la page ›</small></button>`;
+  if(I.length)html+=blSec("Ce que j'ai remarqué","気づき")+`<div class="bl-ins">${I.map(x=>`<div class="bl-i"><span style="background:${x.c}22">${hbIcon(x.ic,x.c,16)}</span><div><small>${x.tag}</small><p>${x.t}</p></div></div>`).join("")}</div>`;
+  if(!S.pages&&!H.length&&!Object.keys(S.moods).length)html+=`<p class="bl-empty">Cette semaine est encore toute neuve. Écris une page, note ton humeur, et ton bilan se remplira tout seul ✿</p>`;
+  const nx=blAdd(b,1),it=s.intent&&s.intent.from===nx?s.intent.text:"";
+  if(!cur||blReadyWeek()===a)html+=blSec("Pour la semaine prochaine","次へ")+`<div class="bl-box"><p class="bl-ask">Qu'aimerais-tu garder de cette semaine ?</p><textarea id="blIt" rows="2" maxlength="120" placeholder="Marcher le matin, même 10 minutes…" aria-label="Mon intention pour la semaine prochaine">${blEsc(it)}</textarea><button type="button" class="sh-btn sh-pink bl-save" data-a="intent" data-id="${nx}">${it?"Mettre à jour mon intention":"Garder comme intention ✿"}</button></div>`;
+  const pw=blAdd(a,-7),nw=blAdd(a,7);
+  html+=`<div class="bl-nav"><button type="button" class="sh-btn" data-a="week" data-id="${pw}">‹ Semaine d'avant</button>${nw<=t?`<button type="button" class="sh-btn" data-a="week" data-id="${nw}">Semaine suivante ›</button>`:""}</div></div>`;
+  return html}
+/* un mois */
+function blViewMonth(V){const ym=V.ym,[Y,M]=ym.split("-").map(Number),nd=new Date(Y,M,0).getDate(),a=ym+"-01",b=ym+"-"+String(nd).padStart(2,"0"),t=blToday(),S=blStats(a,b),H=blHabits(a,b).filter(x=>x.n>0),s=blSt(),cur=b>=t;
+  const off=(new Date(Y,M-1,1).getDay()+6)%7;let cells="";for(let i=0;i<off;i++)cells+="<i></i>";
+  for(let d=1;d<=nd;d++){const k=ym+"-"+String(d).padStart(2,"0");cells+=`<div class="bl-mc">${k>t?blNone(26):blDayFlower(k,26)}<small>${d}</small></div>`}
+  const legend=Object.keys(BL_MC).map(k=>`<span>${blFlower(BL_MC[k],13)}${BL_ML[k]}</span>`).join("");
+  const w=s.months[ym]&&s.months[ym].word,W=BL_WORDS.find(x=>x[0]===w);
+  let html=blHead(BL_MN[M-1].charAt(0).toUpperCase()+BL_MN[M-1].slice(1)+(Y!==new Date().getFullYear()?" "+Y:""),BL_MJ[M-1],cur?"Le mois en cours":"Mon mois")+`<div class="bl-body">
+  <div class="bl-box"><div class="bl-mgrid">${["L","M","M","J","V","S","D"].map(x=>`<small>${x}</small>`).join("")}${cells}</div><div class="bl-leg">${legend}</div></div>
+  <div class="bl-stats">${blStat(S.pages,S.pages>1?"pages":"page")}${blStat(blFmt(S.words),"mots écrits")}${S.book?blStat(blFmt(S.book),"mots dans mes livres","#7b5fc9"):blStat(S.reads.length,S.reads.length>1?"lectures terminées":"lecture terminée","#e09a3a")}</div>`;
+  if(H.length)html+=blSec("Mes cartes du mois","スタンプカード")+`<div class="bl-box">${H.map(({h,n})=>{let dots="";for(let d=1;d<=nd;d++){const k=ym+"-"+String(d).padStart(2,"0");dots+=`<i style="background:${k<=t&&hbDone(hbSt(),h,k)?h.color:"#f1e4ea"}"></i>`}return`<div class="bl-hab"><span class="hb-ic" style="background:${h.color}">${hbIcon(h.icon,"#fff",14)}</span><span class="bl-mdots">${dots}</span><b style="color:${h.color}">${n}</b></div>`}).join("")}</div>`;
+  html+=blSec("Le mot de ton mois","今月の一字")+`<div class="bl-box bl-word">${W?`<div class="bl-wk"><span lang="ja">${W[1]}</span><b>${W[0]}</b></div>`:`<p class="bl-ask">Un seul mot pour te souvenir de ${BL_MN[M-1]}.</p>`}<div class="sh-row sh-wrap bl-chips">${BL_WORDS.map(([x])=>`<button type="button" class="sh-chip${w===x?" on":""}" data-a="word" data-id="${x}" aria-pressed="${w===x}">${x}</button>`).join("")}</div></div>`;
+  const pm=new Date(Y,M-2,1),nm=new Date(Y,M,1),pk=blKey(pm).slice(0,7),nk=blKey(nm).slice(0,7);
+  html+=`<div class="bl-nav"><button type="button" class="sh-btn" data-a="month" data-id="${pk}">‹ Mois d'avant</button>${nk<=t.slice(0,7)?`<button type="button" class="sh-btn" data-a="month" data-id="${nk}">Mois suivant ›</button>`:""}</div></div>`;
+  return html}
+/* l'album */
+function blViewAlbum(V){const t=blToday(),s=blSt(),E=blE(),keys=Object.keys(E).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort();let first=keys[0]||t;try{if(typeof hbSt==="function"){const hl=hbSt().list.map(h=>h.created).filter(Boolean).sort();if(hl[0]&&hl[0]<first)first=hl[0]}}catch(e){}
+  const curMon=blMon(t),weeks=[];for(let m=curMon;m>=blMon(first)&&weeks.length<26;m=blAdd(m,-7))weeks.push(m);
+  const months=[];{let d=new Date(blDate(t).getFullYear(),blDate(t).getMonth(),1);const fm=first.slice(0,7);while(months.length<12){const ym=blKey(d).slice(0,7);if(ym<fm)break;months.push(ym);d=new Date(d.getFullYear(),d.getMonth()-1,1)}}
+  const wrow=m=>{const S=blStats(m,blAdd(m,6)),cur=m===curMon;return`<button type="button" class="bl-ar" data-a="week" data-id="${m}"><span class="bl-af">${[0,1,2,3,4,5,6].map(i=>blAdd(m,i)>t?blNone(14):blDayFlower(blAdd(m,i),14)).join("")}</span><b>${cur?"Cette semaine":blRange(m,blAdd(m,6))}</b><small>${blS(S.pages,"page")}${s.weeks[m]||cur||blAdd(m,6)>=blAdd(t,-8)?"":" ✿"}</small></button>`};
+  return blHead("Mes semaines et mes mois","振り返り")+`<div class="bl-body">`+
+    (blReadyWeek()&&!s.weeks[blReadyWeek()]?.seen?`<button type="button" class="bl-ready" data-a="week" data-id="${blReadyWeek()}"><b>Ta semaine est prête ✿</b><small>${blRange(blReadyWeek(),blAdd(blReadyWeek(),6))}</small></button>`:"")+
+    blSec("Mes semaines","週")+`<div class="bl-alb">${weeks.map(wrow).join("")}</div>`+
+    blSec("Mes mois","月")+`<div class="bl-alb">${months.map(ym=>{const [Y,M]=ym.split("-").map(Number),w=s.months[ym]&&s.months[ym].word,W=BL_WORDS.find(x=>x[0]===w);return`<button type="button" class="bl-ar" data-a="month" data-id="${ym}"><span class="bl-ak" lang="ja">${W?W[1]:BL_MJ[M-1].charAt(0)}</span><b>${BL_MN[M-1].charAt(0).toUpperCase()+BL_MN[M-1].slice(1)}${Y!==new Date().getFullYear()?" "+Y:""}</b><small>${W?"mot : "+W[0]:ym===t.slice(0,7)?"en cours":""}</small></button>`}).join("")}</div>`+
+    `<label class="bl-opt"><input type="checkbox" data-a="notif"${s.notif?" checked":""}> Me prévenir le dimanche à 19 h quand ma semaine est prête</label></div>`}
+/* ---------- actions ---------- */
+function blAct(a,id,el){
+  if(a==="back")return blBack();
+  if(a==="week")return blGo({view:"week",mon:id});
+  if(a==="month")return blGo({view:"month",ym:id});
+  if(a==="word"){const s=blSt(),ym=BL_V.ym;s.months[ym]={...(s.months[ym]||{}),word:s.months[ym]&&s.months[ym].word===id?null:id};blSave(s);if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}return blRender()}
+  if(a==="intent"){const v=($("blIt")&&$("blIt").value||"").trim().slice(0,120);const s=blSt();if(v){s.intent={text:v,from:id,until:blAdd(id,6),hidden:false};blToast("Ton intention t'accompagnera toute la semaine ✿");if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}}else if(s.intent&&s.intent.from===id)delete s.intent;blSave(s);return blRender()}
+  if(a==="openday"){closeFuri();if(typeof openDay==="function")openDay(id);return}
+  if(a==="notif"){const s=blSt();s.notif=!!el.checked;blSave(s);blPlanNotif();if(s.notif&&typeof isNative!=="undefined"&&isNative&&typeof notifPermission==="function")notifPermission(true).catch(()=>{});return}
+}
+/* ---------- rappel du dimanche ---------- */
+async function blPlanNotif(){if(typeof isNative==="undefined"||!isNative||typeof PL_!=="function")return;const LN=PL_().LocalNotifications;if(!LN)return;
+  try{await LN.cancel({notifications:[{id:7200}]})}catch(e){}
+  if(!blSt().notif)return;try{if(typeof notifPermission==="function"&&await notifPermission(false)!=="ok")return}catch(e){return}
+  try{if(typeof ensureChannel==="function")await ensureChannel(LN)}catch(e){}
+  const at=new Date();at.setHours(19,0,0,0);at.setDate(at.getDate()+((7-at.getDay())%7));if(at<=new Date())at.setDate(at.getDate()+7);
+  const mon=blAdd(blKey(at),-6),S=blStats(mon,blKey(at));
+  try{await LN.schedule({notifications:[{id:7200,title:"Ta semaine est prête ✿",body:"Viens voir tes fleurs de la semaine, tes tampons et un joli souvenir.",channelId:"doux_furin",sound:"nikki_furin.wav",schedule:{at,allowWhileIdle:true},extra:{view:"ecrire",furi:1},smallIcon:"ic_stat_nikki",iconColor:"#d9708d"}]})}catch(e){}}
+try{renderBlCard();setTimeout(blPlanNotif,2500)}catch(e){}
+/* ===== fin bilan ===== */
 
 </script>
 </body>
