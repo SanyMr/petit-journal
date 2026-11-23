@@ -77,7 +77,7 @@
         if(w.indexOf(" / ")>=0)w=w.replace(FR,"$1\u2066$2 / $3\u2069");
         if(AR.test(w)){AR.lastIndex=0;w=w.replace(AR,function(c){return SW[c]})}AR.lastIndex=0;
         DONE.set(n,w);if(w!==v)n.nodeValue=w;return}
-      if(n.nodeType!==1||SKIP[n.nodeName]||n.isContentEditable)return;var c=n.firstChild;while(c){fix(c);c=c.nextSibling}};
+      if(n.nodeType!==1||SKIP[n.nodeName]||n.isContentEditable||(n.classList&&n.classList.contains("sh-flow")))return;var c=n.firstChild;while(c){fix(c);c=c.nextSibling}};
     var start=function(){fix(document.body);new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==="characterData")fix(m.target);else for(var j=0;j<m.addedNodes.length;j++)fix(m.addedNodes[j])}}).observe(document.body,{childList:true,subtree:true,characterData:true})};
     if(document.body)start();else document.addEventListener("DOMContentLoaded",start)}
   // dates et nombres dans la langue choisie

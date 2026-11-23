@@ -1462,6 +1462,33 @@ body.ob-open{overflow:hidden}
 
 /* arabe (droite à gauche) : le japonais garde son sens de lecture */
 [dir=rtl] span.jp,[dir=rtl] small.jp,[dir=rtl] .ob-lh small{unicode-bidi:plaintext}
+
+/* livres EPUB importés */
+.sh-cvi{object-fit:cover;border-radius:4px;display:block;background:#fbf5ea;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.sh-flow p,.sh-flow h3,.sh-flow h4,.sh-flow li{unicode-bidi:plaintext}
+.sh-flow .c{text-align:center;text-indent:0}
+.sh-flow h4{font-size:1em;font-weight:600;margin:.7em 0 .3em}
+.sh-flow ul,.sh-flow ol{margin:.3em 0 .6em;padding-left:1.4em}
+.sh-flow li{margin:0 0 .25em}
+.sh-flow hr{border:0;border-top:1px solid currentColor;opacity:.25;margin:1em 20%}
+.sh-flow img{display:block;max-width:100%;max-height:92%;margin:.5em auto;object-fit:contain;break-inside:avoid}
+.sh-flow sup,.sh-flow sub{font-size:.7em;line-height:0}
+.sh-rd.ep .sh-stage{user-select:text;-webkit-user-select:text}
+.sh-emsg{max-width:300px;text-align:center;color:var(--ink);font-family:var(--display);line-height:1.5;padding:20px}
+.sh-emsg .sh-btn{margin-top:12px}
+.sh-eq{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(64px + env(safe-area-inset-bottom));z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.18);white-space:nowrap}
+.sh-toc{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);padding:calc(10px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom))}
+.sh-toch{display:flex;align-items:center;gap:8px;margin-bottom:8px}.sh-toch b{flex:1;font-family:var(--display);font-weight:500;font-size:17px}
+.sh-tocl{overflow:auto;flex:1}
+.sh-tocb{display:block;width:100%;text-align:start;background:none;border:0;border-bottom:1px solid rgba(127,100,110,.15);padding:12px 6px;font:inherit;font-size:15px;color:inherit;cursor:pointer}
+.sh-tocb.on{color:var(--sp-acc2,#b5506d);font-weight:600}
+.sh-eimp{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin:4px 0 14px}
+.sh-eimp small{color:var(--muted,#8a7683);font-size:12.5px;line-height:1.4;text-align:center}
+.sh-or{text-align:center;font-size:12px;color:var(--muted,#8a7683);margin-top:6px}
+.sh-eread{width:100%;margin:12px 0 4px}
+
+.sh-rdf{direction:ltr}
+[dir=rtl] #sh [data-a=back] svg{transform:scaleX(-1)}
 </style>
 </head>
 <body>
@@ -5677,7 +5704,7 @@ function shPattern(t,W,H,u){let o="";const R=shRnd(t.length*7+W);
   return o}
 function shWrap(t,n){const w=String(t||"").split(/\s+/).filter(Boolean),L=[];let c="";w.forEach(x=>{if(c&&(c+" "+x).length>n){L.push(c);c=x}else c=(c+" "+x).trim()});if(c)L.push(c);return L}
 var SH_UID=0;
-function shCover(b,W,H,nt){const t=b.tpl||"sakura",T=SH_TPL.find(x=>x[0]===t)||SH_TPL[1],u="shc"+(++SH_UID),bg=t==="kraft"?"#c9a274":t==="momiji"?"#f3b47b":t==="sakura"?"#fbe3ea":t==="asagao"?"#dff0fb":t==="asanoha"?"#5f8f6a":t==="urushi"?"#1e1414":t==="tsuki"?"#1f2a55":"#2f4a8a";
+function shCover(b,W,H,nt){if(b.cov&&/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(b.cov))return`<img class="sh-cv sh-cvi" src="${b.cov}" width="${W}" height="${H}" style="width:${W}px;height:${H}px" alt="" aria-hidden="true">`;const t=b.tpl||"sakura",T=SH_TPL.find(x=>x[0]===t)||SH_TPL[1],u="shc"+(++SH_UID),bg=t==="kraft"?"#c9a274":t==="momiji"?"#f3b47b":t==="sakura"?"#fbe3ea":t==="asagao"?"#dff0fb":t==="asanoha"?"#5f8f6a":t==="urushi"?"#1e1414":t==="tsuki"?"#1f2a55":"#2f4a8a";
   const small=W<80&&!nt,L=small?[]:shWrap(b.title||_t("shCover.sans_titre_53f8"),13).slice(0,3),lh=13.5,bh=small?H*.2:26+Math.max(1,L.length)*lh;
   let lab=`<rect x="${(W*.14).toFixed(0)}" y="${(H*.24).toFixed(0)}" width="${(W*.72).toFixed(0)}" height="${bh.toFixed(0)}" rx="3" fill="#fffaf2" opacity=".96"/>`+(small?"":`<rect x="${(W*.14+3).toFixed(0)}" y="${(H*.24+3).toFixed(0)}" width="${(W*.72-6).toFixed(0)}" height="${(bh-6).toFixed(0)}" rx="2" fill="none" stroke="#c9b08c" stroke-width=".7"/>`);
   if(!nt)lab+=L.map((x,i)=>`<text x="${W/2}" y="${(H*.24+19+i*lh).toFixed(1)}" text-anchor="middle" font-family="Kiwi Maru,serif" font-size="11.5" fill="#3b2a35">${shEsc(x)}</text>`).join("");
@@ -5708,9 +5735,9 @@ function openShelf(view){
   let ov=$("sh");if(!ov){ov=document.createElement("div");ov.id="sh";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label",_t("openShelf.mon_etagere_737f"));ov.innerHTML='<div class="sh-in"></div>';document.body.append(ov);
     ov.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&b.tagName!=="FORM"&&ov.contains(b)&&!b.closest("[contenteditable]"))shAct(b.dataset.a,b.dataset.id,b)});
     ov.addEventListener("input",e=>shInput(e));ov.addEventListener("submit",e=>{e.preventDefault();shAct(e.target.dataset.a,e.target.dataset.id,e.target)});
-    document.addEventListener("keydown",e=>{if(!$("sh")||$("sh").hidden)return;if(SH_V&&SH_V.view==="read"){if(e.key==="ArrowRight"){shTurn(1);e.preventDefault()}else if(e.key==="ArrowLeft"){shTurn(-1);e.preventDefault()}}if(e.key==="Escape"){e.stopPropagation();shBack()}},true);
+    document.addEventListener("keydown",e=>{if(!$("sh")||$("sh").hidden)return;if(SH_V&&/read$/.test(SH_V.view)){if(e.key==="ArrowRight"){shTurn(1);e.preventDefault()}else if(e.key==="ArrowLeft"){shTurn(-1);e.preventDefault()}}if(e.key==="Escape"){e.stopPropagation();shBack()}},true);
     document.addEventListener("visibilitychange",()=>{if(document.hidden){shFlush();if(shdOn()&&shdSt().pending)shdSync(true)}});window.addEventListener("online",()=>{if(shdOn()&&shdSt().pending)shdQueue(1000)});window.addEventListener("pagehide",shFlush);
-    window.addEventListener("resize",()=>{if(SH_V&&SH_V.view==="read"){clearTimeout(SH_RD&&SH_RD.rt);if(SH_RD)SH_RD.rt=setTimeout(()=>shReadLayout(true),250)}})}
+    window.addEventListener("resize",()=>{if(SH_V&&/read$/.test(SH_V.view)){clearTimeout(SH_RD&&SH_RD.rt);if(SH_RD)SH_RD.rt=setTimeout(()=>shReadLayout(true),250)}})}
   if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
   ov.hidden=false;document.body.style.overflow="hidden";SH_STACK=[];if(shdOn()&&shdSt().pending)shdQueue(1500);SH_V=view||{view:"shelf",tab:"books"};shRender()}
 function shGo(v){shFlush();SH_STACK.push(SH_V);SH_V=v;shRender();const i=document.querySelector("#sh .sh-in");if(i)i.scrollTop=0}
@@ -5718,8 +5745,8 @@ function shBack(){shFlush();if(SH_V&&SH_V.ask){SH_V={...SH_V,ask:null};shRender(
 function closeShelf(){shFlush();const ov=$("sh");if(ov)ov.hidden=true;document.body.style.overflow="";SH_V=null;SH_RD=null;renderShCard()}
 function shToast(t){let d=document.querySelector("#sh .sh-toast");if(!d){d=document.createElement("div");d.className="sh-toast";d.setAttribute("role","status");$("sh").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
 function shHead(title,k,right){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${SH_STACK.length?_t("shHead.retour_7727"):_t("shHead.fermer_7d20")}">${SH_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${title}</b>${k?`<span lang="ja">${k}</span>`:""}<span class="sh-hr">${right||""}</span></div>`}
-function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",V.view==="read");
-  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);else if(V.view==="export")P.innerHTML=shViewExport(s,V);
+function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",/read$/.test(V.view));
+  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="eread"){P.innerHTML=shViewRead(s,V);sheReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);else if(V.view==="export")P.innerHTML=shViewExport(s,V);
   if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="${V.ask.no||"noask"}" data-id="${V.ask.id||""}">${shEsc(V.ask.nol||_t("shRender.annuler_d12c"))}</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
 /* ---------- l'étagère ---------- */
 function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)-(b.created||0)),reads=s.reads;
@@ -5732,7 +5759,7 @@ function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)
     list=(last?`<button type="button" class="sh-cont" data-a="continue" data-id="${last.id}">${shCover(last,46,66)}<span><b>${_t("shViewShelf.continuer_a_ecrire_b64d")}</b><small>${_t("shViewShelf.mots_f081",{v0:(shEsc(last.title||_t("shViewShelf.sans_titre_53f8"))),v1:(shFmt(shTotal(last)))})}</small></span><span class="sh-go">›</span></button>`:`<div class="sh-empty"><p>${_t("shViewShelf.ton_premier_livre_t_4f66")}</p><button type="button" class="sh-btn sh-pink" data-a="newbook">${_t("shViewShelf.commencer_un_livre_0370")}</button></div>`)+
     books.map(b=>`<button type="button" class="sh-li" data-a="book" data-id="${b.id}">${shCover(b,38,54)}<span><b>${shEsc(b.title||_t("shViewShelf.sans_titre_53f8"))}</b><small>${_t("shViewShelf.chapitre_mots_a826",{v0:((b.chapters||[]).length),v1:((b.chapters||[]).length>1?"s":""),v2:(shFmt(shTotal(b)))})}</small></span><span class="sh-go">›</span></button>`).join("")}
   else list=`<div class="sh-year"><span lang="ja">${shKanjiNum(nDone)}</span><b>${_t("sh.read_year",{n:nDone,y:yr})}</b><small>${_t("shViewShelf.citations_gardees_d169",{v0:(reads.reduce((a,r)=>a+(r.quotes||[]).length,0))})}</small></div>`+
-    reads.slice().sort((a,b)=>({cur:0,todo:1,done:2}[a.status]-{cur:0,todo:1,done:2}[b.status])||(b.updated||0)-(a.updated||0)).map(r=>{const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):(r.status==="done"?100:0);return`<button type="button" class="sh-li" data-a="rbook" data-id="${r.id}">${shCover(r,34,48)}<span><b>${shEsc(r.title)}</b><i class="sh-bar"><i style="width:${r.status==="done"?100:p}%"></i></i></span><small class="sh-st">${r.status==="done"?_t("shViewShelf.lu_41b7"):r.status==="todo"?_t("shViewShelf.a_lire_071c"):r.page?"p. "+r.page:_t("shViewShelf.en_cours_7202")}</small></button>`}).join("")+`<button type="button" class="sh-addl" data-a="radd"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>${_t("shViewShelf.ajouter_un_livre_que_586a")}</button>`;
+    reads.slice().sort((a,b)=>({cur:0,todo:1,done:2}[a.status]-{cur:0,todo:1,done:2}[b.status])||(b.updated||0)-(a.updated||0)).map(r=>{const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):(r.status==="done"?100:0);return`<button type="button" class="sh-li" data-a="rbook" data-id="${r.id}">${shCover(r,34,48)}<span><b>${shEsc(r.title)}</b><i class="sh-bar"><i style="width:${r.status==="done"?100:p}%"></i></i></span><small class="sh-st">${r.status==="done"?_t("shViewShelf.lu_41b7"):r.status==="todo"?_t("shViewShelf.a_lire_071c"):r.page?"p. "+r.page:_t("shViewShelf.en_cours_7202")}</small></button>`}).join("")+`<button type="button" class="sh-addl" data-a="radd"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>${_t("shViewShelf.ajouter_un_livre_que_586a")}</button><button type="button" class="sh-addl" data-a="eimp"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>${_t("she.import")}</button>`;
   return shHead(_t("shViewShelf.mon_etagere_737f"),"本棚")+shdRow()+`<div class="sh-lab"><b>${_t("shViewShelf.mes_livres_87a6")}</b><small>${_t("shViewShelf.livre_mots_d5a8",{v0:(books.length),v1:(books.length>1?"s":""),v2:(shFmt(words))})}</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
   <div class="sh-lab"><b>${_t("shViewShelf.mes_lectures_a796")}</b><small>${_t("sh.read_n_year",{n:nDone,y:yr})}</small></div><div class="sh-shelf"><div class="sh-row1">${r2}</div><i class="sh-plank"></i></div>
   <div class="sh-tabs" role="tablist"><button type="button" role="tab" aria-selected="${tabB}" data-a="tabbooks">${_t("shViewShelf.mes_livres_87a6")}</button><button type="button" role="tab" aria-selected="${!tabB}" data-a="tabreads">${_t("shViewShelf.mes_lectures_a796")}</button></div><div class="sh-list">${list}</div>`}
@@ -5783,27 +5810,28 @@ function shFlush(){const V=SH_V;clearTimeout(SH_SAVE_T);if(!V||V.view!=="write"|
 function shNewChapter(s,b){const c={id:shId(),title:"",words:0,updated:Date.now()};b.chapters=(b.chapters||[]).concat([c]);b.updated=Date.now();shSave(s);return c}
 /* ---------- lire : pagination en colonnes et pages qui tournent ---------- */
 function shBookHtml(b){return`<section class="sh-pcov">${shCover(b,170,240)}<h1>${shEsc(b.title||_t("shBookHtml.sans_titre_53f8"))}</h1>${b.author?`<p>${shEsc(b.author)}</p>`:""}</section>`+(b.chapters||[]).map((c,i)=>`<section class="sh-pch"><h2><small>${_t("shBookHtml.chapitre_2165",{v0:(i+1)})}</small>${shEsc(c.title||"")}</h2>${shChGet(c.id)}</section>`).join("")+'<section class="sh-pend"><span lang="ja">終</span></section>'}
-function shViewRead(s,V){const b=shBook(s,V.id);if(!b)return shHead(_t("shViewRead.livre_introuvable_225b"),"");const R=b.rpos||{};const fs=R.fs||1,dark=!!R.dark;
-  return`<div class="sh-rd${dark?" dark":""}" id="shRd" style="--fs:${SH_FS[fs]}px"><div class="sh-rdh"><button type="button" class="sh-ic" data-a="back" aria-label="${_t("shViewRead.retour_7727")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${shEsc(b.title||_t("shViewRead.sans_titre_53f8"))}</b><button type="button" class="sh-ic" data-a="fs" aria-label="${_t("shViewRead.taille_du_texte_5b21")}">${_t("shViewRead.aa_9856")}</button><button type="button" class="sh-ic" data-a="dark" aria-label="${dark?_t("shViewRead.papier_creme_64ef"):_t("shViewRead.mode_nuit_6321")}"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg></button></div>
-  <div class="sh-stage" id="shStage"><div class="sh-book" id="shBk"></div></div><div class="sh-rdf"><button type="button" class="sh-ic" data-a="pgprev" aria-label="${_t("shViewRead.page_precedente_92a8")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="shPg"></span><button type="button" class="sh-ic" data-a="pgnext" aria-label="${_t("shViewRead.page_suivante_3d62")}"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div></div>`}
+function shViewRead(s,V){const ep=V.view==="eread",b=ep?shRead(s,V.id):shBook(s,V.id);if(!b)return shHead(_t("shViewRead.livre_introuvable_225b"),"");const R=b.rpos||{};const fs=R.fs!=null?R.fs:1,dark=!!R.dark;
+  return`<div class="sh-rd${dark?" dark":""}${ep?" ep":""}" id="shRd" style="--fs:${SH_FS[fs]}px"><div class="sh-rdh"><button type="button" class="sh-ic" data-a="back" aria-label="${_t("shViewRead.retour_7727")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${shEsc(b.title||_t("shViewRead.sans_titre_53f8"))}</b>${ep?`<button type="button" class="sh-ic" data-a="etoc" aria-label="${_t("she.toc")}"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h9"/></svg></button>`:""}<button type="button" class="sh-ic" data-a="fs" aria-label="${_t("shViewRead.taille_du_texte_5b21")}">${_t("shViewRead.aa_9856")}</button><button type="button" class="sh-ic" data-a="dark" aria-label="${dark?_t("shViewRead.papier_creme_64ef"):_t("shViewRead.mode_nuit_6321")}"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg></button></div>
+  <div class="sh-stage" id="shStage"><div class="sh-book" id="shBk"></div></div><div class="sh-rdf"><button type="button" class="sh-ic" data-a="pgprev" aria-label="${_t("shViewRead.page_precedente_92a8")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="shPg"></span><button type="button" class="sh-ic" data-a="pgnext" aria-label="${_t("shViewRead.page_suivante_3d62")}"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>${ep?`<button type="button" class="sh-btn sh-pink sh-eq" id="sheQ" data-a="equote" hidden>❝ ${_t("she.keepq")}</button>`:""}</div>`}
 var R_T=0;
-function shReadInit(V){const s=shSt(),b=shBook(s,V.id);if(!b)return;SH_RD={id:b.id,html:shBookHtml(b),k:0,n:1,busy:false};shReadLayout(false);
-  const st=$("shStage");let x0=null,y0=null,t0=0;
+function shReadInit(V){const s=shSt(),b=shBook(s,V.id);if(!b)return;SH_RD={id:b.id,html:shBookHtml(b),k:0,n:1,busy:false};shReadLayout(false);shReadBind()}
+function shReadBind(){sheSelWatch();
+  const st=$("shStage");if(!st||st.__bound)return;st.__bound=1;const selOn=()=>{const sl=getSelection();return!!(sl&&!sl.isCollapsed&&String(sl).trim())};let x0=null,y0=null,t0=0;
   st.addEventListener("touchstart",e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now()},{passive:true});
-  st.addEventListener("touchend",e=>{R_T=Date.now();if(x0==null)return;const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){shTurn(dx<0?1:-1)}else if(Date.now()-t0<300&&Math.abs(dx)<8){const r=st.getBoundingClientRect();shTurn(t.clientX-r.left>r.width/2?1:-1)}},{passive:true});
-  st.addEventListener("click",e=>{if(Date.now()-R_T<700)return;const r=st.getBoundingClientRect();shTurn(e.clientX-r.left>r.width/2?1:-1)})}
-function shReadLayout(keep){const R=SH_RD,st=$("shStage"),bk=$("shBk");if(!R||!st||!bk)return;const s=shSt(),b=shBook(s,R.id);const pos=b&&b.rpos||{};
+  st.addEventListener("touchend",e=>{R_T=Date.now();if(x0==null)return;if(selOn()){x0=null;return}const t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){shTurn(dx<0?1:-1)}else if(Date.now()-t0<300&&Math.abs(dx)<8){const r=st.getBoundingClientRect();shTurn(t.clientX-r.left>r.width/2?1:-1)}},{passive:true});
+  st.addEventListener("click",e=>{if(Date.now()-R_T<700||selOn())return;const r=st.getBoundingClientRect();shTurn(e.clientX-r.left>r.width/2?1:-1)})}
+function shReadLayout(keep){const R=SH_RD,st=$("shStage"),bk=$("shBk");if(!R||!st||!bk)return;const s=shSt(),b=shRdObj(s,R);let pos=b&&b.rpos||{};if(R.ep&&(pos.c||0)!==R.c)pos={};
   const W=st.clientWidth-24,H=st.clientHeight-16,spread=W>=700,pw=Math.floor(Math.min(spread?W/2:W,spread?520:560)),ph=Math.floor(Math.min(H,pw*1.5));
   R.spread=spread;R.pw=pw;R.ph=ph;bk.style.width=(spread?pw*2:pw)+"px";bk.style.height=ph+"px";bk.classList.toggle("spread",spread);
-  const pad=Math.round(Math.max(18,pw*.08)),flow=`<div class="sh-flow" style="left:${pad}px;top:${pad}px;width:${pw-2*pad}px;height:${ph-2*pad-14}px;column-width:${pw-2*pad}px;column-gap:${2*pad}px">${R.html}</div>`;
+  const pad=Math.round(Math.max(18,pw*.08)),flow=`<div class="sh-flow" dir="ltr" style="left:${pad}px;top:${pad}px;width:${pw-2*pad}px;height:${ph-2*pad-14}px;column-width:${pw-2*pad}px;column-gap:${2*pad}px">${R.html}</div>`;
   const win=(cls)=>`<div class="sh-win ${cls}" style="width:${pw}px;height:${ph}px">${flow}<span class="sh-num"></span></div>`;
   bk.innerHTML=(spread?win("sh-L"):"")+win("sh-R")+`<div class="sh-flip" style="width:${pw}px;height:${ph}px;left:${spread?pw:0}px" hidden><div class="sh-face sh-front">${win("sh-F")}</div><div class="sh-face sh-back">${win("sh-B")}</div><i class="sh-shade"></i></div>`;
   R.prevN=R.n;const f=bk.querySelector(".sh-R .sh-flow");R.n=Math.max(1,Math.round(f.scrollWidth/pw));if(spread&&R.n%2)R.n++;
-  let k=keep?Math.round(R.k/Math.max(1,R.prevN||R.n)*R.n):(pos.n?Math.round((pos.k||0)/Math.max(1,pos.n)*R.n):0);k=Math.max(0,Math.min(R.n-1,k));if(spread)k-=k%2;R.k=k;shShow()}
+  let k=keep?Math.round(R.k/Math.max(1,R.prevN||R.n)*R.n):(pos.n?Math.round((pos.k||0)/Math.max(1,pos.n)*R.n):0);k=Math.max(0,Math.min(R.n-1,k));if(R.end){k=R.n-1;R.end=false}if(spread)k-=k%2;R.k=k;shShow()}
 function shPage(cls,k){const w=document.querySelector("#shBk ."+cls);if(!w)return;const R=SH_RD,f=w.querySelector(".sh-flow"),ok=k>=0&&k<R.n;f.style.transform=`translateX(${-k*R.pw}px)`;f.style.visibility=ok?"":"hidden";const n=w.querySelector(".sh-num");if(n)n.textContent=ok&&k>0?k:""}
 function shShow(){const R=SH_RD;if(!R)return;if(R.spread){shPage("sh-L",R.k);shPage("sh-R",R.k+1)}else shPage("sh-R",R.k);const p=$("shPg");if(p)p.textContent=R.spread?`${R.k+1}–${Math.min(R.n,R.k+2)} / ${R.n}`:`${R.k+1} / ${R.n}`;
-  const s=shSt(),b=shBook(s,R.id);if(b){const rd=$("shRd");b.rpos={...(b.rpos||{}),k:R.k,n:R.n,fs:b.rpos&&b.rpos.fs!=null?b.rpos.fs:1,dark:rd&&rd.classList.contains("dark")};shSave(s)}}
-function shTurn(dir){const R=SH_RD;if(!R||R.busy)return;const step=R.spread?2:1,nk=R.k+dir*step;if(nk<0||nk>=R.n){return}
+  const s=shSt(),b=shRdObj(s,R);if(b){const rd=$("shRd");b.rpos={...(b.rpos||{}),k:R.k,n:R.n,fs:b.rpos&&b.rpos.fs!=null?b.rpos.fs:1,dark:rd&&rd.classList.contains("dark")};if(R.ep)sheProg(b,R);shSave(s)}}
+function shTurn(dir){const R=SH_RD;if(!R||R.busy)return;const step=R.spread?2:1,nk=R.k+dir*step;if(nk<0||nk>=R.n){if(R.ep)sheChap(R,dir);return}
   const fl=document.querySelector("#shBk .sh-flip");if(!fl||matchMedia("(prefers-reduced-motion: reduce)").matches){R.k=nk;shShow();return}
   R.busy=true;if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}
   const anim=(from,to,done)=>{fl.hidden=false;fl.style.transition="none";fl.style.transform=`rotateY(${from}deg)`;fl.classList.add("go");void fl.offsetWidth;fl.style.transition="transform .62s cubic-bezier(.45,.05,.25,1)";fl.style.transform=`rotateY(${to}deg)`;let fin=false;const end=()=>{if(fin)return;fin=true;fl.hidden=true;fl.classList.remove("go");done();R.busy=false};fl.addEventListener("transitionend",end,{once:true});setTimeout(end,900)};
@@ -5812,18 +5840,25 @@ function shTurn(dir){const R=SH_RD;if(!R||R.busy)return;const step=R.spread?2:1,
 /* ---------- mes lectures ---------- */
 function shFlowers(n,id){return`<div class="sh-fl" role="radiogroup" aria-label="${_t("shFlowers.ma_note_74c6")}">${[1,2,3,4,5].map(i=>`<button type="button" role="radio" aria-checked="${n===i}" aria-label="${plural(i,"fleur")}" data-a="rate" data-id="${i}"><svg viewBox="-10 -10 20 20"><g fill="${i<=n?"#f59bb6":"#eadde3"}">${[0,1,2,3,4].map(k=>`<ellipse cy="-5" rx="3.4" ry="5" transform="rotate(${k*72})"/>`).join("")}</g><circle r="2" fill="${i<=n?"#ffd66b":"#fff"}"/></svg></button>`).join("")}</div>`}
 function shViewRBook(s,V){const r=shRead(s,V.id);if(!r)return shHead(_t("shViewRBook.livre_introuvable_225b"),"");const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):0;
-  return shHead("","")+`<div class="sh-rtop">${shCover(r,92,130)}<div><h2>${shEsc(r.title)}</h2>${r.author?`<small>${shEsc(r.author)}</small>`:""}<div class="sh-row sh-wrap">${[["todo",_t("shViewRBook.a_lire_071c")],["cur",_t("shViewRBook.en_cours_7202")],["done",_t("shViewRBook.lu_b3a1")]].map(([k,l])=>`<button type="button" class="sh-chip${r.status===k?" on":""}" data-a="rstatus" data-id="${k}" aria-pressed="${r.status===k}">${l}</button>`).join("")}</div>${shFlowers(r.rating||0)}</div></div>
+  return shHead("","")+`<div class="sh-rtop">${shCover(r,92,130)}<div><h2>${shEsc(r.title)}</h2>${r.author?`<small>${shEsc(r.author)}</small>`:""}<div class="sh-row sh-wrap">${[["todo",_t("shViewRBook.a_lire_071c")],["cur",_t("shViewRBook.en_cours_7202")],["done",_t("shViewRBook.lu_b3a1")]].map(([k,l])=>`<button type="button" class="sh-chip${r.status===k?" on":""}" data-a="rstatus" data-id="${k}" aria-pressed="${r.status===k}">${l}</button>`).join("")}</div>${shFlowers(r.rating||0)}</div></div>${r.epub?`<button type="button" class="sh-btn sh-pink sh-eread" data-a="eread" data-id="${r.id}">📖 ${r.rpos&&r.rpos.n?_t("she.continue",{p:shePct(r)}):_t("she.read")}</button>`:""}
   <form class="sh-prog" data-a="rpage"><label>${_t("shViewRBook.page_193c")}<input name="page" type="number" min="0" inputmode="numeric" value="${r.page||0}"></label><span>sur</span><label class="sr">${_t("shViewRBook.nombre_de_pages_f2da")}</label><input name="pages" type="number" min="0" inputmode="numeric" value="${r.pages||""}" placeholder="?" aria-label="${_t("shViewRBook.nombre_de_pages_f2da")}"><button class="sh-btn">OK</button></form>
   <i class="sh-bar big"><i style="width:${r.status==="done"?100:p}%"></i></i><small class="sh-dates">${r.start?_t("shViewRBook.commence_le_fe97")+shDate(r.start):""}${r.end?_t("shViewRBook.termine_le_d349")+shDate(r.end):""}</small>
   <h3 class="sh-h">${_t("shViewRBook.mes_citations_ff2b")}</h3>${(r.quotes||[]).map((q,i)=>`<div class="sh-q"><p>« ${shEsc(q.t)} »</p><small>${q.p?_t("shViewRBook.page_6c1a")+shEsc(q.p):""}</small><button type="button" class="sh-ic sh-qx" data-a="delq" data-id="${i}" aria-label="${_t("shViewRBook.retirer_cette_citation_545c")}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`).join("")}
   <form class="sh-form sh-qf" data-a="addq"><label>${_t("shViewRBook.une_citation_87be")}<textarea name="t" rows="2" maxlength="500" required placeholder="${_t("shViewRBook.recopie_une_phrase_qui_4d26")}"></textarea></label><label class="sh-qp">${_t("shViewRBook.page_193c")}<input name="p" maxlength="6" inputmode="numeric"></label><button class="sh-btn">${_t("shViewRBook.ajouter_la_citation_5e12")}</button></form>
   <button type="button" class="sh-li" data-a="rjournal"><svg viewBox="0 0 24 24" class="sh-lic"><path d="M5 19l1-4 10-10 3 3-10 10z"/></svg><span><b>${_t("shViewRBook.ecrire_une_page_de_7c53")}</b></span><span class="sh-go">›</span></button>
   <button type="button" class="sh-link" data-a="askdelread" data-id="${r.id}">${_t("shViewRBook.retirer_ce_livre_de_70b4")}</button>`}
-function shViewRAdd(s,V){return shHead(_t("shViewRAdd.ajouter_une_lecture_c9b3"),"読書")+`<form class="sh-form" data-a="raddok"><label>${_t("shViewRAdd.titre_99fb")}<input name="title" maxlength="80" required placeholder="${_t("shViewRAdd.le_titre_du_livre_679b")}"></label><label>Auteur·rice<input name="author" maxlength="60"></label><label>${_t("shViewRAdd.nombre_de_pages_f2da")}<input name="pages" type="number" min="0" inputmode="numeric"></label>
+function shViewRAdd(s,V){return shHead(_t("shViewRAdd.ajouter_une_lecture_c9b3"),"読書")+`<div class="sh-eimp"><button type="button" class="sh-btn sh-pink" data-a="eimp"${V.busy?" disabled":""}>📖 ${V.busy==="epub"?_t("she.importing"):_t("she.import")}</button><small>${_t("she.hint")}</small><span class="sh-or">${_t("she.or")}</span></div><form class="sh-form" data-a="raddok"><label>${_t("shViewRAdd.titre_99fb")}<input name="title" maxlength="80" required placeholder="${_t("shViewRAdd.le_titre_du_livre_679b")}"></label><label>Auteur·rice<input name="author" maxlength="60"></label><label>${_t("shViewRAdd.nombre_de_pages_f2da")}<input name="pages" type="number" min="0" inputmode="numeric"></label>
   <fieldset><legend>${_t("shViewRAdd.ou_en_es_tu_4a5d")}</legend><div class="sh-row sh-wrap">${[["todo",_t("shViewRAdd.a_lire_071c")],["cur",_t("shViewRAdd.en_cours_7202")],["done",_t("shViewRAdd.lu_b3a1")]].map(([k,l],i)=>`<label class="sh-chip sh-rad"><input type="radio" name="status" value="${k}"${i===1?" checked":""}>${l}</label>`).join("")}</div></fieldset><button class="sh-btn sh-pink">${_t("shViewRAdd.ranger_sur_mon_etagere_0f89")}</button></form>`}
 /* ---------- actions ---------- */
 function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="back")return shBack();
+  if(a==="eimp")return shePick();
+  if(a==="ereimp")return shePick(id);
+  if(a==="eread")return shGo({view:"eread",id});
+  if(a==="etoc"){const rd=$("shRd"),r=SH_RD&&shRead(s,SH_RD.id);if(!rd||!r||!r.epub)return;const o=$("sheToc");if(o)return o.remove();rd.insertAdjacentHTML("beforeend",sheTocHtml(r));const on=rd.querySelector(".sh-tocb.on");if(on)on.scrollIntoView({block:"center"});return}
+  if(a==="etocx"){const o=$("sheToc");if(o)o.remove();return}
+  if(a==="ego"){const o=$("sheToc");if(o)o.remove();if(SH_RD&&SH_RD.ep&&!SH_RD.busy)sheChap(SH_RD,0,+id);return}
+  if(a==="equote"){const r=SH_RD&&shRead(s,SH_RD.id);if(!r||!SHE_SEL)return;r.quotes=(r.quotes||[]).concat([{t:SHE_SEL,p:r.page?String(r.page):"",at:Date.now()}]);r.updated=Date.now();shSave(s);SHE_SEL="";try{getSelection().removeAllRanges()}catch(e){}const q=$("sheQ");if(q)q.hidden=true;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}return shToast(_t("shAct.citation_gardee_4dc3"))}
   if(a==="drive")return shGo({view:"drive"});
   if(a==="export")return shGo({view:"export",id});
   if(a==="exppdf"||a==="expepub")return shExport(a==="exppdf"?"pdf":"epub",id);
@@ -5854,7 +5889,7 @@ function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="prevch"||a==="nextch"){shFlush();const s2=shSt(),b=shBook(s2,V.book);if(!b)return;const i=b.chapters.findIndex(c=>c.id===V.id);let c=b.chapters[i+(a==="nextch"?1:-1)];if(!c&&a==="nextch"){const ed=$("shEd");if(ed&&!(ed.textContent||"").trim())return shToast(_t("shAct.ecris_un_peu_avant_2b3a"));c=shNewChapter(s2,b)}if(!c)return;SH_V={view:"write",id:c.id};return shRender()}
   if(a==="fmt"){const ed=$("shEd");if(!ed)return;ed.focus();if(id==="h3"){const cur=document.queryCommandValue("formatBlock").toLowerCase();document.execCommand("formatBlock",false,cur==="h3"?"p":"h3")}else if(id==="quote"){const cur=document.queryCommandValue("formatBlock").toLowerCase();document.execCommand("formatBlock",false,cur==="blockquote"?"p":"blockquote")}else document.execCommand(id,false,null);V.dirty=true;clearTimeout(SH_SAVE_T);SH_SAVE_T=setTimeout(shFlush,700);shWc();return}
   if(a==="read")return shGo({view:"read",id});
-  if(a==="fs"||a==="dark"){const b=shBook(s,SH_RD&&SH_RD.id);if(!b)return;b.rpos=b.rpos||{};if(a==="fs")b.rpos.fs=((b.rpos.fs!=null?b.rpos.fs:1)+1)%SH_FS.length;else b.rpos.dark=!b.rpos.dark;shSave(s);const rd=$("shRd");if(rd){rd.style.setProperty("--fs",SH_FS[b.rpos.fs!=null?b.rpos.fs:1]+"px");rd.classList.toggle("dark",!!b.rpos.dark)}if(a==="fs")shReadLayout(true);return}
+  if(a==="fs"||a==="dark"){const b=SH_RD&&shRdObj(s,SH_RD);if(!b)return;b.rpos=b.rpos||{};if(a==="fs")b.rpos.fs=((b.rpos.fs!=null?b.rpos.fs:1)+1)%SH_FS.length;else b.rpos.dark=!b.rpos.dark;shSave(s);const rd=$("shRd");if(rd){rd.style.setProperty("--fs",SH_FS[b.rpos.fs!=null?b.rpos.fs:1]+"px");rd.classList.toggle("dark",!!b.rpos.dark)}if(a==="fs")shReadLayout(true);return}
   if(a==="pgprev"||a==="pgnext")return shTurn(a==="pgnext"?1:-1);
   if(a==="askdelbook"){SH_V={...V,ask:{msg:_t("shAct.supprimer_ce_livre_et_51b0"),ok:"delbook",okl:_t("shAct.supprimer_ccfd"),id}};return shRender()}
   if(a==="delbook"){const b=shBook(s,id);if(b){(b.chapters||[]).forEach(c=>shChDel(c.id));s.books=s.books.filter(x=>x.id!==id);shSave(s)}SH_V={...V,ask:null};shToast(_t("shAct.livre_supprime_80e6"));return shBack()}
@@ -5867,8 +5902,153 @@ function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="delq"&&r){r.quotes.splice(+id,1);shSave(s);return shRender()}
   if(a==="rjournal"&&r){const q=_t("shAct.qu_est_ce_que_30ac")+r.title+_t("shAct.t_a_fait_ressentir_ea18"),t=todayKey();if(typeof entries!=="undefined"){if(typeof hasContent==="function"&&hasContent(entries[t]))touch(t,{prompt:q});else entries[t]={...entry(t),prompt:q}}closeShelf();if(typeof openDay==="function")openDay(t);setTimeout(()=>{const ta=$("text");if(ta)ta.focus()},350);return}
   if(a==="askdelread"){SH_V={...V,ask:{msg:_t("shAct.retirer_ce_livre_et_6ea5"),ok:"delread",okl:_t("shAct.retirer_0b60"),id}};return shRender()}
-  if(a==="delread"){s.reads=s.reads.filter(x=>x.id!==id);shSave(s);SH_V={...V,ask:null};return shBack()}
+  if(a==="delread"){sheDel(id);s.reads=s.reads.filter(x=>x.id!==id);shSave(s);SH_V={...V,ask:null};return shBack()}
 }
+/* ---------- livres EPUB importés (Mes lectures) ----------
+   Le fichier d'origine est rangé à part (base « petit-journal-livres »), jamais chargé au démarrage.
+   La fiche de lecture (titre, couverture, progression, citations) vit dans l'étagère comme les autres. */
+var SHE_DB=null,SHE_MAX=60*1024*1024,SHE_CACHE={},SHE_SEL="",SHE_SELT=null,SHE_PART=6000,SHE_DIR="Mes lectures";
+function sheDb(){if(SHE_DB)return SHE_DB;SHE_DB=new Promise(res=>{try{const r=indexedDB.open("petit-journal-livres",1);r.onupgradeneeded=()=>r.result.createObjectStore("f");r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}});return SHE_DB}
+async function shePut(id,buf){const db=await sheDb();if(!db)throw new Error("store");await new Promise((ok,ko)=>{let t;try{t=db.transaction("f","readwrite");t.objectStore("f").put(buf,id)}catch(e){return ko(e)}t.oncomplete=()=>ok();t.onerror=()=>ko(t.error||new Error("store"));t.onabort=()=>ko(t.error||new Error("quota"))})}
+async function sheGet(id){const db=await sheDb();if(!db)return null;return new Promise(res=>{try{const rq=db.transaction("f").objectStore("f").get(id);rq.onsuccess=()=>res(rq.result||null);rq.onerror=()=>res(null)}catch(e){res(null)}})}
+async function sheDel(id){if(SHE_CACHE.id===id)sheDrop();const db=await sheDb();if(!db)return;try{db.transaction("f","readwrite").objectStore("f").delete(id)}catch(e){}}
+function sheDrop(){try{Object.values(SHE_CACHE.ep&&SHE_CACHE.ep.urls||{}).forEach(u=>URL.revokeObjectURL(u))}catch(e){}SHE_CACHE={}}
+/* --- zip : lecture du répertoire central, décompression par le navigateur (ou en JS si absent) --- */
+function sheTinf(src){let out=new Uint8Array(Math.max(1024,src.length*4)),op=0,bp=0,bb=0,bc=0;
+  const need=n=>{if(op+n>out.length){const o=new Uint8Array(Math.max(out.length*2,op+n));o.set(out.subarray(0,op));out=o}};
+  const bits=n=>{while(bc<n){if(bp>=src.length)throw new Error("inflate");bb|=src[bp++]<<bc;bc+=8}const v=bb&((1<<n)-1);bb>>>=n;bc-=n;return v};
+  const build=lens=>{const cnt=new Uint16Array(16),off=new Uint16Array(16),sym=new Uint16Array(lens.length);for(let i=0;i<lens.length;i++)cnt[lens[i]]++;cnt[0]=0;for(let i=1;i<16;i++)off[i]=off[i-1]+cnt[i-1];for(let i=0;i<lens.length;i++)if(lens[i])sym[off[lens[i]]++]=i;return{cnt,sym}};
+  const dec=t=>{let code=0,first=0,idx=0;for(let l=1;l<16;l++){code|=bits(1);const c=t.cnt[l];if(code-c<first)return t.sym[idx+(code-first)];idx+=c;first+=c;first<<=1;code<<=1}throw new Error("inflate")};
+  const LB=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258],LE=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],
+    DB=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577],DE=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13];
+  let last;do{last=bits(1);const type=bits(2);
+    if(type===0){bb=0;bc=0;const len=src[bp]|(src[bp+1]<<8);bp+=4;need(len);out.set(src.subarray(bp,bp+len),op);op+=len;bp+=len;continue}
+    let lt,dt;if(type===1){const l=[];for(let i=0;i<288;i++)l.push(i<144?8:i<256?9:i<280?7:8);lt=build(l);dt=build(new Array(30).fill(5))}
+    else if(type===2){const hl=bits(5)+257,hd=bits(5)+1,hc=bits(4)+4,ord=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],cl=new Array(19).fill(0);for(let i=0;i<hc;i++)cl[ord[i]]=bits(3);const ct=build(cl),L=[];
+      while(L.length<hl+hd){const s=dec(ct);if(s<16)L.push(s);else if(s===16){const p=L[L.length-1]||0;for(let r=3+bits(2);r--;)L.push(p)}else if(s===17){for(let r=3+bits(3);r--;)L.push(0)}else{for(let r=11+bits(7);r--;)L.push(0)}}
+      lt=build(L.slice(0,hl));dt=build(L.slice(hl,hl+hd))}else throw new Error("inflate");
+    for(;;){const s=dec(lt);if(s<256){need(1);out[op++]=s}else if(s===256)break;else{const i=s-257,len=LB[i]+bits(LE[i]),di=dec(dt),dist=DB[di]+bits(DE[di]);if(dist>op)throw new Error("inflate");need(len);for(let k=0;k<len;k++){out[op]=out[op-dist];op++}}}
+  }while(!last);return out.subarray(0,op)}
+async function sheInflate(u8){if(typeof DecompressionStream==="function"){try{const ds=new DecompressionStream("deflate-raw");return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(ds)).arrayBuffer())}catch(e){}}return sheTinf(u8)}
+function sheUnzip(buf){const u=new Uint8Array(buf),dv=new DataView(buf);let e=-1;for(let i=u.length-22;i>=Math.max(0,u.length-65557);i--){if(dv.getUint32(i,true)===0x06054b50){e=i;break}}if(e<0)throw new Error("bad");
+  const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const files={},td=new TextDecoder("utf-8");
+  for(let i=0;i<n;i++){if(p+46>u.length||dv.getUint32(p,true)!==0x02014b50)throw new Error("bad");const m=dv.getUint16(p+10,true),cs=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),xl=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),lo=dv.getUint32(p+42,true);
+    files[td.decode(u.subarray(p+46,p+46+nl))]={m,cs,lo};p+=46+nl+xl+cl}
+  const low={};Object.keys(files).forEach(k=>low[k.toLowerCase()]=k);return{u,dv,files,low}}
+function sheEntry(z,name){return z.files[name]?name:z.low[String(name).toLowerCase()]||null}
+async function sheFile(z,name){const k=sheEntry(z,name);if(!k)return null;const f=z.files[k],lo=f.lo;if(z.dv.getUint32(lo,true)!==0x04034b50)throw new Error("bad");const st=lo+30+z.dv.getUint16(lo+26,true)+z.dv.getUint16(lo+28,true),d=z.u.subarray(st,st+f.cs);
+  if(f.m===0)return d;if(f.m===8)return sheInflate(d);throw new Error("bad")}
+async function sheText(z,name){const u=await sheFile(z,name);return u?new TextDecoder("utf-8").decode(u):null}
+function shePath(base,href){href=String(href||"").split("#")[0].trim();if(!href||/^[a-z]+:/i.test(href))return"";try{href=decodeURIComponent(href)}catch(e){}if(href[0]==="/")return href.slice(1);
+  const out=[];((base.includes("/")?base.slice(0,base.lastIndexOf("/")+1):"")+href).split("/").forEach(x=>{if(x==="..")out.pop();else if(x&&x!==".")out.push(x)});return out.join("/")}
+function sheXml(t,html){const P=new DOMParser();let d=null;try{d=P.parseFromString(t,html?"application/xhtml+xml":"application/xml")}catch(e){}if(!d||d.getElementsByTagName("parsererror").length)d=P.parseFromString(t,"text/html");return d}
+function sheQ(d,tag){return d?[...d.getElementsByTagNameNS("*",tag)]:[]}
+function sheMime(p){const x=(p.split(".").pop()||"").toLowerCase();return x==="png"?"image/png":x==="gif"?"image/gif":x==="svg"?"image/svg+xml":x==="webp"?"image/webp":"image/jpeg"}
+/* --- ouvrir un EPUB : métadonnées, ordre de lecture, couverture, sommaire ; refuse les fichiers protégés --- */
+async function sheOpen(buf){const z=sheUnzip(buf);
+  if(sheEntry(z,"META-INF/rights.xml"))throw new Error("drm");
+  const enc=await sheText(z,"META-INF/encryption.xml");if(enc){const ed=sheXml(enc);for(const x of sheQ(ed,"EncryptedData")){const m=sheQ(x,"EncryptionMethod")[0],al=m&&m.getAttribute("Algorithm")||"",cr=sheQ(x,"CipherReference")[0],uri=cr&&cr.getAttribute("URI")||"";
+    if(!/idpf\.org\/2008\/embedding|ns\.adobe\.com\/pdf\/enc#RC/.test(al)&&!/\.(otf|ttf|woff2?)$/i.test(uri))throw new Error("drm")}}
+  const c=await sheText(z,"META-INF/container.xml");if(!c)throw new Error("bad");const rf=sheQ(sheXml(c),"rootfile")[0],opfP=rf&&rf.getAttribute("full-path");const opfT=opfP&&await sheText(z,opfP);if(!opfT)throw new Error("bad");const o=sheXml(opfT);
+  const meta=n=>{const e=sheQ(o,n)[0];return e?(e.textContent||"").replace(/\s+/g," ").trim():""};
+  const man={};sheQ(o,"item").forEach(it=>{man[it.getAttribute("id")]={href:shePath(opfP,it.getAttribute("href")),type:(it.getAttribute("media-type")||"").toLowerCase(),props:it.getAttribute("properties")||""}});
+  const sp=sheQ(o,"spine")[0],spine=sheQ(o,"itemref").map(r=>man[r.getAttribute("idref")]).filter(x=>x&&x.href&&/html|xml/.test(x.type)&&!/ncx/.test(x.type));if(!spine.length)throw new Error("bad");
+  let cov=Object.values(man).find(m=>/cover-image/.test(m.props));if(!cov){const mc=sheQ(o,"meta").find(m=>m.getAttribute("name")==="cover");if(mc&&man[mc.getAttribute("content")])cov=man[mc.getAttribute("content")]}if(!cov)cov=Object.values(man).find(m=>/^image\//.test(m.type)&&/cover|couv/i.test(m.href));
+  const toc={},nav=Object.values(man).find(m=>/(^|\s)nav(\s|$)/.test(m.props));
+  if(nav){const t=await sheText(z,nav.href);if(t){const d=sheXml(t,1),navs=sheQ(d,"nav"),nv=navs.find(n=>/toc/.test(n.getAttribute("epub:type")||n.getAttributeNS("http://www.idpf.org/2007/ops","type")||""))||navs[0];if(nv)sheQ(nv,"a").forEach(a=>{const p=shePath(nav.href,a.getAttribute("href")||"");if(p&&!toc[p])toc[p]=(a.textContent||"").replace(/\s+/g," ").trim()})}}
+  if(!Object.keys(toc).length){const tid=sp&&sp.getAttribute("toc"),nc=(tid&&man[tid])||Object.values(man).find(m=>/ncx/.test(m.type));if(nc){const t=await sheText(z,nc.href);if(t)sheQ(sheXml(t),"navPoint").forEach(np=>{const ct=sheQ(np,"content")[0],tx=sheQ(np,"text")[0];if(ct){const p=shePath(nc.href,ct.getAttribute("src")||"");if(p&&!toc[p])toc[p]=(tx&&tx.textContent||"").replace(/\s+/g," ").trim()}})}}
+  return{z,title:meta("title"),author:meta("creator"),lang:meta("language"),spine:spine.map(s=>s.href),cov:cov&&cov.href,toc,urls:{}}}
+/* --- nettoyer un chapitre : on garde le texte et la mise en forme simple, jamais le code ni les styles du fichier --- */
+var SHE_T={P:"p",DIV:"p",H1:"h3",H2:"h3",H3:"h3",H4:"h4",H5:"h4",H6:"h4",B:"b",STRONG:"b",I:"i",EM:"i",CITE:"i",DFN:"i",VAR:"i",BR:"br",BLOCKQUOTE:"blockquote",UL:"ul",OL:"ol",LI:"li",HR:"hr",SUP:"sup",SUB:"sub",PRE:"p",DD:"p",DT:"p",TR:"p",FIGCAPTION:"p",CAPTION:"p",CENTER:"p",ADDRESS:"p",POEM:"p",STANZA:"p"};
+var SHE_SKIP=/^(SCRIPT|STYLE|HEAD|TITLE|NOSCRIPT|IFRAME|OBJECT|EMBED|FORM|BUTTON|INPUT|SELECT|TEXTAREA|AUDIO|VIDEO|MATH|CANVAS|TEMPLATE|LINK|META)$/;
+var SHE_BLK=/^(P|H3|H4|BLOCKQUOTE|UL|OL|LI|HR)$/;
+function sheClean(doc,base){const body=doc.body||sheQ(doc,"body")[0]||doc.documentElement,out=document.createElement("div");
+  const hasBlk=n=>{for(const c of n.children||[]){const t=(c.localName||"").toUpperCase();if(/^(P|DIV|H[1-6]|BLOCKQUOTE|UL|OL|LI|TABLE|SECTION|ARTICLE|FIGURE|PRE|HR|DL)$/.test(t)||hasBlk(c))return true}return false};
+  const inPara=d=>{for(let x=d;x&&x!==out;x=x.parentNode)if(/^(P|H3|H4)$/.test(x.tagName))return true;return false};
+  const walk=(src,dst)=>{for(const n of [...src.childNodes]){if(n.nodeType===3){const t=n.textContent;if(t)dst.appendChild(document.createTextNode(t));continue}if(n.nodeType!==1)continue;const tg=(n.localName||"").toUpperCase();if(SHE_SKIP.test(tg))continue;
+    if(tg==="IMG"||tg==="IMAGE"){const h=n.getAttribute("src")||n.getAttribute("href")||n.getAttributeNS("http://www.w3.org/1999/xlink","href");const p=h&&shePath(base,h);if(p){const im=document.createElement("img");im.setAttribute("data-p",p);im.alt=(n.getAttribute("alt")||"").slice(0,200);dst.appendChild(im)}continue}
+    let m=SHE_T[tg];if(tg==="DIV"&&hasBlk(n))m=null;if(m&&SHE_BLK.test(m.toUpperCase())&&m!=="li"&&inPara(dst))m=m==="hr"?null:"br";
+    if(!m){walk(n,dst);continue}
+    const el=document.createElement(m);if(m==="p"||m==="h3"||m==="h4"){const a=(n.getAttribute("style")||"")+" "+(n.getAttribute("class")||"")+" "+(n.getAttribute("align")||"");if(/text-align\s*:\s*center|(^|\s)(center|centre|centered|centred|c)(\s|$)/i.test(a))el.className="c"}
+    dst.appendChild(el);if(m!=="br"&&m!=="hr")walk(n,el);if(m==="br"&&tg!=="BR"){walk(n,dst);dst.appendChild(document.createElement("br"))}}};
+  walk(body,out);
+  out.querySelectorAll("p,h3,h4,li,blockquote").forEach(e=>{if(!(e.textContent||"").trim()&&!e.querySelector("img"))e.remove()});return out}
+function sheWords(t){t=String(t||"");return(t.match(/[^\s぀-ヿ㐀-鿿]+/g)||[]).length+Math.round((t.match(/[぀-ヿ㐀-鿿]/g)||[]).length/2)}
+/* découpe en parties de ~6000 mots pour que la liseuse reste légère, même avec un livre en un seul fichier */
+async function shePlan(ep){const sp=[],w=[],t=[];let n=0;
+  for(const h of ep.spine){const x=await sheText(ep.z,h);if(x==null)continue;const d=sheXml(x,1),div=sheClean(d,h),kids=[...div.childNodes];let first=(ep.toc[h]||"");if(!first){const hh=div.querySelector("h3,h4");first=hh?hh.textContent:""}first=first.replace(/\s+/g," ").trim().slice(0,90);
+    const has=kids.some(k=>k.nodeType===1&&k.querySelector&&(k.tagName==="IMG"||k.querySelector("img")))||!!div.querySelector("img");const tw=sheWords(div.textContent);if(!tw&&!has)continue;
+    let a=0,acc=0,part=0;for(let i=0;i<kids.length;i++){acc+=sheWords(kids[i].textContent);if(acc>=SHE_PART&&i<kids.length-1){sp.push([h,a,i+1]);w.push(acc);t.push(part?"":first);a=i+1;acc=0;part++}}
+    sp.push([h,a,kids.length]);w.push(acc);t.push(part?"":first);n++}
+  if(!sp.length)throw new Error("bad");return{sp,w,t}}
+async function sheChapHtml(ep,e){const x=await sheText(ep.z,e[0]);if(x==null)return"";const div=sheClean(sheXml(x,1),e[0]),kids=[...div.childNodes].slice(e[1],e[2]),box=document.createElement("div");kids.forEach(k=>box.appendChild(k));
+  for(const im of [...box.querySelectorAll("img[data-p]")]){const p=im.getAttribute("data-p");let u=ep.urls[p];if(!u){try{const by=await sheFile(ep.z,p);if(by)u=ep.urls[p]=URL.createObjectURL(new Blob([by],{type:sheMime(p)}))}catch(er){}}im.removeAttribute("data-p");if(u)im.src=u;else im.remove()}
+  return box.innerHTML}
+/* --- couverture : vignette JPEG et couleur de tranche tirée de l'image --- */
+async function sheCover(ep){if(!ep.cov)return null;try{const by=await sheFile(ep.z,ep.cov);if(!by)return null;const url=URL.createObjectURL(new Blob([by],{type:sheMime(ep.cov)}));
+    const img=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=url});const W=150,H=212,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");x.fillStyle="#fbf5ea";x.fillRect(0,0,W,H);
+    const r=Math.max(W/(img.naturalWidth||W),H/(img.naturalHeight||H)),w=(img.naturalWidth||W)*r,h=(img.naturalHeight||H)*r;x.drawImage(img,(W-w)/2,(H-h)/2,w,h);URL.revokeObjectURL(url);
+    const px=x.getImageData(0,0,W,H).data;let R=0,G=0,B=0,k=0;for(let i=0;i<px.length;i+=64){R+=px[i];G+=px[i+1];B+=px[i+2];k++}const f=v=>Math.round(v/k*.8).toString(16).padStart(2,"0");
+    return{cov:c.toDataURL("image/jpeg",.78),spine:"#"+f(R)+f(G)+f(B)}}catch(e){return null}}
+/* --- importer --- */
+var SHE_INP=null;
+function shePick(reid){if(!SHE_INP){SHE_INP=document.createElement("input");SHE_INP.type="file";SHE_INP.accept=".epub,application/epub+zip,application/octet-stream,application/zip";SHE_INP.hidden=true;SHE_INP.id="sheFile";document.body.append(SHE_INP);
+    SHE_INP.addEventListener("change",()=>{const f=SHE_INP.files&&SHE_INP.files[0],id=SHE_INP.dataset.re||"";SHE_INP.value="";if(f)sheImport(f,id)})}
+  SHE_INP.dataset.re=reid||"";SHE_INP.click()}
+function sheErr(e){const m=String(e&&e.message||e);return m==="drm"?_t("she.drm"):m==="big"?_t("she.big"):/quota|store|QuotaExceeded/i.test(m)?_t("she.full"):_t("she.bad")}
+async function sheImport(file,reid){if(SH_V&&SH_V.busy)return;if(file.size>SHE_MAX)return shToast(_t("she.big"));
+  SH_V={...SH_V,busy:"epub"};shRender();shToast(_t("she.importing"));
+  try{const buf=await file.arrayBuffer(),ep=await sheOpen(buf),plan=await shePlan(ep),cv=await sheCover(ep),s=shSt();
+    const tw=plan.w.reduce((a,b)=>a+b,0),title=(ep.title||String(file.name||"").replace(/\.epub$/i,"").replace(/[_]+/g," ")||_t("shAct.sans_titre_53f8")).slice(0,80),dir=/^(ar|he|fa|ur|yi|ps)\b/i.test(ep.lang)?"rtl":"ltr";
+    const meta={sp:plan.sp,w:plan.w,t:plan.t,size:buf.byteLength,lang:(ep.lang||"").slice(0,12),dir};
+    if(reid){const r=shRead(s,reid);if(!r)throw new Error("bad");await shePut(reid,buf);if(SHE_CACHE.id===reid)sheDrop();const same=r.epub&&r.epub.sp&&r.epub.sp.length===plan.sp.length;r.epub=meta;if(!same)r.rpos={...(r.rpos||{}),c:0,k:0,n:0};if(cv&&!r.cov){r.cov=cv.cov;r.spine=r.spine||cv.spine}r.updated=Date.now();shSave(s);
+      SH_V={...SH_V,busy:false};shToast(_t("she.added"));return shGo({view:"eread",id:reid})}
+    const dup=s.reads.find(r=>r.epub&&r.epub.size===buf.byteLength&&r.title===title);if(dup){SH_V={...SH_V,busy:false};shToast(_t("she.dup"));return shGo({view:"rbook",id:dup.id})}
+    const id=shId();await shePut(id,buf);
+    const r={id,title,author:(ep.author||"").slice(0,60),pages:Math.max(1,Math.round(tw/250)),page:0,status:"cur",tpl:SH_TPL[shH(title)%SH_TPL.length][0],kanji:"",rating:0,quotes:[],start:Date.now(),end:null,created:Date.now(),updated:Date.now(),epub:meta};
+    if(cv){r.cov=cv.cov;r.spine=cv.spine}s.reads.push(r);shSave(s);if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}
+    SH_V={...SH_V,busy:false};shToast(_t("she.added"));SH_STACK=[{view:"shelf",tab:"reads"}];SH_V={view:"rbook",id};shRender()}
+  catch(e){SH_V={...SH_V,busy:false};shRender();shToast(sheErr(e))}}
+/* --- charger pour lire : d'abord le téléphone, sinon Google Drive --- */
+async function sheBuf(id){let b=await sheGet(id);if(b)return b;if(typeof shdOn!=="function"||!shdOn())return null;const d=shdSt();let fid=d.ep&&d.ep[id];
+  if(!fid){const x=await shdFind(id,"eid");fid=x&&x.id}if(!fid)return null;const st=$("shStage");if(st)st.innerHTML=`<p class="sh-emsg">${_t("she.dl")}</p>`;
+  const r=await shdFetch("GET",SHD_API+"files/"+fid+"?alt=media");if(!r.ok)return null;b=await r.arrayBuffer();try{await shePut(id,b)}catch(e){}const d2=shdSt();d2.ep={...(d2.ep||{}),[id]:fid};shdPut(d2);return b}
+async function sheLoad(id){if(SHE_CACHE.id===id)return SHE_CACHE.ep;const b=await sheBuf(id);if(!b)return null;const ep=await sheOpen(b);sheDrop();SHE_CACHE={id,ep};return ep}
+function sheTotal(r){return(r.epub&&r.epub.w||[]).reduce((a,b)=>a+b,0)||1}
+function shePct(r){const P=r.rpos||{},w=r.epub&&r.epub.w||[];if(!w.length)return 0;const c=Math.min(P.c||0,w.length-1);let before=0;for(let i=0;i<c;i++)before+=w[i];const fr=P.n?Math.min(1,((P.k||0)+(P.sp?2:1))/P.n):0;
+  return Math.max(0,Math.min(100,Math.round((before+w[c]*fr)/sheTotal(r)*100)))}
+/* --- la liseuse : la même que pour tes livres, un chapitre à la fois --- */
+async function sheReadInit(V){const s=shSt(),r=shRead(s,V.id);if(!r||!r.epub)return;const st=$("shStage");const tok=V;SH_RD=null;
+  if(st)st.innerHTML=`<p class="sh-emsg">${_t("she.loading")}</p>`;
+  let ep=null,err="";try{ep=await sheLoad(r.id)}catch(e){err=sheErr(e)}
+  if(SH_V!==tok)return;
+  if(!ep){if(st)st.innerHTML=`<div class="sh-emsg"><p>${shEsc(err||_t("she.missing"))}</p><button type="button" class="sh-btn sh-pink" data-a="ereimp" data-id="${r.id}">${_t("she.reimport")}</button></div>`;return}
+  const sp=r.epub.sp,P=r.rpos||{},c=Math.max(0,Math.min(sp.length-1,P.c||0));if(st)st.innerHTML='<div class="sh-book" id="shBk"></div>';
+  SH_RD={id:r.id,ep:true,c,html:await sheChapHtml(ep,sp[c]),k:0,n:1,busy:false};if(SH_V!==tok)return;
+  if(r.status==="todo"){r.status="cur";if(!r.start)r.start=Date.now();shSave(s)}
+  shReadLayout(false);shReadBind()}
+async function sheChap(R,dir,to){const s=shSt(),r=shRead(s,R.id),ep=SHE_CACHE.ep;if(!r||!ep||!r.epub)return;const sp=r.epub.sp,nc=to!=null?to:R.c+dir;
+  if(nc<0)return;if(nc>=sp.length){shToast(_t("she.end"));return}
+  R.busy=true;try{R.html=await sheChapHtml(ep,sp[nc])}catch(e){R.busy=false;return}R.c=nc;R.end=to==null&&dir<0;R.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("page")}catch(e){}shReadLayout(false)}
+function sheProg(r,R){r.rpos={...(r.rpos||{}),c:R.c,sp:R.spread?1:0};const p=shePct(r),last=r.epub&&R.c>=r.epub.sp.length-1&&R.k+(R.spread?2:1)>=R.n;
+  if(r.pages)r.page=last?r.pages:Math.min(r.pages,Math.round(p/100*r.pages));if(r.status==="todo")r.status="cur";if(!r.start)r.start=Date.now();
+  if(last&&r.status!=="done"){r.status="done";r.end=Date.now();r.page=r.pages||r.page;setTimeout(()=>{shToast(_t("shAct.livre_termine_b519"));if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}},300)}
+  r.updated=Date.now();const pg=$("shPg");if(pg)pg.textContent=(R.spread?`${R.k+1}–${Math.min(R.n,R.k+2)} / ${R.n}`:`${R.k+1} / ${R.n}`)+" · "+(last?100:p)+" %"}
+function sheTocHtml(r){const c=SH_RD&&SH_RD.c||0;return`<div class="sh-toc" id="sheToc" role="dialog" aria-label="${_t("she.toc")}"><div class="sh-toch"><b>${_t("she.toc")}</b><button type="button" class="sh-ic" data-a="etocx" aria-label="${_t("app.fermer_7d20")}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="sh-tocl">`+
+  r.epub.sp.map((e,i)=>{if((i&&!r.epub.t[i]&&r.epub.sp[i-1][0]===e[0])||(!r.epub.t[i]&&(r.epub.w[i]||0)<40))return"";let n=0;for(let j=0;j<=i;j++)if(!j||r.epub.t[j]||r.epub.sp[j-1][0]!==r.epub.sp[j][0])n++;return`<button type="button" class="sh-tocb${i===c||(i<c&&r.epub.sp[c][0]===e[0])?" on":""}" data-a="ego" data-id="${i}">${shEsc(r.epub.t[i]||_t("she.chap",{n}))}</button>`}).join("")+`</div></div>`}
+function sheSelWatch(){if(window.__sheSel)return;window.__sheSel=1;document.addEventListener("selectionchange",()=>{const b=$("sheQ");if(!b)return;const sel=getSelection(),bk=$("shBk"),t=sel&&!sel.isCollapsed&&bk&&bk.contains(sel.anchorNode)?String(sel).replace(/\s+/g," ").trim():"";
+  clearTimeout(SHE_SELT);if(t.length>=3){SHE_SEL=t.slice(0,500);b.hidden=false}else SHE_SELT=setTimeout(()=>{b.hidden=true},600)})}
+function shRdObj(s,R){return R&&R.ep?shRead(s,R.id):shBook(s,R&&R.id)}
+/* envoi d'un fichier binaire sur Drive : en une fois jusqu'à 4,5 Mo, sinon en envoi « reprenable » */
+function shdMultiBin(m,u8,mime){const b="nikki"+Math.random().toString(36).slice(2);return{ct:"multipart/related; boundary="+b,body:new Blob([`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(m)}\r\n--${b}\r\nContent-Type: ${mime}\r\n\r\n`,u8,`\r\n--${b}--`])}}
+async function shdUploadBin(meta,buf,mime,parent){const m={...meta,parents:[parent]},u8=new Uint8Array(buf);let loc=null;
+  if(u8.length>4.5*1024*1024){const r=await shdFetch("POST",SHD_UP+"files?uploadType=resumable&fields=id",JSON.stringify(m),"application/json; charset=UTF-8",false,{"X-Upload-Content-Type":mime});if(!r.ok)throw new Error("http"+r.status);loc=r.headers.get("Location")}
+  if(loc){let p;try{p=await fetch(loc,{method:"PUT",headers:{"Content-Type":mime},body:new Blob([u8],{type:mime})})}catch(e){throw new Error("network")}if(!p.ok)throw new Error("http"+p.status);return(await p.json()).id}
+  const q=shdMultiBin(m,u8,mime),r=await shdFetch("POST",SHD_UP+"files?uploadType=multipart&fields=id",q.body,q.ct);if(!r.ok)throw new Error("http"+r.status);return(await r.json()).id}
+async function shdSyncEpubs(d,s,root){const eps=s.reads.filter(r=>r.epub);d.ep=d.ep||{};if(!eps.length&&!Object.keys(d.ep).length)return;const edir=await shdDir(d,"epubs",SHE_DIR,root);
+  for(const r of eps){if(d.ep[r.id])continue;const x=await shdFind(r.id,"eid");if(x){d.ep[r.id]=x.id;continue}const buf=await sheGet(r.id);if(!buf)continue;
+    d.ep[r.id]=await shdUploadBin({name:shdName(r)+".epub",mimeType:"application/epub+zip",appProperties:{nikki:"epub",eid:r.id}},buf,"application/epub+zip",edir);shdPut({...shdSt(),ep:d.ep,dirs:d.dirs})}
+  for(const id of Object.keys(d.ep))if(!eps.some(r=>r.id===id)){try{await shdFetch("PATCH",SHD_API+"files/"+d.ep[id],JSON.stringify({trashed:true}),"application/json; charset=UTF-8")}catch(e){}delete d.ep[id]}}
 /* ---------- sauvegarde Google Drive (appli Android) ---------- */
 var SHD_K="nikki.shdrive",SHD_T=null,SHD_BUSY=false,SHD_AGAIN=false,SHD_TOK=null,SHD_API="https://www.googleapis.com/drive/v3/",SHD_UP="https://www.googleapis.com/upload/drive/v3/";
 function shdPlug(){if(window.__shdMock)return window.__shdMock;if(typeof isNative==="undefined"||!isNative||typeof PL_!=="function")return null;return PL_().NikkiDrive||null}
@@ -5882,9 +6062,9 @@ function shdBackup(){const o={app:"petit-journal",version:1,date:new Date().toIS
 function shdJournalHtml(){const E=typeof entries!=="undefined"&&entries||{};const ks=Object.keys(E).filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)&&E[k]&&(E[k].text||"").trim()).sort().reverse();
   return`<html><head><meta charset="utf-8"></head><body><h1 style="text-align:center">${_t("shdJournalHtml.mon_petit_journal_a737")}</h1><p style="text-align:center"><i>${plural(ks.length,"page")}</i></p>`+ks.map(k=>{const e=E[k],dt=new Date(k+"T12:00:00").toLocaleDateString(I18N.locale(),{weekday:"long",day:"numeric",month:"long",year:"numeric"});return`<h2>${shEsc(dt)}</h2>${e.prompt?`<p><i>${shEsc(e.prompt)}</i></p>`:""}`+String(e.text).split(/\n+/).map(x=>`<p>${shEsc(x)}</p>`).join("")}).join("")+"</body></html>"}
 async function shdToken(inter){if(SHD_TOK&&Date.now()<SHD_TOK.exp)return SHD_TOK.t;const d=shdSt();const r=await shdPlug().token({email:d.email,interactive:!!inter});SHD_TOK={t:r.token,exp:Date.now()+40*60e3};return r.token}
-async function shdFetch(method,url,body,ctype,again){const t=await shdToken(false),h={Authorization:_t("shdFetch.bearer_e685")+t};if(ctype)h["Content-Type"]=ctype;
+async function shdFetch(method,url,body,ctype,again,xh){const t=await shdToken(false),h={Authorization:_t("shdFetch.bearer_e685")+t};if(ctype)h["Content-Type"]=ctype;if(xh)Object.assign(h,xh);
   let r;try{r=await fetch(url,{method,headers:h,body})}catch(e){throw new Error("network")}
-  if(r.status===401&&!again){try{await shdPlug().clear({token:t})}catch(e){}SHD_TOK=null;return shdFetch(method,url,body,ctype,true)}
+  if(r.status===401&&!again){try{await shdPlug().clear({token:t})}catch(e){}SHD_TOK=null;return shdFetch(method,url,body,ctype,true,xh)}
   if(r.status===403||r.status===429){const x=await r.text().catch(()=>"");throw new Error(/rateLimit|userRateLimit|429/.test(x+r.status)?"busy":/accessNotConfigured|has not been used|disabled/i.test(x)?"api_off":"forbidden")}
   return r}
 function shdMulti(meta,content,mime){const b="nikki"+Math.random().toString(36).slice(2);return{ct:"multipart/related; boundary="+b,body:`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${b}\r\nContent-Type: ${mime}; charset=UTF-8\r\n\r\n${content}\r\n--${b}--`}}
@@ -5907,13 +6087,14 @@ async function shdSync(force){if(!shdOn()||shdSt().check)return;if(SHD_BUSY){SHD
     for(const id of Object.keys(d.docs))if(!shBook(s,id)){try{await shdFetch("PATCH",SHD_API+"files/"+d.docs[id],JSON.stringify({trashed:true}),"application/json; charset=UTF-8")}catch(e){}delete d.docs[id];delete d.h[id]}
     const ch={};s.books.forEach(b=>(b.chapters||[]).forEach(c=>ch[c.id]=shChGet(c.id)));
     const sj=JSON.stringify({v:1,shelf:s,ch}),shh=shH(sj)+":"+sj.length;if(!d.json||d.shh!==shh){d.json=await shdUpload(d.json,{name:"sauvegarde-etagere.json",mimeType:"application/json",appProperties:{nikki:"shelfjson"}},JSON.stringify({v:1,at:Date.now(),shelf:s,ch}),"application/json",dir);d.shh=shh}
+    await shdSyncEpubs(d,s,root);
     const full=shdBackup(),jh=shH(full.replace(/"date":"[^"]*"/,""))+":"+full.length;
     if(!d.full||d.jh!==jh){const since=Date.now()-(d.jlast||0);if(force||!d.full||since>=SHD_JGAP){
       d.full=await shdUpload(d.full,{name:"sauvegarde-journal.json",mimeType:"application/json",appProperties:{nikki:"full"}},full,"application/json",root);
       d.jdoc=await shdUpload(d.jdoc,{name:_t("shdSync.mon_journal_c016"),mimeType:"application/vnd.google-apps.document",appProperties:{nikki:"jdoc"}},shdJournalHtml(),"text/html",root);
       d.jh=jh;d.jlast=Date.now()}else jwait=SHD_JGAP-since}
-    d={...shdSt(),dirs:d.dirs,docs:d.docs,h:d.h,json:d.json,shh:d.shh,full:d.full,jdoc:d.jdoc,jh:d.jh,jlast:d.jlast,last:Date.now(),err:"",pending:SHD_AGAIN||jwait?1:0};shdPut(d)}
-  catch(e){const m=String(e&&e.message||e);d={...shdSt(),dirs:d.dirs||shdSt().dirs,docs:d.docs||shdSt().docs,h:d.h||shdSt().h,json:d.json||shdSt().json,shh:d.shh||shdSt().shh,full:d.full||shdSt().full,jdoc:d.jdoc||shdSt().jdoc,jh:d.jh||shdSt().jh,jlast:d.jlast||shdSt().jlast,err:/network|offline|Failed to fetch/i.test(m)?"offline":/need_consent|no_account|auth/.test(m)?"auth":/api_off/.test(m)?"api":"fail",pending:1};shdPut(d);SHD_TOK=d.err==="auth"?null:SHD_TOK}
+    d={...shdSt(),ep:d.ep,dirs:d.dirs,docs:d.docs,h:d.h,json:d.json,shh:d.shh,full:d.full,jdoc:d.jdoc,jh:d.jh,jlast:d.jlast,last:Date.now(),err:"",pending:SHD_AGAIN||jwait?1:0};shdPut(d)}
+  catch(e){const m=String(e&&e.message||e);d={...shdSt(),ep:d.ep||shdSt().ep,dirs:d.dirs||shdSt().dirs,docs:d.docs||shdSt().docs,h:d.h||shdSt().h,json:d.json||shdSt().json,shh:d.shh||shdSt().shh,full:d.full||shdSt().full,jdoc:d.jdoc||shdSt().jdoc,jh:d.jh||shdSt().jh,jlast:d.jlast||shdSt().jlast,err:/network|offline|Failed to fetch/i.test(m)?"offline":/need_consent|no_account|auth/.test(m)?"auth":/api_off/.test(m)?"api":"fail",pending:1};shdPut(d);SHD_TOK=d.err==="auth"?null:SHD_TOK}
   SHD_BUSY=false;if(SHD_AGAIN){SHD_AGAIN=false;shdQueue(1500)}else if(jwait){clearTimeout(SHD_JT);SHD_JT=setTimeout(()=>{SHD_JT=null;shdSync()},jwait+500)}shdUi()}
 function shdTime(t){const x=new Date(t),n=new Date();return x.toDateString()===n.toDateString()?"à "+x.toLocaleTimeString(I18N.locale(),{hour:"2-digit",minute:"2-digit"}):_t("shdTime.le_845c")+shDate(t)}
 function shdState(){const d=shdSt();if(!shdPlug())return null;if(!d.email)return{k:"off",t:_t("shdState.sauvegarder_mon_journal_sur_8441")};if(d.check)return{k:"wait",t:_t("shdState.une_sauvegarde_existe_sur_5a25")};if(SHD_BUSY)return{k:"busy",t:_t("shdState.envoi_sur_drive_464d")};
@@ -5934,7 +6115,7 @@ function shViewDrive(s,V){const d=shdSt(),st=shdState()||{k:"off",t:""};
   ${d.dirs&&d.dirs.books?`<a class="sh-btn sh-dlink" href="https://drive.google.com/drive/folders/${encodeURIComponent(d.dirs.books)}" target="_blank" rel="noopener">${_t("shViewDrive.ouvrir_le_dossier_dans_1ce5")}</a>`:""}
   <button type="button" class="sh-link" data-a="askdoff">${_t("shViewDrive.arreter_la_sauvegarde_sur_b123")}</button></div>`}
 async function shdConnect(reauth){const V=SH_V;if(!V)return;V.busy=true;V.err="";shRender();
-  try{const r=await shdPlug().connect();SHD_TOK={t:r.token,exp:Date.now()+40*60e3};const d=shdSt();if(d.email&&d.email!==r.email){d.dirs=null;d.docs={};d.h={};d.json=null}d.email=r.email;d.err="";d.check=1;shdPut(d);V.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}shToast(_t("shdConnect.drive_connecte_ad6b"));shRender();await shdFirstCheck()}
+  try{const r=await shdPlug().connect();SHD_TOK={t:r.token,exp:Date.now()+40*60e3};const d=shdSt();if(d.email&&d.email!==r.email){d.dirs=null;d.docs={};d.h={};d.json=null;d.ep={}}d.email=r.email;d.err="";d.check=1;shdPut(d);V.busy=false;if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}shToast(_t("shdConnect.drive_connecte_ad6b"));shRender();await shdFirstCheck()}
   catch(e){const m=String(e&&e.message||e);V.busy=false;V.err=/cancel/.test(m)?"":/network/.test(m)?_t("shdConnect.pas_de_connexion_internet_be26"):_t("shdConnect.la_connexion_a_google_60d6");shRender()}}
 async function shdRestoreAsk(){const V=SH_V;shToast(_t("shdRestoreAsk.je_cherche_ta_sauvegarde_9cf7"));
   try{const d=shdSt();let fid=d.full;if(!fid){const f=await shdFind("full");fid=f&&f.id}
