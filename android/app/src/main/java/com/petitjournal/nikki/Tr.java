@@ -21,15 +21,20 @@ final class Tr {
         return l;
     }
 
+    /** Arabe : chiffres latins (comme dans l'appli), pour que dates et nombres restent lisibles partout. */
+    private static Locale toLocale(String l) {
+        return "ar".equals(l) ? Locale.forLanguageTag("ar-u-nu-latn") : new Locale(l);
+    }
+
     static Locale locale(Context c) {
-        return new Locale(lang(c));
+        return toLocale(lang(c));
     }
 
     static synchronized Resources res(Context c) {
         String l = lang(c);
         if (cachedRes != null && l.equals(cachedLang)) return cachedRes;
         Configuration cf = new Configuration(c.getResources().getConfiguration());
-        cf.setLocale(new Locale(l));
+        cf.setLocale(toLocale(l));
         cachedRes = c.createConfigurationContext(cf).getResources();
         cachedLang = l;
         return cachedRes;

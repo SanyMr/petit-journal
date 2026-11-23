@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- نصوص الأدوات والإشعارات · contrôlé par tools/i18n_check.py -->
+<resources>
+    <string name="widget_mascot">تميمتك</string>
+    <string name="widget_flame">شعلتك</string>
+    <string name="wd_week">شعلتك وحالات أسبوعك المزاجية</string>
+    <string name="wd_clock">الوقت، والتاريخ باليابانية، وصفحة يومك</string>
+    <string name="wd_prompt">سؤال جديد كل يوم ليلهمك</string>
+    <string name="wd_todo">مهامك التالية</string>
+    <string name="wd_mail">رسائل أصدقائك الصغيرة ومن كتب اليوم</string>
+    <string name="widget_mail_env">ظرف</string>
+    <string name="wd_garden">حديقتك اليابانية، بحسب الوقت والفصل الحاليين</string>
+    <string name="wd_mood">سجّل مزاجك بلمسة واحدة</string>
+    <string name="wd_focus">ابدأ جلسة تركيز في الحديقة</string>
+    <string name="wd_month">زهرة لكل صفحة، بلون مزاجك</string>
+    <string name="wd_visitor">الزائر النادر الذي يتنزّه في حديقتك</string>
+    <string name="wd_friends">شعلات أصدقائك وهداياهم الصغيرة</string>
+    <string name="wd_wisdom">مثل ياباني كل يوم، يُختار حسب حالاتك المزاجية (5 خلفيات، 3 أحجام)</string>
+    <string name="wd_season">الفصول اليابانية الأربعة والعشرون وطور القمر</string>
+    <string name="wd_habits">عادات يومك: لمسة واحدة تضع الختم</string>
+    <string name="wd_habit_count">عُدّ أكواب الماء وصفحاتك… بلمسة</string>
+    <string name="wd_habit_month">أختام العادة لهذا الشهر</string>
+    <string name="w_greet_night">أحلامًا سعيدة ✿</string>
+    <string name="w_greet_morning">صباح الخير ✿</string>
+    <string name="w_greet_afternoon">نهارك سعيد ✿</string>
+    <string name="w_greet_evening">مساء الخير ✿</string>
+    <string name="w_clock_done">✓ كُتبت صفحة اليوم</string>
+    <string name="w_clock_todo">✎ صفحة يومك بانتظارك</string>
+    <string name="w_week_great">أسبوع رائع ✿ %1$d صفحات من 7</string>
+    <string name="w_week_done">كُتبت صفحة اليوم ✓ إلى الغد!</string>
+    <string name="w_week_wait">شعلتك بانتظارك الليلة ✿</string>
+    <string name="w_week_start">صفحة اليوم لتشعل شعلتك ✿</string>
+    <string name="w_prompt_head">سؤال اليوم · きょうのしつもん</string>
+    <string name="w_prompt_default">ما الذي جعلك تبتسم اليوم؟</string>
+    <string name="w_prompt_done">تمّت الإجابة ✓ إلى الغد</string>
+    <string name="w_prompt_write">اكتب ✎</string>
+    <string name="w_todo_head">مهامي · やること</string>
+    <string name="w_todo_empty">لا شيء للإنجاز، استمتع ✿</string>
+    <string name="w_focus_head">تركيز · 集中</string>
+    <string name="w_focus_title">تركيز</string>
+    <string name="w_focus_paused">⏸ متوقف مؤقتًا · %1$d د</string>
+    <string name="w_focus_one">تركيز · شيء واحد في كل مرة ✿</string>
+    <string name="w_focus_break">☕ استراحة · خذ نفسًا ✿</string>
+    <string name="w_focus_done">انتهت الجلسة ✿</string>
+    <string name="w_focus_calm">جلسة هادئة ✿</string>
+    <string name="w_focus_watch">الحديقة تسهر بينما تعمل</string>
+    <string name="w_friends_head">أصدقائي · ともだち</string>
+    <string name="w_friends_signin">سجّل الدخول من تبويب الأصدقاء لترى أصدقاءك هنا ✿</string>
+    <string name="w_friends_invite">ادعُ صديقًا برمز QR الخاص بك ✿</string>
+    <string name="w_friends_wrote">✓ كتب</string>
+    <string name="w_friends_wish">🎐 علّق %1$s أمنية في حديقتك</string>
+    <string name="w_friends_petal">🌸 ترك لك %1$s بتلة</string>
+    <string name="w_friend_default">صديق</string>
+    <string name="w_friend_someone">أحدهم</string>
+    <string name="w_visitor_open">افتح حديقتك: زوار نادرون بانتظارك ✿</string>
+    <string name="w_visitor_next">الزائر التالي · 謎</string>
+    <string name="w_visitor_today">زائر اليوم · 訪</string>
+    <string name="w_visitor_desc">زائر اليوم</string>
+    <string name="w_season_head">الفصل الياباني · %1$s</string>
+    <string name="w_mail_head">صندوق البريد · おてがみ</string>
+    <string name="w_mail_write">اكتب مع أصدقائك</string>
+    <string name="w_mail_signin">سجّل الدخول من تبويب الأصدقاء ✿</string>
+    <string name="w_mail_from">%1$s: %2$s</string>
+    <string name="w_mail_duo">لدى %1$s سؤال لك</string>
+    <string name="w_mail_duo_sub">أجب، وستُكشف إجاباتكما معًا ✿</string>
+    <string name="w_mail_none">لا رسائل حاليًا</string>
+    <string name="w_mail_send">ما رأيك بإرسال رسالة صغيرة؟ ✿</string>
+    <string name="w_mail_band_add">شلّتي · أضف أصدقاء برمزك ✿</string>
+    <string name="w_mood_head">كيف تشعر؟ · きもち</string>
+    <string name="w_mood_tap">لمسة واحدة تكفي ✿</string>
+    <string name="w_mood_noted">سُجّل: %1$s ✿ زهرة يومك بانتظارك</string>
+    <string name="w_month_title">%1$s المزهر</string>
+    <string name="w_habits_head">عاداتي · 習慣</string>
+    <string name="w_habit_done_desc">%1$s: منجز</string>
+    <string name="w_habits_none">أنشئ عاداتك في المذكّرات ✿</string>
+    <string name="w_habits_free">لا شيء مخطّط اليوم ✿</string>
+    <string name="w_habits_rest">يوم راحة ✿</string>
+    <string name="w_hc_create">أنشئ عادة</string>
+    <string name="w_hc_done">منجز ✿</string>
+    <string name="w_hc_todo">للإنجاز</string>
+    <string name="w_hc_plus">المس +1</string>
+    <string name="w_hc_stamp">المس للختم</string>
+    <string name="w_hm_title">عاداتي</string>
+    <string name="w_hm_create">أنشئها في المذكّرات ✿</string>
+    <string name="w_hm_desc">أختام هذا الشهر</string>
+    <string name="w_garden_head">حديقتي · にわ</string>
+    <string name="w_garden_desc">حديقتك اليابانية</string>
+    <string name="w_garden_empty">افتح حديقتك مرة في التطبيق لتراها تزهر هنا ✿</string>
+    <string name="n_duo_title">لدى %1$s سؤال لك ✿</string>
+    <string name="n_duo_text">أجبه: ستُكشف إجاباتكما معًا.</string>
+    <string name="n_one_title">رسالة صغيرة من %1$s ✉</string>
+    <string name="n_box">صندوق بريدك بانتظارك ✿</string>
+    <string name="n_and_q">وسؤال بانتظارك!</string>
+    <string name="n_ch_mail">رسائل الأصدقاء</string>
+    <string name="n_ch_mail_desc">حين يرسل لك صديق رسالة صغيرة (مرة يوميًا على الأكثر)</string>
+    <string name="n_ch_pomo">تركيز جارٍ</string>
+    <string name="n_ch_pomo_desc">مؤقّت التركيز في الحديقة، مباشرة</string>
+    <string name="wis_label">· حكمة اليوم</string>
+    <string name="wis_open">افتح المذكّرات مرة ✿</string>
+    <string name="wis_desc">حكمة اليوم، مثل ياباني</string>
+    <string name="wis_cfg_title">حكمة اليوم</string>
+    <string name="wis_cfg_sub">كل يوم، مثل ياباني يُختار حسب حالاتك المزاجية. اختر أسلوبه.</string>
+    <string name="wis_cfg_bg">الخلفية</string>
+    <string name="wis_cfg_bg_desc">خلفية %1$s</string>
+    <string name="wis_cfg_format">الحجم</string>
+    <string name="wis_cfg_hint">تلقائي: تختار الأداة تصميمها بحسب المساحة التي تمنحها لها. كبّرها على الشاشة الرئيسية لترى المشهد كاملًا.</string>
+    <string name="wis_cfg_save">حفظ</string>
+    <string name="wis_cfg_place">ضع الأداة</string>
+    <plurals name="w_streak_days">
+        <item quantity="zero">يوم متتالٍ</item>
+        <item quantity="one">يوم متتالٍ</item>
+        <item quantity="two">يومان متتاليان</item>
+        <item quantity="few">أيام متتالية</item>
+        <item quantity="many">يومًا متتاليًا</item>
+        <item quantity="other">يوم متتالٍ</item>
+    </plurals>
+    <plurals name="w_todo_more">
+        <item quantity="zero">+ %d أخرى</item>
+        <item quantity="one">+ %d أخرى</item>
+        <item quantity="two">+ %d أخريان</item>
+        <item quantity="few">+ %d أخرى</item>
+        <item quantity="many">+ %d أخرى</item>
+        <item quantity="other">+ %d أخرى</item>
+    </plurals>
+    <plurals name="w_focus_sessions">
+        <item quantity="zero">%1$s  %2$d جلسة اليوم</item>
+        <item quantity="one">%1$s  %2$d جلسة اليوم</item>
+        <item quantity="two">%1$s  %2$d جلستان اليوم</item>
+        <item quantity="few">%1$s  %2$d جلسات اليوم</item>
+        <item quantity="many">%1$s  %2$d جلسة اليوم</item>
+        <item quantity="other">%1$s  %2$d جلسة اليوم</item>
+    </plurals>
+    <plurals name="w_season_next">
+        <item quantity="zero">الفصل التالي: %1$s · بعد %2$d يوم</item>
+        <item quantity="one">الفصل التالي: %1$s · بعد %2$d يوم</item>
+        <item quantity="two">الفصل التالي: %1$s · بعد %2$d يومين</item>
+        <item quantity="few">الفصل التالي: %1$s · بعد %2$d أيام</item>
+        <item quantity="many">الفصل التالي: %1$s · بعد %2$d يومًا</item>
+        <item quantity="other">الفصل التالي: %1$s · بعد %2$d يوم</item>
+    </plurals>
+    <plurals name="w_mail_notes">
+        <item quantity="zero">%d رسالة صغيرة لك</item>
+        <item quantity="one">%d رسالة صغيرة لك</item>
+        <item quantity="two">%d رسالتان صغيرتان لك</item>
+        <item quantity="few">%d رسائل صغيرة لك</item>
+        <item quantity="many">%d رسالة صغيرة لك</item>
+        <item quantity="other">%d رسالة صغيرة لك</item>
+    </plurals>
+    <plurals name="w_mail_band">
+        <item quantity="zero">شلّتي · %1$d/%2$d كتبوا اليوم</item>
+        <item quantity="one">شلّتي · %1$d/%2$d كتب اليوم</item>
+        <item quantity="two">شلّتي · %1$d/%2$d كتبا اليوم</item>
+        <item quantity="few">شلّتي · %1$d/%2$d كتبوا اليوم</item>
+        <item quantity="many">شلّتي · %1$d/%2$d كتبوا اليوم</item>
+        <item quantity="other">شلّتي · %1$d/%2$d كتبوا اليوم</item>
+    </plurals>
+    <plurals name="w_hm_days">
+        <item quantity="zero">%1$s · %2$d يوم ✿</item>
+        <item quantity="one">%1$s · %2$d يوم ✿</item>
+        <item quantity="two">%1$s · %2$d يومان ✿</item>
+        <item quantity="few">%1$s · %2$d أيام ✿</item>
+        <item quantity="many">%1$s · %2$d يومًا ✿</item>
+        <item quantity="other">%1$s · %2$d يوم ✿</item>
+    </plurals>
+    <plurals name="n_many_title">
+        <item quantity="zero">كتب لك %1$s و%2$d صديق آخر ✉</item>
+        <item quantity="one">كتب لك %1$s و%2$d صديق آخر ✉</item>
+        <item quantity="two">كتب لك %1$s و%2$d صديقان آخران ✉</item>
+        <item quantity="few">كتب لك %1$s و%2$d أصدقاء آخرين ✉</item>
+        <item quantity="many">كتب لك %1$s و%2$d صديقًا آخر ✉</item>
+        <item quantity="other">كتب لك %1$s و%2$d صديق آخر ✉</item>
+    </plurals>
+    <string-array name="w_week_letters">
+        <item>ح</item>
+        <item>ن</item>
+        <item>ث</item>
+        <item>ر</item>
+        <item>خ</item>
+        <item>ج</item>
+        <item>س</item>
+    </string-array>
+    <string-array name="w_moods">
+        <item>رائع</item>
+        <item>جيد</item>
+        <item>عادي</item>
+        <item>حزين</item>
+        <item>متعب</item>
+    </string-array>
+    <string-array name="w_moon">
+        <item>محاق</item>
+        <item>هلال متزايد</item>
+        <item>تربيع أول</item>
+        <item>أحدب متزايد</item>
+        <item>بدر</item>
+        <item>أحدب متناقص</item>
+        <item>تربيع أخير</item>
+        <item>هلال متناقص</item>
+    </string-array>
+    <string-array name="w_sekki">
+        <item>البرد الصغير</item>
+        <item>البرد الكبير</item>
+        <item>بداية الربيع</item>
+        <item>ماء المطر</item>
+        <item>يقظة الحشرات</item>
+        <item>اعتدال الربيع</item>
+        <item>الصفاء النقي</item>
+        <item>مطر الحبوب</item>
+        <item>بداية الصيف</item>
+        <item>الامتلاء الصغير</item>
+        <item>الحبّ في السنابل</item>
+        <item>انقلاب الصيف</item>
+        <item>الحرّ الصغير</item>
+        <item>الحرّ الكبير</item>
+        <item>بداية الخريف</item>
+        <item>نهاية الحرّ</item>
+        <item>الندى الأبيض</item>
+        <item>اعتدال الخريف</item>
+        <item>الندى البارد</item>
+        <item>نزول الصقيع</item>
+        <item>بداية الشتاء</item>
+        <item>الثلج الصغير</item>
+        <item>الثلج الكبير</item>
+        <item>انقلاب الشتاء</item>
+    </string-array>
+    <string-array name="w_sekki_line">
+        <item>البرد يحلّ بلطف.</item>
+        <item>قلب الشتاء؛ الأيام تطول بالفعل.</item>
+        <item>تتفتح أولى أزهار البرقوق.</item>
+        <item>يذوب الثلج ويصير مطرًا.</item>
+        <item>تخرج الحشرات الصغيرة من الأرض.</item>
+        <item>الليل والنهار يتقاسمان السماء.</item>
+        <item>كل شيء منعش ومضيء، وأشجار الكرز تزهر.</item>
+        <item>مطر لطيف يغذّي حقول الأرز.</item>
+        <item>تبدأ الضفادع بالغناء.</item>
+        <item>النباتات تنمو بكل قوتها.</item>
+        <item>حان وقت شتل الأرز.</item>
+        <item>أطول يوم في السنة.</item>
+        <item>يستيقظ الزيز، ويتألّق تاناباتا.</item>
+        <item>أشدّ الأيام حرًّا، وقت أجراس الفورين.</item>
+        <item>الريح تتبدّل بلطف.</item>
+        <item>يهدأ الحرّ أخيرًا.</item>
+        <item>الندى يتلألأ على العشب.</item>
+        <item>يتوازن الليل والنهار من جديد.</item>
+        <item>يصل الإوز البري.</item>
+        <item>أول صقيع، وأشجار القيقب تحمرّ.</item>
+        <item>تتفتح الكاميليا في البرد.</item>
+        <item>ترقص أولى ندف الثلج.</item>
+        <item>تكتسي الجبال بالبياض.</item>
+        <item>أطول ليلة: حمّام اليوزو.</item>
+    </string-array>
+    <string-array name="w_nudges">
+        <item>اصمد ✿</item>
+        <item>صفحتك بانتظارك ✎</item>
+        <item>أفكّر فيك ♡</item>
+        <item>أحسنت على شعلتك!</item>
+        <item>يومًا سعيدًا ☀</item>
+        <item>نومًا هانئًا ☾</item>
+        <item>هل نكتب معًا الليلة؟</item>
+        <item>أنت قادر على ذلك ✧</item>
+        <item>عناق كبير ʕ•ᴥ•ʔ</item>
+        <item>شكرًا لوجودك ♡</item>
+    </string-array>
+    <string-array name="wis_why">
+        <item>اختيرت لك بعد بضعة أيام حزينة.</item>
+        <item>اختيرت لك بعد بضعة أيام متعبة.</item>
+        <item>اختيرت لك: كانت أيامك الأخيرة مشرقة.</item>
+        <item>اختيرت لتمنحك دفعة صغيرة.</item>
+        <item>حكمة اليوم.</item>
+    </string-array>
+    <string-array name="wis_themes">
+        <item>فاتح</item>
+        <item>سومي-إي</item>
+        <item>نيلي</item>
+        <item>ورنيش</item>
+        <item>فحمي</item>
+    </string-array>
+    <string-array name="wis_formats">
+        <item>تلقائي</item>
+        <item>صغير 2×2</item>
+        <item>متوسط 4×2</item>
+        <item>كبير 4×4</item>
+    </string-array>
+</resources>

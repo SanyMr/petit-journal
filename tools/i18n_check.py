@@ -16,7 +16,18 @@ def load(path):
     return json.loads(s[s.index("{"):s.rindex("}") + 1])
 
 def vars_of(msg):
-    out = set(re.findall(r"\{\s*(\w+)\s*[,}]", msg))
+    """Variables de premier niveau ({nom} ou {nom, plural, …}) ; le texte des branches plural n'en fait pas partie."""
+    out, depth, i = set(), 0, 0
+    while i < len(msg):
+        c = msg[i]
+        if c == "{":
+            if depth == 0:
+                m = re.match(r"\{\s*(\w+)\s*[,}]", msg[i:])
+                if m: out.add(m.group(1))
+            depth += 1
+        elif c == "}":
+            depth = max(0, depth - 1)
+        i += 1
     return out
 
 RES = os.path.join(ROOT, "android", "app", "src", "main", "res")
