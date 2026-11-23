@@ -1391,6 +1391,60 @@ input,textarea,select{font-size:16px}
 .jd-ask{position:absolute;inset:0;z-index:50;background:rgba(43,35,66,.45);display:grid;place-items:center;padding:20px}
 .jd-askbox{background:var(--sp-soft,#fffafc);border-radius:24px;padding:20px;width:min(320px,100%);display:grid;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.3);color:var(--sp-ink,#4b3a47)}
 .jd-askbox p{margin:0;font-family:var(--display);font-size:17px;line-height:1.45;text-align:center}
+
+/* premiers pas : accueil, bulles, liste */
+#ob{position:fixed;inset:0;z-index:4000;background:var(--bg);background-image:radial-gradient(var(--dot) 1.6px,transparent 1.8px);background-size:22px 22px;overflow:auto;display:flex;justify-content:center;padding:calc(14px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom))}
+body.ob-open{overflow:hidden}
+.ob-card{width:min(440px,100%);margin:auto 0;background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:18px 22px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;color:var(--ink)}
+.ob-top{width:100%;display:grid;grid-template-columns:40px 1fr 40px;align-items:center}
+.ob-back{width:40px;height:40px;border-radius:50%;border:none;background:var(--line);font-size:24px;line-height:1;color:var(--ink)}
+.ob-dots{display:flex;gap:6px;justify-content:center}.ob-dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:width .2s}.ob-dots i.on{width:22px;border-radius:5px;background:var(--sakura-deep)}
+.ob-hanko{width:64px;height:64px;border-radius:18px;background:var(--sakura-deep);color:var(--paper);display:grid;place-items:center;font-family:var(--display);font-size:26px;transform:rotate(-6deg);margin-top:4px}
+.ob-h{font-family:var(--display);font-weight:500;font-size:24px;line-height:1.25;margin:4px 0 0}
+.ob-p{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.ob-lbl{margin:6px 0 0;font-weight:700;font-size:14px}
+.ob-langs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.ob-langs button{border:1.5px solid var(--line);background:none;border-radius:999px;padding:5px 14px;font-weight:700;font-size:13px;min-height:36px;color:var(--ink)}
+.ob-langs button[aria-pressed="true"]{border-color:var(--sakura-deep);background:var(--sakura-deep);color:#fff}
+.ob-masc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%}
+.ob-masc button{border:2px solid transparent;background:var(--paper);border-radius:18px;padding:8px 4px 6px;display:grid;justify-items:center;gap:2px;font-weight:700;font-size:12px;color:var(--ink)}
+.ob-masc button svg{width:100%;max-width:64px;aspect-ratio:1}
+.ob-masc button[aria-pressed="true"]{border-color:var(--sakura-deep);background:var(--card);box-shadow:0 3px 0 var(--line)}
+.ob-go{margin-top:8px;width:100%;border:none;border-radius:999px;background:var(--sakura-deep);color:#fff;font-weight:700;font-size:16px;padding:14px 18px;min-height:50px;box-shadow:0 4px 0 rgba(0,0,0,.12)}
+:root[data-skin="nuit"] .ob-go,:root[data-skin="nuit"] .ob-langs button[aria-pressed="true"]{color:#1a1c38}
+.ob-later{border:none;background:none;color:var(--muted);font-weight:700;font-size:14px;padding:8px 14px;min-height:40px;text-decoration:underline;text-underline-offset:3px}
+.ob-big{position:relative;width:132px;height:132px;margin-top:4px}.ob-big svg{width:100%;height:100%}
+.ob-key{position:absolute;right:-2px;bottom:6px;font-size:30px}
+.ob-pin{display:grid;gap:4px;width:100%;text-align:left}
+.ob-pin label{font-weight:700;font-size:13px;margin-top:6px}
+.ob-pin input{font:inherit;font-size:18px;padding:10px 14px;border-radius:14px;border:2px solid var(--line);background:var(--paper);color:var(--ink);width:100%;box-sizing:border-box}
+.ob-pin input[type=password]{letter-spacing:.4em}
+.ob-err{min-height:1.2em;margin:4px 0 0;color:var(--shu);font-size:13px;font-weight:700}
+.ob-ok{margin:0;font-weight:700;color:var(--moss)}
+.ob-feat{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:8px;width:100%;text-align:left}
+.ob-feat li{display:flex;gap:10px;align-items:center;background:var(--paper);border-radius:16px;padding:10px 12px;font-size:14px;line-height:1.4}
+.ob-feat b{font-size:20px;flex:none;width:28px;text-align:center}
+#obDone{z-index:4100}
+#obTip{position:fixed;left:10px;right:10px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:29;max-width:520px;margin:0 auto;background:var(--card);color:var(--ink);border-radius:22px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;box-shadow:0 10px 30px rgba(60,30,50,.22);border:2px solid var(--line);transform:translateY(24px);opacity:0;transition:transform .25s,opacity .25s}
+#obTip.on{transform:none;opacity:1}
+.ob-tm{flex:none;width:52px;height:52px}.ob-tm svg{width:100%;height:100%}
+.ob-tt{display:grid;gap:3px;font-size:14px;line-height:1.45;min-width:0}.ob-tt b{font-size:15px}
+.ob-tb{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.ob-tb button{border:none;border-radius:999px;font-weight:700;font-size:13px;padding:7px 14px;min-height:36px}
+.ob-ta{background:var(--sakura-deep);color:#fff}:root[data-skin="nuit"] .ob-ta{color:#1a1c38}
+.ob-tx{background:var(--line);color:var(--ink)}
+#obCard{margin:0}
+.ob-list{background:var(--card);border-radius:22px;padding:14px 16px;box-shadow:var(--shadow);display:grid;gap:8px}
+.ob-lh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.ob-lh b{font-family:var(--display);font-weight:500;font-size:17px}.ob-lh small{font-size:11px;color:var(--muted);margin-left:4px}.ob-lh>span{font-weight:700;color:var(--sakura-deep)}
+.ob-list .mini{height:6px;border-radius:3px;background:var(--line);overflow:hidden}.ob-list .mini i{display:block;height:100%;background:var(--sakura-deep);border-radius:3px;transition:width .4s}
+.ob-list ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.ob-list li button{width:100%;display:flex;align-items:center;gap:10px;border:none;background:var(--paper);border-radius:14px;padding:9px 12px;font-size:14px;text-align:left;color:var(--ink);min-height:42px}
+.ob-list li button.ok{color:var(--muted);text-decoration:line-through;cursor:default}
+.ob-ck{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff}
+.ok .ob-ck{background:var(--moss);border-color:var(--moss)}
+.ob-arr{margin-left:auto;color:var(--muted);font-size:18px}
+.ob-gift{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.ob-hide{justify-self:end;border:none;background:none;color:var(--muted);font-size:12px;text-decoration:underline;padding:4px;min-height:32px}
 </style>
 </head>
 <body>
@@ -1920,6 +1974,7 @@ const MASC_META={
 const SLOTS=[{id:"head",name:_t("SLOTS.tete_4b8e"),jp:"あたま"},{id:"face",name:_t("SLOTS.visage_2bd2"),jp:"かお"},{id:"neck",name:_t("SLOTS.cou_747e"),jp:"くび"},{id:"hand",name:_t("SLOTS.main_a02c"),jp:"て"},{id:"aura",name:_t("SLOTS.aura_6ed3"),jp:"オーラ"}];
 const ACC=[
   /* tête */
+  {id:"pousse",slot:"head",r:"r",name:_t("ACC.pousse"),req:[{ob:1}],d:A=>{const y=A.crown.y;return `<path d="M50 ${y+4}V${y-8}" stroke="#5f9a68" stroke-width="2.5" stroke-linecap="round"/><path d="M50 ${y-5}C43 ${y-15} 33 ${y-12} 33 ${y-5}C40 ${y-2} 46 ${y-2} 50 ${y-5}Z" fill="#9cd08f" stroke="#5f9a68" stroke-width="1.5" stroke-linejoin="round"/><path d="M50 ${y-8}C56 ${y-20} 68 ${y-18} 67 ${y-10}C61 ${y-6} 55 ${y-6} 50 ${y-8}Z" fill="#b5e3a6" stroke="#5f9a68" stroke-width="1.5" stroke-linejoin="round"/>`}},
   {id:"chapeauFete",slot:"head",r:"r",name:_t("ACC.chapeau_de_fete_9b44"),req:[{stamp:"tanjo"}],d:A=>{const y=A.hat.y,r=A.hat.rx;return `<g transform="rotate(-10 50 ${y})"><path d="M${50-r*.38} ${y+3}L52 ${y-25}L${50+r*.38} ${y+3}Z" fill="#8fbaf2" stroke="#3f86d8" stroke-width="1.5" stroke-linejoin="round"/><path d="M${50-r*.25} ${y-6}L${50+r*.27} ${y-4}M${50-r*.13} ${y-15}L${50+r*.15} ${y-13}" stroke="#ffd66b" stroke-width="3" stroke-linecap="round"/><circle cx="52" cy="${y-26}" r="5" fill="#ff8fab" stroke="#e86f93" stroke-width="1.2"/></g>`}},
   {id:"noeud",slot:"head",r:"c",name:_t("ACC.ruban_23c2"),req:[{objs:2}],d:A=>`<g transform="translate(${A.bow.x} ${A.bow.y}) rotate(18)"><path d="M0 0L-13-8V8ZM0 0L13-8V8Z" fill="#ff8fab" stroke="#d9708d" stroke-width="1.5" stroke-linejoin="round"/><circle r="3.6" fill="#d9708d"/></g>`},
   {id:"beret",slot:"head",r:"c",name:_t("ACC.beret_d_artiste_d0c7"),req:[{shop:30}],d:A=>{const y=A.hat.y-2,r=A.hat.rx;return `<ellipse cx="54" cy="${y}" rx="${r*.72}" ry="9" fill="#e8524a" stroke="#c73e37" stroke-width="1.5" transform="rotate(-10 50 ${y})"/><path d="M55 ${y-9}l2-6" stroke="#c73e37" stroke-width="3" stroke-linecap="round"/>`}},
@@ -2153,6 +2208,7 @@ function saveSeen(){try{store.setItem(SEEN,JSON.stringify([...seen]))}catch(e){}
 let col=null, cloud=false, chain=Promise.resolve();
 function setStatus(t){$("status").textContent=t}
 function savedLabel(){return _t("write.saved")}
+function dowL(monFirst){return Array.from({length:7},(_,i)=>new Date(2024,0,(monFirst?1:7)+i).toLocaleDateString(I18N.locale(),{weekday:"narrow"}).toUpperCase())} // initiales des jours, selon la langue
 const hasContent=e=>e&&((e.text&&e.text.trim())||e.mood||(e.deco&&e.deco.length));
 
 async function writeRef(ref,data){
@@ -2476,6 +2532,7 @@ function reqList(req,ctx,id){
     if(q.stamp){const sp=STAMPS.find(x=>x.id===q.stamp),ok=ctx.done.has(q.stamp);return {ok,txt:_t("reqList.tampon_7c30")+(sp.hid&&!ok?"???":sp.name)+_t("reqList.txt_1834")}}
     if(q.sticker){const sk=stickerById(q.sticker),ok=ctx.stickers.has(q.sticker);return {ok,txt:_t("reqList.sticker_4e28")+(!ok&&(sk.r==="t"||sk.r==="l")?"???":sk.name)+_t("reqList.txt_1834")}}
     if(q.shop!=null)return {ok:ctx.shop.has(id),shop:q.shop,txt:"Boutique : "+q.shop+_t("reqList.petales_9c9d")};
+    if(q.ob!=null)return {ok:!!(prefs.ob&&prefs.ob.done),txt:_t("ob.req")};
     return {ok:true,txt:""};
   });
 }
@@ -2750,7 +2807,7 @@ function renderFlameSheet(){
   msg.textContent=n===0?_t("renderFlameSheet.ecris_une_page_aujourd_4cb3"):today?_t("renderFlameSheet.ta_flamme_brille_aujourd_b61b"):_t("renderFlameSheet.tu_n_as_pas_f2ec");
   const wk=document.createElement("div");wk.className="fweek";
   for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=keyOf(d),on=written(k);
-    const c=document.createElement("div");c.innerHTML=`<span class="${on?"on":""}${i===0?" today":""}">${on?flameSvg(Math.max(n,1),false,false,false):""}</span>${["D","L","M","M","J","V","S"][d.getDay()]}`;c.title=frDate(k,{weekday:"long",day:"numeric",month:"long"})+(on?_t("renderFlameSheet.page_ecrite_14ac"):"");wk.append(c)}
+    const c=document.createElement("div");c.innerHTML=`<span class="${on?"on":""}${i===0?" today":""}">${on?flameSvg(Math.max(n,1),false,false,false):""}</span>${dowL(0)[d.getDay()]}`;c.title=frDate(k,{weekday:"long",day:"numeric",month:"long"})+(on?_t("renderFlameSheet.page_ecrite_14ac"):"");wk.append(c)}
   const tiles=document.createElement("div");tiles.className="tiles";tiles.style.gridTemplateColumns="repeat(2,minmax(0,1fr))";
   tiles.innerHTML=`<div class="tile"><b>${best}</b><span>${_t("renderFlameSheet.meilleure_serie_754b")}</span></div><div class="tile"><b>${Object.keys(entries).filter(written).length}</b><span>${_t("renderFlameSheet.pages_au_total_c536")}</span></div>`;
   const MIL=[3,7,14,30,60,100,200,365],next=MIL.find(m=>m>n);
@@ -2865,7 +2922,7 @@ function renderCal(){
   const y=viewMonth.getFullYear(),m=viewMonth.getMonth();
   $("monthLbl").textContent=viewMonth.toLocaleDateString(I18N.locale(),{month:"long",year:"numeric"});
   const cal=$("cal");cal.innerHTML="";
-  ["L","M","M","J","V","S","D"].forEach(x=>{const s=document.createElement("span");s.className="dow";s.textContent=x;cal.append(s)});
+  Array.from({length:7},(_,i)=>new Date(2024,0,1+i).toLocaleDateString(I18N.locale(),{weekday:"narrow"}).toUpperCase()).forEach(x=>{const s=document.createElement("span");s.className="dow";s.textContent=x;cal.append(s)});
   const off=(new Date(y,m,1).getDay()+6)%7;for(let i=0;i<off;i++)cal.append(document.createElement("span"));
   const days=new Date(y,m+1,0).getDate(),tk=todayKey();
   for(let d=1;d<=days;d++){
@@ -3493,6 +3550,7 @@ var bgAt=0;
 function showView(v){
   if(!$("v-"+v))return;
   curView=v;
+  if(typeof obSoon==="function")obSoon(700);
   document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id==="v-"+v));
   document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
   window.scrollTo({top:0});
@@ -3516,6 +3574,7 @@ function pushWidget(){
 }
 function scheduleWidget(d=800){clearTimeout(widgetTimer);widgetTimer=setTimeout(pushWidget,d)}
 function updateBadges(){
+  if(typeof obSoon==="function")obSoon();
   if(isNative){scheduleWidget();scheduleProfile()}
   try{
     const n=capsInfo(objectives()).avail,b=$("badgeRecomp");b.hidden=!n;b.textContent=n>99?"99+":n;
@@ -4826,6 +4885,7 @@ function renderJdCard(){
   box.querySelector("button").onclick=()=>openGarden()}
 /* ---------- jardin plein écran ---------- */
 function openGarden(skipPomo){
+  if(typeof obMark==="function")obMark("garden");
   Sfx.play("chime");JD.month=todayKey().slice(0,7);JD.pop=null;JD.edit=false;JD.sel=-1;JD.visit=null;
   let ov=$("jd");if(!ov){ov=document.createElement("div");ov.id="jd";ov.setAttribute("role","dialog");ov.setAttribute("aria-label",_t("openGarden.mon_jardin_e0e4"));
     ov.innerHTML=("<div class=\"jd-scene\">"+"<svg id=\"jdSvg\" viewBox=\"0 0 390 560\" preserveAspectRatio=\"xMidYMax slice\" role=\"img\" aria-label=\""+_t("openGarden.ton_jardin_japonais_82d8")+"\">"+"</svg>"+"<div class=\"jd-top\">"+"</div>"+"<div class=\"jd-pop\" hidden>"+"</div>"+"<div class=\"jd-toast\" role=\"status\" hidden>"+"</div>"+"</div>"+"<div class=\"jd-sheet\">"+"</div>"+"<div class=\"jd-layer\" hidden>"+"</div>");
@@ -5517,6 +5577,7 @@ function renderWisCard(){
   box.querySelector("button").onclick=()=>openWisdom()}
 /* ---------- la fenêtre ---------- */
 function openWisdom(id){
+  if(typeof obMark==="function")obMark("wisdom");
   if(typeof Sfx!=="undefined")Sfx.play("chime");
   let ov=$("wis");if(!ov){ov=document.createElement("div");ov.id="wis";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");ov.setAttribute("aria-label",_t("openWisdom.la_sagesse_du_jour_6e59"));
     ov.innerHTML='<div class="wis-panel"></div>';document.body.append(ov);
@@ -6008,7 +6069,7 @@ var HB_COLORS=["#5d9bd6","#6fb07f","#e09a3a","#a77ccf","#d9708d","#5c6bc0","#c98
 var HB_REW={lotus:["hb_lotus",_t("HB_REW.nenuphars_en_fleurs_b86d"),"eau","l'eau"],bambou:["hb_bambou",_t("HB_REW.bosquet_de_bambous_8635"),"plantes",_t("HB_REW.la_marche_et_le_9246")],ume:["hb_ume",_t("HB_REW.prunier_en_fleurs_4cfc"),"plantes",_t("HB_REW.la_lecture_et_l_66c0")],pierres:["hb_pierres",_t("HB_REW.pierres_et_bougie_zen_f23a"),"lumiere",_t("HB_REW.le_calme_et_le_f332")],fleurs:["hb_fleurs",_t("HB_REW.parterre_de_fleurs_7e95"),"plantes",_t("HB_REW.prendre_soin_de_soi_6aa6")]};
 var HB_GOAL=7;
 var HB_SUG=[["eau",_t("HB_SUG.boire_de_l_eau_2671"),"count",8,0],["marche","Marcher 20 min","bool",1,1],["lire",_t("HB_SUG.lire_10_pages_41a0"),"bool",1,2],["mediter",_t("HB_SUG.mediter_5_min_3090"),"bool",1,3],["dormir","Me coucher avant 23 h","bool",1,5],["sport",_t("HB_SUG.bouger_5e4d"),"bool",1,4],["tasse",_t("HB_SUG.un_the_sans_ecran_5cb6"),"bool",1,6],["pen",_t("HB_SUG.ecrire_mon_journal_4fe5"),"bool",1,4],["coeur",_t("HB_SUG.un_geste_gentil_4dfa"),"bool",1,4],["soleil","Prendre l'air 10 min","bool",1,2]];
-var HB_DN=["D","L","M","M","J","V","S"],HB_DFULL=Array.from({length:7},(_,i)=>new Date(2024,0,7+i).toLocaleDateString(I18N.locale(),{weekday:"long"}));
+var HB_DN=dowL(0),HB_DFULL=Array.from({length:7},(_,i)=>new Date(2024,0,7+i).toLocaleDateString(I18N.locale(),{weekday:"long"}));
 function hbStore(){return typeof store!=="undefined"?store:localStorage}
 function hbSt(){let s;try{s=JSON.parse(hbStore().getItem(HB_K)||"{}")||{}}catch(e){s={}}s.list=s.list||[];s.log=s.log||{};s.rest=s.rest||{};s.rewards=s.rewards||{};return s}
 function hbSave(s){try{hbStore().setItem(HB_K,JSON.stringify(s))}catch(e){}hbAfterChange(s)}
@@ -6123,7 +6184,7 @@ function hbViewCard(s,V){const h=s.list.find(x=>x.id===V.id)||s.list[0];if(!h)re
   const mName=first.toLocaleDateString(I18N.locale(),{month:"long",year:Y===new Date().getFullYear()?undefined:"numeric"});
   return hbHead(hbEsc(h.name),"",`<button type="button" class="sh-ic" data-a="edit" data-id="${h.id}" aria-label="Modifier l'habitude"><svg viewBox="0 0 24 24"><path d="M5 19l1-4 10-10 3 3-10 10z"/></svg></button>`)+`<div class="hb-tabs">${tabs}</div>
   <div class="hb-mcard"><div class="hb-mh"><button type="button" class="sh-ic" data-a="month" data-id="${pm}" aria-label="${_t("hbViewCard.mois_precedent_7125")}"${pm<minM?" disabled":""}><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${mName.charAt(0).toUpperCase()+mName.slice(1)}</b><span lang="ja">スタンプカード</span><button type="button" class="sh-ic" data-a="month" data-id="${nm}" aria-label="${_t("hbViewCard.mois_suivant_291c")}"${nm>t.slice(0,7)?" disabled":""}><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
-  <div class="hb-grid hb-dn">${["L","M","M","J","V","S","D"].map(x=>`<small>${x}</small>`).join("")}</div><div class="hb-grid">${cells}</div></div>
+  <div class="hb-grid hb-dn">${dowL(1).map(x=>`<small>${x}</small>`).join("")}</div><div class="hb-grid">${cells}</div></div>
   <div class="hb-stats"><div><b style="color:${h.color}">${dn}</b><small>${_t("hbViewCard.jour_sur_6d15",{v0:(dn>1?"s":""),v1:(pl)})}</small></div><div><b style="color:${h.color}">${st.best}</b><small>${_t("hbViewCard.plus_belle_serie_39ed")}</small></div><div><b style="color:${h.color}">${weekK.size}</b><small>tampon${weekK.size>1?"s":""} ${(HB_ICONS[h.icon]||HB_ICONS.plante)[1]}</small></div></div>
   <p class="hb-note">${_t("hbViewCard.un_tampon_kanji_recompense_0c8b",{v0:((HB_ICONS[h.icon]||HB_ICONS.plante)[1])})}</p>`}
 /* créer / modifier */
@@ -6299,7 +6360,7 @@ function blStat(v,l,c){return`<div class="bl-stat"><b${c?` style="color:${c}"`:"
 function blHabRows(H,len){return H.map(({h,n,p,st})=>`<div class="bl-hab"><span class="hb-ic" style="background:${h.color}">${hbIcon(h.icon,"#fff",15)}</span><span class="bl-hn">${blEsc(h.name)}</span><span class="bl-dots">${Array.from({length:len},(_,j)=>`<i style="background:${j<n?h.color:"#f1e4ea"}"></i>`).join("")}</span><b style="color:${h.color}">${n}${p?"/"+p:""}</b></div>`).join("")}
 /* une semaine */
 function blViewWeek(V){const a=V.mon,b=blAdd(a,6),t=blToday(),S=blStats(a,b),H=blHabits(a,b).filter(x=>x.n>0),R=blRewards(a,b),M=blMemory(a,b),I=blInsights(a,b),s=blSt(),cur=b>t||(b===t&&blReadyWeek()!==a);
-  const days=[0,1,2,3,4,5,6].map(i=>{const k=blAdd(a,i),d=blDate(k);return`<div class="bl-d${k>t?" fut":""}"><small>${["D","L","M","M","J","V","S"][d.getDay()]}</small>${k>t?blNone(30):blDayFlower(k,30)}<small>${d.getDate()}</small><i${blWritten(k)?' class="on"':""}></i></div>`}).join("");
+  const days=[0,1,2,3,4,5,6].map(i=>{const k=blAdd(a,i),d=blDate(k);return`<div class="bl-d${k>t?" fut":""}"><small>${dowL(0)[d.getDay()]}</small>${k>t?blNone(30):blDayFlower(k,30)}<small>${d.getDate()}</small><i${blWritten(k)?' class="on"':""}></i></div>`}).join("");
   const sup=(S.moods.super||0);
   let html=blHead(cur?_t("blViewWeek.ma_semaine_en_cours_a71f"):_t("blViewWeek.ma_semaine_2ca9"),"振り返り",_t("blViewWeek.du_5af6")+blRange(a,b))+`<div class="bl-body">
   <div class="bl-box"><small class="bl-cap">${_t("blViewWeek.une_fleur_par_jour_f55e")}</small><div class="bl-week">${days}</div></div>
@@ -6322,7 +6383,7 @@ function blViewMonth(V){const ym=V.ym,[Y,M]=ym.split("-").map(Number),nd=new Dat
   const legend=Object.keys(BL_MC).map(k=>`<span>${blFlower(BL_MC[k],13)}${BL_ML[k]}</span>`).join("");
   const w=s.months[ym]&&s.months[ym].word,W=BL_WORDS.find(x=>x[0]===w);
   let html=blHead(BL_MN[M-1].charAt(0).toUpperCase()+BL_MN[M-1].slice(1)+(Y!==new Date().getFullYear()?" "+Y:""),BL_MJ[M-1],cur?_t("blViewMonth.le_mois_en_cours_69e2"):_t("blViewMonth.mon_mois_9af5"))+`<div class="bl-body">
-  <div class="bl-box"><div class="bl-mgrid">${["L","M","M","J","V","S","D"].map(x=>`<small>${x}</small>`).join("")}${cells}</div><div class="bl-leg">${legend}</div></div>
+  <div class="bl-box"><div class="bl-mgrid">${dowL(1).map(x=>`<small>${x}</small>`).join("")}${cells}</div><div class="bl-leg">${legend}</div></div>
   <div class="bl-stats">${blStat(S.pages,S.pages>1?"pages":"page")}${blStat(blFmt(S.words),_t("blViewMonth.mots_ecrits_b1bb"))}${S.book?blStat(blFmt(S.book),_t("blViewMonth.mots_dans_mes_livres_4cf2"),"#7b5fc9"):blStat(S.reads.length,S.reads.length>1?_t("blViewMonth.lectures_terminees_2ce5"):_t("blViewMonth.lecture_terminee_387e"),"#e09a3a")}</div>`;
   if(H.length)html+=blSec(_t("blViewMonth.mes_cartes_du_mois_b5f1"),"スタンプカード")+`<div class="bl-box">${H.map(({h,n})=>{let dots="";for(let d=1;d<=nd;d++){const k=ym+"-"+String(d).padStart(2,"0");dots+=`<i style="background:${k<=t&&hbDone(hbSt(),h,k)?h.color:"#f1e4ea"}"></i>`}return`<div class="bl-hab"><span class="hb-ic" style="background:${h.color}">${hbIcon(h.icon,"#fff",14)}</span><span class="bl-mdots">${dots}</span><b style="color:${h.color}">${n}</b></div>`}).join("")}</div>`;
   html+=blSec(_t("blViewMonth.le_mot_de_ton_750f"),"今月の一字")+`<div class="bl-box bl-word">${W?`<div class="bl-wk"><span lang="ja">${W[1]}</span><b>${W[0]}</b></div>`:`<p class="bl-ask">${_t("blViewMonth.un_seul_mot_pour_66c6",{v0:(BL_MN[M-1])})}</p>`}<div class="sh-row sh-wrap bl-chips">${BL_WORDS.map(([x])=>`<button type="button" class="sh-chip${w===x?" on":""}" data-a="word" data-id="${x}" aria-pressed="${w===x}">${x}</button>`).join("")}</div></div>`;
@@ -6830,6 +6891,152 @@ async function dfWipe(){if(!dfOn())return;const me=fbUser.uid;
 })();
 /* ===== fin défi à deux ===== */
 
+
+/* ================= premiers pas はじめの一歩 : accueil, bulles de découverte, liste ================= */
+// prefs.ob = {v, at (début), old (ancienne utilisatrice), welcome (accueil fini), seen:{bulle:1}, steps:{action:1}, done (liste finie), hide, day, n}
+const OB_STEPS=[
+  {id:"write",ok:()=>Object.keys(entries).some(written),go:()=>{showView("ecrire");openDay(todayKey());setTimeout(()=>{const t=$("text");if(t)t.focus()},200)}},
+  {id:"mood",ok:()=>Object.values(entries).some(e=>e&&e.mood),go:()=>{showView("ecrire");setTimeout(()=>{const m=document.querySelector(".moods,#moods");if(m)m.scrollIntoView({block:"center",behavior:"smooth"})},150)}},
+  {id:"deco",ok:()=>Object.values(entries).some(e=>e&&(e.deco||[]).length),go:()=>showView("deco")},
+  {id:"garden",ok:()=>!!obSt().steps.garden,go:()=>{if(typeof openGarden==="function")openGarden()}},
+  {id:"friend",native:true,ok:()=>typeof social!=="undefined"&&(social.friends||0)>0,go:()=>showView("amis")},
+  {id:"wisdom",web:true,ok:()=>!!obSt().steps.wisdom,go:()=>{if(typeof openWisdom==="function")openWisdom()}}
+];
+function obSt(){if(!prefs.ob||typeof prefs.ob!=="object")prefs.ob={v:1};const o=prefs.ob;o.seen=o.seen||{};o.steps=o.steps||{};return o}
+function obSteps(){const nat=typeof isNative!=="undefined"&&isNative&&typeof social!=="undefined";return OB_STEPS.filter(s=>s.native?nat:s.web?!nat:true)}
+function obActive(){const o=obSt();return !o.old}
+function obMark(k){const o=obSt();if(o.steps[k])return;o.steps[k]=1;savePrefs();obSoon()}
+function obBlocked(){
+  if(!$("lock").hidden||($("ob")&&!$("ob").hidden))return true;
+  if(!$("modal").hidden||!$("reader").hidden)return true;
+  const t=$("toast");if(t&&t.classList.contains("show"))return true;
+  const ae=document.activeElement;if(ae&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT"||ae.isContentEditable))return true; // ne pas couper l'écriture
+  for(const id of ["jd","hb","sh","bl","wis","yr","bd","invQr","dkTray"]){const e=$(id);if(e&&!e.hidden&&getComputedStyle(e).display!=="none")return true}
+  return false}
+/* ---------- 1. accueil ---------- */
+function obBoot(){
+  const o=obSt();
+  if(o.old||o.welcome){obSoon(1500);return}
+  const used=Object.keys(entries).some(k=>hasContent(entries[k]))||(todo.items||[]).length||(coll.pulls||0)>0;
+  if(used&&!o.at){o.old=1;o.done=o.done||Date.now();o.welcome=1;savePrefs();invalidate();return} // déjà utilisatrice : rien à montrer, la pousse est offerte
+  if(!o.at){o.at=Date.now();savePrefs()}
+  obWelcome(o.wstep||0);
+}
+function obWelcome(step){
+  let ov=$("ob");if(!ov){ov=document.createElement("div");ov.id="ob";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.append(ov)}
+  ov.hidden=false;document.body.classList.add("ob-open");
+  const o=obSt();o.wstep=step;savePrefs();
+  const dots=`<div class="ob-dots" aria-hidden="true">${[0,1,2].map(i=>`<i class="${i===step?"on":""}"></i>`).join("")}</div>`;
+  const back=step?`<button type="button" class="ob-back" data-a="back" aria-label="${_t("ob.back")}">‹</button>`:"<span></span>";
+  let body="";
+  if(step===0){
+    const langs=Object.keys(I18N.langs).filter(c=>I18N.langs[c].ready);
+    body=`<div class="ob-hanko" aria-hidden="true">日記</div><h1 class="ob-h">${_t("ob.w1.title")}</h1><p class="ob-p">${_t("ob.w1.text")}</p>
+    ${langs.length>1?`<div class="ob-langs" role="group" aria-label="${_t("ob.lang")}">${langs.map(c=>`<button type="button" data-lang="${c}" aria-pressed="${I18N.lang===c}">${I18N.langs[c].name}</button>`).join("")}</div>`:""}
+    <p class="ob-lbl">${_t("ob.w1.pick")}</p><div class="ob-masc">${["onigiri","chat","panda","daruma"].filter(m=>MASCOTS[m]).map(m=>`<button type="button" data-m="${m}" aria-pressed="${(prefs.mascot||"onigiri")===m}" aria-label="${MASCOTS[m].name}"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(m,[],false)}</svg><span>${MASCOTS[m].name}</span></button>`).join("")}</div>
+    <button type="button" class="ob-go" data-a="next">${_t("ob.next")}</button>`;
+  }else if(step===1){
+    body=`<div class="ob-big"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(curMascot(),[],false)}</svg><span class="ob-key" aria-hidden="true">🔒</span></div><h1 class="ob-h">${_t("ob.w2.title")}</h1><p class="ob-p">${_t("ob.w2.text")}</p>
+    ${prefs.pinHash?`<p class="ob-ok">${_t("ob.w2.on")}</p><button type="button" class="ob-go" data-a="next">${_t("ob.next")}</button>`:
+    `<form class="ob-pin" autocomplete="off"><label for="obPin1">${_t("ob.w2.code")}</label><input id="obPin1" type="password" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="new-password">
+    <label for="obPin2">${_t("ob.w2.again")}</label><input id="obPin2" type="password" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="new-password">
+    <label for="obHint">${_t("ob.w2.hint")}</label><input id="obHint" type="text" maxlength="60">
+    <p class="ob-err" role="status" id="obErr"></p><button type="submit" class="ob-go">${_t("ob.w2.set")}</button></form>
+    <button type="button" class="ob-later" data-a="next">${_t("ob.later")}</button>`}`;
+  }else{
+    body=`<div class="ob-big"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(curMascot(),[],true)}</svg></div><h1 class="ob-h">${_t("ob.w3.title")}</h1><p class="ob-p">${_t("ob.w3.text")}</p>
+    <ul class="ob-feat"><li><b>🌱</b>${_t("ob.w3.f1")}</li><li><b>✿</b>${_t("ob.w3.f2")}</li><li><b>🔥</b>${_t("ob.w3.f3")}</li></ul>
+    <button type="button" class="ob-go" data-a="start">${_t("ob.w3.go")}</button>`;
+  }
+  ov.innerHTML=`<div class="ob-card"><div class="ob-top">${back}${dots}<span></span></div>${body}</div>`;
+  ov.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{Sfx.play("mascot");prefs.mascot=b.dataset.m;savePrefs();renderMascot();ov.querySelectorAll("[data-m]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)))});
+  ov.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{if(I18N.lang!==b.dataset.lang)I18N.set(b.dataset.lang)});
+  const a=s=>ov.querySelector(`[data-a="${s}"]`);
+  if(a("back"))a("back").onclick=()=>obWelcome(step-1);
+  if(a("next"))a("next").onclick=()=>{Sfx.play("chime");obWelcome(step+1)};
+  if(a("start"))a("start").onclick=()=>{Sfx.play("chime");obFinishWelcome()};
+  const f=ov.querySelector(".ob-pin");
+  if(f)f.onsubmit=async e=>{e.preventDefault();const p1=$("obPin1").value,p2=$("obPin2").value;
+    if(!/^\d{4}$/.test(p1)){$("obErr").textContent=_t("ob.w2.err4");return}
+    if(p1!==p2){$("obErr").textContent=_t("ob.w2.errsame");return}
+    prefs.pinHash=await sha("nikki:"+p1);prefs.pinHint=$("obHint").value.trim();unlocked=true;savePrefs();$("lockBtn").hidden=false;Sfx.play("unlock");obWelcome(2)};
+  const fo=ov.querySelector(".ob-go,[data-m][aria-pressed=true]");if(fo)setTimeout(()=>{try{fo.focus({preventScroll:true})}catch(e){}},50);
+}
+function obFinishWelcome(){
+  const o=obSt();o.welcome=1;delete o.wstep;savePrefs();
+  const ov=$("ob");if(ov)ov.hidden=true;document.body.classList.remove("ob-open");
+  showView("ecrire");openDay(todayKey());renderSide();hop();say(_t("ob.say.start"));
+  setTimeout(()=>{const t=$("text");if(t){t.focus();t.scrollIntoView({block:"center",behavior:"smooth"})}},250);
+}
+/* ---------- 2. bulles de découverte ---------- */
+const OB_TIPS=[
+  {id:"garden",when:()=>Object.keys(entries).some(written)&&!obSt().steps.garden,act:()=>{if(typeof openGarden==="function")openGarden()}},
+  {id:"gacha",when:()=>capsInfo(objectives()).avail>0&&!(coll.pulls>0),act:()=>showView("recomp")},
+  {id:"flame",when:()=>streak()>=2},
+  {id:"wisdom",when:()=>obDays()>=1&&!obSt().steps.wisdom&&typeof openWisdom==="function",act:()=>openWisdom()},
+  {id:"habits",when:()=>Object.keys(entries).filter(written).length>=3&&typeof openHabits==="function",act:()=>openHabits()},
+  {id:"widget",when:()=>typeof isNative!=="undefined"&&isNative&&obDays()>=2&&Object.keys(entries).filter(written).length>=2},
+  {id:"deco",view:"deco"},
+  {id:"amis",view:"amis",when:()=>typeof isNative!=="undefined"&&isNative}
+];
+function obDays(){const o=obSt();return o.at?Math.floor((Date.now()-o.at)/864e5):0}
+var obTimer=null,obLastTip=0;
+function obSoon(d){clearTimeout(obTimer);obTimer=setTimeout(obTick,d||900)}
+function obTick(){
+  const o=obSt();if(o.old)return;
+  if(!o.welcome){return}
+  renderObCard();
+  if(obBlocked()||document.hidden){return}
+  if($("obTip")&&!$("obTip").hidden)return;
+  if(Date.now()-obLastTip<25000)return;
+  const tk=todayKey();if(o.day!==tk){o.day=tk;o.n=0}
+  if((o.n||0)>=3)return;
+  const t=OB_TIPS.find(t=>!o.seen[t.id]&&(t.view?t.view===curView:true)&&(!t.when||t.when()));
+  if(t)obShowTip(t);
+}
+function obShowTip(t){
+  const o=obSt();o.seen[t.id]=1;o.n=(o.n||0)+1;savePrefs();obLastTip=Date.now();
+  let el=$("obTip");if(!el){el=document.createElement("div");el.id="obTip";el.setAttribute("role","status");document.body.append(el)}
+  el.innerHTML=`<span class="ob-tm"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(curMascot(),wornAcc(),false)}</svg></span><span class="ob-tt"><b>${_t("ob.tip."+t.id+".t")}</b><span>${_t("ob.tip."+t.id+".x")}</span><span class="ob-tb">${t.act?`<button type="button" class="ob-ta">${_t("ob.tip."+t.id+".a")}</button>`:""}<button type="button" class="ob-tx">${_t("ob.ok")}</button></span></span>`;
+  el.hidden=false;requestAnimationFrame(()=>el.classList.add("on"));Sfx.play("chime");
+  const close=()=>{el.classList.remove("on");setTimeout(()=>{if(!el.classList.contains("on"))el.hidden=true},250)};
+  el.querySelector(".ob-tx").onclick=close;
+  const ac=el.querySelector(".ob-ta");if(ac)ac.onclick=()=>{close();t.act()};
+}
+/* ---------- 3. liste « Mes premiers pas » ---------- */
+function renderObCard(){
+  const o=obSt();let box=$("obCard");
+  if(!box){const m=document.querySelector("#v-ecrire .mascot")||document.querySelector(".mascot");if(!m)return;box=document.createElement("div");box.id="obCard";m.after(box)}
+  if(o.old||!o.welcome||o.hide||(o.done&&o.seenDone)||current!==todayKey()){box.hidden=true;box.innerHTML="";return}
+  const st=obSteps(),ok=st.map(s=>!!s.ok()),n=ok.filter(Boolean).length;
+  if(n===st.length&&!o.done){obReward();return}
+  if(o.done){box.hidden=true;return}
+  const key=n+":"+ok.join("");if(box.dataset.k===key&&!box.hidden)return;box.dataset.k=key;
+  box.hidden=false;
+  box.innerHTML=`<section class="ob-list" aria-label="${_t("ob.list.title")}"><div class="ob-lh"><b>${_t("ob.list.title")} <small>はじめの一歩</small></b><span>${n} / ${st.length}</span></div>
+  <div class="mini"><i style="width:${n/st.length*100}%"></i></div>
+  <ul>${st.map((s,i)=>`<li><button type="button" data-i="${i}" class="${ok[i]?"ok":""}"${ok[i]?' aria-disabled="true"':""}><span class="ob-ck" aria-hidden="true">${ok[i]?"✓":""}</span><span>${_t("ob.step."+s.id)}</span>${ok[i]?"":'<span class="ob-arr" aria-hidden="true">›</span>'}</button></li>`).join("")}</ul>
+  <p class="ob-gift">🎁 ${_t("ob.list.gift")}</p><button type="button" class="ob-hide">${_t("ob.list.hide")}</button></section>`;
+  box.querySelectorAll("[data-i]").forEach(b=>{if(!b.classList.contains("ok"))b.onclick=()=>st[+b.dataset.i].go()});
+  box.querySelector(".ob-hide").onclick=()=>{o.hide=1;savePrefs();renderObCard()};
+}
+function obReward(){
+  const o=obSt();o.done=Date.now();savePrefs();
+  coll.giftCaps=(coll.giftCaps||0)+3;saveColl();invalidate();
+  let ov=$("obDone");if(!ov){ov=document.createElement("div");ov.id="obDone";ov.className="overlay";ov.setAttribute("role","dialog");ov.setAttribute("aria-modal","true");document.body.append(ov)}
+  const acc=Object.entries(prefs.eq||{}).filter(([sl,a])=>a&&sl!=="head").map(([,a])=>a).concat(["pousse"]);
+  ov.innerHTML=`<div class="ob-card ob-win"><div class="ob-big"><svg viewBox="0 0 100 100" aria-hidden="true">${mascotInner(curMascot(),acc,false)}</svg></div><h1 class="ob-h">${_t("ob.done.title")}</h1><p class="ob-p">${_t("ob.done.text")}</p>
+  <ul class="ob-feat"><li><b>🌱</b>${_t("ob.done.acc")}</li><li><b>🎁</b>${_t("ob.done.caps")}</li></ul>
+  <button type="button" class="ob-go" data-a="wear">${_t("ob.done.wear")}</button><button type="button" class="ob-later" data-a="ok">${_t("ob.done.later")}</button></div>`;
+  ov.hidden=false;Sfx.play("unlock");
+  const close=()=>{ov.hidden=true;o.seenDone=1;savePrefs();renderObCard();if(typeof updateBadges==="function")updateBadges();renderSide()};
+  ov.querySelector('[data-a="ok"]').onclick=close;
+  ov.querySelector('[data-a="wear"]').onclick=()=>{prefs.eq=prefs.eq||{};prefs.eq.head="pousse";savePrefs();invalidate();renderMascot();close();hop();say(_t("ob.say.wear"))};
+  const b=$("obCard");if(b)b.hidden=true;
+}
+
+setInterval(()=>{if(!document.hidden)obTick()},6000);
+setTimeout(obBoot,700);
 </script>
 </body>
 </html>
