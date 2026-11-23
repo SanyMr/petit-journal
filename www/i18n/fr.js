@@ -2642,5 +2642,9 @@ I18N.add("fr",{
 "she.missing":"Le fichier de ce livre n'est pas sur ce téléphone. Connecte Google Drive pour le récupérer, ou importe-le à nouveau.",
 "she.reimport":"Importer à nouveau le fichier",
 "she.keepq":"Garder cette citation",
-"she.end":"Fin du livre ✿"
+"she.end":"Fin du livre ✿",
+"wis.full":"{n, plural, one {Ton carnet garde # proverbe. Retire un ♥ pour en garder un nouveau.} other {Ton carnet garde jusqu'à # proverbes. Retire un ♥ pour en garder un nouveau.}}",
+"wis.see":"Voir mes proverbes gardés",
+"wis.met":"{n, plural, one {# proverbe rencontré} other {# proverbes rencontrés}}",
+"wis.book":"Mon carnet · {n}"
 });

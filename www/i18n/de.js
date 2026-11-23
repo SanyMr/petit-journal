@@ -2642,5 +2642,9 @@ I18N.add("de",{
 "she.missing":"Die Datei dieses Buches ist nicht auf diesem Handy. Verbinde Google Drive, um sie zurückzuholen, oder importiere sie erneut.",
 "she.reimport":"Datei erneut importieren",
 "she.keepq":"Dieses Zitat aufbewahren",
-"she.end":"Ende des Buches ✿"
+"she.end":"Ende des Buches ✿",
+"wis.full":"{n, plural, one {Dein Notizbuch bewahrt # Sprichwort auf. Nimm ein ♥ weg, um ein neues aufzubewahren.} other {Dein Notizbuch bewahrt bis zu # Sprichwörter auf. Nimm ein ♥ weg, um ein neues aufzubewahren.}}",
+"wis.see":"Meine aufbewahrten Sprichwörter",
+"wis.met":"{n, plural, one {# entdecktes Sprichwort} other {# entdeckte Sprichwörter}}",
+"wis.book":"Mein Notizbuch · {n}"
 });

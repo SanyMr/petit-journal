@@ -2642,5 +2642,9 @@ I18N.add("pt",{
 "she.missing":"O arquivo deste livro não está neste celular. Conecte o Google Drive para recuperá-lo ou importe-o de novo.",
 "she.reimport":"Importar o arquivo de novo",
 "she.keepq":"Guardar esta citação",
-"she.end":"Fim do livro ✿"
+"she.end":"Fim do livro ✿",
+"wis.full":"{n, plural, one {Seu caderno guarda # provérbio. Tire um ♥ para guardar um novo.} other {Seu caderno guarda até # provérbios. Tire um ♥ para guardar um novo.}}",
+"wis.see":"Ver meus provérbios guardados",
+"wis.met":"{n, plural, one {# provérbio descoberto} other {# provérbios descobertos}}",
+"wis.book":"Meu caderno · {n}"
 });

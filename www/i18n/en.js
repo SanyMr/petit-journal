@@ -2642,5 +2642,9 @@ I18N.add("en",{
 "she.missing":"This book's file isn't on this phone. Connect Google Drive to get it back, or import it again.",
 "she.reimport":"Import the file again",
 "she.keepq":"Keep this quote",
-"she.end":"The end ✿"
+"she.end":"The end ✿",
+"wis.full":"{n, plural, one {Your notebook keeps # proverb. Remove a ♥ to keep a new one.} other {Your notebook keeps up to # proverbs. Remove a ♥ to keep a new one.}}",
+"wis.see":"See my kept proverbs",
+"wis.met":"{n, plural, one {# proverb met} other {# proverbs met}}",
+"wis.book":"My notebook · {n}"
 });
