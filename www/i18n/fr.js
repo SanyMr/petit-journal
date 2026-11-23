@@ -2674,5 +2674,21 @@ I18N.add("fr",{
 "yb.pg_wis":"Mes proverbes gardés",
 "yb.pg_vis":"Les visiteurs de mon jardin",
 "yb.count":"{n, plural, one {# page du journal dans ton livre} other {# pages du journal dans ton livre}}",
-"yb.month_pages":"{n, plural, one {# page} other {# pages}}"
+"yb.month_pages":"{n, plural, one {# page} other {# pages}}",
+"jr.shelf":"Mes journaux",
+"jr.title":"Mon journal {y}",
+"jr.cur":"En cours · il rejoindra ton étagère le 1er janvier ✿",
+"jr.cur_s":"en cours",
+"jr.closed":"Rangé sur l'étagère le {d}",
+"jr.read":"Relire mon journal",
+"jr.pdf":"En faire un livre à imprimer",
+"jr.pdf_s":"PDF à garder, imprimer ou faire relier",
+"jr.cover":"Couverture",
+"jr.empty":"Ce journal n'a pas encore de pages : la première l'attend ✿",
+"jr.done_t":"Ton journal {y} est complet ✿",
+"jr.done_btn":"Le ranger sur mon étagère",
+"jr.new_toast":"Ton journal {y} est sur ton étagère ✿",
+"jr.sub":"{n, plural, one {# page écrite en tout} other {# pages écrites en tout}}",
+"jr.months":"{n, plural, one {# mois} other {# mois}}",
+"jr.done_p":"{n, plural, one {Une année, # page de souvenirs.} other {Une année, # pages de souvenirs.}} Choisis sa couverture : il va rejoindre ton étagère."
 });

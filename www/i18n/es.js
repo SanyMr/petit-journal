@@ -2674,5 +2674,21 @@ I18N.add("es",{
 "yb.pg_wis":"Mis proverbios guardados",
 "yb.pg_vis":"Los visitantes de mi jardín",
 "yb.count":"{n, plural, one {# página del diario en tu libro} other {# páginas del diario en tu libro}}",
-"yb.month_pages":"{n, plural, one {# página} other {# páginas}}"
+"yb.month_pages":"{n, plural, one {# página} other {# páginas}}",
+"jr.shelf":"Mis diarios",
+"jr.title":"Mi diario {y}",
+"jr.cur":"En curso · se unirá a tu estantería el 1 de enero ✿",
+"jr.cur_s":"en curso",
+"jr.closed":"Guardado en la estantería el {d}",
+"jr.read":"Releer mi diario",
+"jr.pdf":"Convertirlo en un libro para imprimir",
+"jr.pdf_s":"PDF para guardar, imprimir o encuadernar",
+"jr.cover":"Portada",
+"jr.empty":"Este diario aún no tiene páginas: la primera lo espera ✿",
+"jr.done_t":"Tu diario {y} está completo ✿",
+"jr.done_btn":"Ponerlo en mi estantería",
+"jr.new_toast":"Tu diario {y} está en tu estantería ✿",
+"jr.sub":"{n, plural, one {# página escrita en total} other {# páginas escritas en total}}",
+"jr.months":"{n, plural, one {# mes} other {# meses}}",
+"jr.done_p":"{n, plural, one {Un año entero, # página de recuerdos.} other {Un año entero, # páginas de recuerdos.}} Elige su portada: va a tu estantería."
 });

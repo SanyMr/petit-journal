@@ -2674,5 +2674,21 @@ I18N.add("pt",{
 "yb.pg_wis":"Meus provérbios guardados",
 "yb.pg_vis":"Os visitantes do meu jardim",
 "yb.count":"{n, plural, one {# página do diário no seu livro} other {# páginas do diário no seu livro}}",
-"yb.month_pages":"{n, plural, one {# página} other {# páginas}}"
+"yb.month_pages":"{n, plural, one {# página} other {# páginas}}",
+"jr.shelf":"Meus diários",
+"jr.title":"Meu diário {y}",
+"jr.cur":"Em andamento · vai para a sua estante em 1º de janeiro ✿",
+"jr.cur_s":"em andamento",
+"jr.closed":"Guardado na estante em {d}",
+"jr.read":"Reler meu diário",
+"jr.pdf":"Transformar em livro para imprimir",
+"jr.pdf_s":"PDF para guardar, imprimir ou encadernar",
+"jr.cover":"Capa",
+"jr.empty":"Este diário ainda não tem páginas: a primeira está esperando ✿",
+"jr.done_t":"Seu diário de {y} está completo ✿",
+"jr.done_btn":"Colocar na minha estante",
+"jr.new_toast":"Seu diário de {y} está na estante ✿",
+"jr.sub":"{n, plural, one {# página escrita no total} other {# páginas escritas no total}}",
+"jr.months":"{n, plural, one {# mês} other {# meses}}",
+"jr.done_p":"{n, plural, one {Um ano inteiro, # página de lembranças.} other {Um ano inteiro, # páginas de lembranças.}} Escolha a capa: ele vai para a sua estante."
 });

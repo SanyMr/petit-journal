@@ -2674,5 +2674,21 @@ I18N.add("en",{
 "yb.pg_wis":"My kept proverbs",
 "yb.pg_vis":"My garden's visitors",
 "yb.count":"{n, plural, one {# journal page in your book} other {# journal pages in your book}}",
-"yb.month_pages":"{n, plural, one {# page} other {# pages}}"
+"yb.month_pages":"{n, plural, one {# page} other {# pages}}",
+"jr.shelf":"My journals",
+"jr.title":"My journal {y}",
+"jr.cur":"In progress · it will join your shelf on January 1st ✿",
+"jr.cur_s":"in progress",
+"jr.closed":"Shelved on {d}",
+"jr.read":"Reread my journal",
+"jr.pdf":"Make it a printable book",
+"jr.pdf_s":"PDF to keep, print or have bound",
+"jr.cover":"Cover",
+"jr.empty":"This journal has no pages yet: the first one is waiting ✿",
+"jr.done_t":"Your {y} journal is complete ✿",
+"jr.done_btn":"Put it on my shelf",
+"jr.new_toast":"Your {y} journal is on your shelf ✿",
+"jr.sub":"{n, plural, one {# page written in all} other {# pages written in all}}",
+"jr.months":"{n, plural, one {# month} other {# months}}",
+"jr.done_p":"{n, plural, one {A whole year, # page of memories.} other {A whole year, # pages of memories.}} Choose its cover: it's going on your shelf."
 });

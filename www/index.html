@@ -802,6 +802,16 @@ input,textarea,select{font-size:16px}
 .yb-pg{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;border-top:1px solid var(--line,#f4dbe3);min-width:0}.yb-pg i{flex:none;width:10px;height:10px;border-radius:50%}.yb-pg b{flex:none}.yb-pg span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--muted,#7a6672)}
 .yb-opts{display:grid;gap:6px;margin:12px 0 0;font-size:14px}.yb-opts label{display:flex;gap:8px;align-items:flex-start}
 .yb-count{margin:12px 0 0;font-weight:700;font-size:14px;text-align:center}.yb-done{margin:10px 0 0;text-align:center;font-weight:700;color:var(--sakura-deep,#d9708d)}
+.sh-jsp{height:134px;position:relative}.sh-jsp span{font-size:12px;letter-spacing:.06em}
+.sh-jsp em{font-style:normal;width:15px;height:15px;line-height:15px;font-size:10px;background:#c8322b;color:#fff;border-radius:2px;text-align:center;font-family:var(--display)}
+.sh-jcur::after{content:"";position:absolute;top:-3px;right:4px;width:7px;height:24px;background:#e0533f;clip-path:polygon(0 0,100% 0,100% 100%,50% 76%,0 100%)}
+.sh-jin{animation:jrIn 1.1s cubic-bezier(.3,1.4,.5,1) both}@keyframes jrIn{0%{transform:translateY(-70px) rotate(-10deg);opacity:0}100%{transform:none;opacity:1}}
+.jr-st{text-align:center;font-size:13px;color:var(--sp-mut,#7a6672);margin:6px 0 10px}
+.sh-flow .jr-d{display:flex;align-items:center;gap:.45em}.jr-md{display:inline-block;width:.7em;height:.7em;border-radius:50%;flex:none}
+.sh-flow .jr-ph{width:62%;aspect-ratio:1/1;height:auto;object-fit:cover;margin:.6em auto;border:5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.jr-c{text-align:center}.jr-cv{display:inline-block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2));animation:jrIn .9s both}.jr-cv svg{display:block;border-radius:4px}.jr-c p{margin:14px 0}
+.jr-tpl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}.jr-tpl button{padding:2px;border:2px solid transparent;border-radius:6px;background:none;line-height:0}.jr-tpl button[aria-checked="true"]{border-color:var(--sakura-deep,#d9708d)}
+@media (prefers-reduced-motion:reduce){.sh-jin,.jr-cv{animation:none}}
 .wis-full{margin:12px 0 0;padding:10px 12px;border-radius:14px;background:var(--sp-soft,#fdf3f6);text-align:center}.wis-full p{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--sp-mut,#7a6672)}
 .wis-why{margin:0;font-size:12.5px;font-weight:700;color:var(--sp-mut,#7a6672)}
 .wis-q{background:var(--sp-card,#fff);border-radius:18px;padding:12px 14px;display:grid;gap:8px;border:1.5px solid var(--sp-line,#f1dce4)}
@@ -915,7 +925,7 @@ input,textarea,select{font-size:16px}
 .sh-qf{grid-template-columns:1fr 80px;align-items:end}.sh-form textarea{height:76px;min-height:0;resize:vertical;line-height:1.45}.sh-qf>label:first-child{grid-column:1/-1}.sh-qf .sh-btn{min-height:46px}
 .sh-in>.sh-li{margin:12px 16px 0}.sh-lic{color:var(--sp-acc,#d9708d);flex:none}
 .sh-ask{position:fixed;inset:0;z-index:20;background:rgba(43,35,66,.45);display:grid;place-items:center;padding:20px}.sh-ask>div{background:var(--sp-soft,#fffafc);border-radius:22px;padding:20px;width:min(320px,100%);display:grid;gap:14px}.sh-ask p{margin:0;font-family:var(--display);font-size:16.5px;line-height:1.45;text-align:center}
-.sh-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#4b3a47;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:30;white-space:nowrap}
+.sh-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#4b3a47;color:#fff;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:30;width:max-content;max-width:calc(100vw - 32px);text-align:center}
 .sh-toast.on{animation:shToast 2.6s ease forwards}
 @keyframes shToast{0%{opacity:0}12%,80%{opacity:1}100%{opacity:0}}
 /* lecture */
@@ -5762,7 +5772,7 @@ function closeShelf(){shFlush();const ov=$("sh");if(ov)ov.hidden=true;document.b
 function shToast(t){let d=document.querySelector("#sh .sh-toast");if(!d){d=document.createElement("div");d.className="sh-toast";d.setAttribute("role","status");$("sh").append(d)}d.textContent=t;d.classList.remove("on");void d.offsetWidth;d.classList.add("on")}
 function shHead(title,k,right){return`<div class="sh-head"><button type="button" class="sh-ic" data-a="back" aria-label="${SH_STACK.length?_t("shHead.retour_7727"):_t("shHead.fermer_7d20")}">${SH_STACK.length?'<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>':'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>'}</button><b>${title}</b>${k?`<span lang="ja">${k}</span>`:""}<span class="sh-hr">${right||""}</span></div>`}
 function shRender(){const P=document.querySelector("#sh .sh-in");if(!P||!SH_V)return;const s=shSt(),V=SH_V;$("sh").classList.toggle("sh-reading",/read$/.test(V.view));
-  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="eread"){P.innerHTML=shViewRead(s,V);sheReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);else if(V.view==="export")P.innerHTML=shViewExport(s,V);
+  if(V.view==="shelf")P.innerHTML=shViewShelf(s,V);else if(V.view==="book")P.innerHTML=shViewBook(s,V);else if(V.view==="cover")P.innerHTML=shViewCover(s,V);else if(V.view==="write"){P.innerHTML=shViewWrite(s,V);shWriteInit(V)}else if(V.view==="read"){P.innerHTML=shViewRead(s,V);shReadInit(V)}else if(V.view==="eread"){P.innerHTML=shViewRead(s,V);sheReadInit(V)}else if(V.view==="rbook")P.innerHTML=shViewRBook(s,V);else if(V.view==="jbook")P.innerHTML=shViewJBook(s,V);else if(V.view==="jread"){P.innerHTML=shViewRead(s,V);shJReadInit(V)}else if(V.view==="radd")P.innerHTML=shViewRAdd(s,V);else if(V.view==="drive")P.innerHTML=shViewDrive(s,V);else if(V.view==="export")P.innerHTML=shViewExport(s,V);
   if(V.ask)P.insertAdjacentHTML("beforeend",`<div class="sh-ask" role="alertdialog" aria-modal="true"><div><p>${shEsc(V.ask.msg)}</p><div class="sh-row"><button type="button" class="sh-btn" data-a="${V.ask.no||"noask"}" data-id="${V.ask.id||""}">${shEsc(V.ask.nol||_t("shRender.annuler_d12c"))}</button><button type="button" class="sh-btn sh-pink" data-a="${V.ask.ok}" data-id="${V.ask.id||""}">${shEsc(V.ask.okl)}</button></div></div></div>`)}
 /* ---------- l'étagère ---------- */
 function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)-(b.created||0)),reads=s.reads;
@@ -5776,7 +5786,7 @@ function shViewShelf(s,V){const books=s.books.slice().sort((a,b)=>(a.created||0)
     books.map(b=>`<button type="button" class="sh-li" data-a="book" data-id="${b.id}">${shCover(b,38,54)}<span><b>${shEsc(b.title||_t("shViewShelf.sans_titre_53f8"))}</b><small>${_t("shViewShelf.chapitre_mots_a826",{v0:((b.chapters||[]).length),v1:((b.chapters||[]).length>1?"s":""),v2:(shFmt(shTotal(b)))})}</small></span><span class="sh-go">›</span></button>`).join("")}
   else list=`<div class="sh-year"><span lang="ja">${shKanjiNum(nDone)}</span><b>${_t("sh.read_year",{n:nDone,y:yr})}</b><small>${_t("shViewShelf.citations_gardees_d169",{v0:(reads.reduce((a,r)=>a+(r.quotes||[]).length,0))})}</small></div>`+
     reads.slice().sort((a,b)=>({cur:0,todo:1,done:2}[a.status]-{cur:0,todo:1,done:2}[b.status])||(b.updated||0)-(a.updated||0)).map(r=>{const p=r.pages?Math.min(100,Math.round((r.page||0)/r.pages*100)):(r.status==="done"?100:0);return`<button type="button" class="sh-li" data-a="rbook" data-id="${r.id}">${shCover(r,34,48)}<span><b>${shEsc(r.title)}</b><i class="sh-bar"><i style="width:${r.status==="done"?100:p}%"></i></i></span><small class="sh-st">${r.status==="done"?_t("shViewShelf.lu_41b7"):r.status==="todo"?_t("shViewShelf.a_lire_071c"):r.page?"p. "+r.page:_t("shViewShelf.en_cours_7202")}</small></button>`}).join("")+`<button type="button" class="sh-addl" data-a="radd"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>${_t("shViewShelf.ajouter_un_livre_que_586a")}</button><button type="button" class="sh-addl" data-a="eimp"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>${_t("she.import")}</button>`;
-  return shHead(_t("shViewShelf.mon_etagere_737f"),"本棚")+shdRow()+`<div class="sh-lab"><b>${_t("shViewShelf.mes_livres_87a6")}</b><small>${_t("shViewShelf.livre_mots_d5a8",{v0:(books.length),v1:(books.length>1?"s":""),v2:(shFmt(words))})}</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
+  return shHead(_t("shViewShelf.mon_etagere_737f"),"本棚")+shdRow()+jrRow(s)+`<div class="sh-lab"><b>${_t("shViewShelf.mes_livres_87a6")}</b><small>${_t("shViewShelf.livre_mots_d5a8",{v0:(books.length),v1:(books.length>1?"s":""),v2:(shFmt(words))})}</small></div><div class="sh-shelf"><div class="sh-row1">${r1}</div><i class="sh-plank"></i></div>
   <div class="sh-lab"><b>${_t("shViewShelf.mes_lectures_a796")}</b><small>${_t("sh.read_n_year",{n:nDone,y:yr})}</small></div><div class="sh-shelf"><div class="sh-row1">${r2}</div><i class="sh-plank"></i></div>
   <div class="sh-tabs" role="tablist"><button type="button" role="tab" aria-selected="${tabB}" data-a="tabbooks">${_t("shViewShelf.mes_livres_87a6")}</button><button type="button" role="tab" aria-selected="${!tabB}" data-a="tabreads">${_t("shViewShelf.mes_lectures_a796")}</button></div><div class="sh-list">${list}</div>`}
 /* ---------- un livre ---------- */
@@ -5826,8 +5836,8 @@ function shFlush(){const V=SH_V;clearTimeout(SH_SAVE_T);if(!V||V.view!=="write"|
 function shNewChapter(s,b){const c={id:shId(),title:"",words:0,updated:Date.now()};b.chapters=(b.chapters||[]).concat([c]);b.updated=Date.now();shSave(s);return c}
 /* ---------- lire : pagination en colonnes et pages qui tournent ---------- */
 function shBookHtml(b){return`<section class="sh-pcov">${shCover(b,170,240)}<h1>${shEsc(b.title||_t("shBookHtml.sans_titre_53f8"))}</h1>${b.author?`<p>${shEsc(b.author)}</p>`:""}</section>`+(b.chapters||[]).map((c,i)=>`<section class="sh-pch"><h2><small>${_t("shBookHtml.chapitre_2165",{v0:(i+1)})}</small>${shEsc(c.title||"")}</h2>${shChGet(c.id)}</section>`).join("")+'<section class="sh-pend"><span lang="ja">終</span></section>'}
-function shViewRead(s,V){const ep=V.view==="eread",b=ep?shRead(s,V.id):shBook(s,V.id);if(!b)return shHead(_t("shViewRead.livre_introuvable_225b"),"");const R=b.rpos||{};const fs=R.fs!=null?R.fs:1,dark=!!R.dark;
-  return`<div class="sh-rd${dark?" dark":""}${ep?" ep":""}" id="shRd" style="--fs:${SH_FS[fs]}px"><div class="sh-rdh"><button type="button" class="sh-ic" data-a="back" aria-label="${_t("shViewRead.retour_7727")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${shEsc(b.title||_t("shViewRead.sans_titre_53f8"))}</b>${ep?`<button type="button" class="sh-ic" data-a="etoc" aria-label="${_t("she.toc")}"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h9"/></svg></button>`:""}<button type="button" class="sh-ic" data-a="fs" aria-label="${_t("shViewRead.taille_du_texte_5b21")}">${_t("shViewRead.aa_9856")}</button><button type="button" class="sh-ic" data-a="dark" aria-label="${dark?_t("shViewRead.papier_creme_64ef"):_t("shViewRead.mode_nuit_6321")}"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg></button></div>
+function shViewRead(s,V){const ep=V.view==="eread",jy=V.view==="jread"?+V.id:0,b=jy?shJ(s,jy):ep?shRead(s,V.id):shBook(s,V.id);if(!b)return shHead(_t("shViewRead.livre_introuvable_225b"),"");const R=b.rpos||{};const fs=R.fs!=null?R.fs:1,dark=!!R.dark;
+  return`<div class="sh-rd${dark?" dark":""}${ep?" ep":""}" id="shRd" style="--fs:${SH_FS[fs]}px"><div class="sh-rdh"><button type="button" class="sh-ic" data-a="back" aria-label="${_t("shViewRead.retour_7727")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>${shEsc(jy?jrTitle(jy):(b.title||_t("shViewRead.sans_titre_53f8")))}</b>${ep?`<button type="button" class="sh-ic" data-a="etoc" aria-label="${_t("she.toc")}"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h9"/></svg></button>`:""}<button type="button" class="sh-ic" data-a="fs" aria-label="${_t("shViewRead.taille_du_texte_5b21")}">${_t("shViewRead.aa_9856")}</button><button type="button" class="sh-ic" data-a="dark" aria-label="${dark?_t("shViewRead.papier_creme_64ef"):_t("shViewRead.mode_nuit_6321")}"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg></button></div>
   <div class="sh-stage" id="shStage"><div class="sh-book" id="shBk"></div></div><div class="sh-rdf"><button type="button" class="sh-ic" data-a="pgprev" aria-label="${_t("shViewRead.page_precedente_92a8")}"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="shPg"></span><button type="button" class="sh-ic" data-a="pgnext" aria-label="${_t("shViewRead.page_suivante_3d62")}"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>${ep?`<button type="button" class="sh-btn sh-pink sh-eq" id="sheQ" data-a="equote" hidden>❝ ${_t("she.keepq")}</button>`:""}</div>`}
 var R_T=0;
 function shReadInit(V){const s=shSt(),b=shBook(s,V.id);if(!b)return;SH_RD={id:b.id,html:shBookHtml(b),k:0,n:1,busy:false};shReadLayout(false);shReadBind()}
@@ -5868,6 +5878,7 @@ function shViewRAdd(s,V){return shHead(_t("shViewRAdd.ajouter_une_lecture_c9b3")
 /* ---------- actions ---------- */
 function shAct(a,id,el){const s=shSt(),V=SH_V||{};
   if(a==="back")return shBack();
+  if(/^j(book|read|pdf|tpl)$/.test(a)&&jrAct(a,id,el,s))return;
   if(a==="eimp")return shePick();
   if(a==="ereimp")return shePick(id);
   if(a==="eread")return shGo({view:"eread",id});
@@ -6054,7 +6065,7 @@ function sheTocHtml(r){const c=SH_RD&&SH_RD.c||0;return`<div class="sh-toc" id="
   r.epub.sp.map((e,i)=>{if((i&&!r.epub.t[i]&&r.epub.sp[i-1][0]===e[0])||(!r.epub.t[i]&&(r.epub.w[i]||0)<40))return"";let n=0;for(let j=0;j<=i;j++)if(!j||r.epub.t[j]||r.epub.sp[j-1][0]!==r.epub.sp[j][0])n++;return`<button type="button" class="sh-tocb${i===c||(i<c&&r.epub.sp[c][0]===e[0])?" on":""}" data-a="ego" data-id="${i}">${shEsc(r.epub.t[i]||_t("she.chap",{n}))}</button>`}).join("")+`</div></div>`}
 function sheSelWatch(){if(window.__sheSel)return;window.__sheSel=1;document.addEventListener("selectionchange",()=>{const b=$("sheQ");if(!b)return;const sel=getSelection(),bk=$("shBk"),t=sel&&!sel.isCollapsed&&bk&&bk.contains(sel.anchorNode)?String(sel).replace(/\s+/g," ").trim():"";
   clearTimeout(SHE_SELT);if(t.length>=3){SHE_SEL=t.slice(0,500);b.hidden=false}else SHE_SELT=setTimeout(()=>{b.hidden=true},600)})}
-function shRdObj(s,R){return R&&R.ep?shRead(s,R.id):shBook(s,R&&R.id)}
+function shRdObj(s,R){return R&&R.jy?shJ(s,R.jy):R&&R.ep?shRead(s,R.id):shBook(s,R&&R.id)}
 /* envoi d'un fichier binaire sur Drive : en une fois jusqu'à 4,5 Mo, sinon en envoi « reprenable » */
 function shdMultiBin(m,u8,mime){const b="nikki"+Math.random().toString(36).slice(2);return{ct:"multipart/related; boundary="+b,body:new Blob([`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(m)}\r\n--${b}\r\nContent-Type: ${mime}\r\n\r\n`,u8,`\r\n--${b}--`])}}
 async function shdUploadBin(meta,buf,mime,parent){const m={...meta,parents:[parent]},u8=new Uint8Array(buf);let loc=null;
@@ -6233,6 +6244,63 @@ async function ybMake(){if(!YB||YB.busy)return;const keys=ybSel();if(!keys.lengt
     await shSaveFile(name,u8,"application/pdf")}
   catch(e){if(YB){YB.busy=false;YB.err=/cancel|annul/i.test(String(e&&e.message))?null:_t("yb.err");ybRender()}}}
 
+/* ================= mes journaux 日記の棚 ================= */
+/* Chaque année du journal est un livre sur l'étagère. Rien n'est copié : le livre lit les pages du journal.
+   s.journals[année] = {tpl, closed, ask, rpos} dans l'état de l'étagère (sauvegardé avec elle sur Drive). */
+var JR_C=null;
+function shJ(s,y){s.journals=s.journals||{};return s.journals[y]=s.journals[y]||{}}
+function jrTitle(y){return _t("jr.title",{y})}
+function jrCoverB(y,j){return{id:"j"+y,tpl:(j&&j.tpl)||SH_TPL[y%SH_TPL.length][0],title:jrTitle(y),author:(typeof social!=="undefined"&&social.name)||"",kanji:"記"}}
+function jrYears(){const now=new Date().getFullYear();return[...new Set(ybYears().concat([now]))].filter(y=>y<=now).sort((a,b)=>a-b)}
+function jrRow(s){const now=new Date().getFullYear(),ys=jrYears(),J=s.journals||{};let tot=0;
+  const sp=ys.map(y=>{const b=jrCoverB(y,J[y]),ks=ybKeys(y),n=ks.length,w=22+Math.min(26,Math.round(n/10)),cur=y===now,c=shSpineCol(b),tc=/^#(f|e|d|c9|9c)/i.test(c)?"#3b2a35":"#fff";tot+=ks.filter(written).length;
+    return`<button type="button" class="sh-spine sh-jsp${cur?" sh-jcur":""}" data-a="jbook" data-id="${y}" style="width:${w}px;background:${c};color:${tc}" aria-label="${shEsc(jrTitle(y)+(cur?" · "+_t("jr.cur_s"):""))}"><i></i><span>${y}</span><em lang="ja">記</em><i></i></button>`}).join("");
+  return`<div class="sh-lab"><b>${_t("jr.shelf")}</b><small>${_t("jr.sub",{n:tot})}</small></div><div class="sh-shelf"><div class="sh-row1 sh-jrow">${sp}</div><i class="sh-plank"></i></div>`}
+function shViewJBook(s,V){const y=+V.id,now=new Date().getFullYear(),cur=y===now,j=(s.journals||{})[y]||{},b=jrCoverB(y,j),ks=ybKeys(y),wk=ks.filter(written);
+  const words=wk.reduce((a,k)=>a+countWords(entries[k].text),0),months=new Set(ks.map(k=>k.slice(5,7))).size;
+  return shHead("","")+`<div class="sh-bcov">${shCover(b,150,212)}</div>
+  <div class="sh-btitle"><h2>${shEsc(jrTitle(y))}</h2><small>${cur?_t("jr.cur"):j.closed?_t("jr.closed",{d:shDate(j.closed)}):""}</small></div>
+  <p class="jr-st">${_t("yb.month_pages",{n:wk.length})} · ${words.toLocaleString(I18N.locale())} ${_t("bl.words")} · ${_t("jr.months",{n:months})}</p>
+  <div class="sh-row"><button type="button" class="sh-btn sh-pink" data-a="jread" data-id="${y}"${ks.length?"":" disabled"}>📖 ${_t("jr.read")}</button></div>
+  ${ks.length?"":`<p class="jr-st">${_t("jr.empty")}</p>`}
+  <button type="button" class="sh-li sh-expl" data-a="jpdf" data-id="${y}"${ks.length?"":" disabled"}><svg viewBox="0 0 24 24" class="sh-lic"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span><b>${_t("jr.pdf")}</b><small>${_t("jr.pdf_s")}</small></span><span class="sh-go">›</span></button>
+  <h3 class="sh-h">${_t("jr.cover")}</h3><div class="sh-tpls" role="radiogroup" aria-label="${_t("jr.cover")}">${SH_TPL.map(([id,n])=>`<button type="button" role="radio" class="sh-tpl${b.tpl===id?" on":""}" data-a="jtpl" data-id="${y}:${id}" aria-checked="${b.tpl===id}" aria-label="${shEsc(n)}">${shCover({tpl:id,id},40,56)}</button>`).join("")}</div>`}
+/* le livre à relire : une section par mois, chaque jour avec sa date, son humeur, son texte et ses photos */
+function shJHtml(y){const ks=ybKeys(y),s=shSt(),b=jrCoverB(y,(s.journals||{})[y]),loc=I18N.locale();
+  let h=`<section class="sh-pcov">${shCover(b,170,240)}<h1>${shEsc(b.title)}</h1>${b.author?`<p>${shEsc(b.author)}</p>`:""}</section>`;const byM={};
+  ks.forEach(k=>{const m=+k.slice(5,7)-1;(byM[m]=byM[m]||[]).push(k)});
+  Object.keys(byM).map(Number).sort((a,b)=>a-b).forEach(m=>{const mn=ybMonthName(y,m);
+    h+=`<section class="sh-pch"><h2><small lang="ja">${YB_MK[m]}</small>${shEsc(mn.charAt(0).toLocaleUpperCase(loc)+mn.slice(1))}</h2>`+byM[m].map(k=>{const e=entries[k],md=e.mood&&moodById(e.mood),t=String(e.text||"").replace(/\r/g,""),dl=dateOf(k).toLocaleDateString(loc,{weekday:"long",day:"numeric",month:"long"});
+      return`<h3 class="jr-d" dir="auto">${md?`<i class="jr-md" style="background:${md.color}" title="${shEsc(md.label)}"></i>`:""}${shEsc(dl.charAt(0).toLocaleUpperCase(loc)+dl.slice(1))}</h3>`+(e.prompt&&t.trim()?`<blockquote dir="auto">${shEsc(e.prompt)}</blockquote>`:"")+
+        t.split(/\n+/).filter(p=>p.trim()).map(p=>`<p dir="auto">${shEsc(p)}</p>`).join("")+
+        (e.deco||[]).filter(x=>x.k==="ph"&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(x.src||"")).map(x=>`<img class="jr-ph" src="${x.src}" alt="">`).join("")}).join("")+`</section>`});
+  return h+'<section class="sh-pend"><span lang="ja">終</span></section>'}
+function shJReadInit(V){const y=+V.id;SH_RD={id:"j"+y,jy:y,html:shJHtml(y),k:0,n:1,busy:false};shReadLayout(false);shReadBind()}
+function jrAct(a,id,el,s){
+  if(a==="jbook"){shGo({view:"jbook",id});return true}
+  if(a==="jread"){shGo({view:"jread",id});return true}
+  if(a==="jpdf"){const y=+id;closeShelf();openYearBook(y);return true}
+  if(a==="jtpl"){const[y,t]=String(id).split(":");shJ(s,+y).tpl=t;shSave(s);shRender();if(typeof Sfx!=="undefined")try{Sfx.play("tick")}catch(e){}return true}
+  return false}
+/* ---------- le 1er janvier : le journal de l'année passée rejoint l'étagère ---------- */
+function jrPending(){const now=new Date().getFullYear(),J=shSt().journals||{},t=todayKey();return ybYears().filter(y=>y<now&&!(J[y]&&J[y].closed)&&!(J[y]&&J[y].ask===t))}
+function jrStartup(n){n=n||0;if(n>12)return;setTimeout(()=>{try{if(!jrPending().length)return;
+  const busy=["ob","obDone","modal","bd","sh","wis","jd","yr","bl","hb","reader","lock"].some(id=>{const e=$(id);return e&&!e.hidden})||document.body.classList.contains("locked");
+  if(busy)return jrStartup(n+1);jrCeremony()}catch(e){}},n?5000:2600)}
+function jrCeremony(){const p=jrPending();if(!p.length)return;const y=Math.max(...p);JR_C={y,all:p,tpl:jrCoverB(y,(shSt().journals||{})[y]).tpl};
+  const s=shSt();p.forEach(x=>shJ(s,x).ask=todayKey());shSave(s);
+  openModal(_t("jr.done_t",{y}),"本棚",jrCRender);if(typeof Sfx!=="undefined")try{Sfx.play("chime")}catch(e){}}
+function jrCRender(){const body=$("modalBody");if(!body||!JR_C)return;const y=JR_C.y,b={...jrCoverB(y,{tpl:JR_C.tpl})},n=ybKeys(y).filter(written).length;
+  body.innerHTML=`<div class="jr-c"><div class="jr-cv">${shCover(b,128,182)}</div><p>${_t("jr.done_p",{n})}</p>
+  <div class="jr-tpl" role="radiogroup" aria-label="${_t("jr.cover")}">${SH_TPL.map(([id,nm])=>`<button type="button" role="radio" data-t="${id}" aria-checked="${id===JR_C.tpl}" aria-label="${shEsc(nm)}">${shCover({tpl:id,id},34,48)}</button>`).join("")}</div>
+  <button type="button" class="openbook" data-jr="ok">${_t("jr.done_btn")}</button></div>`;
+  body.onclick=e=>{const t=e.target.closest("[data-t]");if(t){JR_C.tpl=t.dataset.t;jrCRender();if(typeof Sfx!=="undefined")try{Sfx.play("tick")}catch(x){}return}
+    if(e.target.closest("[data-jr=ok]"))jrShelve()}}
+function jrShelve(){if(!JR_C)return;const{y,all,tpl}=JR_C,s=shSt();all.forEach(x=>{const j=shJ(s,x);j.closed=Date.now();if(x===y)j.tpl=tpl;delete j.ask});shSave(s);JR_C=null;
+  closeModal(true);openShelf();if(typeof Sfx!=="undefined")try{Sfx.play("sparkle")}catch(e){}
+  setTimeout(()=>{const sp=document.querySelector(`#sh [data-a=jbook][data-id="${y}"]`);if(sp){sp.classList.add("sh-jin");try{sp.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}}shToast(_t("jr.new_toast",{y,y2:new Date().getFullYear()}))},350)}
+try{jrStartup()}catch(e){}
+
 /* ---------- sauvegarde Google Drive (appli Android) ---------- */
 var SHD_K="nikki.shdrive",SHD_T=null,SHD_BUSY=false,SHD_AGAIN=false,SHD_TOK=null,SHD_API="https://www.googleapis.com/drive/v3/",SHD_UP="https://www.googleapis.com/upload/drive/v3/";
 function shdPlug(){if(window.__shdMock)return window.__shdMock;if(typeof isNative==="undefined"||!isNative||typeof PL_!=="function")return null;return PL_().NikkiDrive||null}
@@ -6318,7 +6386,7 @@ async function shdFirstCheck(){let f=null;try{f=await shdFind("full")}catch(e){c
 function shdBackupBtn(sec){if(!shdPlug())return;const st=shdState(),b=document.createElement("button");b.type="button";b.className="sh-drv sh-d-"+st.k;b.style.cssText="margin:0 0 14px;width:100%";b.innerHTML=SHD_ICON+"<span></span><span class=\"sh-go\">›</span>";b.querySelector("span").textContent=st.k==="off"?_t("shdBackupBtn.sauvegarde_automatique_sur_google_eaea"):st.t;b.onclick=()=>openShelf({view:"drive"});sec.append(b)}
 function shdRestoreDo(){const j=SHD_RESTORE;SHD_RESTORE=null;if(!j)return;
   if(j.full){const keep=shStore().getItem(SHD_K),St=shStore();shKeys().filter(k=>k.startsWith("nikki.")).forEach(k=>St.removeItem(k));for(const k in j.full.data)St.setItem(k,j.full.data[k]);if(keep){const d=JSON.parse(keep);d.h={};d.jh="";d.shh="";d.check=0;if(j.fid)d.full=j.fid;St.setItem(SHD_K,JSON.stringify(d))}SH_V={...SH_V,ask:null};shRender();shToast(_t("shdRestoreDo.journal_restaure_redemarrage_2802"));setTimeout(()=>location.reload(),700);return}const old=shSt();old.books.forEach(b=>(b.chapters||[]).forEach(c=>shChDel(c.id)));
-  Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[],wlog:j.shelf.wlog||{}});SH_V={...SH_V,ask:null};shToast(_t("shdRestoreDo.etagere_restauree_ae14"));shRender()}
+  Object.keys(j.ch||{}).forEach(k=>shChSet(k,j.ch[k]));const d=shdSt();d.h={};shdPut(d);shSave({books:j.shelf.books||[],reads:j.shelf.reads||[],wlog:j.shelf.wlog||{},journals:j.shelf.journals||{}});SH_V={...SH_V,ask:null};shToast(_t("shdRestoreDo.etagere_restauree_ae14"));shRender()}
 /* ---------- exporter un livre : PDF (A5) et EPUB ---------- */
 var SH_LIBS={};
 function shLoadScript(src){if(SH_LIBS[src])return SH_LIBS[src];SH_LIBS[src]=new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=()=>ok();s.onerror=()=>{delete SH_LIBS[src];s.remove();ko(new Error("load"))};document.head.append(s)});return SH_LIBS[src]}

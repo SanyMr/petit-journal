@@ -2674,5 +2674,21 @@ I18N.add("de",{
 "yb.pg_wis":"Meine aufbewahrten Sprichwörter",
 "yb.pg_vis":"Die Besucher meines Gartens",
 "yb.count":"{n, plural, one {# Tagebuchseite in deinem Buch} other {# Tagebuchseiten in deinem Buch}}",
-"yb.month_pages":"{n, plural, one {# Seite} other {# Seiten}}"
+"yb.month_pages":"{n, plural, one {# Seite} other {# Seiten}}",
+"jr.shelf":"Meine Tagebücher",
+"jr.title":"Mein Tagebuch {y}",
+"jr.cur":"Läuft noch · kommt am 1. Januar in dein Regal ✿",
+"jr.cur_s":"läuft noch",
+"jr.closed":"Ins Regal gestellt am {d}",
+"jr.read":"Mein Tagebuch lesen",
+"jr.pdf":"Ein druckbares Buch daraus machen",
+"jr.pdf_s":"PDF zum Aufbewahren, Drucken oder Binden",
+"jr.cover":"Einband",
+"jr.empty":"Dieses Tagebuch hat noch keine Seiten: Die erste wartet ✿",
+"jr.done_t":"Dein Tagebuch {y} ist vollständig ✿",
+"jr.done_btn":"In mein Regal stellen",
+"jr.new_toast":"Dein Tagebuch {y} steht im Regal ✿",
+"jr.sub":"{n, plural, one {# geschriebene Seite insgesamt} other {# geschriebene Seiten insgesamt}}",
+"jr.months":"{n, plural, one {# Monat} other {# Monate}}",
+"jr.done_p":"{n, plural, one {Ein ganzes Jahr, # Seite voller Erinnerungen.} other {Ein ganzes Jahr, # Seiten voller Erinnerungen.}} Wähle den Einband: Es kommt in dein Regal."
 });
